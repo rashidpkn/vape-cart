@@ -68,7 +68,7 @@ const navigate = useNavigate()
 
     const fetchProduct = async () => {
       try {
-        const {data,status} = await api.get(`product/${id}`)
+        const {data,status} = await api.get(`products/${id}`)
         setProduct(data)
 
       } catch (error) {
