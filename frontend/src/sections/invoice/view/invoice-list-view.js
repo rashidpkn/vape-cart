@@ -232,45 +232,45 @@ export default function InvoiceListView() {
             >
               <InvoiceAnalytic
                 title="Total"
-                total={tableData.length}
-                percent={100}
-                price={sumBy(tableData, 'totalAmount')}
+                total={0}
+                percent={0}
+                price={0}
                 icon="solar:bill-list-bold-duotone"
                 color={theme.palette.info.main}
               />
 
               <InvoiceAnalytic
                 title="Paid"
-                total={getInvoiceLength('paid')}
-                percent={getPercentByStatus('paid')}
-                price={getTotalAmount('paid')}
+                total={0}
+                percent={0}
+                price={0}
                 icon="solar:file-check-bold-duotone"
                 color={theme.palette.success.main}
               />
 
               <InvoiceAnalytic
                 title="Pending"
-                total={getInvoiceLength('pending')}
-                percent={getPercentByStatus('pending')}
-                price={getTotalAmount('pending')}
+                total={0}
+                percent={0}
+                price={0}
                 icon="solar:sort-by-time-bold-duotone"
                 color={theme.palette.warning.main}
               />
 
               <InvoiceAnalytic
                 title="Overdue"
-                total={getInvoiceLength('overdue')}
-                percent={getPercentByStatus('overdue')}
-                price={getTotalAmount('overdue')}
+                total={0}
+                percent={0}
+                price={0}
                 icon="solar:bell-bing-bold-duotone"
                 color={theme.palette.error.main}
               />
 
               <InvoiceAnalytic
                 title="Draft"
-                total={getInvoiceLength('draft')}
-                percent={getPercentByStatus('draft')}
-                price={getTotalAmount('draft')}
+                total={0}
+                percent={0}
+                price={0}
                 icon="solar:file-corrupted-bold-duotone"
                 color={theme.palette.text.secondary}
               />
@@ -385,7 +385,7 @@ export default function InvoiceListView() {
                 />
 
                 <TableBody>
-                  {dataFiltered
+                  {/* {dataFiltered
                     .slice(
                       table.page * table.rowsPerPage,
                       table.page * table.rowsPerPage + table.rowsPerPage
@@ -400,7 +400,7 @@ export default function InvoiceListView() {
                         onEditRow={() => handleEditRow(row.id)}
                         onDeleteRow={() => handleDeleteRow(row.id)}
                       />
-                    ))}
+                    ))} */}
 
                   <TableEmptyRows
                     height={denseHeight}

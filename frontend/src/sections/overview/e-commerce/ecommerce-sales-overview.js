@@ -16,9 +16,9 @@ export default function EcommerceSalesOverview({ title, subheader, data, ...othe
       <CardHeader title={title} subheader={subheader} />
 
       <Stack spacing={4} sx={{ px: 3, pt: 3, pb: 5 }}>
-        {data.map((progress) => (
+        {/* {data.map((progress) => (
           <ProgressItem key={progress.label} progress={progress} />
-        ))}
+        ))} */}
       </Stack>
     </Card>
   );

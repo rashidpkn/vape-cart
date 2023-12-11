@@ -34,7 +34,7 @@ export default function AppNewInvoice({ title, subheader, tableData, tableLabels
             <TableHeadCustom headLabel={tableLabels} />
 
             <TableBody>
-              {tableData.map((row) => (
+              {[].map((row) => (
                 <AppNewInvoiceRow key={row.id} row={row} />
               ))}
             </TableBody>

@@ -36,7 +36,7 @@ const authFirebase = {
     {
       path: 'register',
       element: (
-        <AuthClassicLayout title="Manage the job more effectively with Minimal">
+        <AuthClassicLayout title="Unleash your vape line on Vape Amazon – Expand, Excel, Earn!">
           <FirebaseRegisterPage />
         </AuthClassicLayout>
       ),

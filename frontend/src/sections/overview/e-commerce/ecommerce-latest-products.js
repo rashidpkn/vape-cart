@@ -22,9 +22,9 @@ export default function EcommerceLatestProducts({ title, subheader, list, ...oth
 
       <Scrollbar>
         <Stack spacing={3} sx={{ p: 3, minWidth: 360 }}>
-          {list.map((product) => (
+          {/* {list.map((product) => (
             <ProductItem key={product.id} product={product} />
-          ))}
+          ))} */}
         </Stack>
       </Scrollbar>
     </Card>

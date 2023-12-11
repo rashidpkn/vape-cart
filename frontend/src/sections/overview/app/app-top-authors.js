@@ -21,7 +21,7 @@ export default function AppTopAuthors({ title, subheader, list, ...other }) {
       <CardHeader title={title} subheader={subheader} />
 
       <Stack spacing={3} sx={{ p: 3 }}>
-        {orderBy(list, ['totalFavorites'], ['desc']).map((author, index) => (
+        {[].map((author, index) => (
           <AuthorItem key={author.id} author={author} index={index} />
         ))}
       </Stack>

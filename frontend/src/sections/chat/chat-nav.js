@@ -143,7 +143,7 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
 
   const renderList = (
     <>
-      {conversations.allIds.map((conversationId) => (
+      {/* {conversations.allIds.map((conversationId) => (
         <ChatNavItem
           key={conversationId}
           collapse={collapseDesktop}
@@ -151,7 +151,7 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
           selected={conversationId === selectedConversationId}
           onCloseMobile={onCloseMobile}
         />
-      ))}
+      ))} */}
     </>
   );
 

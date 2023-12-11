@@ -57,10 +57,10 @@ export default function OverviewAppView() {
         <Grid xs={12} md={4}>
           <AppWidgetSummary
             title="Total Active Users"
-            percent={2.6}
-            total={18765}
+            percent={0}
+            total={0}
             chart={{
-              series: [5, 18, 12, 51, 68, 11, 39, 37, 27, 20],
+              series: [0,0,0,0,0,0,0,0,0,0],
             }}
           />
         </Grid>
@@ -68,11 +68,11 @@ export default function OverviewAppView() {
         <Grid xs={12} md={4}>
           <AppWidgetSummary
             title="Total Installed"
-            percent={0.2}
-            total={4876}
+            percent={0}
+            total={0}
             chart={{
               colors: [theme.palette.info.light, theme.palette.info.main],
-              series: [20, 41, 63, 33, 28, 35, 50, 46, 11, 26],
+              series: [0,0,0,0,0,0,0,0,0,0],
             }}
           />
         </Grid>
@@ -80,11 +80,11 @@ export default function OverviewAppView() {
         <Grid xs={12} md={4}>
           <AppWidgetSummary
             title="Total Downloads"
-            percent={-0.1}
-            total={678}
+            percent={0}
+            total={0}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
-              series: [8, 9, 31, 8, 16, 37, 8, 33, 46, 31],
+              series: [0,0,0,0,0,0,0,0,0,0],
             }}
           />
         </Grid>
@@ -94,10 +94,10 @@ export default function OverviewAppView() {
             title="Current Download"
             chart={{
               series: [
-                { label: 'Mac', value: 12244 },
-                { label: 'Window', value: 53345 },
-                { label: 'iOS', value: 44313 },
-                { label: 'Android', value: 78343 },
+                { label: 'Mac', value: 0 },
+                { label: 'Window', value: 0 },
+                { label: 'iOS', value: 0 },
+                { label: 'Android', value: 0 },
               ],
             }}
           />
@@ -106,7 +106,7 @@ export default function OverviewAppView() {
         <Grid xs={12} md={6} lg={8}>
           <AppAreaInstalled
             title="Area Installed"
-            subheader="(+43%) than last year"
+            subheader="(+0%) than last year"
             chart={{
               categories: [
                 'Jan',
@@ -128,11 +128,11 @@ export default function OverviewAppView() {
                   data: [
                     {
                       name: 'Asia',
-                      data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 35, 51, 49],
+                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     },
                     {
                       name: 'America',
-                      data: [10, 34, 13, 56, 77, 88, 99, 77, 45, 13, 56, 77],
+                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     },
                   ],
                 },
@@ -141,11 +141,11 @@ export default function OverviewAppView() {
                   data: [
                     {
                       name: 'Asia',
-                      data: [51, 35, 41, 10, 91, 69, 62, 148, 91, 69, 62, 49],
+                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     },
                     {
                       name: 'America',
-                      data: [56, 13, 34, 10, 77, 99, 88, 45, 77, 99, 88, 77],
+                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     },
                   ],
                 },
@@ -184,20 +184,20 @@ export default function OverviewAppView() {
           <Stack spacing={3}>
             <AppWidget
               title="Conversion"
-              total={38566}
+              total={0}
               icon="solar:user-rounded-bold"
               chart={{
-                series: 48,
+                series: 0,
               }}
             />
 
             <AppWidget
               title="Applications"
-              total={55566}
+              total={0}
               icon="fluent:mail-24-filled"
               color="info"
               chart={{
-                series: 75,
+                series: 0,
               }}
             />
           </Stack>

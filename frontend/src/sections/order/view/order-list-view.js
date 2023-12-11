@@ -274,7 +274,7 @@ export default function OrderListView() {
                 />
 
                 <TableBody>
-                  {dataFiltered
+                  {/* {dataFiltered
                     .slice(
                       table.page * table.rowsPerPage,
                       table.page * table.rowsPerPage + table.rowsPerPage
@@ -288,7 +288,7 @@ export default function OrderListView() {
                         onDeleteRow={() => handleDeleteRow(row.id)}
                         onViewRow={() => handleViewRow(row.id)}
                       />
-                    ))}
+                    ))} */}
 
                   <TableEmptyRows
                     height={denseHeight}
