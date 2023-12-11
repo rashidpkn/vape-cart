@@ -38,6 +38,7 @@ export const mainRoutes = [
       </MainLayout>
     ),
     children: [
+      { element: <ProductListPage />, index: true },
       { path: 'about-us', element: <AboutPage /> },
       { path: 'contact-us', element: <ContactPage /> },
       { path: 'faqs', element: <FaqsPage /> },

@@ -62,14 +62,14 @@ export default function ProductShopDetailsView() {
 
   const [currentTab, setCurrentTab] = useState('description');
 
-  const {  productLoading } = useGetProduct(`${id}`);
+  // const {  productLoading } = useGetProduct(`${id}`);
 const [product, setProduct] = useState()
 
   useEffect(() => {
 
     const fetchProduct = async () => {
       try {
-        const {data,status} = await api.get(`product/${id}`)
+        const {data,status} = await api.get(`products/${id}`)
         setProduct(data)
 
       } catch (error) {
@@ -159,7 +159,7 @@ const [product, setProduct] = useState()
             },
             {
               value: 'reviews',
-              label: `Reviews (${product.reviews.length})`,
+              label: `Reviews (${product.reviews?.length})`,
             },
           ].map((tab) => (
             <Tab key={tab.value} value={tab.value} label={tab.label} />
@@ -192,7 +192,7 @@ const [product, setProduct] = useState()
     >
       <CartIcon totalItems={checkout.totalItems} />
 
-      {productLoading && renderSkeleton}
+      {/* {productLoading && renderSkeleton} */}
 
       {product && renderProduct}
     </Container>

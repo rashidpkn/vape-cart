@@ -24,6 +24,7 @@ import AppWidgetSummary from '../app-widget-summary';
 import AppCurrentDownload from '../app-current-download';
 import AppTopInstalledCountries from '../app-top-installed-countries';
 import { useAuthContext } from 'src/auth/hooks';
+import { Link } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -43,9 +44,11 @@ export default function OverviewAppView() {
             description="If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything."
             img={<SeoIllustration />}
             action={
+              <Link to={'/dashboard/product/new'}>
               <Button variant="contained" color="primary">
-                Go Now
+                Add Product
               </Button>
+              </Link>
             }
           />
         </Grid>
@@ -56,7 +59,7 @@ export default function OverviewAppView() {
 
         <Grid xs={12} md={4}>
           <AppWidgetSummary
-            title="Total Active Users"
+            title="Total Product"
             percent={0}
             total={0}
             chart={{
@@ -67,7 +70,7 @@ export default function OverviewAppView() {
 
         <Grid xs={12} md={4}>
           <AppWidgetSummary
-            title="Total Installed"
+            title="Total Sales"
             percent={0}
             total={0}
             chart={{
@@ -79,7 +82,7 @@ export default function OverviewAppView() {
 
         <Grid xs={12} md={4}>
           <AppWidgetSummary
-            title="Total Downloads"
+            title="Pending Orders"
             percent={0}
             total={0}
             chart={{

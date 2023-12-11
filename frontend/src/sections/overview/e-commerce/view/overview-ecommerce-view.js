@@ -39,7 +39,7 @@ export default function OverviewEcommerceView() {
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
       <Grid container spacing={3}>
-        <Grid xs={12} md={8}>
+        {/* <Grid xs={12} md={8}>
           <EcommerceWelcome
             title={`Congratulations! \n ${user?.displayName}`}
             description="Best seller of the month You have done 57.6% more sales today."
@@ -54,7 +54,7 @@ export default function OverviewEcommerceView() {
 
         <Grid xs={12} md={4}>
           <EcommerceNewProducts list={_ecommerceNewProducts} />
-        </Grid>
+        </Grid> */}
 
         <Grid xs={12} md={4}>
           <EcommerceWidgetSummary
@@ -169,14 +169,12 @@ export default function OverviewEcommerceView() {
 
         <Grid xs={12} md={6} lg={8}>
           <EcommerceBestSalesman
-            title="Best Salesman"
+            title="Top Selling Products"
             tableData={_ecommerceBestSalesman}
             tableLabels={[
-              { id: 'name', label: 'Seller' },
-              { id: 'category', label: 'Product' },
-              { id: 'country', label: 'Country', align: 'center' },
-              { id: 'totalAmount', label: 'Total', align: 'right' },
-              { id: 'rank', label: 'Rank', align: 'right' },
+              { id: 'Product', label: 'Product' },
+              { id: 'category', label: 'Category', align: 'center' },
+              { id: 'price', label: 'Price', align: 'right' },
             ]}
           />
         </Grid>

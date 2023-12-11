@@ -23,14 +23,14 @@ export default function ChatMessageList({ messages = [], participants }) {
     <>
       <Scrollbar ref={messagesEndRef} sx={{ px: 3, py: 5, height: 1 }}>
         <Box>
-          {/* {messages.map((message) => (
+          {messages.map((message) => (
             <ChatMessageItem
               key={message.id}
               message={message}
               participants={participants}
               onOpenLightbox={() => lightbox.onOpen(message.body)}
             />
-          ))} */}
+          ))}
         </Box>
       </Scrollbar>
 
