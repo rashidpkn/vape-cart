@@ -86,7 +86,7 @@ export default function ProductListView() {
   useEffect(() => {
     const featchProduct = async () => {
       try {
-        const { data: { products: p, count } } = await api.get('product',{params:{userId:id}})
+        const { data: { products: p, count } } = await api.get('products',{params:{userId:id}})
         setProducts(p)
       } catch (error) {
         alert("error Occure")
@@ -153,7 +153,7 @@ export default function ProductListView() {
 
     try {
 
-      const products = await api.delete('product', {
+      const products = await api.delete('products', {
         data: {
           ids: table.selected
         }

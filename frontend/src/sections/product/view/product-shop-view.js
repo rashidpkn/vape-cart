@@ -69,7 +69,7 @@ export default function ProductShopView() {
   useEffect(() => {
     const featchProduct = async () => {
       try {
-        const { data: { products: p, count } } = await api.get('product',)
+        const { data: { products: p, count } } = await api.get('products',)
         setProducts(p)
       } catch (error) {
         alert("error Occure")

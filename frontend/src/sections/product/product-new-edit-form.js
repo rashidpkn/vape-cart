@@ -121,9 +121,9 @@ export default function ProductNewEditForm({ currentProduct }) {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       if(currentProduct){
-        await api.patch('product', { ...data, username: user.displayName,userId:user.id })
+        await api.patch('products', { ...data, username: user.displayName,userId:user.id })
       }else{
-        await api.post('product', { ...data, username: user.displayName,userId:user.id })
+        await api.post('products', { ...data, username: user.displayName,userId:user.id })
 
       }
 
