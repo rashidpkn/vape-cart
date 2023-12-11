@@ -24,9 +24,9 @@ export const databaseProviders = [
         console.log('Database connection has been established successfully.');
       } catch (error) {
         console.log('Unable to connect to the database: ', error.message);
-        throw error;
+        throw new Error('Error on DATABASE');
       }
-      await sequelize.sync({alter:true});
+      await sequelize.sync({force:true});
       return sequelize;
     },
   },

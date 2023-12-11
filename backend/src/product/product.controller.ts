@@ -2,7 +2,7 @@ import { BadRequestException, Controller, Delete, Get, Patch, Post, Req } from '
 import { ProductService } from './product.service';
 import { Request } from 'express';
 
-@Controller('product')
+@Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) { }
 

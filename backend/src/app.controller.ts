@@ -5,8 +5,8 @@ import { join } from 'path';
 @Controller('')
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
-
+  
+  
   @Get('/uploads/:file')
   servePublicFile(@Param('file') file: string, @Res() res: any) {
     try {
@@ -16,6 +16,7 @@ export class AppController {
       throw error
     }
   }
-
+  
+  
   
 }

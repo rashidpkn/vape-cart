@@ -147,7 +147,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "productReview", null);
 ProductController = __decorate([
-    (0, common_1.Controller)('product'),
+    (0, common_1.Controller)('products'),
     __metadata("design:paramtypes", [product_service_1.ProductService])
 ], ProductController);
 exports.ProductController = ProductController;
