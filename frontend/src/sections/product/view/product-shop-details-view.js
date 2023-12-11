@@ -62,7 +62,7 @@ export default function ProductShopDetailsView() {
 
   const [currentTab, setCurrentTab] = useState('description');
 
-  // const {  productLoading } = useGetProduct(`${id}`);
+  const {  productLoading } = useGetProduct(`${id}`);
 const [product, setProduct] = useState()
 
   useEffect(() => {
