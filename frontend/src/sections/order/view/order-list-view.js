@@ -67,6 +67,7 @@ const defaultFilters = {
 
 export default function OrderListView() {
   const table = useTable({ defaultOrderBy: 'orderNumber' });
+  console.log(_orders);
 
   const settings = useSettingsContext();
 

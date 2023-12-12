@@ -5,10 +5,11 @@ import { UploadModule } from './upload/upload.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClientModule } from './client/client.module';
+import { OrdersModule } from './orders/orders.module';
 
 
 @Module({
-  imports: [ProductModule, DatabaseModule, UploadModule, ClientModule],
+  imports: [ProductModule, DatabaseModule, UploadModule, ClientModule, OrdersModule],
   controllers: [AppController],
   providers: [AppService]
 })

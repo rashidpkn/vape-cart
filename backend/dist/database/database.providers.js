@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.databaseProviders = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
+const orders_model_1 = require("../model/orders.model");
 const product_model_1 = require("../model/product.model");
 exports.databaseProviders = [
     {
@@ -19,16 +20,16 @@ exports.databaseProviders = [
                 },
                 logging: false
             });
-            sequelize.addModels([product_model_1.Product]);
+            sequelize.addModels([product_model_1.Product, orders_model_1.Orders]);
             try {
                 await sequelize.authenticate();
                 console.log('Database connection has been established successfully.');
             }
             catch (error) {
                 console.log('Unable to connect to the database: ', error.message);
-                throw new Error('Error on DATABASE');
+                throw new Error('Error on database');
             }
-            await sequelize.sync({ force: true });
+            await sequelize.sync({ alter: true });
             return sequelize;
         },
     },

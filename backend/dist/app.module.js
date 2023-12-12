@@ -14,11 +14,12 @@ const upload_module_1 = require("./upload/upload.module");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const client_module_1 = require("./client/client.module");
+const orders_module_1 = require("./orders/orders.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [product_module_1.ProductModule, database_module_1.DatabaseModule, upload_module_1.UploadModule, client_module_1.ClientModule],
+        imports: [product_module_1.ProductModule, database_module_1.DatabaseModule, upload_module_1.UploadModule, client_module_1.ClientModule, orders_module_1.OrdersModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService]
     })
