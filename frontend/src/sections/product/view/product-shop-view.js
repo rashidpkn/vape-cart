@@ -32,6 +32,9 @@ import ProductSearch from '../product-search';
 import ProductFilters from '../product-filters';
 import ProductFiltersResult from '../product-filters-result';
 import api from 'src/utils/api';
+import HomeHero from '../home-hero';
+import HomeLookingFor from '../home-looking-for';
+import HomeSidebar from '../home-sidebar';
 
 // ----------------------------------------------------------------------
 
@@ -60,7 +63,7 @@ export default function ProductShopView() {
 
   const [filters, setFilters] = useState(defaultFilters);
 
-  const {  productsLoading, productsEmpty } = useGetProducts();
+  const { productsLoading, productsEmpty } = useGetProducts();
 
   const { searchResults, searchLoading } = useSearchProducts(debouncedQuery);
 
@@ -163,11 +166,15 @@ export default function ProductShopView() {
 
   return (
     <Container
-      maxWidth={settings.themeStretch ? false : 'lg'}
+      maxWidth={false}
+      
       sx={{
         mb: 15,
       }}
     >
+      <HomeHero />
+      <HomeLookingFor />
+
       <CartIcon totalItems={checkout.totalItems} />
 
       <Typography
@@ -191,8 +198,10 @@ export default function ProductShopView() {
       </Stack>
 
       {(notFound || productsEmpty) && renderNotFound}
-
-      <ProductList products={dataFiltered} loading={productsLoading} />
+      <Stack direction={'row'}>
+        <HomeSidebar />
+        <ProductList products={dataFiltered} loading={productsLoading} />
+      </Stack>
     </Container>
   );
 }
