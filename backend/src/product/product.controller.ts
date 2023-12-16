@@ -10,11 +10,11 @@ export class ProductController {
   @Post()
   async createProduct(@Req() req: Request) {
     try {
-      const { name, username,userId, subDescription, content, images, code, SKU, quantity = 1, category, colors, sizes, tags, regularPrice, salePrice, tax, publish } = req.body
-      if (!name || !username || !subDescription || !content || !images || !code || !SKU || !category || !colors || !sizes || !tags || !regularPrice || !salePrice || !tax) {
-        throw new BadRequestException('All fields are mandatory')
+      const { name, username,userId, subDescription, content, images,  SKU, quantity = 1, category, colors,  tags, regularPrice, salePrice, tax, publish } = req.body
+      if (!name || !username ||  !SKU || !category  ||  !salePrice ) {
+        throw new BadRequestException('Name ,Username,SKU,category, and salePrice are mandatory')
       }
-      return this.productService.createProduct(name, username,userId, subDescription, content, images, code, SKU, quantity, category, colors, sizes, tags, regularPrice, salePrice, tax, publish)
+      return this.productService.createProduct(name, username,userId, subDescription, content, images, SKU, quantity, category, colors,  tags, regularPrice, salePrice, tax, publish)
 
     } catch (error) {
       console.log(error.message);

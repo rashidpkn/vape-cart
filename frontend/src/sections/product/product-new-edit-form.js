@@ -55,18 +55,17 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
-    subDescription: Yup.string().required('Sub description is required'),
-    content: Yup.string().required('Description is required'),
-    images: Yup.array().min(1, 'Images is required'),
-    code: Yup.string().required('Code is required'),
+    subDescription: Yup.string().required('Short description is required'),
+    content: Yup.string(),
+    images: Yup.array().min(1,'Image is required'),
+    
     SKU: Yup.string().required('SKU is required'),
-    quantity: Yup.number().moreThan(0, 'Quantity is required'),
+    quantity: Yup.number(),
     category: Yup.string().required('Category is required'),
-    colors: Yup.array().min(1, 'Colors is required'),
-    sizes: Yup.array().min(1, 'Sizes is required'),
-    tags: Yup.array().min(2, 'Must have at least 2 tags'),
-    regularPrice: Yup.number().moreThan(0, 'Price should not be $0.00'),
-    salePrice: Yup.number().moreThan(0, 'Price should not be $0.00'),
+    colors: Yup.array(),
+    tags: Yup.array(),
+    regularPrice: Yup.number(),
+    salePrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
     tax: Yup.number().moreThan(-1, 'Tax should not be 0%'),
 
 
@@ -79,8 +78,6 @@ export default function ProductNewEditForm({ currentProduct }) {
       subDescription: currentProduct?.subDescription || '',
       content: currentProduct?.content || '',
       images: currentProduct?.images || [],
-
-      code: currentProduct?.code || '',
       SKU: currentProduct?.SKU || '',
       regularPrice: currentProduct?.regularPrice || 0,
       quantity: currentProduct?.quantity || 0,
@@ -89,7 +86,6 @@ export default function ProductNewEditForm({ currentProduct }) {
       tax: currentProduct?.tax || 0,
       category: currentProduct?.category || '',
       colors: currentProduct?.colors || [],
-      sizes: currentProduct?.sizes || [],
     }),
     [currentProduct]
   );
@@ -252,7 +248,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                 md: 'repeat(2, 1fr)',
               }}
             >
-              <RHFTextField name="code" label="Product Code" />
 
               <RHFTextField name="SKU" label="Product SKU" />
 
@@ -283,7 +278,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 options={PRODUCT_COLOR_NAME_OPTIONS}
               />
 
-              <RHFMultiSelect checkbox name="sizes" label="Sizes" options={PRODUCT_SIZE_OPTIONS} />
+
             </Box>
 
             <RHFAutocomplete
@@ -352,7 +347,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 startAdornment: (
                   <InputAdornment position="start">
                     <Box component="span" sx={{ color: 'text.disabled' }}>
-                      $
+                      AED
                     </Box>
                   </InputAdornment>
                 ),
@@ -369,7 +364,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 startAdornment: (
                   <InputAdornment position="start">
                     <Box component="span" sx={{ color: 'text.disabled' }}>
-                      $
+                      AED
                     </Box>
                   </InputAdornment>
                 ),

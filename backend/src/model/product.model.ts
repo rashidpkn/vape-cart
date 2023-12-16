@@ -1,4 +1,4 @@
-import { Column, Model, Table, Unique,NotNull, DataType } from "sequelize-typescript";
+import { Column, Model, Table, DataType } from "sequelize-typescript";
 
 @Table
 export class Product extends Model {
@@ -25,8 +25,7 @@ export class Product extends Model {
     })
     images: string[]
 
-    @Column
-    code : string
+    
 
     @Column
     SKU:string
@@ -43,11 +42,6 @@ export class Product extends Model {
     })
     colors:string[]
 
-    @Column({
-        type: DataType.ARRAY(DataType.STRING),
-        defaultValue:[]
-    })
-    sizes:string[]
 
     @Column({
         type: DataType.ARRAY(DataType.STRING),

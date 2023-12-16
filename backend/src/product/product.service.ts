@@ -5,7 +5,7 @@ import { Product } from 'src/model/product.model';
 @Injectable()
 export class ProductService {
 
-  async createProduct(name: string, username: string, userId: string, subDescription: string, content: string, images: [string], code: string, SKU: string, quantity: number, category: string, colors: [string], sizes: [string], tags: [string], regularPrice: number, salePrice: number, tax: number, publish: boolean) {
+  async createProduct(name: string, username: string, userId: string, subDescription: string, content: string, images: [string], SKU: string, quantity: number, category: string, colors: [string], tags: [string], regularPrice: number, salePrice: number, tax: number, publish: boolean) {
     try {
 
       const found = await Product.findOne({ where: { name } })
@@ -14,8 +14,8 @@ export class ProductService {
       const product = await Product.create({
         name, username, userId,
         subDescription, content,
-        images, code, SKU, quantity,
-        category, colors, sizes, tags,
+        images, SKU, quantity,
+        category, colors, tags,
         regularPrice, salePrice, tax, publish
       })
       return { product, message: "Product is created" }
@@ -27,13 +27,12 @@ export class ProductService {
 
   async getAllProduct(query: any) {
     try {
-      const { username, userId, name, code, category, inStock, publish, draft, perPage = 20, pageNo = 1 } = query
+      const { username, userId, name, category, inStock, publish, draft, perPage = 20, pageNo = 1 } = query
       let where: any = {}
 
       if (username) where.username = username
       if (userId) where.userId = userId
       if (name) where.name = name
-      if (code) where.code = code
       if (category) where.category = category
       if (inStock) where.quantity = { [Op.gt]: 0, };
       if (publish) where.publish = true
