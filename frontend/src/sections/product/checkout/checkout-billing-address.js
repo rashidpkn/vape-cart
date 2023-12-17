@@ -22,7 +22,7 @@ export default function CheckoutBillingAddress({ checkout, onBackStep, onCreateB
     <>
       <Grid container spacing={3}>
         <Grid xs={12} md={8}>
-          {_addressBooks.slice(0, 4).map((address) => (
+          {/* {_addressBooks.slice(0, 4).map((address) => (
             <AddressItem
               key={address.id}
               address={address}
@@ -45,7 +45,7 @@ export default function CheckoutBillingAddress({ checkout, onBackStep, onCreateB
                 boxShadow: (theme) => theme.customShadows.card,
               }}
             />
-          ))}
+          ))} */}
 
           <Stack direction="row" justifyContent="space-between">
             <Button

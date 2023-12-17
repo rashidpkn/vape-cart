@@ -23,29 +23,29 @@ const DELIVERY_OPTIONS = [
     label: 'Free',
     description: '5-7 Days delivery',
   },
-  {
-    value: 10,
-    label: 'Standard',
-    description: '3-5 Days delivery',
-  },
-  {
-    value: 20,
-    label: 'Express',
-    description: '2-3 Days delivery',
-  },
+  // {
+  //   value: 10,
+  //   label: 'Standard',
+  //   description: '3-5 Days delivery',
+  // },
+  // {
+  //   value: 20,
+  //   label: 'Express',
+  //   description: '2-3 Days delivery',
+  // },
 ];
 
 const PAYMENT_OPTIONS = [
-  {
-    value: 'paypal',
-    label: 'Pay with Paypal',
-    description: 'You will be redirected to PayPal website to complete your purchase securely.',
-  },
-  {
-    value: 'credit',
-    label: 'Credit / Debit Card',
-    description: 'We support Mastercard, Visa, Discover and Stripe.',
-  },
+  // {
+  //   value: 'paypal',
+  //   label: 'Pay with Paypal',
+  //   description: 'You will be redirected to PayPal website to complete your purchase securely.',
+  // },
+  // {
+  //   value: 'credit',
+  //   label: 'Credit / Debit Card',
+  //   description: 'We support Mastercard, Visa, Discover and Stripe.',
+  // },
   {
     value: 'cash',
     label: 'Cash',
