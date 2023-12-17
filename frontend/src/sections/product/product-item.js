@@ -37,7 +37,6 @@ export default function ProductItem({ product }) {
       available:quantity,
       salePrice,
       colors: [colors[0]],
-      size: sizes[0],
       quantity: 1,
     };
     try {
