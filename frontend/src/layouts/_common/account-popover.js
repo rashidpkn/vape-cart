@@ -28,8 +28,8 @@ const OPTIONS = [
     linkTo: '/',
   },
   {
-    label: 'Profile',
-    linkTo: paths.dashboard.user.profile,
+    label: 'Products',
+    linkTo: paths.dashboard.product.root,
   },
   {
     label: 'Settings',
