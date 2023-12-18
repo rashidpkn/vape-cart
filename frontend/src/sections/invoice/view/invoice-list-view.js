@@ -190,7 +190,7 @@ export default function InvoiceListView() {
     <>
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="List"
+          heading="Invoice"
           links={[
             {
               name: 'Dashboard',
@@ -199,9 +199,6 @@ export default function InvoiceListView() {
             {
               name: 'Invoice',
               href: paths.dashboard.invoice.root,
-            },
-            {
-              name: 'List',
             },
           ]}
           action={
@@ -300,7 +297,7 @@ export default function InvoiceListView() {
                     }
                     color={tab.color}
                   >
-                    {tab.count}
+                    0
                   </Label>
                 }
               />

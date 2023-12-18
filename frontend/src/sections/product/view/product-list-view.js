@@ -195,14 +195,13 @@ export default function ProductListView() {
     <>
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="List"
+          heading="Products"
           links={[
             { name: 'Dashboard', href: paths.dashboard.root },
             {
-              name: 'Product',
+              name: 'Products',
               href: paths.dashboard.product.root,
             },
-            { name: 'List' },
           ]}
           action={
             <Button

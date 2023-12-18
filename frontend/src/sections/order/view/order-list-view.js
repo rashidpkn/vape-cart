@@ -157,17 +157,16 @@ export default function OrderListView() {
     <>
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="List"
+          heading="Orders"
           links={[
             {
               name: 'Dashboard',
               href: paths.dashboard.root,
             },
             {
-              name: 'Order',
+              name: 'Orders',
               href: paths.dashboard.order.root,
             },
-            { name: 'List' },
           ]}
           sx={{
             mb: { xs: 3, md: 5 },
@@ -201,16 +200,7 @@ export default function OrderListView() {
                       'default'
                     }
                   >
-                    {tab.value === 'all' && _orders.length}
-                    {tab.value === 'completed' &&
-                      _orders.filter((order) => order.status === 'completed').length}
-
-                    {tab.value === 'pending' &&
-                      _orders.filter((order) => order.status === 'pending').length}
-                    {tab.value === 'cancelled' &&
-                      _orders.filter((order) => order.status === 'cancelled').length}
-                    {tab.value === 'refunded' &&
-                      _orders.filter((order) => order.status === 'refunded').length}
+                    0
                   </Label>
                 }
               />
@@ -309,7 +299,6 @@ export default function OrderListView() {
             onPageChange={table.onChangePage}
             onRowsPerPageChange={table.onChangeRowsPerPage}
             //
-            dense={table.dense}
             onChangeDense={table.onChangeDense}
           />
         </Card>

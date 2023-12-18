@@ -122,7 +122,7 @@ export function useNavData() {
 
           // CHAT
           {
-            title: t('chat'),
+            title: t('support'),
             path: paths.dashboard.chat,
             icon: ICONS.chat,
           },

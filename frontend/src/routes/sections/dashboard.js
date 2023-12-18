@@ -100,7 +100,7 @@ export const dashboardRoutes = [
         ],
       },
     
-      { path: 'chat', element: <ChatPage /> },
+      { path: 'support', element: <ChatPage /> },
       
       
       { path: 'blank', element: <BlankPage /> },

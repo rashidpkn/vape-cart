@@ -38,7 +38,7 @@ const LINKS = [
   },
   {
     headline: 'Contact',
-    children: [{ name: 'support@minimals.cc', href: '#' }],
+    children: [{ name: 'info@delhi-vape.com', href: '#' }],
   },
 ];
 
@@ -98,7 +98,7 @@ export default function Footer() {
           }}
         >
           <Grid xs={8} md={3}>
-            <Typography
+            {/* <Typography
               variant="body2"
               sx={{
                 maxWidth: 270,
@@ -107,7 +107,7 @@ export default function Footer() {
             >
               The starting point for your next project with Minimal UI Kit, built on the newest
               version of Material-UI ©, ready to be customized to your style.
-            </Typography>
+            </Typography> */}
 
             <Stack
               direction="row"
