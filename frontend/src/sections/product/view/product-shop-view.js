@@ -7,9 +7,6 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
-import { useDebounce } from 'src/hooks/use-debounce';
-// routes
-import { paths } from 'src/routes/paths';
 // _mock
 import {
   PRODUCT_SORT_OPTIONS,
@@ -18,8 +15,6 @@ import {
   PRODUCT_RATING_OPTIONS,
   PRODUCT_CATEGORY_OPTIONS,
 } from 'src/_mock';
-// api
-import {  useSearchProducts } from 'src/api/product';
 // components
 import EmptyContent from 'src/components/empty-content';
 //
@@ -55,9 +50,9 @@ export default function ProductShopView() {
 
   const [sortBy, setSortBy] = useState('featured');
 
-  const [searchQuery, setSearchQuery] = useState('');
+  console.log(sortBy);
 
-  const debouncedQuery = useDebounce(searchQuery);
+
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -68,7 +63,7 @@ export default function ProductShopView() {
 
   const fetchProduct = async () => {
     try {
-      const { data: { products: p, count } } = await api.get('products',{params:{name}})
+      const { data: { products: p, count } } = await api.get('products',{params:{name,sortBy}})
       setProducts(p)
     } catch (error) {
       alert("error Occure")
@@ -77,7 +72,7 @@ export default function ProductShopView() {
 
   useEffect(() => {
     fetchProduct()
-  }, [])
+  }, [sortBy])
 
 
   const handleFilters = useCallback((name, value) => {
@@ -100,9 +95,6 @@ export default function ProductShopView() {
     setSortBy(newValue);
   }, []);
 
-  const handleSearch = useCallback((inputValue) => {
-    setSearchQuery(inputValue);
-  }, []);
 
   const handleResetFilters = useCallback(() => {
     setFilters(defaultFilters);
