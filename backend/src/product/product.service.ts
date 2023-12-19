@@ -53,8 +53,11 @@ order = ['salePrice', 'ASC']
         where,
         limit: perPage,
         offset: perPage * (pageNo - 1),
-        order:[order]
-      })
+        ...(order.length && { order: [order] }),
+      });
+
+      
+
 
       return { products, count }
     } catch (error) {
