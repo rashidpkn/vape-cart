@@ -43,7 +43,8 @@ const ICONS = {
   ecommerce: icon('ic_ecommerce'),
   analytics: icon('ic_analytics'),
   dashboard: icon('ic_dashboard'),
-  store:iconifyIcon('material-symbols:store')
+  store:iconifyIcon('material-symbols:store'),
+  delivery:iconifyIcon('icon-park-outline:delivery')
 };
 
 // ----------------------------------------------------------------------
@@ -119,6 +120,12 @@ export function useNavData() {
             ],
           },
        
+
+          {
+            title: t('Delivery'),
+            path: paths.dashboard.delivery,
+            icon: ICONS.delivery,
+          },
 
           // CHAT
           {

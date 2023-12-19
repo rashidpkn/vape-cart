@@ -37,14 +37,19 @@ export default function FirebaseRegisterView() {
   const RegisterSchema = Yup.object().shape({
     firstName: Yup.string().required('First name required'),
     lastName: Yup.string().required('Last name required'),
+    storeName: Yup.string().required('Store name required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
+    phoneNumber: Yup.string().required('Phone number required'),
     password: Yup.string().required('Password is required'),
+
   });
 
   const defaultValues = {
     firstName: '',
     lastName: '',
+    storeName:'',
     email: '',
+    phoneNumber:'',
     password: '',
   };
 
@@ -61,7 +66,7 @@ export default function FirebaseRegisterView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await register?.(data.email, data.password, data.firstName, data.lastName);
+      await register?.(data.email, data.password, data.firstName, data.lastName,data.storeName,data.phoneNumber);
       const searchParams = new URLSearchParams({ email: data.email }).toString();
 
       const href = `${paths.auth.firebase.verify}?${searchParams}`;
@@ -138,11 +143,12 @@ export default function FirebaseRegisterView() {
         <RHFTextField name="lastName" label="Last name" />
       </Stack>
 
-      <RHFTextField name="email" label="Email address" />
+      <RHFTextField name="storeName" label="Store name" />
+      
+      <RHFTextField name="email" label="Business email address" />
+      <RHFTextField name="phoneNumber" label="Phone number" />
 
-      <RHFTextField
-        name="password"
-        label="Password"
+      <RHFTextField name="password" label="Password"
         type={password.value ? 'text' : 'password'}
         InputProps={{
           endAdornment: (

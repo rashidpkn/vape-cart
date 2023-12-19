@@ -22,7 +22,7 @@ import { ColorPreview } from 'src/components/color-utils';
 // ----------------------------------------------------------------------
 
 export default function ProductItem({ product }) {
-  const { id, name, images, salePrice, colors, available, sizes, regularPrice,quantity } =
+  const { id, name, images, salePrice, colors, available, sizes, regularPrice,quantity,storeName } =
     product;
 
   const dispatch = useDispatch();
@@ -75,10 +75,11 @@ export default function ProductItem({ product }) {
   );
 
   const renderContent = (
-    <Stack spacing={2.5} sx={{ p: 3, pt: 2 }}>
+    <Stack spacing={1} sx={{ p: 3, pt: 2 }}>
       <Link component={RouterLink} href={linkTo} color="inherit" variant="subtitle2" noWrap>
         {name}
       </Link>
+      <p style={{margin:0,color:'gray',fontStyle:'italic'}}>Sold by {storeName || 'Vape Amazon'}</p>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <ColorPreview colors={colors} />

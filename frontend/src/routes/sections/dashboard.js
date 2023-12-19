@@ -6,6 +6,7 @@ import { AuthGuard } from 'src/auth/guard';
 import DashboardLayout from 'src/layouts/dashboard';
 // components
 import { LoadingScreen } from 'src/components/loading-screen';
+import Delivery from 'src/pages/dashboard/delivery';
 
 // ----------------------------------------------------------------------
 
@@ -98,6 +99,9 @@ export const dashboardRoutes = [
           { path: ':id/edit', element: <InvoiceEditPage /> },
           { path: 'new', element: <InvoiceCreatePage /> },
         ],
+      },
+      {
+        path:'delivery',element:<Delivery />
       },
     
       { path: 'support', element: <ChatPage /> },

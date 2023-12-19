@@ -25,17 +25,20 @@ import FormProvider, {
   RHFUploadAvatar,
   RHFAutocomplete,
 } from 'src/components/hook-form';
+import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
 export default function AccountGeneral() {
   const { enqueueSnackbar } = useSnackbar();
 
-  const { user } = useMockedUser();
+  const { user } = useAuthContext();
+  console.log(user);
 
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string().required('Name is required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
+    storeName:Yup.string().required('Store name is required'),
     photoURL: Yup.mixed().nullable().required('Avatar is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
     country: Yup.string().required('Country is required'),
@@ -51,6 +54,7 @@ export default function AccountGeneral() {
   const defaultValues = {
     displayName: user?.displayName || '',
     email: user?.email || '',
+    storeName: user?.storeName || '',
     photoURL: user?.photoURL || null,
     phoneNumber: user?.phoneNumber || '',
     country: user?.country || '',
@@ -150,6 +154,7 @@ export default function AccountGeneral() {
             >
               <RHFTextField name="displayName" label="Name" />
               <RHFTextField name="email" label="Email Address" />
+              <RHFTextField name="storeName" label="Store Name" />
               <RHFTextField name="phoneNumber" label="Phone Number" />
               <RHFTextField name="address" label="Address" />
 

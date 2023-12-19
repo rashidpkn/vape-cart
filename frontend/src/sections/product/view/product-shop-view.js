@@ -19,10 +19,9 @@ import {
   PRODUCT_CATEGORY_OPTIONS,
 } from 'src/_mock';
 // api
-import { useGetProducts, useSearchProducts } from 'src/api/product';
+import {  useSearchProducts } from 'src/api/product';
 // components
 import EmptyContent from 'src/components/empty-content';
-import { useSettingsContext } from 'src/components/settings';
 //
 import { useCheckout } from '../hooks';
 import CartIcon from '../common/cart-icon';
@@ -49,7 +48,6 @@ const defaultFilters = {
 // ----------------------------------------------------------------------
 
 export default function ProductShopView() {
-  const settings = useSettingsContext();
 
   const { checkout } = useCheckout();
 
@@ -63,23 +61,22 @@ export default function ProductShopView() {
 
   const [filters, setFilters] = useState(defaultFilters);
 
-  const { productsLoading, productsEmpty } = useGetProducts();
 
-  const { searchResults, searchLoading } = useSearchProducts(debouncedQuery);
 
   const [products, setProducts] = useState({})
+  const [name, setName] = useState('')
+
+  const fetchProduct = async () => {
+    try {
+      const { data: { products: p, count } } = await api.get('products',{params:{name}})
+      setProducts(p)
+    } catch (error) {
+      alert("error Occure")
+    }
+  }
 
   useEffect(() => {
-    const featchProduct = async () => {
-      try {
-        const { data: { products: p, count } } = await api.get('products',)
-        setProducts(p)
-      } catch (error) {
-        alert("error Occure")
-      }
-    }
-
-    featchProduct()
+    fetchProduct()
   }, [])
 
 
@@ -98,7 +95,6 @@ export default function ProductShopView() {
 
   const canReset = !isEqual(defaultFilters, filters);
 
-  const notFound = !dataFiltered.length && canReset;
 
   const handleSortBy = useCallback((newValue) => {
     setSortBy(newValue);
@@ -120,11 +116,9 @@ export default function ProductShopView() {
       direction={{ xs: 'column', sm: 'row' }}
     >
       <ProductSearch
-        query={debouncedQuery}
-        results={searchResults}
-        onSearch={handleSearch}
-        loading={searchLoading}
-        hrefItem={(id) => paths.product.details(id)}
+        setName={setName}
+        name={name}
+        fetchProduct={fetchProduct}
       />
 
       <Stack direction="row" spacing={1} flexShrink={0}>
@@ -172,7 +166,11 @@ export default function ProductShopView() {
         mb: 15,
       }}
     >
-      <HomeHero />
+      <HomeHero 
+      setName={setName}
+      name={name}
+      fetchProduct={fetchProduct}
+       />
       <HomeLookingFor />
 
       <CartIcon totalItems={checkout.totalItems} />
@@ -197,10 +195,9 @@ export default function ProductShopView() {
         {canReset && renderResults}
       </Stack>
 
-      {(notFound || productsEmpty) && renderNotFound}
       <Stack direction={'row'}>
         <HomeSidebar />
-        <ProductList products={dataFiltered} loading={productsLoading} />
+        <ProductList products={dataFiltered} loading={false} />
       </Stack>
     </Container>
   );

@@ -116,6 +116,7 @@ export const paths = {
         details: `${ROOTS.DASHBOARD}/order/${MOCK_ID}`,
       },
     },
+    delivery:`${ROOTS.DASHBOARD}/delivery`,
     
   },
 };

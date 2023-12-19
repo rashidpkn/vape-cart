@@ -14,7 +14,7 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 
-export default function HomeHero() {
+export default function HomeHero({name,setName,fetchProduct }) {
   return (
     <Box
       sx={{
@@ -66,6 +66,8 @@ export default function HomeHero() {
               width: { sm: 300, md: 600 },
             }}
             placeholder="Search..."
+            value={name}
+            onChange={e=>setName(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -83,6 +85,7 @@ export default function HomeHero() {
                       borderRadius: '0 10rem 10rem 0',
                       width: 100,
                     }}
+                    onClick={()=>{fetchProduct()}}
                   >
                     Search
                   </Button>
