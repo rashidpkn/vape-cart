@@ -11,6 +11,9 @@ export class Product extends Model {
     username:string
 
     @Column({allowNull:false})
+    storeName:string
+
+    @Column({allowNull:false})
     userId:string
 
     @Column({type:DataType.STRING(1200),allowNull:false})

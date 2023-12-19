@@ -5,14 +5,14 @@ import { Product } from 'src/model/product.model';
 @Injectable()
 export class ProductService {
 
-  async createProduct(name: string, username: string, userId: string, subDescription: string, content: string, images: [string], SKU: string, quantity: number, category: string, colors: [string], tags: [string], regularPrice: number, salePrice: number, tax: number, publish: boolean) {
+  async createProduct(name: string, username: string,storeName:string, userId: string, subDescription: string, content: string, images: [string], SKU: string, quantity: number, category: string, colors: [string], tags: [string], regularPrice: number, salePrice: number, tax: number, publish: boolean) {
     try {
 
       const found = await Product.findOne({ where: { name } })
       if (found)
         throw new BadRequestException('Product already exist')
       const product = await Product.create({
-        name, username, userId,
+        name, username, storeName,userId,
         subDescription, content,
         images, SKU, quantity,
         category, colors, tags,
@@ -32,7 +32,8 @@ export class ProductService {
 
       if (username) where.username = username
       if (userId) where.userId = userId
-      if (name) where.name = name
+      if (name) where.name = { [Op.iLike]: `%${name}%` }
+      
       if (category) where.category = category
       if (inStock) where.quantity = { [Op.gt]: 0, };
       if (publish) where.publish = true
