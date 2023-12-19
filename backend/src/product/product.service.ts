@@ -29,7 +29,7 @@ export class ProductService {
     try {
       const { username, userId, name, category, inStock, publish, draft, perPage = 20, pageNo = 1,sortBy } = query
       let where: any = {}
-      let order:any ;
+      let order:any  = [];
 
       if (username) where.username = username
       if (userId) where.userId = userId
