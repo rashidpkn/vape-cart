@@ -11,16 +11,16 @@ const common_1 = require("@nestjs/common");
 const sequelize_1 = require("sequelize");
 const product_model_1 = require("../model/product.model");
 let ProductService = class ProductService {
-    async createProduct(name, username, userId, subDescription, content, images, code, SKU, quantity, category, colors, sizes, tags, regularPrice, salePrice, tax, publish) {
+    async createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish) {
         try {
             const found = await product_model_1.Product.findOne({ where: { name } });
             if (found)
                 throw new common_1.BadRequestException('Product already exist');
             const product = await product_model_1.Product.create({
-                name, username, userId,
+                name, username, storeName, userId,
                 subDescription, content,
-                images, code, SKU, quantity,
-                category, colors, sizes, tags,
+                images, SKU, quantity,
+                category, colors, tags,
                 regularPrice, salePrice, tax, publish
             });
             return { product, message: "Product is created" };
@@ -31,16 +31,14 @@ let ProductService = class ProductService {
     }
     async getAllProduct(query) {
         try {
-            const { username, userId, name, code, category, inStock, publish, draft, perPage = 20, pageNo = 1 } = query;
+            const { username, userId, name, category, inStock, publish, draft, perPage = 20, pageNo = 1 } = query;
             let where = {};
             if (username)
                 where.username = username;
             if (userId)
                 where.userId = userId;
             if (name)
-                where.name = name;
-            if (code)
-                where.code = code;
+                where.name = { [sequelize_1.Op.iLike]: `%${name}%` };
             if (category)
                 where.category = category;
             if (inStock)

@@ -24,6 +24,10 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.Column)({ allowNull: false }),
     __metadata("design:type", String)
+], Product.prototype, "storeName", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ allowNull: false }),
+    __metadata("design:type", String)
 ], Product.prototype, "userId", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(1200), allowNull: false }),
@@ -43,10 +47,6 @@ __decorate([
 __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
-], Product.prototype, "code", void 0);
-__decorate([
-    sequelize_typescript_1.Column,
-    __metadata("design:type", String)
 ], Product.prototype, "SKU", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ defaultValue: 0 }),
@@ -63,13 +63,6 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], Product.prototype, "colors", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING),
-        defaultValue: []
-    }),
-    __metadata("design:type", Array)
-], Product.prototype, "sizes", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING),

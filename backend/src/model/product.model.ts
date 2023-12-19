@@ -10,7 +10,7 @@ export class Product extends Model {
     @Column({allowNull:false})
     username:string
 
-    @Column({allowNull:false})
+    @Column({allowNull:false,defaultValue:'Vape Amazon'})
     storeName:string
 
     @Column({allowNull:false})
