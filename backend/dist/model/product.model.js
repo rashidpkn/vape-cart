@@ -22,7 +22,7 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "username", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ allowNull: false }),
+    (0, sequelize_typescript_1.Column)({ allowNull: false, defaultValue: 'Vape Amazon' }),
     __metadata("design:type", String)
 ], Product.prototype, "storeName", void 0);
 __decorate([

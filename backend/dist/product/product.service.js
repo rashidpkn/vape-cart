@@ -31,8 +31,9 @@ let ProductService = class ProductService {
     }
     async getAllProduct(query) {
         try {
-            const { username, userId, name, category, inStock, publish, draft, perPage = 20, pageNo = 1 } = query;
+            const { username, userId, name, category, inStock, publish, draft, perPage = 20, pageNo = 1, sortBy } = query;
             let where = {};
+            let order;
             if (username)
                 where.username = username;
             if (userId)
@@ -47,11 +48,18 @@ let ProductService = class ProductService {
                 where.publish = true;
             if (draft)
                 where.publish = false;
+            if (sortBy === 'priceDesc') {
+                order = ['salePrice', 'DESC'];
+            }
+            if (sortBy === 'priceAsc') {
+                order = ['salePrice', 'ASC'];
+            }
             const count = await product_model_1.Product.count({ where });
             const products = await product_model_1.Product.findAll({
                 where,
                 limit: perPage,
                 offset: perPage * (pageNo - 1),
+                order: [order]
             });
             return { products, count };
         }
