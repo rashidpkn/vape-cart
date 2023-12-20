@@ -42,10 +42,13 @@ export default function FirebaseRegisterView() {
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
     phoneNumber: Yup.string().required('Phone number required'),
     contactPersonInTouch:Yup.string().required('Contact person in touch required'),
-    tradeLicense:Yup.object(),
+    tradeLicense:Yup.mixed().nullable(),
     password: Yup.string().required('Password is required'),
 
   });
+
+
+
 
   const defaultValues = {
     firstName: '',

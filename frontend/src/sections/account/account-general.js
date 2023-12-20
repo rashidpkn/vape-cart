@@ -33,13 +33,13 @@ export default function AccountGeneral() {
   const { enqueueSnackbar } = useSnackbar();
 
   const { user } = useAuthContext();
-  console.log(user);
 
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string().required('Name is required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
     storeName:Yup.string().required('Store name is required'),
-    photoURL: Yup.mixed().nullable().required('Avatar is required'),
+    contactPersonInTouch:Yup.string().required('Contact person in touch is required'),
+    tradeLicense: Yup.mixed().nullable().required('Avatar is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
     country: Yup.string().required('Country is required'),
     address: Yup.string().required('Address is required'),
@@ -55,7 +55,8 @@ export default function AccountGeneral() {
     displayName: user?.displayName || '',
     email: user?.email || '',
     storeName: user?.storeName || '',
-    photoURL: user?.photoURL || null,
+    tradeLicense: user?.tradeLicense || null,
+    contactPersonInTouch:user?.contactPersonInTouch || null,
     phoneNumber: user?.phoneNumber || '',
     country: user?.country || '',
     address: user?.address || '',
@@ -96,7 +97,7 @@ export default function AccountGeneral() {
       });
 
       if (file) {
-        setValue('photoURL', newFile, { shouldValidate: true });
+        setValue('tradeLicense', newFile, { shouldValidate: true });
       }
     },
     [setValue]
@@ -108,7 +109,7 @@ export default function AccountGeneral() {
         <Grid xs={12} md={4}>
           <Card sx={{ pt: 10, pb: 5, px: 3, textAlign: 'center' }}>
             <RHFUploadAvatar
-              name="photoURL"
+              name="tradeLicense"
               maxSize={3145728}
               onDrop={handleDrop}
               helperText={
@@ -155,6 +156,7 @@ export default function AccountGeneral() {
               <RHFTextField name="displayName" label="Name" />
               <RHFTextField name="email" label="Email Address" />
               <RHFTextField name="storeName" label="Store Name" />
+              <RHFTextField name="contactPersonInTouch" label="Contact person in touch" />
               <RHFTextField name="phoneNumber" label="Phone Number" />
               <RHFTextField name="address" label="Address" />
 

@@ -41,6 +41,8 @@ import {
 import OrderTableRow from '../order-table-row';
 import OrderTableToolbar from '../order-table-toolbar';
 import OrderTableFiltersResult from '../order-table-filters-result';
+import { useEffect } from 'react';
+import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
@@ -66,8 +68,25 @@ const defaultFilters = {
 // ----------------------------------------------------------------------
 
 export default function OrderListView() {
+  const [tableData, setTableData] = useState([]);
+
+  const fetchOrders = async()=>{
+try {
+  const {data} =  await api.get('/orders')
+  setTableData(data)
+} catch (error) {
+ console.log(error.message); 
+}
+  }
+
+useEffect(() => {
+    fetchOrders()
+
+}, [])
+
+
+
   const table = useTable({ defaultOrderBy: 'orderNumber' });
-  console.log(_orders);
 
   const settings = useSettingsContext();
 
@@ -75,7 +94,7 @@ export default function OrderListView() {
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_orders);
+  
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -116,6 +135,7 @@ export default function OrderListView() {
 
   const handleDeleteRow = useCallback(
     (id) => {
+      api.delete('orders',{data:{id}})
       const deleteRow = tableData.filter((row) => row.id !== id);
       setTableData(deleteRow);
 
@@ -125,6 +145,7 @@ export default function OrderListView() {
   );
 
   const handleDeleteRows = useCallback(() => {
+    api.delete('orders',{data:{id:table.selected}})
     const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
     setTableData(deleteRows);
 
@@ -265,7 +286,7 @@ export default function OrderListView() {
                 />
 
                 <TableBody>
-                  {/* {dataFiltered
+                  {dataFiltered
                     .slice(
                       table.page * table.rowsPerPage,
                       table.page * table.rowsPerPage + table.rowsPerPage
@@ -279,7 +300,7 @@ export default function OrderListView() {
                         onDeleteRow={() => handleDeleteRow(row.id)}
                         onViewRow={() => handleViewRow(row.id)}
                       />
-                    ))} */}
+                    ))}
 
                   <TableEmptyRows
                     height={denseHeight}
