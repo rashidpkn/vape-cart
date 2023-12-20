@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -21,7 +21,8 @@ import { RouterLink } from 'src/routes/components';
 import { useAuthContext } from 'src/auth/hooks';
 // components
 import Iconify from 'src/components/iconify';
-import FormProvider, { RHFTextField } from 'src/components/hook-form';
+import FormProvider, { RHFTextField, RHFUpload } from 'src/components/hook-form';
+import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
@@ -40,6 +41,8 @@ export default function FirebaseRegisterView() {
     storeName: Yup.string().required('Store name required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
     phoneNumber: Yup.string().required('Phone number required'),
+    contactPersonInTouch:Yup.string().required('Contact person in touch required'),
+    tradeLicense:Yup.object(),
     password: Yup.string().required('Password is required'),
 
   });
@@ -50,6 +53,8 @@ export default function FirebaseRegisterView() {
     storeName:'',
     email: '',
     phoneNumber:'',
+    contactPersonInTouch:'',
+    tradeLicense:'',
     password: '',
   };
 
@@ -61,12 +66,16 @@ export default function FirebaseRegisterView() {
   const {
     reset,
     handleSubmit,
+    watch,
     formState: { isSubmitting },
+    setValue
   } = methods;
+
+  const values = watch();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await register?.(data.email, data.password, data.firstName, data.lastName,data.storeName,data.phoneNumber);
+      await register?.(data.email, data.password, data.firstName, data.lastName,data.storeName,data.phoneNumber,data.contactPersonInTouch,data.tradeLicense);
       const searchParams = new URLSearchParams({ email: data.email }).toString();
 
       const href = `${paths.auth.firebase.verify}?${searchParams}`;
@@ -102,6 +111,25 @@ export default function FirebaseRegisterView() {
       console.error(error);
     }
   };
+
+
+  const handleDrop = useCallback(
+    async (acceptedFiles) => {
+      
+
+        try {
+          alert('Please wait image is uploading')
+          const form = new FormData()
+            form.append('images', acceptedFiles[0])
+          const { data } = await api.post('upload', form)
+          setValue('tradeLicense', `https://delhi-vape.com${data}`);
+          alert('Image upload complete.')
+        } catch (error) {
+          alert(' Image upload failed, try again.')
+        }
+    },
+    [setValue, values.images]
+  );
 
   const renderHead = (
     <Stack spacing={2} sx={{ mb: 5, position: 'relative' }}>
@@ -147,6 +175,21 @@ export default function FirebaseRegisterView() {
       
       <RHFTextField name="email" label="Business email address" />
       <RHFTextField name="phoneNumber" label="Phone number" />
+      <RHFTextField name="contactPersonInTouch" label="Contact person in touch" />
+      {/* <RHFTextField name="tradeLicense" label="Trade license" /> */}
+      
+
+
+      <Typography variant="subtitle2">Trade license</Typography>
+      <RHFUpload   name="tradeLicense" maxSize={3145728} onDrop={handleDrop}
+                
+              />
+
+
+
+
+
+
 
       <RHFTextField name="password" label="Password"
         type={password.value ? 'text' : 'password'}
