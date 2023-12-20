@@ -50,11 +50,11 @@ __decorate([
     __metadata("design:type", Object)
 ], Orders.prototype, "shippingAddress", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(20) }),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(20), defaultValue: 'Cash' }),
     __metadata("design:type", String)
 ], Orders.prototype, "paymentType", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(20) }),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(20), defaultValue: 'Order received' }),
     __metadata("design:type", String)
 ], Orders.prototype, "status", void 0);
 Orders = __decorate([

@@ -46,12 +46,12 @@ export class Orders extends Model{
         phoneNumber: string
     }
 
-    @Column({type:DataType.STRING(20)})
+    @Column({type:DataType.STRING(20),defaultValue:'Cash'})
     paymentType:string
 
 
 
-    @Column({type:DataType.STRING(20)})
+    @Column({type:DataType.STRING(20),defaultValue:'Order received'})
     status:string
 
 

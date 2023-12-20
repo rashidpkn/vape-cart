@@ -8,7 +8,54 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrdersService = void 0;
 const common_1 = require("@nestjs/common");
+const orders_model_1 = require("../model/orders.model");
 let OrdersService = class OrdersService {
+    async createOrder(items, subTotal, shipping, discount, totalAmount, totalQuantity, customer, shippingAddress) {
+        try {
+            const order = orders_model_1.Orders.create({ items, subTotal, shipping, discount, totalAmount, totalQuantity, customer, shippingAddress });
+            return { message: "Order is successfully placed" };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async getAllOders() {
+        try {
+            const orders = await orders_model_1.Orders.findAll();
+            return orders;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async getSingleOrder(id) {
+        try {
+            const orders = await orders_model_1.Orders.findOne({ where: { id } });
+            if (!orders) {
+                throw new common_1.NotFoundException("Order is not found");
+            }
+            return orders;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async deleteOrder(id) {
+        try {
+            const deletedOrders = await orders_model_1.Orders.destroy({ where: { id } });
+            return { message: "Order Deleted" };
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async updateOrders() {
+        try {
+        }
+        catch (error) {
+            throw error;
+        }
+    }
 };
 OrdersService = __decorate([
     (0, common_1.Injectable)()

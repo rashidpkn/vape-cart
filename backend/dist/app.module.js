@@ -19,7 +19,7 @@ let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [product_module_1.ProductModule, database_module_1.DatabaseModule, upload_module_1.UploadModule, client_module_1.ClientModule, orders_module_1.OrdersModule],
+        imports: [product_module_1.ProductModule, database_module_1.DatabaseModule, upload_module_1.UploadModule, orders_module_1.OrdersModule, client_module_1.ClientModule,],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService]
     })

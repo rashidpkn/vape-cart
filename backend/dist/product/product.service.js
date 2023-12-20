@@ -33,7 +33,7 @@ let ProductService = class ProductService {
         try {
             const { username, userId, name, category, inStock, publish, draft, perPage = 20, pageNo = 1, sortBy } = query;
             let where = {};
-            let order;
+            let order = [];
             if (username)
                 where.username = username;
             if (userId)
@@ -55,12 +55,7 @@ let ProductService = class ProductService {
                 order = ['salePrice', 'ASC'];
             }
             const count = await product_model_1.Product.count({ where });
-            const products = await product_model_1.Product.findAll({
-                where,
-                limit: perPage,
-                offset: perPage * (pageNo - 1),
-                order: [order]
-            });
+            const products = await product_model_1.Product.findAll(Object.assign({ where, limit: perPage, offset: perPage * (pageNo - 1) }, (order.length && { order: [order] })));
             return { products, count };
         }
         catch (error) {
