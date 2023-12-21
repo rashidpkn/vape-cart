@@ -51,7 +51,7 @@ export class Invoice extends Model {
   status: string;
 
   @Column({
-    type:DataType.DATE,
+    type:DataType.DATE
 })
   dueDate:Date
 
