@@ -93,7 +93,7 @@ export default function OrderDetailsItems({
 
               <ListItemText
                 primary={item.name}
-                secondary={item.sku}
+                secondary={item.id}
                 primaryTypographyProps={{
                   typography: 'body2',
                 }}
@@ -107,7 +107,7 @@ export default function OrderDetailsItems({
               <Box sx={{ typography: 'body2' }}>x{item.quantity}</Box>
 
               <Box sx={{ width: 110, textAlign: 'right', typography: 'subtitle2' }}>
-                {fCurrency(item.price)}
+                {fCurrency(item.salePrice)}
               </Box>
             </Stack>
           ))}
