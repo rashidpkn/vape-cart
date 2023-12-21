@@ -51,7 +51,6 @@ async updateInvoice(@Req() req:Request){
 async deleteInvoice(@Req() req:Request){
   try {
     const {id} = req.body
-    if(isNaN(id)) throw new BadRequestException('id must be number')
     return this.invoiceService.deleteInvoice(id)
   
   } catch (error) {

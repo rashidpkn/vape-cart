@@ -53,7 +53,7 @@ __decorate([
 ], Invoice.prototype, "status", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.DATE,
+        type: sequelize_typescript_1.DataType.DATE
     }),
     __metadata("design:type", Date)
 ], Invoice.prototype, "dueDate", void 0);

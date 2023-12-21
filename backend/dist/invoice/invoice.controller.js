@@ -49,8 +49,6 @@ let InvoiceController = class InvoiceController {
     async deleteInvoice(req) {
         try {
             const { id } = req.body;
-            if (isNaN(id))
-                throw new common_1.BadRequestException('id must be number');
             return this.invoiceService.deleteInvoice(id);
         }
         catch (error) {
