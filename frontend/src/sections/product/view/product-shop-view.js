@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import {Box} from '@mui/material'
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // _mock
@@ -107,11 +108,14 @@ export default function ProductShopView() {
       alignItems={{ xs: 'flex-end', sm: 'center' }}
       direction={{ xs: 'column', sm: 'row' }}
     >
-      <ProductSearch
+      {/* <ProductSearch
         setName={setName}
         name={name}
         fetchProduct={fetchProduct}
-      />
+      /> */}
+      <Box sx={{maxWidth:'275px',width:'100%'}}></Box>
+
+<Typography variant="h4" > Shop </Typography>
 
       <Stack direction="row" spacing={1} flexShrink={0}>
         <ProductFilters
@@ -167,14 +171,7 @@ export default function ProductShopView() {
 
       <CartIcon totalItems={checkout.totalItems} />
 
-      <Typography
-        variant="h4"
-        sx={{
-          my: { xs: 1.5, md: 3 },
-        }}
-      >
-        Shop
-      </Typography>
+      
 
       <Stack
         spacing={2.5}

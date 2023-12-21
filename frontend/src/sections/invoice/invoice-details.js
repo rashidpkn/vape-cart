@@ -39,11 +39,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function InvoiceDetails({ invoice }) {
-  const [currentStatus, setCurrentStatus] = useState(invoice.status);
 
-  const handleChangeStatus = useCallback((event) => {
-    setCurrentStatus(event.target.value);
-  }, []);
 
   const renderTotal = (
     <>
@@ -55,7 +51,7 @@ export default function InvoiceDetails({ invoice }) {
         </TableCell>
         <TableCell width={120} sx={{ typography: 'subtitle2' }}>
           <Box sx={{ mt: 2 }} />
-          {fCurrency(invoice.subTotal)}
+          {fCurrency(invoice?.subTotal)}
         </TableCell>
       </StyledTableRow>
 
@@ -63,7 +59,7 @@ export default function InvoiceDetails({ invoice }) {
         <TableCell colSpan={3} />
         <TableCell sx={{ color: 'text.secondary' }}>Shipping</TableCell>
         <TableCell width={120} sx={{ color: 'error.main', typography: 'body2' }}>
-          {fCurrency(-invoice.shipping)}
+          {fCurrency(-invoice?.shipping)}
         </TableCell>
       </StyledTableRow>
 
@@ -71,21 +67,21 @@ export default function InvoiceDetails({ invoice }) {
         <TableCell colSpan={3} />
         <TableCell sx={{ color: 'text.secondary' }}>Discount</TableCell>
         <TableCell width={120} sx={{ color: 'error.main', typography: 'body2' }}>
-          {fCurrency(-invoice.discount)}
+          {fCurrency(-invoice?.discount)}
         </TableCell>
       </StyledTableRow>
 
       <StyledTableRow>
         <TableCell colSpan={3} />
         <TableCell sx={{ color: 'text.secondary' }}>Taxes</TableCell>
-        <TableCell width={120}>{fCurrency(invoice.taxes)}</TableCell>
+        <TableCell width={120}>{fCurrency(invoice?.taxes)}</TableCell>
       </StyledTableRow>
 
       <StyledTableRow>
         <TableCell colSpan={3} />
         <TableCell sx={{ typography: 'subtitle1' }}>Total</TableCell>
         <TableCell width={140} sx={{ typography: 'subtitle1' }}>
-          {fCurrency(invoice.totalAmount)}
+          {fCurrency(invoice?.totalAmount)}
         </TableCell>
       </StyledTableRow>
     </>
@@ -128,25 +124,25 @@ export default function InvoiceDetails({ invoice }) {
           </TableHead>
 
           <TableBody>
-            {invoice.items.map((row, index) => (
+            {invoice?.items?.map((row, index) => (
               <TableRow key={index}>
                 <TableCell>{index + 1}</TableCell>
 
                 <TableCell>
                   <Box sx={{ maxWidth: 560 }}>
-                    <Typography variant="subtitle2">{row.title}</Typography>
+                    <Typography variant="subtitle2">{row.name}</Typography>
 
                     <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-                      {row.description}
+                      {row?.description}
                     </Typography>
                   </Box>
                 </TableCell>
 
-                <TableCell>{row.quantity}</TableCell>
+                <TableCell>{row?.quantity}</TableCell>
 
-                <TableCell align="right">{fCurrency(row.price)}</TableCell>
+                <TableCell align="right">{fCurrency(row?.salePrice)}</TableCell>
 
-                <TableCell align="right">{fCurrency(row.price * row.quantity)}</TableCell>
+                <TableCell align="right">{fCurrency(row.salePrice * row.quantity)}</TableCell>
               </TableRow>
             ))}
 
@@ -159,12 +155,12 @@ export default function InvoiceDetails({ invoice }) {
 
   return (
     <>
-      <InvoiceToolbar
+      {/* <InvoiceToolbar
         invoice={invoice}
         currentStatus={currentStatus || ''}
         onChangeStatus={handleChangeStatus}
         statusOptions={INVOICE_STATUS_OPTIONS}
-      />
+      /> */}
 
       <Card sx={{ pt: 5, px: 5 }}>
         <Box
@@ -187,27 +183,27 @@ export default function InvoiceDetails({ invoice }) {
             <Label
               variant="soft"
               color={
-                (currentStatus === 'paid' && 'success') ||
-                (currentStatus === 'pending' && 'warning') ||
-                (currentStatus === 'overdue' && 'error') ||
+                (invoice.status === 'paid' && 'success') ||
+                (invoice.status === 'pending' && 'warning') ||
+                (invoice.status === 'overdue' && 'error') ||
                 'default'
               }
             >
-              {currentStatus}
+              {invoice.status}
             </Label>
 
-            <Typography variant="h6">{invoice.invoiceNumber}</Typography>
+            <Typography variant="h6">{invoice.id}</Typography>
           </Stack>
 
           <Stack sx={{ typography: 'body2' }}>
             <Typography variant="subtitle2" sx={{ mb: 1 }}>
               Invoice From
             </Typography>
-            {invoice.invoiceFrom.name}
+            {invoice?.invoiceFrom?.name}
             <br />
-            {invoice.invoiceFrom.fullAddress}
+            {invoice?.invoiceFrom?.fullAddress}
             <br />
-            Phone: {invoice.invoiceFrom.phoneNumber}
+            Phone: {invoice?.invoiceFrom?.phoneNumber}
             <br />
           </Stack>
 
@@ -215,11 +211,11 @@ export default function InvoiceDetails({ invoice }) {
             <Typography variant="subtitle2" sx={{ mb: 1 }}>
               Invoice To
             </Typography>
-            {invoice.invoiceTo.name}
+            {invoice?.invoiceTo?.name}
             <br />
-            {invoice.invoiceTo.fullAddress}
+            {invoice?.invoiceTo?.fullAddress}
             <br />
-            Phone: {invoice.invoiceTo.phoneNumber}
+            Phone: {invoice?.invoiceTo?.phoneNumber}
             <br />
           </Stack>
 
@@ -227,14 +223,14 @@ export default function InvoiceDetails({ invoice }) {
             <Typography variant="subtitle2" sx={{ mb: 1 }}>
               Date Create
             </Typography>
-            {fDate(invoice.createDate)}
+            {fDate(invoice?.createdAt)}
           </Stack>
 
           <Stack sx={{ typography: 'body2' }}>
             <Typography variant="subtitle2" sx={{ mb: 1 }}>
               Due Date
             </Typography>
-            {fDate(invoice.dueDate)}
+            {fDate(invoice?.dueDate)}
           </Stack>
         </Box>
 

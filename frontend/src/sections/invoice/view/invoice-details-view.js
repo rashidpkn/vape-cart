@@ -10,6 +10,8 @@ import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import InvoiceDetails from '../invoice-details';
+import { useCallback, useEffect, useState } from 'react';
+import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
@@ -20,7 +22,24 @@ export default function InvoiceDetailsView() {
 
   const { id } = params;
 
-  const currentInvoice = _invoices.filter((invoice) => invoice.id === id)[0];
+
+  const [currentInvoice, setCurrentInvoice] = useState({})
+  const fetchInvoice = async () => {
+    try {
+      const { data } = await api.get(`invoice/${id}`)
+      setCurrentInvoice(data)
+    } catch (error) {
+
+    }
+  }
+
+
+  useEffect(() => {
+    
+  fetchInvoice()
+  
+  }, [])
+  
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
