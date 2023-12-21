@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Invoice } from 'src/model/invoice.model';
 import { Orders } from 'src/model/orders.model';
 
 @Injectable()
@@ -16,7 +17,17 @@ export class OrdersService {
   ) {
     try {
 
+      const dueDate = new Date(new Date().setDate(new Date().getDate() +5))
       const order = Orders.create({items,subTotal,shipping,discount,totalAmount,totalQuantity,customer,shippingAddress})
+      const invoice = Invoice.create({items,subTotal,shipping,discount,totalAmount,totalQuantity,invoiceTo:{
+        email:customer.email,
+        fullAddress:shippingAddress.fullAddress,
+        name:customer.name,
+        phoneNumber:shippingAddress.phoneNumber
+
+      },
+      dueDate
+    })
 
       return {message:"Order is successfully placed"}
 

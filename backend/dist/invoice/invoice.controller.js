@@ -12,57 +12,46 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrdersController = void 0;
+exports.InvoiceController = void 0;
 const common_1 = require("@nestjs/common");
-const orders_service_1 = require("./orders.service");
-let OrdersController = class OrdersController {
-    constructor(ordersService) {
-        this.ordersService = ordersService;
+const invoice_service_1 = require("./invoice.service");
+let InvoiceController = class InvoiceController {
+    constructor(invoiceService) {
+        this.invoiceService = invoiceService;
     }
-    async createOrder(req) {
+    async getAllInvoice(req) {
         try {
-            const { items, subTotal, shipping, discount, totalAmount, totalQuantity, customer, shippingAddress, } = req.body;
-            if (!items.length || !customer || !shippingAddress) {
-                throw new common_1.BadRequestException('iteams , customer,shippindAddress are mandatory');
-            }
-            return this.ordersService.createOrder(items, subTotal, shipping, discount, totalAmount, totalQuantity, customer, shippingAddress);
+            return this.invoiceService.getAllInvoice();
         }
         catch (error) {
             throw error;
         }
     }
-    async getAllOders(req) {
-        try {
-            return this.ordersService.getAllOders();
-        }
-        catch (error) {
-            throw error;
-        }
-    }
-    async getSingleOrder(req) {
+    async getSingleInvoice(req) {
         try {
             const { id } = req.params;
-            if (isNaN(id)) {
-                throw new common_1.BadRequestException('id must be a number');
-            }
-            return this.ordersService.getSingleOrder(id);
+            if (isNaN(id))
+                throw new common_1.BadRequestException('id must be number');
+            return this.invoiceService.getSingleInvoice(id);
         }
         catch (error) {
             throw error;
         }
     }
-    async deleteOrder(req) {
+    async updateInvoice(req) {
+        try {
+            return this.invoiceService.updateInvoice();
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async deleteInvoice(req) {
         try {
             const { id } = req.body;
-            return this.ordersService.deleteOrder(id);
-        }
-        catch (error) {
-            throw error;
-        }
-    }
-    async updateOrders(req) {
-        try {
-            return this.ordersService.updateOrders();
+            if (isNaN(id))
+                throw new common_1.BadRequestException('id must be number');
+            return this.invoiceService.deleteInvoice(id);
         }
         catch (error) {
             throw error;
@@ -70,43 +59,36 @@ let OrdersController = class OrdersController {
     }
 };
 __decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Req)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], OrdersController.prototype, "createOrder", null);
-__decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], OrdersController.prototype, "getAllOders", null);
+], InvoiceController.prototype, "getAllInvoice", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], OrdersController.prototype, "getSingleOrder", null);
-__decorate([
-    (0, common_1.Delete)(),
-    __param(0, (0, common_1.Req)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], OrdersController.prototype, "deleteOrder", null);
+], InvoiceController.prototype, "getSingleInvoice", null);
 __decorate([
     (0, common_1.Patch)(),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], OrdersController.prototype, "updateOrders", null);
-OrdersController = __decorate([
-    (0, common_1.Controller)('orders'),
-    __metadata("design:paramtypes", [orders_service_1.OrdersService])
-], OrdersController);
-exports.OrdersController = OrdersController;
-//# sourceMappingURL=orders.controller.js.map
+], InvoiceController.prototype, "updateInvoice", null);
+__decorate([
+    (0, common_1.Delete)(),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], InvoiceController.prototype, "deleteInvoice", null);
+InvoiceController = __decorate([
+    (0, common_1.Controller)('invoice'),
+    __metadata("design:paramtypes", [invoice_service_1.InvoiceService])
+], InvoiceController);
+exports.InvoiceController = InvoiceController;
+//# sourceMappingURL=invoice.controller.js.map

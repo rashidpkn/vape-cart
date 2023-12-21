@@ -6,10 +6,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClientModule } from './client/client.module';
 import { OrdersModule } from './orders/orders.module';
+import { InvoiceModule } from './invoice/invoice.module';
 
 
 @Module({
-  imports: [ProductModule, DatabaseModule, UploadModule,OrdersModule, ClientModule, ],
+  imports: [ProductModule, DatabaseModule, UploadModule,OrdersModule,InvoiceModule, ClientModule,  ],
   controllers: [AppController],
   providers: [AppService]
 })

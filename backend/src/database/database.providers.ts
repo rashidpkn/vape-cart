@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
+import { Invoice } from 'src/model/invoice.model';
 import { Orders } from 'src/model/orders.model';
 import { Product } from 'src/model/product.model';
 
@@ -19,7 +20,7 @@ export const databaseProviders = [
         },
         logging:false
       });
-      sequelize.addModels([Product,Orders]);
+      sequelize.addModels([Product,Orders,Invoice]);
       try {
         await sequelize.authenticate();
         console.log('Database connection has been established successfully.');

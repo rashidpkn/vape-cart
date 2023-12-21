@@ -8,11 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrdersService = void 0;
 const common_1 = require("@nestjs/common");
+const invoice_model_1 = require("../model/invoice.model");
 const orders_model_1 = require("../model/orders.model");
 let OrdersService = class OrdersService {
     async createOrder(items, subTotal, shipping, discount, totalAmount, totalQuantity, customer, shippingAddress) {
         try {
+            const dueDate = new Date(new Date().setDate(new Date().getDate() + 5));
             const order = orders_model_1.Orders.create({ items, subTotal, shipping, discount, totalAmount, totalQuantity, customer, shippingAddress });
+            const invoice = invoice_model_1.Invoice.create({ items, subTotal, shipping, discount, totalAmount, totalQuantity, invoiceTo: {
+                    email: customer.email,
+                    fullAddress: shippingAddress.fullAddress,
+                    name: customer.name,
+                    phoneNumber: shippingAddress.phoneNumber
+                },
+                dueDate
+            });
             return { message: "Order is successfully placed" };
         }
         catch (error) {
