@@ -14,7 +14,7 @@ import Scrollbar from 'src/components/scrollbar';
 // ----------------------------------------------------------------------
 
 export default function OrderDetailsItems({
-  items,
+  items=[],
   shipping,
   discount,
   taxes,
@@ -78,7 +78,7 @@ export default function OrderDetailsItems({
         }}
       >
         <Scrollbar>
-          {items.map((item) => (
+          {items?.map((item) => (
             <Stack
               key={item.id}
               direction="row"

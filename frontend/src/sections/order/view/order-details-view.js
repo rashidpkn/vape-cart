@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 // @mui
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
@@ -15,6 +15,7 @@ import OrderDetailsInfo from '../order-details-info';
 import OrderDetailsItems from '../order-details-item';
 import OrderDetailsToolbar from '../order-details-toolbar';
 import OrderDetailsHistory from '../order-details-history';
+import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
@@ -25,7 +26,22 @@ export default function OrderDetailsView() {
 
   const { id } = params;
 
-  const currentOrder = _orders.filter((order) => order.id === id)[0];
+  // const currentOrder = _orders.filter((order) => order.id === id)[0];
+
+  const [currentOrder, setCurrentOrder] = useState({})
+  const fetchOrder = async()=>{
+    try {
+      const {data} = await api.get(`orders/${id}`)
+      setCurrentOrder(data)
+      setStatus(data.status)
+    } catch (error) {
+      
+    }
+  }
+  useEffect(() => {
+  fetchOrder()
+  }, [])
+  
 
   const [status, setStatus] = useState(currentOrder.status);
 
@@ -56,7 +72,7 @@ export default function OrderDetailsView() {
               totalAmount={currentOrder.totalAmount}
             />
 
-            <OrderDetailsHistory history={currentOrder.history} />
+            {/* <OrderDetailsHistory history={currentOrder.history} /> */}
           </Stack>
         </Grid>
 
