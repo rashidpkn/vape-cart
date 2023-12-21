@@ -22,7 +22,7 @@ export default function HomeHero({name,setName,fetchProduct }) {
         py: { xs: 20, md: 0 },
         overflow: 'hidden',
         position: 'relative',
-        backgroundSize: '30%, 25%',
+        backgroundSize: '22%, 18.75%',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'left bottom, right bottom',
         backgroundImage:
@@ -99,11 +99,22 @@ export default function HomeHero({name,setName,fetchProduct }) {
           />
           <br />
 
-          <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.black', mt: 3 }}>
-            <TextAnimate text="The"/>
-            <TextAnimate text="Amazon" />
-            <TextAnimate text="of" />
-            <TextAnimate text="Vape" />
+          <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.black',mt:3}}>
+          <TextAnimate text="Your"/>
+          <TextAnimate text="Ultimate"/>
+          <TextAnimate text="Destination"/>
+          <TextAnimate text="for"/>
+          <TextAnimate text="All"/>
+          <TextAnimate text="Vape"/>
+          </Stack>
+
+          <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.black',  }}>
+          
+          <TextAnimate text="Shops:"/>
+          <TextAnimate text="One"/>
+          <TextAnimate text="Website,"/>
+          <TextAnimate text="Endless"/>
+          <TextAnimate text="Choices!"/>
           </Stack>
         </Box>
       </Container>
@@ -118,10 +129,10 @@ function TextAnimate({ text, variants, sx, ...other }) {
     <Box
       component={m.div}
       sx={{
-        typography: 'h1',
+        typography: 'h2',
         overflow: 'hidden',
         display: 'inline-flex',
-        fontSize: { sm: 50, xs: 25 },
+        fontSize: { sm: 25, xs: 12.5 },
         ...sx,
       }}
       {...other}

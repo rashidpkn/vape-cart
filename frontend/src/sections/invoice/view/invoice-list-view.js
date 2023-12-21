@@ -1,5 +1,4 @@
-import sumBy from 'lodash/sumBy';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 // @mui
 import { useTheme, alpha } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
@@ -46,6 +45,7 @@ import InvoiceAnalytic from '../invoice-analytic';
 import InvoiceTableRow from '../invoice-table-row';
 import InvoiceTableToolbar from '../invoice-table-toolbar';
 import InvoiceTableFiltersResult from '../invoice-table-filters-result';
+import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
@@ -54,7 +54,6 @@ const TABLE_HEAD = [
   { id: 'createDate', label: 'Create' },
   { id: 'dueDate', label: 'Due' },
   { id: 'price', label: 'Amount' },
-  { id: 'sent', label: 'Sent', align: 'center' },
   { id: 'status', label: 'Status' },
   { id: '' },
 ];
@@ -80,7 +79,24 @@ export default function InvoiceListView() {
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_invoices);
+  const [tableData, setTableData] = useState([]);
+
+
+  const fetchInvoice = async () => {
+    try {
+      const { data } = await api.get('invoice')
+      console.log(data);
+      setTableData(data)
+    } catch (error) {
+
+    }
+  }
+
+  useEffect(() => {
+    fetchInvoice()
+  
+  }, [])
+  
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -89,17 +105,7 @@ export default function InvoiceListView() {
       ? filters.startDate.getTime() > filters.endDate.getTime()
       : false;
 
-  const dataFiltered = applyFilter({
-    inputData: tableData,
-    comparator: getComparator(table.order, table.orderBy),
-    filters,
-    dateError,
-  });
-
-  const dataInPage = dataFiltered.slice(
-    table.page * table.rowsPerPage,
-    table.page * table.rowsPerPage + table.rowsPerPage
-  );
+  
 
   const denseHeight = table.dense ? 56 : 76;
 
@@ -109,17 +115,11 @@ export default function InvoiceListView() {
     filters.status !== 'all' ||
     (!!filters.startDate && !!filters.endDate);
 
-  const notFound = (!dataFiltered.length && canReset) || !dataFiltered.length;
+  const notFound = (!tableData.length && canReset) || !tableData.length;
 
   const getInvoiceLength = (status) => tableData.filter((item) => item.status === status).length;
 
-  const getTotalAmount = (status) =>
-    sumBy(
-      tableData.filter((item) => item.status === status),
-      'totalAmount'
-    );
 
-  const getPercentByStatus = (status) => (getInvoiceLength(status) / tableData.length) * 100;
 
   const TABS = [
     { value: 'all', label: 'All', color: 'default', count: tableData.length },
@@ -142,24 +142,32 @@ export default function InvoiceListView() {
 
   const handleDeleteRow = useCallback(
     (id) => {
+      api.delete('invoice',{data:{id}}).then(res=>{
+        alert("Invoice in deleted")
+      })
+
       const deleteRow = tableData.filter((row) => row.id !== id);
       setTableData(deleteRow);
 
-      table.onUpdatePageDeleteRow(dataInPage.length);
+      table.onUpdatePageDeleteRow(tableData.length);
     },
-    [dataInPage.length, table, tableData]
+    [tableData.length, table, tableData]
   );
 
   const handleDeleteRows = useCallback(() => {
+    api.delete('invoice',{data:{id:table.selected}}).then(res=>{
+      alert("Invoice in deleted")
+    })
+
     const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
     setTableData(deleteRows);
 
     table.onUpdatePageDeleteRows({
       totalRows: tableData.length,
-      totalRowsInPage: dataInPage.length,
-      totalRowsFiltered: dataFiltered.length,
+      totalRowsInPage: tableData.length,
+      totalRowsFiltered: tableData.length,
     });
-  }, [dataFiltered.length, dataInPage.length, table, tableData]);
+  }, [tableData.length, tableData.length, table, tableData]);
 
   const handleEditRow = useCallback(
     (id) => {
@@ -319,7 +327,7 @@ export default function InvoiceListView() {
               //
               onResetFilters={handleResetFilters}
               //
-              results={dataFiltered.length}
+              results={tableData.length}
               sx={{ p: 2.5, pt: 0 }}
             />
           )}
@@ -382,7 +390,7 @@ export default function InvoiceListView() {
                 />
 
                 <TableBody>
-                  {/* {dataFiltered
+                  {tableData
                     .slice(
                       table.page * table.rowsPerPage,
                       table.page * table.rowsPerPage + table.rowsPerPage
@@ -397,7 +405,7 @@ export default function InvoiceListView() {
                         onEditRow={() => handleEditRow(row.id)}
                         onDeleteRow={() => handleDeleteRow(row.id)}
                       />
-                    ))} */}
+                    ))}
 
                   <TableEmptyRows
                     height={denseHeight}
@@ -411,7 +419,7 @@ export default function InvoiceListView() {
           </TableContainer>
 
           <TablePaginationCustom
-            count={dataFiltered.length}
+            count={tableData.length}
             page={table.page}
             rowsPerPage={table.rowsPerPage}
             onPageChange={table.onChangePage}
@@ -451,46 +459,3 @@ export default function InvoiceListView() {
 
 // ----------------------------------------------------------------------
 
-function applyFilter({ inputData, comparator, filters, dateError }) {
-  const { name, status, service, startDate, endDate } = filters;
-
-  const stabilizedThis = inputData.map((el, index) => [el, index]);
-
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-
-  inputData = stabilizedThis.map((el) => el[0]);
-
-  if (name) {
-    inputData = inputData.filter(
-      (invoice) =>
-        invoice.invoiceNumber.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        invoice.invoiceTo.name.toLowerCase().indexOf(name.toLowerCase()) !== -1
-    );
-  }
-
-  if (status !== 'all') {
-    inputData = inputData.filter((invoice) => invoice.status === status);
-  }
-
-  if (service.length) {
-    inputData = inputData.filter((invoice) =>
-      invoice.items.some((filterItem) => service.includes(filterItem.service))
-    );
-  }
-
-  if (!dateError) {
-    if (startDate && endDate) {
-      inputData = inputData.filter(
-        (invoice) =>
-          fTimestamp(invoice.createDate) >= fTimestamp(startDate) &&
-          fTimestamp(invoice.createDate) <= fTimestamp(endDate)
-      );
-    }
-  }
-
-  return inputData;
-}

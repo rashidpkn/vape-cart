@@ -170,7 +170,7 @@ export default function ProductShopView() {
       <Typography
         variant="h4"
         sx={{
-          my: { xs: 3, md: 5 },
+          my: { xs: 1.5, md: 3 },
         }}
       >
         Shop

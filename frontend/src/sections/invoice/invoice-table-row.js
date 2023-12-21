@@ -32,7 +32,7 @@ export default function InvoiceTableRow({
   onEditRow,
   onDeleteRow,
 }) {
-  const { sent, invoiceNumber, createDate, dueDate, status, invoiceTo, totalAmount } = row;
+  const { sent, id, createdAt, dueDate, status, invoiceTo, totalAmount } = row;
 
   const confirm = useBoolean();
 
@@ -64,7 +64,7 @@ export default function InvoiceTableRow({
                 onClick={onViewRow}
                 sx={{ color: 'text.disabled', cursor: 'pointer' }}
               >
-                {invoiceNumber}
+                {id}
               </Link>
             }
           />
@@ -72,8 +72,8 @@ export default function InvoiceTableRow({
 
         <TableCell>
           <ListItemText
-            primary={format(new Date(createDate), 'dd MMM yyyy')}
-            secondary={format(new Date(createDate), 'p')}
+            primary={format(new Date(createdAt), 'dd MMM yyyy')}
+            secondary={format(new Date(createdAt), 'p')}
             primaryTypographyProps={{ typography: 'body2', noWrap: true }}
             secondaryTypographyProps={{
               mt: 0.5,
@@ -98,7 +98,6 @@ export default function InvoiceTableRow({
 
         <TableCell>{fCurrency(totalAmount)}</TableCell>
 
-        <TableCell align="center">{sent}</TableCell>
 
         <TableCell>
           <Label

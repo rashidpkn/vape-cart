@@ -73,7 +73,8 @@ export default function OrderListView() {
   const fetchOrders = async()=>{
 try {
   const {data} =  await api.get('/orders')
-  setTableData(data)
+  setTableData(data.reverse())
+   
 } catch (error) {
  console.log(error.message); 
 }

@@ -13,7 +13,7 @@ export default function HomeLookingFor() {
   return (
     <Container
       sx={{
-        py: { xs: 10, md: 15 },
+        py: { xs: 1.5, md: 3 },
       }}
     >
       <Grid container justifyContent="center" spacing={2}>
