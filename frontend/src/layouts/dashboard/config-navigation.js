@@ -68,31 +68,11 @@ export function useNavData() {
       {
         subheader: t('management'),
         items: [
-          // USER
-          // {
-          //   title: t('user'),
-          //   path: paths.dashboard.user.root,
-          //   icon: ICONS.user,
-          //   children: [
-          //     { title: t('profile'), path: paths.dashboard.user.root },
-          //     { title: t('cards'), path: paths.dashboard.user.cards },
-          //     { title: t('list'), path: paths.dashboard.user.list },
-          //     { title: t('create'), path: paths.dashboard.user.new },
-          //     { title: t('edit'), path: paths.dashboard.user.demo.edit },
-          //     { title: t('account'), path: paths.dashboard.user.account },
-          //   ],
-          // },
-
-          // PRODUCT
           {
-            title: t('products'),
-            path: paths.dashboard.product.root,
-            icon: ICONS.product,
+            title: t('products'), path: paths.dashboard.product.root, icon: ICONS.product,
             children: [
               { title: t('products'), path: paths.dashboard.product.root },
-              // { title: t('details'), path: paths.dashboard.product.demo.details },
               { title: t('create new product'), path: paths.dashboard.product.new },
-              // { title: t('edit'), path: paths.dashboard.product.demo.edit },
             ],
           },
 
@@ -101,10 +81,9 @@ export function useNavData() {
             title: t('orders'),
             path: paths.dashboard.order.root,
             icon: ICONS.order,
-            children: [
-              { title: t('orders'), path: paths.dashboard.order.root },
-              // { title: t('details'), path: paths.dashboard.order.demo.details },
-            ],
+            // children: [
+            //   { title: t('orders'), path: paths.dashboard.order.root },
+            // ],
           },
 
           // INVOICE
@@ -112,12 +91,12 @@ export function useNavData() {
             title: t('invoice'),
             path: paths.dashboard.invoice.root,
             icon: ICONS.invoice,
-            children: [
-              { title: t('invoice'), path: paths.dashboard.invoice.root },
-              // { title: t('details'), path: paths.dashboard.invoice.demo.details },
-              { title: t('create new invoice'), path: paths.dashboard.invoice.new },
-              // { title: t('edit'), path: paths.dashboard.invoice.demo.edit },
-            ],
+            // children: [
+            //   { title: t('invoice'), path: paths.dashboard.invoice.root },
+            //   // { title: t('details'), path: paths.dashboard.invoice.demo.details },
+            //   { title: t('create new invoice'), path: paths.dashboard.invoice.new },
+            //   // { title: t('edit'), path: paths.dashboard.invoice.demo.edit },
+            // ],
           },
        
 
