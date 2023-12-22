@@ -7,6 +7,9 @@ import react from '@vitejs/plugin-react';
 // ----------------------------------------------------------------------
 
 export default defineConfig({
+  build:{
+    minify: true,
+  },
   plugins: [react()],
   resolve: {
     alias: {
