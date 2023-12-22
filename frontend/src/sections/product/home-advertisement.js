@@ -51,7 +51,7 @@ export default function HomeAdvertisement() {
             variant="contained"
             target="_blank"
             rel="noopener"
-            href={'#'}
+            href="#"
             sx={{
               color: 'grey.800',
               bgcolor: 'common.white',

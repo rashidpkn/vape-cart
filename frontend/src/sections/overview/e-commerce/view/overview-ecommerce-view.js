@@ -1,6 +1,5 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 // hooks
@@ -15,10 +14,9 @@ import {
 // components
 import { useSettingsContext } from 'src/components/settings';
 // assets
-import { MotivationIllustration } from 'src/assets/illustrations';
+
 //
-import EcommerceWelcome from '../ecommerce-welcome';
-import EcommerceNewProducts from '../ecommerce-new-products';
+
 import EcommerceYearlySales from '../ecommerce-yearly-sales';
 import EcommerceBestSalesman from '../ecommerce-best-salesman';
 import EcommerceSaleByGender from '../ecommerce-sale-by-gender';

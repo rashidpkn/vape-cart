@@ -1,24 +1,18 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 // @mui
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+
+
 import Grid from '@mui/material/Unstable_Grid2';
 import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
-import ListItemIcon from '@mui/material/ListItemIcon';
+
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemButton from '@mui/material/ListItemButton';
 // components
-import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
-import HomeAdvertisement from './home-advertisement';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +24,7 @@ export default function HomeSidebar() {
       };
 
   return (
-    <Grid container width={'250px'}>
+    <Grid container width="250px">
         <Paper sx={{ width: 1 }}>
             <List
                 component="nav"

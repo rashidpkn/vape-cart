@@ -15,9 +15,9 @@ import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { ColorPreview } from 'src/components/color-utils';
 //
-import IncrementerButton from '../common/incrementer-button';
 import { getCart } from 'src/redux/slices/checkout';
 import { useDispatch } from 'src/redux/store';
+import IncrementerButton from '../common/incrementer-button';
 
 // ----------------------------------------------------------------------
 

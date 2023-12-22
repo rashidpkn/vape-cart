@@ -17,16 +17,15 @@ import {
   PRODUCT_CATEGORY_OPTIONS,
 } from 'src/_mock';
 // components
-import EmptyContent from 'src/components/empty-content';
+
 //
+import api from 'src/utils/api';
 import { useCheckout } from '../hooks';
 import CartIcon from '../common/cart-icon';
 import ProductList from '../product-list';
 import ProductSort from '../product-sort';
-import ProductSearch from '../product-search';
 import ProductFilters from '../product-filters';
 import ProductFiltersResult from '../product-filters-result';
-import api from 'src/utils/api';
 import HomeHero from '../home-hero';
 import HomeLookingFor from '../home-looking-for';
 import HomeSidebar from '../home-sidebar';
@@ -113,7 +112,7 @@ export default function ProductShopView() {
         name={name}
         fetchProduct={fetchProduct}
       /> */}
-      <Box sx={{maxWidth:'275px',width:'100%'}}></Box>
+      <Box sx={{maxWidth:'275px',width:'100%'}} />
 
 <Typography variant="h4" > Shop </Typography>
 
@@ -152,7 +151,7 @@ export default function ProductShopView() {
     />
   );
 
-  const renderNotFound = <EmptyContent filled title="No Data" sx={{ py: 10 }} />;
+
 
   return (
     <Container
@@ -184,7 +183,7 @@ export default function ProductShopView() {
         {canReset && renderResults}
       </Stack>
 
-      <Stack direction={'row'}>
+      <Stack direction="row">
         <HomeSidebar />
         <ProductList products={dataFiltered} loading={false} />
       </Stack>

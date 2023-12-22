@@ -40,7 +40,7 @@ export default function CheckoutPaymentMethods({ options, cardOptions, ...other 
                   key={option.label}
                   onOpen={newCard.onTrue}
                   cardOptions={cardOptions}
-                  selected={'cash' === option.value}
+                  selected={option.value === 'cash'}
                   isCredit={option.value === 'credit' && field.value === 'credit'}
                   onClick={() => {
                     field.onChange(option.value);

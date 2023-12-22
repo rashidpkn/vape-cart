@@ -14,7 +14,6 @@ import { fCurrency } from 'src/utils/format-number';
 import { useDispatch } from 'src/redux/store';
 import { addToCart } from 'src/redux/slices/checkout';
 // components
-import Label from 'src/components/label';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { ColorPreview } from 'src/components/color-utils';

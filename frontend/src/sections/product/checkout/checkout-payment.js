@@ -10,11 +10,11 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Iconify from 'src/components/iconify';
 import FormProvider from 'src/components/hook-form';
 //
+import api from 'src/utils/api';
 import CheckoutSummary from './checkout-summary';
 import CheckoutDelivery from './checkout-delivery';
 import CheckoutBillingInfo from './checkout-billing-info';
 import CheckoutPaymentMethods from './checkout-payment-methods';
-import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 

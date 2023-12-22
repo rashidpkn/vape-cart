@@ -88,7 +88,7 @@ export default function CheckoutDelivery( ) {
       />
     </Paper>
             ))}
-          <Box display={'flex'} justifyContent={'flex-end'} alignItems={'flex-end'}>
+          <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
             <Button variant='contained' color='success' >Save</Button>
           </Box>
           </Box>

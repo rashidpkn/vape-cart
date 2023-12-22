@@ -24,10 +24,7 @@ import { useSettingsContext } from 'src/components/settings';
 import {
   useTable,
   getComparator,
-  emptyRows,
-  TableNoData,
   TableSkeleton,
-  TableEmptyRows,
   TableHeadCustom,
   TableSelectedAction,
   TablePaginationCustom,
@@ -37,11 +34,11 @@ import Scrollbar from 'src/components/scrollbar';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
+import api from 'src/utils/api';
+import { useAuthContext } from 'src/auth/hooks';
 import ProductTableRow from '../product-table-row';
 import ProductTableToolbar from '../product-table-toolbar';
 import ProductTableFiltersResult from '../product-table-filters-result';
-import api from 'src/utils/api';
-import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 

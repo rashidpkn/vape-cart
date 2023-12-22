@@ -1,11 +1,11 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
+
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 // hooks
-import { useMockedUser } from 'src/hooks/use-mocked-user';
+
 // _mock
 import { _appFeatured, _appAuthors, _appInstalled, _appRelated, _appInvoices } from 'src/_mock';
 // components
@@ -13,18 +13,17 @@ import { useSettingsContext } from 'src/components/settings';
 // assets
 import { SeoIllustration } from 'src/assets/illustrations';
 //
-import AppWidget from '../app-widget';
+import { useAuthContext } from 'src/auth/hooks';
+import { Link } from 'react-router-dom';
+
 import AppWelcome from '../app-welcome';
 import AppFeatured from '../app-featured';
 import AppNewInvoice from '../app-new-invoice';
-import AppTopAuthors from '../app-top-authors';
-import AppTopRelated from '../app-top-related';
-import AppAreaInstalled from '../app-area-installed';
+
+
+
 import AppWidgetSummary from '../app-widget-summary';
-import AppCurrentDownload from '../app-current-download';
-import AppTopInstalledCountries from '../app-top-installed-countries';
-import { useAuthContext } from 'src/auth/hooks';
-import { Link } from 'react-router-dom';
+
 
 // ----------------------------------------------------------------------
 
@@ -44,7 +43,7 @@ export default function OverviewAppView() {
             description="If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything."
             img={<SeoIllustration />}
             action={
-              <Link to={'/dashboard/product/new'}>
+              <Link to="/dashboard/product/new">
               <Button variant="contained" color="primary">
                 Add Product
               </Button>

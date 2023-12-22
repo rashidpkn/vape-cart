@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 // @mui
-import Pagination, { paginationClasses } from '@mui/material/Pagination';
 //
 import ProductReviewItem from './product-review-item';
 

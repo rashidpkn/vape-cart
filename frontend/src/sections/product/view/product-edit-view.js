@@ -7,10 +7,10 @@ import { useParams } from 'src/routes/hook';
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
-import ProductNewEditForm from '../product-new-edit-form';
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 import {useNavigate} from 'react-router-dom'
+import ProductNewEditForm from '../product-new-edit-form';
 
 // ----------------------------------------------------------------------
 

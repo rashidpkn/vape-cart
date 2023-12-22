@@ -22,7 +22,6 @@ import { useResponsive } from 'src/hooks/use-responsive';
 // _mock
 import {
   _tags,
-  PRODUCT_SIZE_OPTIONS,
   PRODUCT_COLOR_NAME_OPTIONS,
   PRODUCT_CATEGORY_GROUP_OPTIONS,
 } from 'src/_mock';

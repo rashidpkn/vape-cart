@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 // @mui
 import Box from '@mui/material/Box';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import TablePagination from '@mui/material/TablePagination';
 
 // ----------------------------------------------------------------------

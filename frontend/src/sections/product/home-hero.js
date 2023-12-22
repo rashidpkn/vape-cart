@@ -75,8 +75,7 @@ export default function HomeHero({name,setName,fetchProduct }) {
                 </InputAdornment>
               ),
               endAdornment: (
-                <>
-                  <Button
+                <Button
                     variant="contained"
                     position="end"
                     sx={{
@@ -89,7 +88,6 @@ export default function HomeHero({name,setName,fetchProduct }) {
                   >
                     Search
                   </Button>
-                </>
               ),
               style: {
                 padding: 0,
