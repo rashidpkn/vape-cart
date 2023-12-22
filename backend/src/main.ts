@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule,{cors:{origin:'*'}});
   
   app.use('/assets', (req: Request, res: Response, next: Function) => {
-    res.setHeader('Cache-Control', 'public, max-age=864000'); // Cache for 10 days
+    res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year
     next();
   }, static_(join(__dirname, '..', '..', 'frontend', 'dist','assets')));
 
