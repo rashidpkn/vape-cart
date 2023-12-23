@@ -8,6 +8,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import { mainRoutes} from './main';
 import { authRoutes } from './auth';
 import { dashboardRoutes } from './dashboard';
+
 // import { componentsRoutes } from './components';
 
 // ----------------------------------------------------------------------

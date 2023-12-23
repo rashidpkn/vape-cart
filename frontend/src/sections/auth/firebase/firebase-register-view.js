@@ -176,7 +176,7 @@ export default function FirebaseRegisterView() {
 
       <RHFTextField name="storeName" label="Store name" />
       
-      <RHFTextField name="email" label="Business email address" />
+      <RHFTextField name="email" label="Email address" />
       <RHFTextField name="phoneNumber" label="Phone number" />
       <RHFTextField name="contactPersonInTouch" label="Contact person in touch" />
       {/* <RHFTextField name="tradeLicense" label="Trade license" /> */}

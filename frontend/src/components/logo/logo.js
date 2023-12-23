@@ -16,7 +16,7 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
   const logo = (
     <Box
       component="img"
-      src="/logo/logo_single.png" 
+      src="/logo/logo_single.webp" 
       sx={{ width: 40, height: 40, cursor: 'pointer', ...sx }}
     />
   );

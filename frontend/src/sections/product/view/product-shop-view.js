@@ -50,7 +50,6 @@ export default function ProductShopView() {
 
   const [sortBy, setSortBy] = useState('featured');
 
-  console.log(sortBy);
 
 
 
