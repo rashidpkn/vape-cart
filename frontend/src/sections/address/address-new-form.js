@@ -11,7 +11,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-
+import MenuItem from '@mui/material/MenuItem';
 // assets
 import { countries } from 'src/assets/data';
 // components
@@ -21,6 +21,7 @@ import FormProvider, {
   RHFTextField,
   RHFRadioGroup,
   RHFAutocomplete,
+  RHFSelect,
 } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
@@ -29,11 +30,13 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
   const NewAddressSchema = Yup.object().shape({
     name: Yup.string().required('Fullname is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
+    apartment:Yup.string().required('Apartment is required'),
     address: Yup.string().required('Address is required'),
     city: Yup.string().required('City is required'),
     state: Yup.string().required('State is required'),
     country: Yup.string().required('Country is required'),
-    zipCode: Yup.string().required('Zip code is required'),
+    // zipCode: Yup.string().required('Zip code is required'),
+    email: Yup.string().email().required('Email is required'),
     // not required
     addressType: Yup.string(),
     primary: Yup.boolean(),
@@ -44,11 +47,13 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
     city: '',
     state: '',
     address: '',
-    zipCode: '',
+    // zipCode: '',
     primary: true,
     phoneNumber: '',
+    apartment:'',
     addressType: 'Home',
-    country: '',
+    country: 'United Arab Emirates',
+    email:''
   };
 
   const methods = useForm({
@@ -66,9 +71,10 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
       onCreate({
         name: data.name,
         phoneNumber: data.phoneNumber,
-        fullAddress: `${data.address}, ${data.city}, ${data.state}, ${data.country}, ${data.zipCode}`,
+        fullAddress: `${data.apartment} ,${data.address}, ${data.city}, ${data.state}, ${data.country}`,
         addressType: data.addressType,
         primary: data.primary,
+        email:data.email
       });
       onClose();
     } catch (error) {
@@ -106,7 +112,8 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
               <RHFTextField name="phoneNumber" label="Phone Number" />
             </Box>
 
-            <RHFTextField name="address" label="Address" />
+            <RHFTextField name="apartment" label="Apartment ,suite,unit etc" />
+            <RHFTextField name="address" label="Street Address" />
 
             <Box
               rowGap={3}
@@ -114,15 +121,27 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
               display="grid"
               gridTemplateColumns={{
                 xs: 'repeat(1, 1fr)',
-                sm: 'repeat(3, 1fr)',
+                sm: 'repeat(2, 1fr)',
               }}
             >
-              <RHFTextField name="city" label="Town / City" />
+              <RHFTextField name="city" label="City" />
 
-              <RHFTextField name="state" label="State" />
+              {/* <RHFTextField name="state" label="State" /> */}
+              <RHFSelect name="state" label="Emirate / Province">
+                <MenuItem value="">Select an Emirate</MenuItem>
+                <MenuItem value="Abu Dhabi">Abu Dhabi</MenuItem>
+                <MenuItem value="Ajman">Ajman</MenuItem>
+                <MenuItem value="Dubai">Dubai</MenuItem>
+                <MenuItem value="Fujairah">Fujairah</MenuItem>
+                <MenuItem value="Ras Al Khaimah">Ras Al Khaimah</MenuItem>
+                <MenuItem value="Sharjah">Sharjah</MenuItem>
+                <MenuItem value="Umm Al Quwain">Umm Al Quwain</MenuItem>
+              </RHFSelect>
 
-              <RHFTextField name="zipCode" label="Zip/Code" />
+              {/* <RHFTextField name="zipCode" label="Zip/Code" /> */}
             </Box>
+
+            <RHFTextField name="email" label="E-mail" />
 
             <RHFAutocomplete
               name="country"

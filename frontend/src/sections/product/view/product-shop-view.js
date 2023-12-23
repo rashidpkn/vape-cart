@@ -71,7 +71,7 @@ export default function ProductShopView() {
 
   useEffect(() => {
     fetchProduct()
-  }, [sortBy])
+  }, [sortBy,name])
 
 
   const handleFilters = useCallback((name, value) => {

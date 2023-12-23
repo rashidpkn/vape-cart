@@ -11,10 +11,27 @@ import Button from '@mui/material/Button';
 import { MotionContainer, varFade } from 'src/components/animate';
 import Iconify from 'src/components/iconify';
 
+
+import Autocomplete from '@mui/material/Autocomplete';
+import api from 'src/utils/api';
+import { useEffect, useState } from 'react';
+
 // ----------------------------------------------------------------------
 
 
 export default function HomeHero({name,setName,fetchProduct }) {
+
+  const [options, setOptions] = useState([])
+  const [selectedValue, setSelectedValue] = useState(null);
+
+  useEffect(() => {
+    
+  api.get('products').then(res=>{
+    setOptions(res.data.products)
+  })
+  }, [])
+  
+
   return (
     <Box
       sx={{
@@ -60,7 +77,7 @@ export default function HomeHero({name,setName,fetchProduct }) {
 
           <br />
 
-          <TextField
+          {/* <TextField
             sx = {{
               height: { sm: 50, xs: 20 },
               width: { sm: 300, md: 600 },
@@ -94,7 +111,24 @@ export default function HomeHero({name,setName,fetchProduct }) {
                 borderRadius: 50,
               },
             }}
-          />
+          /> */}
+
+
+
+<Autocomplete
+sx={{borderRadius:999,width: { sm: 300, md: 600 },position:'relative',mx:'auto'}} style={{borderRadius:999}}
+      options={options.map(({name,id})=>({name,id}))}
+      getOptionLabel={(option) => option.name}
+      value={selectedValue}
+      onChange={(event, newValue) => {setName(newValue.name),setSelectedValue(newValue)}}
+      renderInput={(params) => (
+        <TextField {...params} variant="outlined"  sx={{borderRadius:999}} style={{borderRadius:999}}  placeholder='Search Your Product'/>
+      )}
+    />
+
+
+
+
           <br />
 
           <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.black',mt:3}}>
