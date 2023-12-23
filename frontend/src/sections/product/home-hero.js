@@ -26,7 +26,7 @@ export default function HomeHero({name,setName,fetchProduct }) {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'left bottom, right bottom',
         backgroundImage:
-          'url(/assets/images/home/Joyetech-Tralus.webp), url(https://vapemonkeydubai.co/wp-content/uploads/2023/09/apple_bomb.png)',
+          'url(/assets/images/home/Joyetech-Tralus.webp), url(/assets/images/home/apple_bomb.webp)',
       }}
     >
       <Container component={MotionContainer}>
