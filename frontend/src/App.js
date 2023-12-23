@@ -46,17 +46,17 @@ import { AuthProvider, AuthConsumer } from 'src/auth/context/firebase';
 // ----------------------------------------------------------------------
 
 export default function App() {
-  const charAt = `
+  // const charAt = `
 
-  ░░░    ░░░ 
-  ▒▒▒▒  ▒▒▒▒ 
-  ▒▒ ▒▒▒▒ ▒▒ 
-  ▓▓  ▓▓  ▓▓ 
-  ██      ██ 
+  // ░░░    ░░░ 
+  // ▒▒▒▒  ▒▒▒▒ 
+  // ▒▒ ▒▒▒▒ ▒▒ 
+  // ▓▓  ▓▓  ▓▓ 
+  // ██      ██ 
   
-  `;
+  // `;
 
-  console.info(`%c${charAt}`, 'color: #5BE49B');
+  // console.info(`%c${charAt}`, 'color: #5BE49B');
 
   useScrollToTop();
 

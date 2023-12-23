@@ -2,14 +2,12 @@
 import Container from '@mui/material/Container';
 // routes
 import { paths } from 'src/routes/paths';
-// _mock
-import { _invoices } from 'src/_mock';
 // components
 import { useParams } from 'src/routes/hook';
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
-import { useCallback, useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import api from 'src/utils/api';
 import InvoiceDetails from '../invoice-details';
 

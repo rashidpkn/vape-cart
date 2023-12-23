@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import sumBy from 'lodash/sumBy';
 // @mui
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -20,9 +19,8 @@ import ProductReviewNewForm from './product-review-new-form';
 
 // ----------------------------------------------------------------------
 
-export default function ProductDetailsReview({ totalRatings, totalReviews, ratings, reviews }) {
+export default function ProductDetailsReview({ reviews }) {
   const review = useBoolean();
-  const total = sumBy(ratings, (star) => star.starCount);
 
   const renderSummary = (
     <Stack spacing={1} alignItems="center" justifyContent="center">

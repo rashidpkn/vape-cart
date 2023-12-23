@@ -117,8 +117,6 @@ export default function ProductListView() {
 
   const canReset = !isEqual(defaultFilters, filters);
 
-  const notFound = (!dataFiltered.length && canReset) || productsEmpty;
-
   const handleFilters = useCallback(
     (name, value) => {
       table.onResetPage();

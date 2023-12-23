@@ -4,9 +4,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 // _mock
 import {
-  _analyticTasks,
   _analyticPosts,
-  _analyticTraffic,
   _analyticOrderTimeline,
 } from 'src/_mock';
 // components

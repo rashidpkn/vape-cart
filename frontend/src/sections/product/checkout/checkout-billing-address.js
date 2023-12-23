@@ -4,13 +4,12 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2';
 // _mock
-import { _addressBooks } from 'src/_mock';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // components
 import Iconify from 'src/components/iconify';
 //
-import { AddressNewForm, AddressItem } from '../../address';
+import { AddressNewForm } from '../../address';
 import CheckoutSummary from './checkout-summary';
 
 // ----------------------------------------------------------------------

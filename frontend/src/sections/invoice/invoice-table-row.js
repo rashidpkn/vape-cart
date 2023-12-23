@@ -32,7 +32,7 @@ export default function InvoiceTableRow({
   onEditRow,
   onDeleteRow,
 }) {
-  const { sent, id, createdAt, dueDate, status, invoiceTo, totalAmount } = row;
+  const { id, createdAt, dueDate, status, invoiceTo, totalAmount } = row;
 
   const confirm = useBoolean();
 

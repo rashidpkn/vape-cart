@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import orderBy from 'lodash/orderBy';
 // @mui
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';

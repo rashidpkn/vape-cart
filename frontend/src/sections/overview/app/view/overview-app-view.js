@@ -1,13 +1,13 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-
+ 
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 // hooks
 
 // _mock
-import { _appFeatured, _appAuthors, _appInstalled, _appRelated, _appInvoices } from 'src/_mock';
+import { _appFeatured,  _appInvoices } from 'src/_mock';
 // components
 import { useSettingsContext } from 'src/components/settings';
 // assets
@@ -179,10 +179,7 @@ export default function OverviewAppView() {
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
-          <AppTopAuthors title="Top Authors" list={_appAuthors} />
-        </Grid>
-
-        <Grid xs={12} md={6} lg={4}>
+          <AppTopAuthors title="Top Authors" list={ <Grid xs={12} md={6} lg={4}>
           <Stack spacing={3}>
             <AppWidget
               title="Conversion"

@@ -21,7 +21,7 @@ import { ColorPreview } from 'src/components/color-utils';
 // ----------------------------------------------------------------------
 
 export default function ProductItem({ product }) {
-  const { id, name, images, salePrice, colors, available, sizes, regularPrice,quantity,storeName } =
+  const { id, name, images, salePrice, colors, regularPrice,quantity,storeName } =
     product;
 
   const dispatch = useDispatch();

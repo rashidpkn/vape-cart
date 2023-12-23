@@ -9,9 +9,7 @@ import Typography from '@mui/material/Typography';
 // theme
 import { bgGradient } from 'src/theme/css';
 // routes
-import { paths } from 'src/routes/paths';
 // components
-import Iconify from 'src/components/iconify';
 import { MotionViewport, varFade } from 'src/components/animate';
 
 // ----------------------------------------------------------------------

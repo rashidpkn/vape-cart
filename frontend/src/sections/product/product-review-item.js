@@ -14,7 +14,7 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function ProductReviewItem({ reviews }) {
-  const { name, rating, review, postedAt, avatarUrl, attachments, isPurchased } = reviews;
+  const { name, rating, review, postedAt, avatarUrl, attachments } = reviews;
 
   const renderInfo = (
     <Stack

@@ -19,9 +19,7 @@ import { HEADER, NAV } from '../config-layout';
 import {
   Searchbar,
   AccountPopover,
-  SettingsButton,
   LanguagePopover,
-  ContactsPopover,
   NotificationsPopover,
 } from '../_common';
 
