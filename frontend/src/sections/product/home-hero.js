@@ -15,11 +15,13 @@ import Iconify from 'src/components/iconify';
 import Autocomplete from '@mui/material/Autocomplete';
 import api from 'src/utils/api';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 // ----------------------------------------------------------------------
 
 
 export default function HomeHero({name,setName,fetchProduct }) {
+  const navigate = useNavigate()
 
   const [options, setOptions] = useState([])
   const [selectedValue, setSelectedValue] = useState(null);
@@ -120,7 +122,11 @@ sx={{borderRadius:999,width: { sm: 300, md: 600 },position:'relative',mx:'auto'}
       options={options.map(({name,id})=>({name,id}))}
       getOptionLabel={(option) => option.name}
       value={selectedValue}
-      onChange={(event, newValue) => {setName(newValue.name),setSelectedValue(newValue)}}
+      onChange={(event, newValue) => {
+        setName(newValue.name);
+        navigate(`/product/${newValue.id}`)
+        setSelectedValue(newValue)
+      }}
       renderInput={(params) => (
         <TextField {...params} variant="outlined"  sx={{borderRadius:999}} style={{borderRadius:999}}  placeholder='Search Your Product'/>
       )}
