@@ -1,11 +1,12 @@
 import { lazy, Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 // layouts
 import MainLayout from 'src/layouts/main';
 // import SimpleLayout from 'src/layouts/simple';
 import CompactLayout from 'src/layouts/compact';
 // components
 import { SplashScreen } from 'src/components/loading-screen';
+import { paths } from '../paths';
 
 // ----------------------------------------------------------------------
 
@@ -39,7 +40,7 @@ export const mainRoutes = [
       </MainLayout>
     ),
     children: [
-      { element: <FirebaseLoginPage />, index: true },
+      { element: <Navigate to={paths.auth.firebase.login} />, index: true },
       // { path: 'about-us', element: <AboutPage /> },
       // { path: 'contact-us', element: <ContactPage /> },
       // { path: 'faqs', element: <FaqsPage /> },
