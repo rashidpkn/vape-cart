@@ -16,28 +16,28 @@ import { useSnackbar } from 'src/components/snackbar';
 const NOTIFICATIONS = [
   {
     subheader: 'Activity',
-    caption: 'Donec mi odio, faucibus at, scelerisque quis',
+    caption: '',
     items: [
       {
         id: 'activity_comments',
-        label: 'Email me when someone comments onmy article',
+        label: 'Email me when customer makes a purchase.',
       },
       {
         id: 'activity_answers',
-        label: 'Email me when someone answers on my form',
+        label: 'Email me when customer cancels an order.',
       },
-      { id: 'activityFollows', label: 'Email me hen someone follows me' },
+      { id: 'activityFollows', label: 'Email me when order is delivered.' },
+      { id: 'application_news', label: 'Email me when  someone leaves a review.' },
+      { id: 'application_product', label: 'Email me when stock is below 5.' },
     ],
   },
-  {
-    subheader: 'Application',
-    caption: 'Donec mi odio, faucibus at, scelerisque quis',
-    items: [
-      { id: 'application_news', label: 'News and announcements' },
-      { id: 'application_product', label: 'Weekly product updates' },
-      { id: 'application_blog', label: 'Weekly blog digest' },
-    ],
-  },
+  // {
+  //   subheader: 'Application',
+  //   caption: '',
+  //   items: [
+      
+  //   ],
+  // },
 ];
 
 // ----------------------------------------------------------------------

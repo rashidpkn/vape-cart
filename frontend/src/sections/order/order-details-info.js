@@ -38,12 +38,7 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
 
           <Box sx={{ color: 'text.secondary' }}>{customer?.email}</Box>
 
-          {/* <Box>
-            IP Address:
-            <Box component="span" sx={{ color: 'text.secondary', ml: 0.25 }}>
-              {customer?.ipAddress}
-            </Box>
-          </Box> */}
+         
 
           <Button
             size="small"
@@ -106,10 +101,33 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
       <Stack spacing={1.5} sx={{ p: 3, typography: 'body2' }}>
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
-            Address
+            Suite
           </Box>
-          {shippingAddress?.fullAddress}
+          {shippingAddress?.fullAddress.split(',')[0]}
         </Stack>
+        <Stack direction="row" alignItems="center">
+          <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
+            Street Address
+          </Box>
+          {shippingAddress?.fullAddress.split(',')[1]}
+        </Stack>
+
+
+        <Stack direction="row" alignItems="center">
+          <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
+            City
+          </Box>
+          {shippingAddress?.fullAddress.split(',')[2]}
+        </Stack>
+
+
+        <Stack direction="row" alignItems="center">
+          <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
+          Country
+          </Box>
+          {shippingAddress?.fullAddress.split(',')[4]}
+        </Stack>
+
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
             Phone number
