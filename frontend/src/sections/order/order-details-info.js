@@ -154,7 +154,7 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
         </Box>
 
         Cash
-        <Iconify icon="logos:mastercard" width={24} sx={{ ml: 0.5 }} />
+        <Iconify icon="la:money-bill-wave"  width={24} sx={{ ml: 0.5,color:'#85bb65' }} />
       </Stack>
     </>
   );
