@@ -17,7 +17,7 @@ try {
     const fileName = `${uuidv4()}.webp`;
     await fsPromises.writeFile(join(__dirname, `../../uploads/${fileName}`), webpBuffer);
     await fsPromises.unlink(file.path);
-    result.push(`/uploads/${fileName}`);
+    result.push(`https://delhi-vape.com/uploads/${fileName}`);
   }
   return result;
 } catch (error) {
