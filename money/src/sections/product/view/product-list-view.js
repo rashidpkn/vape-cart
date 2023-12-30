@@ -83,7 +83,7 @@ export default function ProductListView() {
   useEffect(() => {
     const featchProduct = async () => {
       try {
-        const { data: { products: p, count } } = await api.get('products',{params:{userId:id}})
+        const { data: { products: p, count } } = await api.get('products')
         setProducts(p)
       } catch (error) {
         alert("error Occure")

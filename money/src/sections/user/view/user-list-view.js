@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
@@ -41,17 +41,19 @@ import {
 import UserTableRow from '../user-table-row';
 import UserTableToolbar from '../user-table-toolbar';
 import UserTableFiltersResult from '../user-table-filters-result';
+import { collection, getDocs } from 'firebase/firestore';
+import { DB } from 'src/auth/context/firebase/auth-provider';
 
 // ----------------------------------------------------------------------
 
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All' }];
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name' },
   { id: 'phoneNumber', label: 'Phone Number', width: 180 },
-  { id: 'company', label: 'Company', width: 220 },
-  { id: 'role', label: 'Role', width: 180 },
-  { id: 'status', label: 'Status', width: 100 },
+  { id: 'company', label: 'Company', width: 100 },
+  { id: 'tradeLicense', label: 'Trade License', width: 180 },
+  { id: 'contactPersonInTouch', label: 'Contact Person In Touch', width: 220 },
   { id: '', width: 88 },
 ];
 
@@ -73,6 +75,26 @@ export default function UserListView() {
   const confirm = useBoolean();
 
   const [tableData, setTableData] = useState([]);
+
+  const getUsers = async()=>{
+    const querySnapshot = await getDocs(collection(DB, 'users'));
+    const users = [];
+    
+    querySnapshot.forEach((doc) => {
+      users.push(doc.data());
+    });
+    
+    console.log(users);
+    setTableData(users)
+  }
+
+  useEffect(() => {
+
+   getUsers()
+  }, [])
+  
+
+  
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -188,23 +210,10 @@ export default function UserListView() {
                     variant={
                       ((tab.value === 'all' || tab.value === filters.status) && 'filled') || 'soft'
                     }
-                    color={
-                      (tab.value === 'active' && 'success') ||
-                      (tab.value === 'pending' && 'warning') ||
-                      (tab.value === 'banned' && 'error') ||
-                      'default'
-                    }
+                   
                   >
-                    {tab.value === 'all' && _userList.length}
-                    {tab.value === 'active' &&
-                      _userList.filter((user) => user.status === 'active').length}
-
-                    {tab.value === 'pending' &&
-                      _userList.filter((user) => user.status === 'pending').length}
-                    {tab.value === 'banned' &&
-                      _userList.filter((user) => user.status === 'banned').length}
-                    {tab.value === 'rejected' &&
-                      _userList.filter((user) => user.status === 'rejected').length}
+                    {tab.value === 'all' && tableData.length}
+                  
                   </Label>
                 }
               />
