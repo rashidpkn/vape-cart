@@ -7,7 +7,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 // hooks
 
 // _mock
-import { _appFeatured,  _appInvoices } from 'src/_mock';
+import { _appFeatured,  _appInstalled,  _appInvoices, _appRelated } from 'src/_mock';
 // components
 import { useSettingsContext } from 'src/components/settings';
 // assets
@@ -23,12 +23,44 @@ import AppNewInvoice from '../app-new-invoice';
 
 
 import AppWidgetSummary from '../app-widget-summary';
+import AppAreaInstalled from '../app-area-installed';
+import AppTopRelated from '../app-top-related';
+import AppTopInstalledCountries from '../app-top-installed-countries';
+import { collection, getDocs } from 'firebase/firestore';
+import { DB } from 'src/auth/context/firebase/auth-provider';
+import { useEffect, useState } from 'react';
+import api from 'src/utils/api';
 
 
 // ----------------------------------------------------------------------
 
 export default function OverviewAppView() {
-  const { user } = useAuthContext();
+
+  const [orders, setOrders] = useState([])
+const [users, setUsers] = useState([])
+
+  const getUsers = async()=>{
+    const querySnapshot = await getDocs(collection(DB, 'users'));
+    const users = [];
+    
+    querySnapshot.forEach((doc) => {
+      users.push(doc.data());
+    });
+    
+    
+    setUsers(users.reverse())
+  }
+
+  useEffect(() => {
+
+   getUsers()
+
+   api.get('/orders').then(res=>{
+    setOrders(res.data)
+   })
+
+  }, [])
+
 
   const theme = useTheme();
 
@@ -37,7 +69,7 @@ export default function OverviewAppView() {
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
       <Grid container spacing={3}>
-        <Grid xs={12} md={8}>
+        {/* <Grid xs={12} md={8}>
           <AppWelcome
             title={`Welcome back 👋 \n ${user?.displayName}`}
             description="If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything."
@@ -54,13 +86,13 @@ export default function OverviewAppView() {
 
         <Grid xs={12} md={4}>
           <AppFeatured list={_appFeatured} />
-        </Grid>
+        </Grid> */}
 
         <Grid xs={12} md={4}>
           <AppWidgetSummary
-            title="Total Product"
+            title="Total Active Store"
             percent={0}
-            total={0}
+            total={users.length}
             chart={{
               series: [0,0,0,0,0,0,0,0,0,0],
             }}
@@ -69,9 +101,9 @@ export default function OverviewAppView() {
 
         <Grid xs={12} md={4}>
           <AppWidgetSummary
-            title="Total Sales"
+            title="Total Revenue"
             percent={0}
-            total={0}
+            total={orders.reduce((a,b)=>a+b.totalAmount,0)}
             chart={{
               colors: [theme.palette.info.light, theme.palette.info.main],
               series: [0,0,0,0,0,0,0,0,0,0],
@@ -81,9 +113,9 @@ export default function OverviewAppView() {
 
         <Grid xs={12} md={4}>
           <AppWidgetSummary
-            title="Pending Orders"
+            title="Total Completed Orders"
             percent={0}
-            total={0}
+            total={orders.filter(e=>e.status==='completed').length}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
               series: [0,0,0,0,0,0,0,0,0,0],
@@ -105,10 +137,12 @@ export default function OverviewAppView() {
           />
         </Grid> */}
 
-        {/* <Grid xs={12} md={6} lg={8}>
+        <Grid xs={12} md={6} lg={8}>
           <AppAreaInstalled
-            title="Area Installed"
-            subheader="(+0%) than last year"
+            title="Sales and Revenue"
+            subheader={`
+            ${((orders.reduce((a,b)=> new Date(b.createdAt).getFullYear() === 2024  ? a+b.totalAmount :a ,0)/orders.reduce((a,b)=> new Date(b.createdAt).getFullYear() === 2023  ? a+b.totalAmount :a ,0))*100).toString().substring(0,5)}
+            % than last year`}
             chart={{
               categories: [
                 'Jan',
@@ -126,37 +160,38 @@ export default function OverviewAppView() {
               ],
               series: [
                 {
-                  year: '2019',
+                  year: '2023',
                   data: [
                     {
-                      name: 'Asia',
-                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                      name: 'Revenue',
+                      data: [0,1,2,3,4,5,6,7,8,9,10,11].map(e=>orders.reduce((a,b)=> (new Date(b.createdAt).getFullYear() === 2023 &&new Date(b.createdAt).getMonth() === e) ? a+b.totalAmount :a ,0)*5/100),
                     },
                     {
-                      name: 'America',
-                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                      name: 'Sales',
+                      data: [0,1,2,3,4,5,6,7,8,9,10,11].map(e=>orders.reduce((a,b)=> (new Date(b.createdAt).getFullYear() === 2023 &&new Date(b.createdAt).getMonth() === e) ? a+b.totalAmount :a ,0)),
                     },
                   ],
                 },
                 {
-                  year: '2020',
+                  year: '2024',
                   data: [
                     {
-                      name: 'Asia',
-                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                      name: 'Revenue',
+                      data: [0,1,2,3,4,5,6,7,8,9,10,11].map(e=>orders.reduce((a,b)=> (new Date(b.createdAt).getFullYear() === 2024 &&new Date(b.createdAt).getMonth() === e) ? a+b.totalAmount :a ,0)*5/100),
                     },
                     {
-                      name: 'America',
-                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                      name: 'Sales',
+                      data: [0,1,2,3,4,5,6,7,8,9,10,11].map(e=>orders.reduce((a,b)=> (new Date(b.createdAt).getFullYear() === 2024 &&new Date(b.createdAt).getMonth() === e) ? a+b.totalAmount :a ,0)),
                     },
                   ],
                 },
+               
               ],
             }}
           />
-        </Grid> */}
+        </Grid>
 
-        <Grid xs={12} lg={8}>
+        {/* <Grid xs={12} lg={8}>
           <AppNewInvoice
             title="New Invoice"
             tableData={_appInvoices}
@@ -168,17 +203,17 @@ export default function OverviewAppView() {
               { id: '' },
             ]}
           />
-        </Grid>
-
-        {/* <Grid xs={12} md={6} lg={4}>
-          <AppTopRelated title="Top Related Applications" list={_appRelated} />
         </Grid> */}
 
         {/* <Grid xs={12} md={6} lg={4}>
-          <AppTopInstalledCountries title="Top Installed Countries" list={_appInstalled} />
-        </Grid>
+          <AppTopRelated title="Top Sellers" list={_appRelated} />
+        </Grid> */}
 
         <Grid xs={12} md={6} lg={4}>
+          <AppTopInstalledCountries title="Top  Sellers" list={users} />
+        </Grid>
+
+        {/* <Grid xs={12} md={6} lg={4}>
           <AppTopAuthors title="Top Authors" list={ <Grid xs={12} md={6} lg={4}>
           <Stack spacing={3}>
             <AppWidget
@@ -201,7 +236,10 @@ export default function OverviewAppView() {
             />
           </Stack>
         </Grid> */}
+        
+      
       </Grid>
+      
     </Container>
   );
 }

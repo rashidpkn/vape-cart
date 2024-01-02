@@ -21,6 +21,10 @@ import EcommerceSalesOverview from '../ecommerce-sales-overview';
 import EcommerceWidgetSummary from '../ecommerce-widget-summary';
 import EcommerceLatestProducts from '../ecommerce-latest-products';
 import EcommerceCurrentBalance from '../ecommerce-current-balance';
+import { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { DB } from 'src/auth/context/firebase/auth-provider';
+import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
@@ -28,33 +32,48 @@ export default function OverviewEcommerceView() {
 
   const theme = useTheme();
 
+
+  const [orders, setOrders] = useState([])
+const [users, setUsers] = useState([])
+const [products, setProducts] = useState([])
+
+  const getUsers = async()=>{
+    const querySnapshot = await getDocs(collection(DB, 'users'));
+    const users = [];
+    
+    querySnapshot.forEach((doc) => {
+      users.push(doc.data());
+    });
+    
+    
+    setUsers(users.reverse())
+  }
+
+  useEffect(() => {
+
+   getUsers()
+
+   api.get('orders').then(res=>{
+    setOrders(res.data)
+   })
+
+   api.get('products').then(res=>{
+    setProducts(res.data)
+   })
+
+  }, [])
+
+
   const settings = useSettingsContext();
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
       <Grid container spacing={3}>
-        {/* <Grid xs={12} md={8}>
-          <EcommerceWelcome
-            title={`Congratulations! \n ${user?.displayName}`}
-            description="Best seller of the month You have done 57.6% more sales today."
-            img={<MotivationIllustration />}
-            action={
-              <Button variant="contained" color="primary">
-                Go Now
-              </Button>
-            }
-          />
-        </Grid>
-
-        <Grid xs={12} md={4}>
-          <EcommerceNewProducts list={_ecommerceNewProducts} />
-        </Grid> */}
-
         <Grid xs={12} md={4}>
           <EcommerceWidgetSummary
-            title="Product Sold"
+            title="Active Store"
             percent={0}
-            total={0}
+            total={users.length}
             chart={{
               series: [0,0,0,0,0,0,0,0,0,0],
             }}
@@ -63,9 +82,9 @@ export default function OverviewEcommerceView() {
 
         <Grid xs={12} md={4}>
           <EcommerceWidgetSummary
-            title="Total Balance"
+            title="Total Order Completed"
             percent={0}
-            total={0}
+            total={orders.filter(e=>e.status === 'completed').length}
             chart={{
               colors: [theme.palette.info.light, theme.palette.info.main],
               series: [0,0,0,0,0,0,0,0,0,0],
@@ -75,7 +94,7 @@ export default function OverviewEcommerceView() {
 
         <Grid xs={12} md={4}>
           <EcommerceWidgetSummary
-            title="Sales Profit"
+            title="Customers"
             percent={0}
             total={0}
             chart={{
@@ -85,97 +104,64 @@ export default function OverviewEcommerceView() {
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
-          <EcommerceSaleByGender
-            title="Sale By Gender"
+        <Grid xs={12} md={4}>
+          <EcommerceWidgetSummary
+            title="Daily Signup"
+            percent={0}
             total={0}
             chart={{
-              series: [
-                { label: 'Mens', value: 0 },
-                { label: 'Womens', value: 0 },
-              ],
+              colors: [theme.palette.warning.light, theme.palette.warning.main],
+              series: [0,0,0,0,0,0,0,0,0,0],
             }}
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          <EcommerceYearlySales
-            title="Yearly Sales"
-            subheader="(+0%) than last year"
+
+        <Grid xs={12} md={4}>
+          <EcommerceWidgetSummary
+            title="Total Product"
+            percent={0}
+            total={products.count}
             chart={{
-              categories: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec',
-              ],
-              series: [
-                {
-                  year: '2019',
-                  data: [
-                    {
-                      name: 'Total Income',
-                      data: [0,0,0,0,0,0,0,0,0,0,0,0],
-                    },
-                    {
-                      name: 'Total Expenses',
-                      data: [0,0,0,0,0,0,0,0,0,0,0,0],
-                    },
-                  ],
-                },
-                {
-                  year: '2020',
-                  data: [
-                    {
-                      name: 'Total Income',
-                      data: [0,0,0,0,0,0,0,0,0,0,0,0],
-                    },
-                    {
-                      name: 'Total Expenses',
-                      data: [0,0,0,0,0,0,0,0,0,0,0,0],
-                    },
-                  ],
-                },
-              ],
+              colors: [theme.palette.warning.light, theme.palette.warning.main],
+              series: [0,0,0,0,0,0,0,0,0,0],
             }}
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          <EcommerceSalesOverview title="Sales Overview" data={_ecommerceSalesOverview} />
-        </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
-          <EcommerceCurrentBalance
-            title="Current Balance"
-            currentBalance={0}
-            sentAmount={0}
+        <Grid xs={12} md={4}>
+          <EcommerceWidgetSummary
+            title="Order Cancelled"
+            percent={0}
+            total={orders.filter(e=>e.status === 'cancelled').length}
+            chart={{
+              colors: [theme.palette.warning.light, theme.palette.warning.main],
+              series: [0,0,0,0,0,0,0,0,0,0],
+            }}
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
+       
+        
+
+
+    
+
+        <Grid xs={12} md={12} lg={12}>
           <EcommerceBestSalesman
             title="Top Selling Products"
-            tableData={_ecommerceBestSalesman}
+            tableData={products.products?.sort((a,b)=>-a.quantity + b.quantity)}
             tableLabels={[
               { id: 'Product', label: 'Product' },
-              { id: 'category', label: 'Category', align: 'center' },
-              { id: 'price', label: 'Price', align: 'right' },
+              { id: 'price', label: 'Price', },
+              { id: 'Store Name', label: 'Store Name' },
+              { id: 'Count', label: 'Count' },
             ]}
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
-          <EcommerceLatestProducts title="Latest Products" list={_ecommerceLatestProducts} />
-        </Grid>
+        
       </Grid>
     </Container>
   );

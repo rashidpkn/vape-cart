@@ -58,7 +58,7 @@ export function useNavData() {
       {
         subheader: t('overview'),
         items: [
-          { title: t('Store'), path: paths.dashboard.root, icon: ICONS.store },
+          { title: t('app'), path: paths.dashboard.root, icon: ICONS.store },
           { title: t('analytics'), path: paths.dashboard.general.ecommerce, icon: ICONS.analytics },
           { title: t('Users'), path: paths.dashboard.user.list, icon: ICONS.user },
           // { title: t('analytics'), path: paths.dashboard.general.analytics, icon: ICONS.analytics },

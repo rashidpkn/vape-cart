@@ -71,7 +71,7 @@ export default function OrderListView() {
 
   const fetchOrders = async()=>{
 try {
-  const {data} =  await api.get('orders')
+  const {data} =  await api.get('/orders')
   setTableData(data.reverse())
    
 } catch (error) {
@@ -173,6 +173,9 @@ useEffect(() => {
     },
     [handleFilters]
   );
+  const [tab, setTab] = useState('all')
+
+  
 
   return (
     <>
@@ -196,45 +199,43 @@ useEffect(() => {
 
         <Card>
           <Tabs
-            value={filters.status}
-            onChange={handleFilterStatus}
+            value={tab}
+            onChange={(e,value)=>setTab(value)}
             sx={{
               px: 2.5,
               boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
             }}
           >
-            {STATUS_OPTIONS.map((tab) => (
+            {STATUS_OPTIONS.map((tabs) => (
               <Tab
-                key={tab.value}
+                key={tabs.value}
                 iconPosition="end"
-                value={tab.value}
-                label={tab.label}
+                value={tabs.value}
+                label={tabs.label}
                 icon={
                   <Label
                     variant={
-                      ((tab.value === 'all' || tab.value === filters.status) && 'filled') || 'soft'
+                      ((tabs.value === 'all' || tabs.value === filters.status) && 'filled') || 'soft'
                     }
                     color={
-                      (tab.value === 'completed' && 'success') ||
-                      (tab.value === 'pending' && 'warning') ||
-                      (tab.value === 'cancelled' && 'error') ||
+                      (tabs.value === 'completed' && 'success') ||
+                      (tabs.value === 'pending' && 'warning') ||
+                      (tabs.value === 'cancelled' && 'error') ||
                       'default'
                     }
                   >
-                    0
+                    {tabs.value === 'all' && tableData.length }
+                    {tabs.value === 'pending' && tableData.filter(e=>e.status === 'Order received' || e.status === 'pending').length }
+                    {tabs.value === 'completed' && tableData.filter(e=>e.status === 'completed' ).length }
+                    {tabs.value === 'cancelled' && tableData.filter(e=>e.status === 'cancelled' ).length }
+                    {tabs.value === 'refunded' && tableData.filter(e=>e.status === 'refunded' ).length }
                   </Label>
                 }
               />
             ))}
           </Tabs>
 
-          <OrderTableToolbar
-            filters={filters}
-            onFilters={handleFilters}
-            //
-            canReset={canReset}
-            onResetFilters={handleResetFilters}
-          />
+       
 
           {canReset && (
             <OrderTableFiltersResult
@@ -287,10 +288,13 @@ useEffect(() => {
 
                 <TableBody>
                   {dataFiltered
-                    .slice(
-                      table.page * table.rowsPerPage,
-                      table.page * table.rowsPerPage + table.rowsPerPage
-                    )
+                    .filter(e=>
+                      tab==='all'  ||
+                       tab === 'pending' && (e.status === 'pending' || e.status === 'Order received')  ||
+                       tab === 'completed' && e.status ==='completed' ||
+                       tab === 'cancelled' && e.status ==='cancelled'  ||
+                       tab === 'refunded' && e.status ==='refunded' 
+                       )
                     .map((row) => (
                       <OrderTableRow
                         key={row.id}

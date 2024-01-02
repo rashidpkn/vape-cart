@@ -35,9 +35,9 @@ export default function EcommerceBestSalesman({
             <TableHeadCustom headLabel={tableLabels} />
 
             <TableBody>
-              {/* {tableData.map((row) => (
+              {tableData?.map((row) => (
                 <EcommerceBestSalesmanRow key={row.id} row={row} />
-              ))} */}
+              ))}
             </TableBody>
           </Table>
         </Scrollbar>
@@ -62,29 +62,14 @@ function EcommerceBestSalesmanRow({ row }) {
         <Avatar alt={row.name} src={row.avatarUrl} sx={{ mr: 2 }} />
         {row.name}
       </TableCell>
+      <TableCell>{row.salePrice}</TableCell>
+      <TableCell>{row.storeName}</TableCell>
+      <TableCell>{row.quantity}</TableCell>
 
-      <TableCell>{row.category}</TableCell>
 
-      <TableCell align="center">
-        <Iconify icon={row.flag} sx={{ borderRadius: 0.65, width: 28 }} />
-      </TableCell>
+      
 
-      <TableCell align="right">{fCurrency(row.totalAmount)}</TableCell>
-
-      <TableCell align="right">
-        <Label
-          variant="soft"
-          color={
-            (row.rank === 'Top 1' && 'primary') ||
-            (row.rank === 'Top 2' && 'info') ||
-            (row.rank === 'Top 3' && 'success') ||
-            (row.rank === 'Top 4' && 'warning') ||
-            'error'
-          }
-        >
-          {row.rank}
-        </Label>
-      </TableCell>
+      
     </TableRow>
   );
 }
