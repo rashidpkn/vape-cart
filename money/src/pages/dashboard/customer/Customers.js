@@ -38,9 +38,9 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 //
-import UserTableRow from '../user-table-row';
-import UserTableToolbar from '../user-table-toolbar';
-import UserTableFiltersResult from '../user-table-filters-result';
+import UserTableRow from './user-table-row'; 
+import UserTableToolbar from './user-table-toolbar'; 
+import UserTableFiltersResult from './user-table-filters-result'; 
 import { collection, getDocs } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
 
@@ -51,21 +51,21 @@ const STATUS_OPTIONS = [{ value: 'all', label: 'All' }];
 const TABLE_HEAD = [
   { id: 'name', label: 'Name' },
   { id: 'phoneNumber', label: 'Phone Number', width: 180 },
-  { id: 'Store Name', label: 'Store Name', width: 120 },
-  { id: 'tradeLicense', label: 'Trade License', width: 180 },
-  { id: 'contactPersonInTouch', label: 'Contact Person In Touch', width: 220 },
+  { id: 'Address', label: 'Address', width: 120 },
+  { id: 'Purchase Times', label: 'Purchase Times', width: 180 },
+  { id: 'Purchase Amount', label: 'Purchase Amount', width: 220 },
   { id: '', width: 88 },
 ];
 
 const defaultFilters = {
   name: '',
   role: [],
-  status: 'all',
+  status: 'All',
 };
 
 // ----------------------------------------------------------------------
 
-export default function UserListView() {
+export default function Customers() {
   const table = useTable();
 
   const settings = useSettingsContext();
@@ -169,10 +169,10 @@ export default function UserListView() {
     <>
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="Store"
+          heading="Customer"
           links={[
             { name: 'Dashboard', href: paths.dashboard.root },
-            { name: 'Store', href: paths.dashboard.user.root },
+            { name: 'Customer', href: '/dashboard/customer' },
           ]}
           action={
             <Button
@@ -198,20 +198,21 @@ export default function UserListView() {
               boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
             }}
           >
-            {STATUS_OPTIONS.map((tab) => (
+            {['All','VIP','Recurring Customer','Blacklisted'].map((tab) => (
               <Tab
-                key={tab.value}
+              style={{color:`${tab==='Blacklisted' && '#f00'}`}}
+                key={tab}
                 iconPosition="end"
-                value={tab.value}
-                label={tab.label}
+                value={tab}
+                label={tab}
                 icon={
                   <Label
                     variant={
-                      ((tab.value === 'all' || tab.value === filters.status) && 'filled') || 'soft'
+                      ((tab === 'all' || tab === filters.status) && 'filled') || 'soft'
                     }
-                   
                   >
-                    {tab.value === 'all' && tableData.length}
+                    {tab === 'all' && tableData.length}
+                    {tab !== 'all' && 0}
                   
                   </Label>
                 }
@@ -276,7 +277,7 @@ export default function UserListView() {
                 />
 
                 <TableBody>
-                  {dataFiltered
+                  {[]
                     .slice(
                       table.page * table.rowsPerPage,
                       table.page * table.rowsPerPage + table.rowsPerPage

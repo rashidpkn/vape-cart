@@ -43,8 +43,10 @@ const ICONS = {
   analytics: icon('ic_analytics'),
   dashboard: icon('ic_dashboard'),
   store:iconifyIcon('material-symbols:store'),
-  delivery:iconifyIcon('icon-park-outline:delivery')
+  delivery:iconifyIcon('icon-park-outline:delivery'),
+  customer:iconifyIcon('raphael:customer')
 };
+
 
 // ----------------------------------------------------------------------
 
@@ -58,9 +60,10 @@ export function useNavData() {
       {
         subheader: t('overview'),
         items: [
-          { title: t('app'), path: paths.dashboard.root, icon: ICONS.store },
+          { title: t('home'), path: paths.dashboard.root, icon: ICONS.store },
           { title: t('analytics'), path: paths.dashboard.general.ecommerce, icon: ICONS.analytics },
-          { title: t('Users'), path: paths.dashboard.user.list, icon: ICONS.user },
+          { title: t('store'), path: paths.dashboard.user.list, icon: ICONS.user },
+          { title: t('customer'), path: '/dashboard/customer', icon: ICONS.customer },
           // { title: t('analytics'), path: paths.dashboard.general.analytics, icon: ICONS.analytics },
         ],
       },
