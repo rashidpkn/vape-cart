@@ -233,13 +233,13 @@ useEffect(() => {
             ))}
           </Tabs>
 
-          <OrderTableToolbar
+          {/* <OrderTableToolbar
             filters={filters}
             onFilters={handleFilters}
             //
             canReset={canReset}
             onResetFilters={handleResetFilters}
-          />
+          /> */}
 
           {canReset && (
             <OrderTableFiltersResult
