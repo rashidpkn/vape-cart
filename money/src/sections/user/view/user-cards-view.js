@@ -13,19 +13,21 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import UserCardList from '../user-card-list';
 
+
 // ----------------------------------------------------------------------
 
 export default function UserCardsView() {
   const settings = useSettingsContext();
 
+
+
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <CustomBreadcrumbs
-        heading="User Cards"
+        heading="Store"
         links={[
           { name: 'Dashboard', href: paths.dashboard.root },
-          { name: 'User', href: paths.dashboard.user.root },
-          { name: 'Cards' },
+          { name: 'Store', href: paths.dashboard.user.root },
         ]}
         action={
           <Button
@@ -40,7 +42,7 @@ export default function UserCardsView() {
         sx={{ mb: { xs: 3, md: 5 } }}
       />
 
-      <UserCardList users={_userCards} />
+      <UserCardList />
     </Container>
   );
 }

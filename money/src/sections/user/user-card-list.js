@@ -3,10 +3,39 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 //
 import UserCard from './user-card';
+import { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { DB } from 'src/auth/context/firebase/auth-provider';
+import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
-export default function UserCardList({ users }) {
+export default function UserCardList() {
+
+  const [products, setProducts] = useState([])
+
+  const [store, setStore] = useState([])
+
+  const getUsers = async()=>{
+    const querySnapshot = await getDocs(collection(DB, 'users'));
+    const users = [];
+    
+    querySnapshot.forEach((doc) => {
+      users.push(doc.data());
+    });
+    
+    console.log(users);
+    setStore(users)
+  }
+
+  useEffect(() => {
+    api.get('/products').then(res=>{
+      setProducts(res.data.products)
+    })
+   getUsers()
+  }, [])
+
+  useState
   return (
     <Box
       gap={3}
@@ -17,8 +46,8 @@ export default function UserCardList({ users }) {
         md: 'repeat(3, 1fr)',
       }}
     >
-      {users.map((user) => (
-        <UserCard key={user.id} user={user} />
+      {store?.map((user) => (
+        <UserCard key={user.uid} user={user} products={products} />
       ))}
     </Box>
   );

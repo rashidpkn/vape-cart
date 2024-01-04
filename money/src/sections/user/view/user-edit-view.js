@@ -10,6 +10,9 @@ import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import UserNewEditForm from '../user-new-edit-form';
+import { useEffect, useState } from 'react';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { DB } from 'src/auth/context/firebase/auth-provider';
 
 // ----------------------------------------------------------------------
 
@@ -20,7 +23,26 @@ export default function UserEditView() {
 
   const { id } = params;
 
-  const currentUser = _userList.find((user) => user.id === id);
+
+  const [currentUser, setCurrentUser] = useState()
+
+  const getUsers = async()=>{
+    const querySnapshot = await getDocs(query(collection(DB, 'users'), where('uid', '==', id)))
+    const users = [];
+
+    querySnapshot.forEach((doc) => {
+      users.push(doc.data());
+    });
+    
+    setCurrentUser(users[0])
+  }
+
+  useEffect(() => {
+ 
+   getUsers()
+  }, [])
+
+  
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
@@ -35,7 +57,6 @@ export default function UserEditView() {
             name: 'User',
             href: paths.dashboard.user.root,
           },
-          { name: currentUser?.name },
         ]}
         sx={{
           mb: { xs: 3, md: 5 },

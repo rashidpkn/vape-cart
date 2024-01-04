@@ -18,16 +18,20 @@ import { AvatarShape } from 'src/assets/illustrations';
 // components
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
+import { useNavigate } from 'react-router-dom'
 
 // ----------------------------------------------------------------------
 
-export default function UserCard({ user }) {
+export default function UserCard({ user, products }) {
   const theme = useTheme();
+  const navigate = useNavigate()
 
-  const { name, coverUrl, role, totalFollowers, totalPosts, avatarUrl, totalFollowing } = user;
+  const { storeName, coverUrl, displayName, totalFollowers, totalPosts, avatarUrl, totalFollowing } = user;
 
   return (
-    <Card sx={{ textAlign: 'center' }}>
+    <Card sx={{ textAlign: 'center' }} onClick={() => {
+      navigate(`/dashboard/user/${user.uid}/edit`)
+    }}>
       <Box sx={{ position: 'relative' }}>
         <AvatarShape
           sx={{
@@ -41,7 +45,7 @@ export default function UserCard({ user }) {
         />
 
         <Avatar
-          alt={name}
+          alt={storeName}
           src={avatarUrl}
           sx={{
             width: 64,
@@ -65,13 +69,13 @@ export default function UserCard({ user }) {
 
       <ListItemText
         sx={{ mt: 7, mb: 1 }}
-        primary={name}
-        secondary={role}
+        primary={storeName}
+        secondary={displayName}
         primaryTypographyProps={{ typography: 'subtitle1' }}
         secondaryTypographyProps={{ component: 'span', mt: 0.5 }}
       />
 
-      <Stack direction="row" alignItems="center" justifyContent="center" sx={{ mb: 2.5 }}>
+      {/* <Stack direction="row" alignItems="center" justifyContent="center" sx={{ mb: 2.5 }}>
         {_socials.map((social) => (
           <IconButton
             key={social.name}
@@ -85,7 +89,7 @@ export default function UserCard({ user }) {
             <Iconify icon={social.icon} />
           </IconButton>
         ))}
-      </Stack>
+      </Stack> */}
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -96,22 +100,22 @@ export default function UserCard({ user }) {
       >
         <div>
           <Typography variant="caption" component="div" sx={{ mb: 0.5, color: 'text.secondary' }}>
-            Follower
+            Traffic
           </Typography>
           {fShortenNumber(totalFollowers)}
         </div>
 
         <div>
           <Typography variant="caption" component="div" sx={{ mb: 0.5, color: 'text.secondary' }}>
-            Following
+            Product
           </Typography>
 
-          {fShortenNumber(totalFollowing)}
+          {products.filter(product => product.userId === user.uid).length}
         </div>
 
         <div>
           <Typography variant="caption" component="div" sx={{ mb: 0.5, color: 'text.secondary' }}>
-            Total Post
+            Revenue
           </Typography>
           {fShortenNumber(totalPosts)}
         </div>
