@@ -7,6 +7,7 @@ import DashboardLayout from 'src/layouts/dashboard';
 // components
 import { LoadingScreen } from 'src/components/loading-screen';
 import Delivery from 'src/pages/dashboard/delivery';
+import { StoreEdit } from 'src/sections/store-edit/view';
 
 
 // ----------------------------------------------------------------------
@@ -36,7 +37,6 @@ const UserAccountPage = lazy(() => import('src/pages/dashboard/user/account'));
 const UserCreatePage = lazy(() => import('src/pages/dashboard/user/new'));
 const UserEditPage = lazy(() => import('src/pages/dashboard/user/edit'));
 const Customers = lazy(() => import('src/pages/dashboard/customer/Customers'));
-
 
 
 
@@ -74,6 +74,12 @@ export const dashboardRoutes = [
           { path: 'new', element: <UserCreatePage /> },
           { path: ':id/edit', element: <UserEditPage /> },
           { path: 'account', element: <UserAccountPage /> },
+        ],
+      },
+      {
+        path: 'store',
+        children: [
+          { path: ':id/edit', element: <StoreEdit /> },
         ],
       },
       {

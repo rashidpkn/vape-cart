@@ -30,7 +30,7 @@ export default function UserCard({ user, products }) {
 
   return (
     <Card sx={{ textAlign: 'center' }} onClick={() => {
-      navigate(`/dashboard/user/${user.uid}/edit`)
+      navigate(`/dashboard/store/${user.uid}/edit`)
     }}>
       <Box sx={{ position: 'relative' }}>
         <AvatarShape
