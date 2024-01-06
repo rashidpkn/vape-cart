@@ -5,7 +5,7 @@ export declare class ProductService {
         message: string;
     }>;
     getAllProduct(query: any): Promise<any>;
-    getById(id: number): Promise<Product>;
+    getById(id: number, count: number): Promise<Product>;
     updateProduct(update: {
         id: number;
     }): Promise<void>;

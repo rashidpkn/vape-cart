@@ -6,10 +6,13 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import CardHeader from '@mui/material/CardHeader';
 import Card from '@mui/material/Card';
+import {Select} from '@mui/material';
+
 // components
 import Iconify from 'src/components/iconify';
 import Chart, { useChart } from 'src/components/chart';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
+
 
 // ----------------------------------------------------------------------
 
@@ -18,7 +21,8 @@ export default function EcommerceYearlySales({ title, subheader, chart, ...other
 
   const popover = usePopover();
 
-  const [seriesData, setSeriesData] = useState('2019');
+  const [seriesData, setSeriesData] = useState(new Date().getFullYear().toString());
+  const [store, setStore] = useState('')
 
   const chartOptions = useChart({
     colors,
@@ -47,6 +51,9 @@ export default function EcommerceYearlySales({ title, subheader, chart, ...other
           title={title}
           subheader={subheader}
           action={
+            <Box  display={'flex'} gap={3}>
+
+            
             <ButtonBase
               onClick={popover.onOpen}
               sx={{
@@ -66,6 +73,14 @@ export default function EcommerceYearlySales({ title, subheader, chart, ...other
                 sx={{ ml: 0.5 }}
               />
             </ButtonBase>
+
+            <Select size='small' value={'Vape House'}>
+              <MenuItem value='Vape House'> Vape House</MenuItem>
+              <MenuItem value='Vape Amazon'> Vape Amazon</MenuItem>
+            </Select>
+
+
+            </Box>
           }
         />
 

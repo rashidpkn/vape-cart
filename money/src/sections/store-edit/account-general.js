@@ -36,17 +36,6 @@ import { DB } from 'src/auth/context/firebase/auth-provider';
 
 export default  function AccountGeneral({user}) {
 
-
-  
-
-
-
-
-
-
-  
-
-
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string(),
     email: Yup.string(),
@@ -60,8 +49,7 @@ export default  function AccountGeneral({user}) {
     city: Yup.string(),
     zipCode: Yup.string(),
     about: Yup.string(),
-    
-    
+
   });
 
   const defaultValues = {

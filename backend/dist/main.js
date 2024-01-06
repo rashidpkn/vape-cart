@@ -6,10 +6,11 @@ const express_1 = require("express");
 const path_1 = require("path");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, { cors: { origin: '*' } });
-    app.use((req, res, next) => {
-        res.setHeader('Cache-Control', 'public, max-age=864000');
+    app.use('/assets', (req, res, next) => {
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
         next();
-    }, (0, express_1.static)((0, path_1.join)(__dirname, '..', '..', 'frontend', 'dist')));
+    }, (0, express_1.static)((0, path_1.join)(__dirname, '..', '..', 'frontend', 'dist', 'assets')));
+    app.use((0, express_1.static)((0, path_1.join)(__dirname, '..', '..', 'frontend', 'dist')));
     await app.listen(3000);
 }
 bootstrap();

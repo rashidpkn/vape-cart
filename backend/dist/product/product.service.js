@@ -10,6 +10,7 @@ exports.ProductService = void 0;
 const common_1 = require("@nestjs/common");
 const sequelize_1 = require("sequelize");
 const product_model_1 = require("../model/product.model");
+const storeAnalytics_model_1 = require("../model/storeAnalytics.model");
 let ProductService = class ProductService {
     async createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish) {
         try {
@@ -62,11 +63,14 @@ let ProductService = class ProductService {
             return error;
         }
     }
-    async getById(id) {
+    async getById(id, count) {
         try {
             const product = await product_model_1.Product.findOne({ where: { id } });
             if (!product) {
                 throw new common_1.BadRequestException("Product not found");
+            }
+            if (count) {
+                const analytics = await storeAnalytics_model_1.StoreAnalytics.create({ storeName: product.storeName, name: product.name });
             }
             return product;
         }

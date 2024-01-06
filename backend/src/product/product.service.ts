@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Op } from 'sequelize';
 import { Product } from 'src/model/product.model';
+import { StoreAnalytics } from 'src/model/storeAnalytics.model';
 
 @Injectable()
 export class ProductService {
@@ -66,12 +67,17 @@ order = ['salePrice', 'ASC']
   }
 
 
-  async getById(id: number) {
+  async getById(id: number,count:number) {
     try {
       const product = await Product.findOne({ where: { id } })
       if (!product) {
         throw new BadRequestException("Product not found")
       }
+      
+if(count){
+  const analytics = await StoreAnalytics.create({storeName:product.storeName,name:product.name})
+}
+
       return product
 
     } catch (error) {

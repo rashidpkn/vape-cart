@@ -7,10 +7,11 @@ import { AppService } from './app.service';
 import { ClientModule } from './client/client.module';
 import { OrdersModule } from './orders/orders.module';
 import { InvoiceModule } from './invoice/invoice.module';
+import { StoreAnalyticsModule } from './store-analytics/store-analytics.module';
 
 
 @Module({
-  imports: [ProductModule, DatabaseModule, UploadModule,OrdersModule,InvoiceModule, ClientModule,  ],
+  imports: [ProductModule, DatabaseModule, UploadModule,OrdersModule,InvoiceModule,StoreAnalyticsModule,ClientModule,   ],
   controllers: [AppController],
   providers: [AppService]
 })

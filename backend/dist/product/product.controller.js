@@ -45,9 +45,10 @@ let ProductController = class ProductController {
     async getById(req) {
         try {
             const { id } = req.params;
+            const { count } = req.query;
             if (isNaN(id))
                 throw new common_1.BadRequestException('Id is not valid');
-            return this.productService.getById(id);
+            return this.productService.getById(id, count);
         }
         catch (error) {
             throw error;
