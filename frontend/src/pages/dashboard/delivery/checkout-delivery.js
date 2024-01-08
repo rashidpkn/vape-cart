@@ -17,19 +17,18 @@ export default function CheckoutDelivery( ) {
 
   const [delivery, setDelivery] = useState([
     {
-      value: 0,
-      label: 'Free',
-      description: '5-7 Days delivery',
+      value: 20,
+      label: '1-2 Hour Delivery',
+      
     },
     {
       value: 10,
-      label: 'Standard',
-      description: '3-5 Days delivery',
+      label: 'Same Day Delivery',
+      
     },
     {
-      value: 20,
-      label: 'Express',
-      description: '2-3 Days delivery',
+      value: 0,
+      label: 'Next Day delivery',
     },
   ])
 
@@ -58,9 +57,9 @@ export default function CheckoutDelivery( ) {
         display: 'flex',
       }}
     >
-      {option.label === 'Free' && <Iconify icon="carbon:bicycle" width={32} />}
-      {option.label === 'Standard' && <Iconify icon="carbon:delivery" width={32} />}
-      {option.label === 'Express' && <Iconify icon="carbon:rocket" width={32} />}
+      {option.label === 'Next Day delivery' && <Iconify icon="carbon:bicycle" width={32} />}
+      {option.label === 'Same Day Delivery' && <Iconify icon="carbon:delivery" width={32} />}
+      {option.label === '1-2 Hour Delivery' && <Iconify icon="carbon:rocket" width={32} />}
 
       <ListItemText
         sx={{ ml: 2 }}
@@ -81,7 +80,7 @@ export default function CheckoutDelivery( ) {
             <Box component="span" sx={{ typography: 'h6',ml:1 }}>{`AED ${option.value}`}</Box>
           </Stack>
         }
-        secondary={option.description}
+        secondary={''}
         primaryTypographyProps={{ typography: 'subtitle1', mb: 0.5 }}
         secondaryTypographyProps={{ typography: 'body2' }}
       />

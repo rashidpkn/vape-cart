@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 // @mui
 import Box from '@mui/material/Box';
@@ -19,6 +19,8 @@ import { fShortenNumber, fCurrency } from 'src/utils/format-number';
 
 
 import FormProvider from 'src/components/hook-form';
+import {Button} from '@mui/material';
+import Iconify from 'src/components/iconify';
 //
 
 // ----------------------------------------------------------------------
@@ -93,6 +95,17 @@ export default function ProductDetailsSummary({
     }
   });
 
+
+  const handleAddCart = useCallback(() => {
+    try {
+      onAddCart({
+        ...values,
+        subTotal: values.price * values.quantity,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [onAddCart, values]);
   
 
 
@@ -155,6 +168,27 @@ export default function ProductDetailsSummary({
           Available: {quantity}
         </Typography>
       </Stack>
+    </Stack>
+  );
+
+  const renderActions = (
+    <Stack direction="row" spacing={2}>
+      <Button
+        fullWidth
+        // disabled={isMaxQuantity || disabledActions}
+        size="large"
+        color="warning"
+        variant="contained"
+        startIcon={<Iconify icon="solar:cart-plus-bold" width={24} />}
+        onClick={handleAddCart}
+        sx={{ whiteSpace: 'nowrap' }}
+      >
+        Add to Cart
+      </Button>
+
+      <Button fullWidth size="large" type="submit" variant="contained" disabled={disabledActions}>
+        Buy Now
+      </Button>
     </Stack>
   );
 
@@ -223,6 +257,7 @@ export default function ProductDetailsSummary({
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
+        {renderActions}
 
 
         {/* {renderShare} */}

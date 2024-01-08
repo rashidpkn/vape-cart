@@ -137,7 +137,7 @@ sx={{borderRadius:999,width: { sm: 300, md: 600 },position:'relative',mx:'auto'}
 
           <br />
 
-          <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.black',mt:3}}>
+          <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.black',mt:3}} className='inter-100' >
           <TextAnimate text="Your"/>
           <TextAnimate text="Ultimate"/>
           <TextAnimate text="Destination"/>
@@ -176,7 +176,7 @@ function TextAnimate({ text, variants, sx, ...other }) {
       {...other}
     >
       {text.split('').map((letter, index) => (
-        <m.span key={index} variants={variants || varFade().inUp}>
+        <m.span key={index} variants={variants || varFade().inUp} className='inter-100' style={{fontWeight:100}} >
           {letter}
         </m.span>
       ))}

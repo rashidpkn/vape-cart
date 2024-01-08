@@ -11,6 +11,10 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 // Internal Components
 
+// css
+import './css/font.css'
+
+
 
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
