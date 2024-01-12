@@ -10,6 +10,7 @@ export declare class ProductController {
     }>;
     getAllProduct(req: Request): Promise<any>;
     exportProduct(): Promise<Product[]>;
+    importProduct(req: Request): Promise<string>;
     getById(req: Request): Promise<Product>;
     updateProduct(req: Request): Promise<void>;
     deleteProducts(req: Request): Promise<{

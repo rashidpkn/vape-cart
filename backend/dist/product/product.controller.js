@@ -45,10 +45,25 @@ let ProductController = class ProductController {
     }
     async exportProduct() {
         try {
-            const product = await product_model_1.Product.findAll({ attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } });
+            const product = await product_model_1.Product.findAll({ attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
+                limit: 5,
+                offset: 0,
+            });
             return product;
         }
         catch (error) {
+        }
+    }
+    async importProduct(req) {
+        try {
+            console.log('Uploading');
+            const { products } = req.body;
+            const product = await product_model_1.Product.bulkCreate(products);
+            console.log('Uploaded');
+            return ' Done';
+        }
+        catch (error) {
+            throw error.message;
         }
     }
     async getById(req) {
@@ -127,6 +142,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "exportProduct", null);
+__decorate([
+    (0, common_1.Post)('/import'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "importProduct", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Req)()),

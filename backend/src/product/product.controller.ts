@@ -41,10 +41,26 @@ export class ProductController {
   @Get('/export')
   async exportProduct(){
     try {
-      const product =  await Product.findAll({attributes:{exclude:['id','createdAt','updatedAt']}})
+      const product =  await Product.findAll({attributes:{exclude:['id','createdAt','updatedAt']},
+      limit:5,
+      offset: 0,
+    })
       return product
     } catch (error) {
       
+    }
+  }
+
+  @Post('/import')
+  async importProduct(@Req() req:Request){
+    try {
+      console.log('Uploading');
+      const {products} = req.body
+      const product =  await Product.bulkCreate(products)
+      console.log('Uploaded');
+      return ' Done'
+    } catch (error) {
+      throw error.message
     }
   }
 
