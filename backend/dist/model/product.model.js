@@ -18,11 +18,11 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "name", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ allowNull: false }),
+    (0, sequelize_typescript_1.Column)({ allowNull: false, defaultValue: 'Vape Monkey' }),
     __metadata("design:type", String)
 ], Product.prototype, "username", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ allowNull: false, defaultValue: 'Vape Amazon' }),
+    (0, sequelize_typescript_1.Column)({ allowNull: false, defaultValue: 'Vape Monkey' }),
     __metadata("design:type", String)
 ], Product.prototype, "storeName", void 0);
 __decorate([
@@ -30,17 +30,17 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "userId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(1200), allowNull: false }),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(15000), allowNull: false }),
     __metadata("design:type", String)
 ], Product.prototype, "subDescription", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(5000), allowNull: false }),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(15000), allowNull: false }),
     __metadata("design:type", String)
 ], Product.prototype, "content", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING),
-        defaultValue: []
+        defaultValue: ['/img/no-image.jpg']
     }),
     __metadata("design:type", Array)
 ], Product.prototype, "images", void 0);

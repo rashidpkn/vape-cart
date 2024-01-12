@@ -7,24 +7,24 @@ export class Product extends Model {
     @Column({allowNull:false,unique:true})
     name: string
 
-    @Column({allowNull:false})
+    @Column({allowNull:false,defaultValue:'Vape Monkey'})
     username:string
 
-    @Column({allowNull:false,defaultValue:'Vape Amazon'})
+    @Column({allowNull:false,defaultValue:'Vape Monkey'})
     storeName:string
 
     @Column({allowNull:false})
     userId:string
 
-    @Column({type:DataType.STRING(1200),allowNull:false})
+    @Column({type:DataType.STRING(15000),allowNull:false})
     subDescription:string
 
-    @Column({type:DataType.STRING(5000),allowNull:false})
+    @Column({type:DataType.STRING(15000),allowNull:false})
     content:string
 
     @Column({
         type: DataType.ARRAY(DataType.STRING),
-        defaultValue:[]
+        defaultValue:['https://delhi-vape.com/img/no-image.jpg']
     })
     images: string[]
 
