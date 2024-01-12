@@ -131,7 +131,7 @@ export default function ProductListView() {
   const handleDeleteRow = useCallback(
     async (id) => {
       try {
-        const product = await api.delete(`product/${id}`)
+        const product = await api.delete(`products/${id}`)
 
         const deleteRow = tableData.filter((row) => row.id !== id);
         setTableData(deleteRow);

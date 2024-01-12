@@ -104,11 +104,11 @@ export function useNavData() {
           },
        
 
-          {
-            title: t('Delivery'),
-            path: paths.dashboard.delivery,
-            icon: ICONS.delivery,
-          },
+          // {
+          //   title: t('Delivery'),
+          //   path: paths.dashboard.delivery,
+          //   icon: ICONS.delivery,
+          // },
 
           // CHAT
           {

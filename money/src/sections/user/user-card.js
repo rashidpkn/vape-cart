@@ -56,6 +56,7 @@ export default function UserCard({ user, products }) {
             bottom: -32,
             mx: 'auto',
             position: 'absolute',
+            cursor:'pointer'
           }}
         />
 
