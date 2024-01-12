@@ -44,9 +44,9 @@ export class ProductController {
       
 
 
-      const product =  await Product.findAll({attributes:{exclude:['id','createdAt','updatedAt']},
-      limit:30,
-      offset: 0,
+      const product =  await Product.findAll({attributes:{exclude:['id','createdAt','updatedAt','reviews','publish','tax','tags','colors','content']},
+      offset:0,
+      limit:1,
     })
       return product
     } catch (error) {
@@ -58,13 +58,27 @@ export class ProductController {
   async importProduct(@Req() req:Request){
     try {
       console.log('Uploading');
-      const products:any = req.params
+      const products:any = req.body
 
       for (let index = 0; index < products.length; index++) {
         const element = products[index];
-        await Product.create(element)
+        console.log(element);
+        
+        const product = await Product.create({
+          name:element.name,
+          username:element.username,
+          storeName:element.storeName,
+          subDescription:element.subDescription,
+          images:element.images,
+          SKU:element.SKU,
+          quantity:element.quantity,
+          category:element.quantity
+        }).catch(errr=>{
+          console.log(errr);
+        })
         
       }
+
       console.log('Uploaded');
       return ' Done'
     } catch (error) {

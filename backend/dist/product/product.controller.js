@@ -45,9 +45,9 @@ let ProductController = class ProductController {
     }
     async exportProduct(req) {
         try {
-            const product = await product_model_1.Product.findAll({ attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
-                limit: 30,
+            const product = await product_model_1.Product.findAll({ attributes: { exclude: ['id', 'createdAt', 'updatedAt', 'reviews', 'publish', 'tax', 'tags', 'colors', 'content'] },
                 offset: 0,
+                limit: 1,
             });
             return product;
         }
@@ -57,10 +57,22 @@ let ProductController = class ProductController {
     async importProduct(req) {
         try {
             console.log('Uploading');
-            const products = req.params;
+            const products = req.body;
             for (let index = 0; index < products.length; index++) {
                 const element = products[index];
-                await product_model_1.Product.create(element);
+                console.log(element);
+                const product = await product_model_1.Product.create({
+                    name: element.name,
+                    username: element.username,
+                    storeName: element.storeName,
+                    subDescription: element.subDescription,
+                    images: element.images,
+                    SKU: element.SKU,
+                    quantity: element.quantity,
+                    category: element.quantity
+                }).catch(errr => {
+                    console.log(errr);
+                });
             }
             console.log('Uploaded');
             return ' Done';
