@@ -39,10 +39,13 @@ export class ProductController {
 
 
   @Get('/export')
-  async exportProduct(){
+  async exportProduct(@Req() req:Request ){
     try {
+      
+
+
       const product =  await Product.findAll({attributes:{exclude:['id','createdAt','updatedAt']},
-      limit:5,
+      limit:30,
       offset: 0,
     })
       return product
@@ -55,12 +58,17 @@ export class ProductController {
   async importProduct(@Req() req:Request){
     try {
       console.log('Uploading');
-      const {products} = req.body
-      const product =  await Product.bulkCreate(products)
+      const products:any = req.params
+
+      for (let index = 0; index < products.length; index++) {
+        const element = products[index];
+        await Product.create(element)
+        
+      }
       console.log('Uploaded');
       return ' Done'
     } catch (error) {
-      throw error.message
+      throw error
     }
   }
 

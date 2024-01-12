@@ -43,10 +43,10 @@ let ProductController = class ProductController {
             throw error;
         }
     }
-    async exportProduct() {
+    async exportProduct(req) {
         try {
             const product = await product_model_1.Product.findAll({ attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
-                limit: 5,
+                limit: 30,
                 offset: 0,
             });
             return product;
@@ -57,13 +57,16 @@ let ProductController = class ProductController {
     async importProduct(req) {
         try {
             console.log('Uploading');
-            const { products } = req.body;
-            const product = await product_model_1.Product.bulkCreate(products);
+            const products = req.params;
+            for (let index = 0; index < products.length; index++) {
+                const element = products[index];
+                await product_model_1.Product.create(element);
+            }
             console.log('Uploaded');
             return ' Done';
         }
         catch (error) {
-            throw error.message;
+            throw error;
         }
     }
     async getById(req) {
@@ -138,8 +141,9 @@ __decorate([
 ], ProductController.prototype, "getAllProduct", null);
 __decorate([
     (0, common_1.Get)('/export'),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "exportProduct", null);
 __decorate([

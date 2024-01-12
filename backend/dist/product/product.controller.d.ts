@@ -9,7 +9,7 @@ export declare class ProductController {
         message: string;
     }>;
     getAllProduct(req: Request): Promise<any>;
-    exportProduct(): Promise<Product[]>;
+    exportProduct(req: Request): Promise<Product[]>;
     importProduct(req: Request): Promise<string>;
     getById(req: Request): Promise<Product>;
     updateProduct(req: Request): Promise<void>;
