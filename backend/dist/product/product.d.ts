@@ -1,0 +1,20 @@
+declare const products: {
+    name: string;
+    username: string;
+    storeName: string;
+    userId: string;
+    subDescription: string;
+    content: string;
+    images: string[];
+    SKU: string;
+    quantity: number;
+    category: string;
+    colors: any[];
+    tags: any[];
+    regularPrice: number;
+    salePrice: number;
+    tax: any;
+    publish: boolean;
+    reviews: any[];
+}[];
+export default products;

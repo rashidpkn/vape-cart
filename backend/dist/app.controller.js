@@ -26,7 +26,6 @@ let AppController = class AppController {
             return res.sendFile(filePath);
         }
         catch (error) {
-            throw error;
         }
     }
 };

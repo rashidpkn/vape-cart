@@ -14,33 +14,33 @@ const sequelize_typescript_1 = require("sequelize-typescript");
 let Product = class Product extends sequelize_typescript_1.Model {
 };
 __decorate([
-    (0, sequelize_typescript_1.Column)({ allowNull: false, unique: true }),
+    (0, sequelize_typescript_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], Product.prototype, "name", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ allowNull: false, defaultValue: 'Vape Monkey' }),
+    (0, sequelize_typescript_1.Column)({ defaultValue: 'Vape Monkey' }),
     __metadata("design:type", String)
 ], Product.prototype, "username", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ allowNull: false, defaultValue: 'Vape Monkey' }),
+    (0, sequelize_typescript_1.Column)({ defaultValue: 'Vape Monkey' }),
     __metadata("design:type", String)
 ], Product.prototype, "storeName", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ allowNull: false }),
+    (0, sequelize_typescript_1.Column)({}),
     __metadata("design:type", String)
 ], Product.prototype, "userId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(15000), allowNull: false }),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(15000) }),
     __metadata("design:type", String)
 ], Product.prototype, "subDescription", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(15000), allowNull: false }),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(15000) }),
     __metadata("design:type", String)
 ], Product.prototype, "content", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING),
-        defaultValue: ['/img/no-image.jpg']
+        defaultValue: ['https://delhi-vape.com/img/no-image.jpg']
     }),
     __metadata("design:type", Array)
 ], Product.prototype, "images", void 0);

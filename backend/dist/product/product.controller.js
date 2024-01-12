@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductController = void 0;
 const common_1 = require("@nestjs/common");
 const product_service_1 = require("./product.service");
+const product_model_1 = require("../model/product.model");
 let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
@@ -40,6 +41,14 @@ let ProductController = class ProductController {
         catch (error) {
             console.log(error);
             throw error;
+        }
+    }
+    async exportProduct() {
+        try {
+            const product = await product_model_1.Product.findAll({ attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } });
+            return product;
+        }
+        catch (error) {
         }
     }
     async getById(req) {
@@ -112,6 +121,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getAllProduct", null);
+__decorate([
+    (0, common_1.Get)('/export'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "exportProduct", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Req)()),

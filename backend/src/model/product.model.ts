@@ -4,22 +4,22 @@ import { Column, Model, Table, DataType } from "sequelize-typescript";
 export class Product extends Model {
 
     
-    @Column({allowNull:false,unique:true})
+    @Column({unique:true})
     name: string
 
-    @Column({allowNull:false,defaultValue:'Vape Monkey'})
+    @Column({defaultValue:'Vape Monkey'})
     username:string
 
-    @Column({allowNull:false,defaultValue:'Vape Monkey'})
+    @Column({defaultValue:'Vape Monkey'})
     storeName:string
 
-    @Column({allowNull:false})
+    @Column({})
     userId:string
 
-    @Column({type:DataType.STRING(15000),allowNull:false})
+    @Column({type:DataType.STRING(15000)})
     subDescription:string
 
-    @Column({type:DataType.STRING(15000),allowNull:false})
+    @Column({type:DataType.STRING(15000)})
     content:string
 
     @Column({

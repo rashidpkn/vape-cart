@@ -1,6 +1,8 @@
 import { BadRequestException, Controller, Delete, Get, Patch, Post, Req } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Request } from 'express';
+import { Product } from 'src/model/product.model';
+
 
 @Controller('products')
 export class ProductController {
@@ -35,6 +37,19 @@ export class ProductController {
       throw error
     }
   }
+
+
+  @Get('/export')
+  async exportProduct(){
+    try {
+      const product =  await Product.findAll({attributes:{exclude:['id','createdAt','updatedAt']}})
+      return product
+    } catch (error) {
+      
+    }
+  }
+
+
 
   @Get(':id')
   async getById(@Req() req: Request) {
@@ -76,6 +91,8 @@ export class ProductController {
 
   }
 
+  
+
   @Delete(':id')
   async deleteProduct(@Req() req:Request){
     try {
@@ -100,4 +117,7 @@ export class ProductController {
       throw error
     }
   }
+
+
+  
 }
