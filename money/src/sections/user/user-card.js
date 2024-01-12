@@ -46,7 +46,7 @@ export default function UserCard({ user, products }) {
 
         <Avatar
           alt={storeName}
-          src={avatarUrl}
+          src={'/logo/logo_single.webp'}
           sx={{
             width: 64,
             height: 64,
@@ -61,7 +61,7 @@ export default function UserCard({ user, products }) {
         />
 
         <Image
-          src={coverUrl}
+          src={'https://api-prod-minimal-v510.vercel.app/assets/images/cover/cover_15.jpg'}
           alt={coverUrl}
           ratio="16/9"
           overlay={alpha(theme.palette.grey[900], 0.48)}
