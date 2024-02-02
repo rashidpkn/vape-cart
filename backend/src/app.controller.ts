@@ -13,7 +13,7 @@ export class AppController {
       const filePath = join(__dirname, '..', 'uploads', file);
       return res.sendFile(filePath);
     } catch (error) {
-      // throw error
+      
     }
   }
   
