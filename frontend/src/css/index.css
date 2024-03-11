@@ -1,33 +1,33 @@
 body {
-    width: 100%;
-    height: 100%;
-    background: #E3E6E6 !important;
+  width: 100%;
+  height: 100%;
+  background: #e3e6e6 !important;
 }
 a {
   text-decoration: none !important;
 }
 .product-name {
-    font-size: 14px;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .navborder {
-    border: 1px solid transparent; 
+  border: 1px solid transparent;
 }
 .navborder:hover {
-    border: 1px solid #fff; 
+  border: 1px solid #fff;
 }
 
 .search-hover {
-  background: #febd69
+  background: #febd69;
 }
 
 .search-hover:hover {
   background: #f3a847;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .bg-gray {
@@ -36,7 +36,7 @@ a {
 
 .bg-gray:hover {
   background: #d4d4d4;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .slick-slide {
@@ -70,7 +70,6 @@ a {
   cursor: pointer;
 }
 
-
 .checkbox-group2 {
   width: 250px;
 }
@@ -82,7 +81,7 @@ a {
   padding: 10px 0px;
 }
 .checkbox-group2 label:before {
-  content: "";
+  content: '';
   background: #f5f5f5;
   border-radius: 100%;
   border: 1px solid #b5b5b5;
@@ -102,7 +101,7 @@ a {
   position: relative;
 }
 .checkbox-group2 .rounded-checkbox2:checked + label:before {
-  background-color: #F08804;
+  background-color: #f08804;
   -webkit-box-shadow: inset 0 0 0 3px #f5f5f5;
   box-shadow: inset 0 0 0 3px #f5f5f5;
 }
@@ -111,7 +110,7 @@ a {
   left: -9999px;
 }
 .checkbox-group2:hover label {
-  color: #F08804;
+  color: #f08804;
   text-decoration: underline;
 }
 
@@ -120,23 +119,32 @@ a {
 }
 
 .signUp ul li:hover {
-  color: #F08804;
+  color: #f08804;
   text-decoration: underline;
   cursor: pointer;
 }
 
-@media(max-width: 1199px) {
+.input_border {
+  border: none !important;
+  outline: none !important;
+}
+
+@media (max-width: 1199px) {
   .padding-lg {
     padding: 5px 5px !important;
   }
   .logo_img {
-    margin-left: -20px;
+    margin-left: 0px;
   }
   .location {
-    margin-left: -30px;
+    margin-left: 0px;
+  }
+  .sign_box {
+    position: absolute;
+    left: -290px !important;
   }
 }
-@media(max-width: 1024px) {
+@media (max-width: 1024px) {
   .hidden {
     display: none !important;
   }
@@ -146,41 +154,53 @@ a {
   .md-gap {
     gap: 0 !important;
   }
-  .lang, .orders {
+  .lang,
+  .orders {
     display: none !important;
   }
   .bt-ul {
     font-size: 14px !important;
   }
+  .sign_box {
+    position: absolute;
+    left: -350px !important;
+  }
 }
-@media(max-width: 991px) {
-  .bt-ul li:nth-child(3n+0) {
+@media (max-width: 991px) {
+  .bt-ul li:nth-child(3n + 0) {
     display: none !important;
   }
   .logo_img {
     margin-left: -15px !important;
   }
   .location {
-    margin-left: -30px;
+    margin-left: 0px;
   }
   .search_bar {
-    padding: 0px 8px !important
+    padding: 0px 8px !important;
   }
 }
-@media(max-width: 804px) {
+@media (max-width: 804px) {
   .bt-ul li {
     display: none;
+  }
+  .navborder {
+    border: none !important;
+  }
+  .navborder:hover {
+    border: none !important;
   }
   .location {
     position: absolute;
     top: 64px;
     left: 100px;
     display: block !important;
+    height: none !important;
   }
   .update_location {
     position: absolute;
     top: 6px;
-    left: 186px;
+    left: 225px;
     width: 100%;
     font-weight: 100;
     font-size: 12px;
@@ -188,17 +208,17 @@ a {
   }
   .delivery_info {
     margin-top: 30px;
-    margin-left: 25px
+    margin-left: 25px;
   }
   .location_icon {
     position: absolute;
     top: -20px;
   }
   .search_bar {
-    margin-left: -35px
+    margin-left: 0px;
   }
 }
-@media(max-width: 610px) {
+@media (max-width: 610px) {
   .sm-hidden {
     display: none;
   }
@@ -211,7 +231,7 @@ a {
   }
   .search_bar {
     margin-left: 0px;
-    margin-top: -30px
+    margin-top: -30px;
   }
   .update_location {
     position: absolute;
@@ -226,16 +246,16 @@ a {
     top: 105px;
   }
   .cart {
-    width: 100% !important;
+    width: none !important;
     position: relative;
     right: -270px;
     top: -136px;
   }
   .bt-ul {
-    position:absolute;
+    position: absolute;
     top: 1px;
   }
-  .md-bg{
+  .md-bg {
     width: 100%;
     height: 100px !important;
   }
@@ -247,21 +267,42 @@ a {
   .location {
     position: absolute;
     top: -23px;
-    left: 30px;
+    left: 0px !important;
+    height: 0px !important;
   }
 }
-@media(max-width: 599px) {
+@media (max-width: 599px) {
   .account {
     position: absolute;
     top: -90px;
     right: -350px;
   }
   .cart {
+    width: 50px;
     position: absolute;
-    right: -240px;
+    right: -523px;
+    top: -130px;
+  }
+  .sign_box {
+    position: absolute;
+    left: -110px !important;
+    width: 300px !important;
+  }
+  .location {
+    height: 0px !important;
   }
 }
-@media(max-width: 499px) {
+@media (max-width: 580px) {
+  .account {
+    position: absolute;
+    right: -350px;
+  }
+  .cart {
+    position: absolute;
+    right: -510px;
+  }
+}
+@media (max-width: 499px) {
   .account {
     position: absolute;
     top: -90px;
@@ -269,6 +310,25 @@ a {
   }
   .cart {
     position: absolute;
-    right: -170px;
+    right: -357px;
+  }
+}
+
+@media (max-width: 390px) {
+  .account {
+    position: absolute;
+    top: -90px;
+    right: -150px;
+  }
+  .cart {
+    position: absolute;
+    right: -310px;
+  }
+  .sidemenu_width {
+    width: 270px !important;
+  }
+  .close-button {
+    position: absolute;
+    left: 280px 
   }
 }

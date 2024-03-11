@@ -117,7 +117,7 @@ export default function Header({set}) {
    <Box className="md-px md-display md-bg" style={{ width: '100%', background: '#131921', color: '#fff', paddingRight: '16px', paddingLeft: '16px', paddingTop: '0px', paddingBottom: '0px', display: 'flex', alignItems: 'center'}}>
 
         <Box style={{ paddingRight: '8px', paddingLeft: '8px', height: '80%', display: 'flex', alignItems: 'center', cursor: 'pointer'}} className="navborder logo_padding">
-            <img src="/assets/images/logo/logo_single.webp" className="logo_img" width={96} height={50} style={{ marginTop: '8px', objectFit: 'contain', display: 'flex', alignItems: 'center' }} alt="logo" />
+          <a href="/"><img src="/assets/images/logo/logo_single.webp" className="logo_img" width={96} height={50} style={{ marginTop: '8px', objectFit: 'contain', display: 'flex', alignItems: 'center' }} alt="logo" /></a>
         </Box>
 
         <Box onClick={handleOpen} style={{ paddingRight: '8px', paddingLeft: '8px', paddingBottom: '12px', height: '100%', display: 'flex', alignItems: 'center', cursor: 'pointer'}} className="navborder location">
@@ -171,7 +171,8 @@ export default function Header({set}) {
 
             <Autocomplete
       className='products'
-      sx={{ width: 300 }}
+      // sx={{ width: 300 }}
+      style={{ height: '100%', fontSize: '16px', color: '#131921', flexGrow: '1', outline: 'none', border: 'none'}}
       options={result}
       autoHighlight
       getOptionLabel={(option) => option.name}
@@ -220,13 +221,13 @@ onChange={(e,v)=>{
             {
                 showAllSign && (
                     <Box>
-                        <ul style={{ position: 'absolute', width: '500px', height: 'auto', top: '35px', left: '-200px', overflowX: 'hidden', background: '#fff', color: '#000', display: 'flex', flexDirection: 'column', gap: '1', zIndex: '50', padding: '8px', border: '1px solid #131921' }}>
+                        <ul className="sign_box" style={{ position: 'absolute', width: '500px', height: 'auto', top: '35px', left: '-200px', overflowX: 'hidden', background: '#fff', color: '#000', display: 'flex', flexDirection: 'column', gap: '1', zIndex: '50', padding: '8px', border: '1px solid #131921' }}>
+                        <Link to="/auth/firebase/login" href="" style={{ color: "#111111", textTransform: "capitalize", textDecoration: "none", }}>
                         <Button style={{background: "#FFD814",display: "flex",margin: "auto",width: "200px", }}
                 >
-                  <Link to="/auth/firebase/login" href="" style={{ color: "#111111", textTransform: "capitalize", textDecoration: "none", }}>
                     sign in
-                  </Link>
                         </Button>
+                        </Link>
                         <Typography variant="p" style={{ fontSize: '12px', display: 'flex', justifyContent: 'center', padding: '10px 0px' }}>New Customer <Link to="/auth/firebase/login" href="#" style={{ fontSize: '12px', textDecoration: 'none' }}><span> Start here.</span></Link></Typography>
                         <Divider />
                         <Box style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
@@ -257,10 +258,10 @@ onChange={(e,v)=>{
             <Typography variant="p" style={{ fontSize: '14px', fontWeight: '700', lineHeight: '15px' }}>& Orders</Typography>
         </Box>
 
-       <a href='' style={{color: '#fff', textDecoration: 'none', position: 'relative'}}><Box className="navborder padding-lg cart" style={{ display: 'flex', allItems: 'start', justifyContent: 'center', paddingRight: '16px', paddingLeft: '16px', paddingTop: '12px', paddingBottom: '12px', position: 'relative', cursor: 'pointer' }}>
+        <Link to="product/checkout-2" style={{color: '#fff', textDecoration: 'none', position: 'relative'}}><Box className="navborder padding-lg cart" style={{ display: 'flex', allItems: 'start', justifyContent: 'center', paddingRight: '16px', paddingLeft: '16px', paddingTop: '12px', paddingBottom: '12px', position: 'relative', cursor: 'pointer' }}>
             <AddShoppingCart />
             <Typography variant="p" className="sm-hidden" style={{ fontSize: '12px', fontWeight: '500' }}>Cart <span></span></Typography>
-        </Box></a>      
+        </Box></Link>      
     </Box>
         <BottomHeader />
    </Box>
