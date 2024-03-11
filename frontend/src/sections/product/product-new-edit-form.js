@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { useCallback, useMemo, useEffect } from 'react';
+import { useCallback, useMemo, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
@@ -15,6 +15,10 @@ import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControlLabel from '@mui/material/FormControlLabel';
+
+import Autocomplete from '@mui/lab/Autocomplete';
+import TextField from '@mui/material/TextField';
+
 // routes
 import { paths } from 'src/routes/paths';
 // hooks
@@ -42,6 +46,11 @@ import { useAuthContext } from 'src/auth/hooks';
 // ----------------------------------------------------------------------
 
 export default function ProductNewEditForm({ currentProduct }) {
+const [products, setProduct] = useState([])
+
+  
+  
+
   const router = useRouter();
 
   const mdUp = useResponsive('up', 'md');
@@ -103,6 +112,21 @@ export default function ProductNewEditForm({ currentProduct }) {
   } = methods;
 
   const values = watch();
+
+
+  const fetchProduct = useCallback(
+    async () => {
+      const {data:{products}} = await api.get('/products',{params:{
+        name:values.name
+      }})
+      setProduct(products)
+    },
+    [values.name],
+  )
+  
+  useEffect(() => {    
+    fetchProduct()
+  }, [values.name])
 
   useEffect(() => {
     if (currentProduct) {
@@ -178,7 +202,37 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Details" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
-            <RHFTextField name="name" label="Product Name" />
+            {/* <RHFTextField name="name" label="Product Name" /> */}
+
+            <Autocomplete
+            onChange={(e,value)=>{
+              if (value) {
+                setValue('images', products.find(product => product.name === value).images);
+              } else {
+                // Handle case where user clears the input
+                setValue('images', null);
+              }
+            }}
+                name="name"
+                label="Product Name"
+                options={products.map(e=>e.name)}
+                getOptionLabel={(option) => option}
+                isOptionEqualToValue={(option, value) => option === value.value}
+                renderInput={(params) => <TextField {...params} label="Product Name" value={values.name} onChange={e=>setValue('name',e.target.value)} />}
+                renderOption={(props, option) => (
+                  <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+          <img
+            loading="lazy"
+            width="20"
+            
+            src={ products.find(e=>e.name===option).images[0]}
+            alt=""
+          />
+          {option} 
+        </Box>
+                )}
+                freeSolo
+              />
 
             <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} />
 
