@@ -33,7 +33,7 @@ const HeaderBottom = () => {
         sidebar &&  (
           <Box className="sidebar-bg" style={{ with: '100%', height: '100%', color: 'black'}}>
             <Box style={{ width: '100%', height: '100%', position: 'relative' }}>
-              <m.div  ref={ref} initial={{x:-500,opacity:0}} animate={{x:0, opacity:1}} transition={{duration:.5}} style={{ width: '350px', height: '100%', background: '#fff', border: '1px solid #000', overflowY: 'auto' }}>
+              <m.div  ref={ref} initial={{x:-500,opacity:0}} animate={{x:0, opacity:1}} transition={{duration:.5}} className="sidemenu_width" style={{ width: '350px', height: '100%', background: '#fff', border: '1px solid #000', overflowY: 'auto' }}>
                 <Box style={{ width: '100%', background: '#232f3e', color: '#fff', paddingTop: '8px', paddingBottom: '8px', paddingRight: '26px', paddingLeft: '26px', display: 'flex', alignItems: 'center', }}>
                   <AccountCircle />
                   <Typography variant="h6">Hello, Sign In </Typography>
