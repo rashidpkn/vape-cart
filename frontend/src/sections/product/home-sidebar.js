@@ -186,13 +186,8 @@ export default function HomeSidebar() {
                 </ListItemButton>
                 <Collapse in={expanded === 'panel4'} unmountOnExit>
                 <List component="div" disablePadding sx={{ pl: 2 }}>
-                    <ListItemButton>
-                    <ListItemText primary="Juul" />
-                    </ListItemButton>
+               
 
-                    <ListItemButton>
-                    <ListItemText primary="MYLE" />
-                    </ListItemButton>
 
                     <ListItemButton>
                     <ListItemText primary="Relx" />
@@ -255,7 +250,7 @@ export default function HomeSidebar() {
                 {/* <ListItemIcon> */}
                     {/* <Iconify icon="solar:inbox-in-bold" width={24} /> */}
                 {/* </ListItemIcon> */}
-                <ListItemText primary="MYLE" />
+            
                 {expanded === 'panel6' ? (
                     <Iconify icon="eva:arrow-ios-upward-fill" />
                 ) : (
@@ -264,17 +259,10 @@ export default function HomeSidebar() {
                 </ListItemButton>
                 <Collapse in={expanded === 'panel6'} unmountOnExit>
                 <List component="div" disablePadding sx={{ pl: 2 }}>
-                    <ListItemButton>
-                    <ListItemText primary="NEW Myle V.4" />
-                    </ListItemButton>
+            
 
-                    <ListItemButton>
-                    <ListItemText primary="Myle V.1" />
-                    </ListItemButton>
-
-                    <ListItemButton>
-                    <ListItemText primary="Myle Disposables" />
-                    </ListItemButton>
+               
+             
                 </List>
                 </Collapse>
 
@@ -282,7 +270,7 @@ export default function HomeSidebar() {
                 {/* <ListItemIcon> */}
                     {/* <Iconify icon="fluent:mail-24-filled" width={24} /> */}
                 {/* </ListItemIcon> */}
-                <ListItemText primary="JUUL" />
+        
                 </ListItemButton>
 
                 <ListItemButton onClick={handleChange('panel7')}>
