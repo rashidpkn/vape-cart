@@ -31,6 +31,10 @@ import {
   SettingsDrawer,
 } from 'src/components/settings';
 import { AuthProvider, AuthConsumer } from 'src/auth/context/firebase';
+import { useCallback, useEffect } from 'react';
+import axios  from 'axios';
+import { useDispatch } from 'react-redux';
+import { setLocation } from './redux/slices/util';
 
 // Main App Component
 export default function App() {
@@ -38,6 +42,27 @@ export default function App() {
   useScrollToTop();
 
   // Function to render the main content of the app
+
+const dispatch = useDispatch()
+
+  const fetchLocation = useCallback(
+    async () => {
+      const {data:{city,region,country_name,postal}} = await axios.get('https://ipapi.co/json')
+      dispatch(setLocation({city,region,country_name,postal}))
+    },
+    [],
+  )
+  
+
+
+useEffect(() => {
+  fetchLocation()
+
+}, [])
+
+
+
+
   const renderMainContent = () => (
     <>
       <SettingsDrawer />
@@ -51,7 +76,7 @@ export default function App() {
   // Main JSX structure of the App component
   return (
     <AuthProvider>
-      <ReduxProvider>
+      
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <SettingsProvider
             defaultSettings={{
@@ -73,7 +98,7 @@ export default function App() {
             </ThemeProvider>
           </SettingsProvider>
         </LocalizationProvider>
-      </ReduxProvider>
+
     </AuthProvider>
   );
 }

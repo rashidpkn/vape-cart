@@ -75,11 +75,9 @@ export const PRODUCT_SORT_OPTIONS = [
 export const PRODUCT_CATEGORY_GROUP_OPTIONS = [
   { group: 'VAPE DEVICES', classify: ["SMOK","Vaporesso","Uwell","Innokin","Voopoo","Geek Vape"] },
   { group: 'Vape Juice', classify: ['VGOD', 'Nasty', 'Ruthless', 'BLVK Unicorn', 'Vampire Vape','Dinner Lady','Zeus Juice'] },
-  { group: 'SALT NIC', classify: ['Cambridge Labs', 'VGOD', 'Nastry', 'eCigara','Core','Nerd','BLVK Unicorn'] },
-  { group: 'POD SYSTEMS', classify: ['Juul','MYLE','Relx'] },
+  { group: 'SALT NIC', classify: ['Cambridge Labs', 'VGOD', 'Nastry', 'Cambridge Labs','Core','Nerd','BLVK Unicorn'] },
+  { group: 'POD SYSTEMS', classify: ['Relx'] },
   { group: 'DISPOSABLES', classify: ['Youto','Tugboat','XTRA','Esco Bars','VGOD','VICIG','Vudu'] },
-  { group: 'MYLE', classify: ['NEW Myle V.4','Myle V.1','Myle Disposables'] },
-  { group: 'JUUL', classify: ['Juul'] },
   { group: 'ACCESSORIES', classify: ['Colls & Pods','Tanks, Glass & Tips','Batteries and Lanyards'] },
 ];
 
