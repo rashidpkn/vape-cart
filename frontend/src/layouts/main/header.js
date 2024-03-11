@@ -188,7 +188,7 @@ onChange={(e,v)=>{
             loading="lazy"
             width="20"
             
-            src={'https://delhi-vape.com'+option.images[0]}
+            src={option.images[0]}
             alt=""
           />
           {option.name} 
