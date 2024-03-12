@@ -48,6 +48,7 @@ export default function ProductDetailsSummary({
     totalReviews,
     inventoryType,
     subDescription,
+    images
   } = product;
 
   const existProduct = cart?.map((item) => item.id)?.includes(id);
@@ -62,6 +63,7 @@ export default function ProductDetailsSummary({
     price:salePrice,
     colors:colors?.length&& colors[0],
     size: sizes?.lenght && sizes[0],
+    images
   };
 
   const methods = useForm({
