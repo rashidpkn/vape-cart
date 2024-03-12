@@ -58,7 +58,7 @@ export default function ProductDetailsSummary({
     id,
     name,
     coverUrl,
-    quantity,
+    quantity:1,
     price:salePrice,
     colors:colors?.length&& colors[0],
     size: sizes?.lenght && sizes[0],
@@ -98,10 +98,8 @@ export default function ProductDetailsSummary({
 
   const handleAddCart = useCallback(() => {
     try {
-      onAddCart({
-        ...values,
-        subTotal: values.price * values.quantity,
-      });
+      onAddCart({ ...values,subTotal: values.price });
+      console.log(values);
     } catch (error) {
       console.error(error);
     }

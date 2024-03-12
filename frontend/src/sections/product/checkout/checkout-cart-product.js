@@ -22,7 +22,7 @@ import IncrementerButton from '../common/incrementer-button';
 // ----------------------------------------------------------------------
 
 export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncrease }) {
-  const { name, size, salePrice, colors, images, quantity, available,id } = row;
+  const { name, size, price, colors, images=[], quantity, available,id } = row;
   const dispatch = useDispatch()
 
   return (
@@ -42,12 +42,12 @@ export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncre
           >
             size: <Label sx={{ ml: 0.5 }}> {size} </Label>
             <Divider orientation="vertical" sx={{ mx: 1, height: 16 }} />
-            <ColorPreview colors={colors} />
+            {/* <ColorPreview colors={colors} /> */}
           </Stack>
         </Stack>
       </TableCell>
 
-      <TableCell>{fCurrency(salePrice)}</TableCell>
+      <TableCell>{fCurrency(price)}</TableCell>
 
       <TableCell>
         <Box sx={{ width: 88, textAlign: 'right' }}>
@@ -65,7 +65,7 @@ export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncre
         </Box>
       </TableCell>
 
-      <TableCell align="right">{fCurrency(salePrice * quantity)}</TableCell>
+      <TableCell align="right">{fCurrency(price * quantity)}</TableCell>
 
       <TableCell align="right" sx={{ px: 1 }}>
         <IconButton onClick={()=>{
