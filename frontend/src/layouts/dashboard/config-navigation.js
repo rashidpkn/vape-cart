@@ -167,3 +167,10 @@ export const NavbarBottomLinks = [
   { _id: 108, title: "Sale" },
   { _id: 109, title: "Delivery Info" },
 ];
+
+export const ProductTitle = [
+  { _id: 110, title: "Todays Deals" },
+  { _id: 111, title: "Best Selling Products" },
+  { _id: 112, title: "Upto 50% off" },
+  { _id: 113, title: "New Arrivals" },
+];

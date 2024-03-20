@@ -10,7 +10,6 @@ import {
   AccordionDetails,
   Button,
   Stack,
-
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { styled } from '@mui/material/styles';
@@ -43,6 +42,7 @@ import vape_bg_2 from '/assets/images/hero/vape_bg_2.jpg';
 import vape_bg_6 from '/assets/images/hero/vape_bg_6.jpg';
 import vape_bg_7 from '/assets/images/hero/vape_bg_7.jpg';
 import { Link } from 'react-router-dom';
+import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'red',
@@ -81,7 +81,7 @@ export default function ShopPage() {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 2000,
     pauseOnHover: true,
     responsive: [
@@ -149,9 +149,11 @@ export default function ShopPage() {
                 objectFit: 'cover',
                 backgroundPosition: 'center',
                 objectPosition: '',
+                position: 'relative'
               }}
               alt=""
             />
+            <Typography className='vertical_center' variant='h2' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>Fill Your Basket</Typography>
           </SwiperSlide>
           <SwiperSlide>
             <img
@@ -164,9 +166,11 @@ export default function ShopPage() {
                 objectFit: 'cover',
                 backgroundPosition: 'center',
                 objectPosition: 'top',
+                position: 'relative'
               }}
               alt=""
             />
+              <Typography className='vertical_center' variant='h2' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>Best Selling Products</Typography>
           </SwiperSlide>
           <SwiperSlide>
             <img
@@ -179,37 +183,62 @@ export default function ShopPage() {
                 objectFit: 'cover',
                 backgroundPosition: 'center',
                 objectPosition: 'top',
+                position: 'relative'
               }}
               alt=""
             />
+              <Typography className='vertical_center' variant='h2' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>Fill Your Basket</Typography>
           </SwiperSlide>
         </Swiper>
 
-        <Box>
+        {/* <Box>
           <Grid container spacing={3} sx={{ padding: '15px', marginTop: '-300px' }}>
-            {[producsts.slice(0,4),producsts.slice(4,8),producsts.slice(8,12),producsts.slice(12,16)].map((items,i) => (
+            {[
+              producsts.slice(0, 4),
+              producsts.slice(4, 8),
+              producsts.slice(8, 12),
+              producsts.slice(12, 16),
+            ].map((items, i) => (
               <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
                 <Card style={{ width: '100%', borderRadius: '0px', zIndex: '2' }}>
-                  <Grid container spacing={2} p={2} >
-                    
-                      {items.map(item=>(<Grid item xs={6} component={Link} to={`/product/${item.id}`} key={item.id} sx={{width:'50%'}}>
-                      <Box style={{ width: '100%', cursor: 'pointer', }}>
-                        <img
-                          src={item.images[0]}
-                          width={'100%'}
-                          height={150}
-                          style={{ width: '100%', border: '1px solid #ccc', backgroundSize: 'cover', backgroundPosition: 'center' }}
-                          alt=""
-                        />
-                        <Typography variant="p" className="product-name" style={{ color: 'black', textDecoration: 'none' }}>
-                          {item.name.substring(0,20)}
-                          
-                        </Typography>
-                      </Box>
+                  {ProductTitle.map((item) => (
+                    <Typography variant="h5" pl={2} py={1} key={item._id}>
+                      {item.title}
+                    </Typography>
+                  ))}
+                  <Grid container spacing={2} px={2} pb={2}>
+                    {items.map((item) => (
+                      <Grid
+                        item
+                        xs={6}
+                        component={Link}
+                        to={`/product/${item.id}`}
+                        key={item.id}
+                        sx={{ width: '50%' }}
+                      >
+                        <Box style={{ width: '100%', cursor: 'pointer' }}>
+                          <img
+                            src={item.images[0]}
+                            width={'100%'}
+                            height={150}
+                            style={{
+                              width: '100%',
+                              border: '1px solid #ccc',
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                            }}
+                            alt=""
+                          />
+                          <Typography
+                            variant="p"
+                            className="product-name"
+                            style={{ color: 'black', textDecoration: 'none' }}
+                          >
+                            {item.name.substring(0, 20)}
+                          </Typography>
+                        </Box>
                       </Grid>
-
-                      ))}
-
+                    ))}
                   </Grid>
                 </Card>
               </Grid>
@@ -220,37 +249,149 @@ export default function ShopPage() {
             {currentPosts.map((item) => (
               <Grid item xs={12} sm={6} md={4} lg={3}>
                 <Link to={`/product/${item.id}`} key={item.id}>
-                <Card
-                  sx={{ width: '100%', height: '100%', borderRadius: '0px', zIndex: '2' }}
-                  key={item}
-                >
-                  <CardContent>
-                    <Box>
-                      <img
-                        src={item.images[0]}
-                        width={150}
-                        height={100}
-                        style={{ width: '100%', height: '300px' }}
-                        alt=""
-                      />
-                    </Box>
-                    <Box>
-                      <Typography variant="h6" sx={{ marginTop: '10px', textDecoration: 'none' }}>
-                        {item.name}
-                      </Typography>
-                      <Typography variant="p" sx={{ paddingBottom: '5px', fontStyle: 'italic', textDecoration: 'none' }}>
-                        {item.storeName}
-                      </Typography>{' '}
-                      <br />
-                      <Typography variant="p" style={{ color: 'gray', marginTop: '15px', textDecoration: 'none' }}>
-                        <del>{item.regularPrice}₹ 549</del>{' '}
-                        <span style={{ fontWeight: '700', color: '#000', textDecoration: 'none' }}>
-                          {item.salePrice} ₹ 539
-                        </span>
-                      </Typography>
-                    </Box>
-                  </CardContent>
+                  <Card
+                    sx={{ width: '100%', height: '100%', borderRadius: '0px', zIndex: '2' }}
+                    key={item}
+                  >
+                    <CardContent>
+                      <Box>
+                        <img
+                          src={item.images[0]}
+                          width={150}
+                          height={100}
+                          style={{ width: '100%', height: '300px' }}
+                          alt=""
+                        />
+                      </Box>
+                      <Box>
+                        <Typography variant="h6" sx={{ marginTop: '10px', textDecoration: 'none' }}>
+                          {item.name}
+                        </Typography>
+                        <Typography
+                          variant="p"
+                          sx={{ paddingBottom: '5px', fontStyle: 'italic', textDecoration: 'none' }}
+                        >
+                          {item.storeName}
+                        </Typography>{' '}
+                        <br />
+                        <Typography
+                          variant="p"
+                          style={{ color: 'gray', marginTop: '15px', textDecoration: 'none' }}
+                        >
+                          <del>{item.regularPrice}₹ 549</del>{' '}
+                          <span
+                            style={{ fontWeight: '700', color: '#000', textDecoration: 'none' }}
+                          >
+                            {item.salePrice} ₹ 539
+                          </span>
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </Grid>
+            ))}
+          </Grid>
+
+          <Pagination1 count={total / 20} onChange={handleChange} />
+        </Box> */}
+
+        <Box>
+          <Grid container spacing={3} sx={{ padding: '15px', marginTop: '-300px' }}>
+            {[
+              producsts.slice(0, 4),
+              producsts.slice(4, 8),
+              producsts.slice(8, 12),
+              producsts.slice(12, 16),
+            ].map((items, i) => (
+              <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
+                <Card style={{ width: '100%', borderRadius: '0px', zIndex: '2' }}>
+                  {/* Render only one title for each card */}
+                  <Typography variant="h5" pl={2} py={1}>
+                    {ProductTitle[i].title}
+                  </Typography>
+                  <Grid container spacing={2} px={2} pb={2}>
+                    {items.map((item) => (
+                      <Grid
+                        item
+                        xs={6}
+                        component={Link}
+                        to={`/product/${item.id}`}
+                        key={item.id}
+                        sx={{ width: '50%' }}
+                      >
+                        <Box style={{ width: '100%', cursor: 'pointer' }}>
+                          <img
+                            src={item.images[0]}
+                            width={'100%'}
+                            height={150}
+                            style={{
+                              width: '100%',
+                              border: '1px solid #ccc',
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                            }}
+                            alt=""
+                          />
+                          <Typography
+                            variant="p"
+                            className="product-name"
+                            style={{ color: 'black', textDecoration: 'none' }}
+                          >
+                            {item.name.substring(0, 20)}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                    ))}
+                  </Grid>
                 </Card>
+              </Grid>
+            ))}
+          </Grid>
+
+          <Grid container spacing={3} style={{ padding: '20px', marginTop: '' }}>
+            {currentPosts.map((item) => (
+              <Grid item xs={12} sm={6} md={4} lg={3}>
+                <Link to={`/product/${item.id}`} key={item.id}>
+                  <Card
+                    sx={{ width: '100%', height: '100%', borderRadius: '0px', zIndex: '2' }}
+                    key={item}
+                  >
+                    <CardContent>
+                      <Box>
+                        <img
+                          src={item.images[0]}
+                          width={150}
+                          height={100}
+                          style={{ width: '100%', height: '300px' }}
+                          alt=""
+                        />
+                      </Box>
+                      <Box>
+                        <Typography variant="h6" sx={{ marginTop: '10px', textDecoration: 'none' }}>
+                          {item.name}
+                        </Typography>
+                        <Typography
+                          variant="p"
+                          sx={{ paddingBottom: '5px', fontStyle: 'italic', textDecoration: 'none' }}
+                        >
+                          {item.storeName}
+                        </Typography>{' '}
+                        <br />
+                        <Typography
+                          variant="p"
+                          style={{ color: 'gray', marginTop: '15px', textDecoration: 'none' }}
+                        >
+                          <del>{item.regularPrice}₹ 549</del>{' '}
+                          <span
+                            style={{ fontWeight: '700', color: '#000', textDecoration: 'none' }}
+                          >
+                            {item.salePrice} ₹ 539
+                          </span>
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
                 </Link>
               </Grid>
             ))}
@@ -259,36 +400,15 @@ export default function ShopPage() {
           <Pagination1 count={total / 20} onChange={handleChange} />
         </Box>
 
-        {/* <Grid container style={{ marginTop: '50px' }}>
-          <Grid item lg={3}>
-            <Typography variant="h4" sx={{ padding: '10px 15px' }}>
-              Top Categories
-            </Typography>
-            <Box>
-              {producsts.map((item) => (
-                <Box key={item}>
-                  <Accordion>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel1-content"
-                      id="panel1-header"
-                    >
-                      {item.name}
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <ul style={{ listStyleType: 'none', padding: '0px' }}>
-                        <li>{item.name}</li>
-                      </ul>
-                    </AccordionDetails>
-                  </Accordion>
-                </Box>
-              ))}
-            </Box>
-          </Grid>
-          <Grid item lg={9}></Grid>
-        </Grid> */}
-
-        <Box style={{ paddingLeft: '20px', paddingRight: '20px', paddingTop: '50px', paddingBottom: '100px' }}>
+        <Typography variant='h3' sx={{textAlign: 'center',}} pt={5} pb={2} >Best Sellers</Typography>
+        <Box
+          style={{
+            paddingLeft: '20px',
+            paddingRight: '20px',
+            paddingTop: '0px',
+            paddingBottom: '50px',
+          }}
+        >
           <Slider {...settings} style={{ marginRight: '10px' }}>
             {[
               // {
@@ -352,10 +472,8 @@ export default function ShopPage() {
                 id: 10,
               },
             ].map((e) => (
-              <Link  to={`/product/${e.id}`} key={e.id} style={{ textDecoration: 'none'}}>
-                 <Card
-                  sx={{ width: '100%', height: '100%', borderRadius: '0px'}}
-                >
+              <Link to={`/product/${e.id}`} key={e.id} style={{ textDecoration: 'none' }}>
+                <Card sx={{ width: '100%', height: '100%', borderRadius: '0px' }}>
                   <CardContent>
                     <Box>
                       <img
@@ -368,10 +486,116 @@ export default function ShopPage() {
                     </Box>
                     <Box>
                       <Typography variant="h6" sx={{ marginTop: '10px' }}>
-                      {e.name}
+                        {e.name}
                       </Typography>
                       <Typography variant="p" sx={{ paddingBottom: '5px', fontStyle: 'italic' }}>
-                      {e.storeName}
+                        {e.storeName}
+                      </Typography>{' '}
+                      <br />
+                      <Typography variant="p" style={{ color: 'gray', marginTop: '15px' }}>
+                        <del>{e.regularPrice}₹ 549</del>{' '}
+                        <span style={{ fontWeight: '700', color: '#000' }}>
+                          {e.salePrice} ₹ 539
+                        </span>
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </Slider>
+        </Box>
+
+        <Typography variant='h3' sx={{textAlign: 'center',}} pb={2} >New Arrivals</Typography>
+        <Box
+          style={{
+            paddingLeft: '20px',
+            paddingRight: '20px',
+            paddingTop: '0px',
+            paddingBottom: '100px',
+          }}
+        >
+          <Slider {...settings} style={{ marginRight: '10px' }}>
+            {[
+              // {
+              //   name: 'test',
+              //   storeName: 'vap amzon',
+              //   img: '/assets/images/banner/vaping_device.jpg',
+              //   id: 1,
+              // },
+              // {
+              //   name: 'test2',
+              //   storeName: 'vap amzon',
+              //   img: '/assets/images/banner/p2.jpg',
+              //   id: 2,
+              // },
+              {
+                name: 'Smok V8 X-Baby T6',
+                storeName: 'vap amzon',
+                img: '/assets/images/banner/p3.jpg',
+                id: 3,
+              },
+              {
+                name: 'Smok V8 X-Baby M2',
+                storeName: 'vap amzon',
+                img: '/assets/images/banner/p4.jpg',
+                id: 4,
+              },
+              {
+                name: 'Smok V8 X-Baby Q2',
+                storeName: 'vap amzon',
+                img: '/assets/images/banner/p5.jpg',
+                id: 5,
+              },
+              {
+                name: 'Smok V8 Baby X4',
+                storeName: 'vap amzon',
+                img: '/assets/images/banner/p6.jpg',
+                id: 6,
+              },
+              {
+                name: 'Smok V8 Baby T8',
+                storeName: 'vap amzon',
+                img: '/assets/images/banner/p7.jpg',
+                id: 7,
+              },
+              {
+                name: 'Smok V8 Baby - Q2',
+                storeName: 'vap amzon',
+                img: '/assets/images/banner/p8.jpg',
+                id: 8,
+              },
+              {
+                name: 'Smok V8 Baby M2',
+                storeName: 'vap amzon',
+                img: '/assets/images/banner/p9.jpg',
+                id: 9,
+              },
+              {
+                name: 'Smok V12 Prince - T10',
+                storeName: 'vap amzon',
+                img: '/assets/images/banner/p10.jpg',
+                id: 10,
+              },
+            ].map((e) => (
+              <Link to={`/product/${e.id}`} key={e.id} style={{ textDecoration: 'none' }}>
+                <Card sx={{ width: '100%', height: '100%', borderRadius: '0px' }}>
+                  <CardContent>
+                    <Box>
+                      <img
+                        src={e.img}
+                        width={150}
+                        height={100}
+                        style={{ width: '100%', height: '300px' }}
+                        alt=""
+                      />
+                    </Box>
+                    <Box>
+                      <Typography variant="h6" sx={{ marginTop: '10px' }}>
+                        {e.name}
+                      </Typography>
+                      <Typography variant="p" sx={{ paddingBottom: '5px', fontStyle: 'italic' }}>
+                        {e.storeName}
                       </Typography>{' '}
                       <br />
                       <Typography variant="p" style={{ color: 'gray', marginTop: '15px' }}>
