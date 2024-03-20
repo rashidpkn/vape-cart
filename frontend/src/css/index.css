@@ -134,6 +134,10 @@ a {
   top: 30%;
 }
 
+.bg_text {
+  padding:0px 300px;
+}
+
 @media (max-width: 1199px) {
   .padding-lg {
     padding: 5px 5px !important;
