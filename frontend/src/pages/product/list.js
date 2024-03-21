@@ -44,6 +44,9 @@ import bg_3 from '/assets/images/hero/bg_3.jpg';
 import { Link } from 'react-router-dom';
 import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'red',
 //   ...theme.typography.body2,
@@ -55,6 +58,8 @@ import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
 // ----------------------------------------------------------------------
 
 export default function ShopPage() {
+  AOS.init();
+
   const [producsts, setProducsts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
@@ -153,7 +158,7 @@ export default function ShopPage() {
               }}
               alt=""
             />
-            <Typography className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>Discover vape essentials effortlessly—your one-stop shop for everything vape!</Typography>
+            <Typography  data-aos="fade-up" data-aos-duration="2000" className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>Discover vape essentials effortlessly—your one-stop shop for everything vape!</Typography>
           </SwiperSlide>
           <SwiperSlide>
             <img
@@ -170,7 +175,7 @@ export default function ShopPage() {
               }}
               alt=""
             />
-              <Typography className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#000', textTransform: 'capitalize'}}>Vape made easy: Find your favorites in a snap!</Typography>
+              <Typography data-aos="fade-up" data-aos-duration="2000"  className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#000', textTransform: 'capitalize'}}>Vape made easy: Find your favorites in a snap!</Typography>
           </SwiperSlide>
           <SwiperSlide>
             <img
@@ -187,7 +192,7 @@ export default function ShopPage() {
               }}
               alt=""
             />
-              <Typography className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>All your vape needs, one click away—simplicity meets selection!</Typography>
+              <Typography data-aos="fade-up" data-aos-duration="2000"  className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>All your vape needs, one click away—simplicity meets selection!</Typography>
           </SwiperSlide>
         </Swiper>
 
