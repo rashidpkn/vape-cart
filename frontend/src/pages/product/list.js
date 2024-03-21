@@ -38,11 +38,14 @@ import { spacing } from '@mui/system';
 import pagignation from '../components/pagignation';
 import Pagination1 from '@mui/material/Pagination';
 
-import vape_bg_2 from '/assets/images/hero/vape_bg_2.jpg';
-import vape_bg_6 from '/assets/images/hero/vape_bg_6.jpg';
-import vape_bg_7 from '/assets/images/hero/vape_bg_7.jpg';
+import bg_1 from '/assets/images/hero/bg_1.jpg';
+import bg_2 from '/assets/images/hero/bg_2.jpg';
+import bg_3 from '/assets/images/hero/bg_3.jpg';
 import { Link } from 'react-router-dom';
 import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
+
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'red',
@@ -55,6 +58,8 @@ import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
 // ----------------------------------------------------------------------
 
 export default function ShopPage() {
+  AOS.init();
+
   const [producsts, setProducsts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
@@ -140,7 +145,7 @@ export default function ShopPage() {
         >
           <SwiperSlide>
             <img
-              src={vape_bg_2}
+              src={bg_1}
               width={500}
               height={500}
               style={{
@@ -153,11 +158,11 @@ export default function ShopPage() {
               }}
               alt=""
             />
-            <Typography className='vertical_center' variant='h2' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>Fill Your Basket</Typography>
+            <Typography  data-aos="fade-up" data-aos-duration="2000" className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>Discover vape essentials effortlessly—your one-stop shop for everything vape!</Typography>
           </SwiperSlide>
           <SwiperSlide>
             <img
-              src={vape_bg_6}
+              src={bg_2}
               width={500}
               height={500}
               style={{
@@ -170,11 +175,11 @@ export default function ShopPage() {
               }}
               alt=""
             />
-              <Typography className='vertical_center' variant='h2' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>Best Selling Products</Typography>
+              <Typography data-aos="fade-up" data-aos-duration="2000"  className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#000', textTransform: 'capitalize'}}>Vape made easy: Find your favorites in a snap!</Typography>
           </SwiperSlide>
           <SwiperSlide>
             <img
-              src={vape_bg_7}
+              src={bg_3}
               width={500}
               height={500}
               style={{
@@ -187,7 +192,7 @@ export default function ShopPage() {
               }}
               alt=""
             />
-              <Typography className='vertical_center' variant='h2' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>Fill Your Basket</Typography>
+              <Typography data-aos="fade-up" data-aos-duration="2000"  className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>All your vape needs, one click away—simplicity meets selection!</Typography>
           </SwiperSlide>
         </Swiper>
 
