@@ -1,0 +1,1 @@
+.blurLayout{position:absolute;height:100%;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;top:0;left:0;z-index:999;background-color:#ffffff80;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);min-height:100vh}.blurLayout p{font-size:18px;font-weight:500}

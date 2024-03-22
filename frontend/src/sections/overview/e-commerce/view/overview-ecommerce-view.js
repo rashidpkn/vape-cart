@@ -21,6 +21,7 @@ import EcommerceSalesOverview from '../ecommerce-sales-overview';
 import EcommerceWidgetSummary from '../ecommerce-widget-summary';
 import EcommerceLatestProducts from '../ecommerce-latest-products';
 import EcommerceCurrentBalance from '../ecommerce-current-balance';
+import BlurLayer from 'src/common/blurlayer';
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +33,8 @@ export default function OverviewEcommerceView() {
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{position:'relative'}}>
+      <BlurLayer />
         {/* <Grid xs={12} md={8}>
           <EcommerceWelcome
             title={`Congratulations! \n ${user?.displayName}`}

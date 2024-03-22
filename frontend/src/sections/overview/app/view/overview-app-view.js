@@ -23,6 +23,7 @@ import AppNewInvoice from '../app-new-invoice';
 
 
 import AppWidgetSummary from '../app-widget-summary';
+import BlurLayer from 'src/common/blurlayer';
 
 
 // ----------------------------------------------------------------------
@@ -36,7 +37,8 @@ export default function OverviewAppView() {
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{position:'relative'}}>
+        <BlurLayer />
         <Grid xs={12} md={8}>
           <AppWelcome
             title={`Welcome back 👋 \n ${user?.displayName}`}
@@ -91,70 +93,7 @@ export default function OverviewAppView() {
           />
         </Grid>
 
-        {/* <Grid xs={12} md={6} lg={4}>
-          <AppCurrentDownload
-            title="Current Download"
-            chart={{
-              series: [
-                { label: 'Mac', value: 0 },
-                { label: 'Window', value: 0 },
-                { label: 'iOS', value: 0 },
-                { label: 'Android', value: 0 },
-              ],
-            }}
-          />
-        </Grid> */}
-
-        {/* <Grid xs={12} md={6} lg={8}>
-          <AppAreaInstalled
-            title="Area Installed"
-            subheader="(+0%) than last year"
-            chart={{
-              categories: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec',
-              ],
-              series: [
-                {
-                  year: '2019',
-                  data: [
-                    {
-                      name: 'Asia',
-                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
-                    {
-                      name: 'America',
-                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
-                  ],
-                },
-                {
-                  year: '2020',
-                  data: [
-                    {
-                      name: 'Asia',
-                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
-                    {
-                      name: 'America',
-                      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    },
-                  ],
-                },
-              ],
-            }}
-          />
-        </Grid> */}
+       
 
         <Grid xs={12} lg={8}>
           <AppNewInvoice
@@ -170,37 +109,9 @@ export default function OverviewAppView() {
           />
         </Grid>
 
-        {/* <Grid xs={12} md={6} lg={4}>
-          <AppTopRelated title="Top Related Applications" list={_appRelated} />
-        </Grid> */}
+    
 
-        {/* <Grid xs={12} md={6} lg={4}>
-          <AppTopInstalledCountries title="Top Installed Countries" list={_appInstalled} />
-        </Grid>
-
-        <Grid xs={12} md={6} lg={4}>
-          <AppTopAuthors title="Top Authors" list={ <Grid xs={12} md={6} lg={4}>
-          <Stack spacing={3}>
-            <AppWidget
-              title="Conversion"
-              total={0}
-              icon="solar:user-rounded-bold"
-              chart={{
-                series: 0,
-              }}
-            />
-
-            <AppWidget
-              title="Applications"
-              total={0}
-              icon="fluent:mail-24-filled"
-              color="info"
-              chart={{
-                series: 0,
-              }}
-            />
-          </Stack>
-        </Grid> */}
+    
       </Grid>
     </Container>
   );

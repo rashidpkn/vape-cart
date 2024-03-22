@@ -32,17 +32,17 @@ const TABS = [
   {
     value: 'all',
     label: 'All',
-    count: 22,
+    count: 0,
   },
   {
     value: 'unread',
     label: 'Unread',
-    count: 12,
+    count:0,
   },
   {
     value: 'archived',
     label: 'Archived',
-    count: 10,
+    count:0,
   },
 ];
 
@@ -59,7 +59,7 @@ export default function NotificationsPopover() {
     setCurrentTab(newValue);
   }, []);
 
-  const [notifications, setNotifications] = useState(_notifications);
+  const [notifications, setNotifications] = useState([]);
 
   const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
 
