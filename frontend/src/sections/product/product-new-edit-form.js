@@ -113,6 +113,10 @@ const [products, setProduct] = useState([])
 
   const values = watch();
 
+  useEffect(() => {
+    setValue('SKU',values.name.toUpperCase().slice(0,3) + user.storeName.toUpperCase().charAt(0) + '-001')
+  }, [values.name])
+  
 
   const fetchProduct = useCallback(
     async () => {

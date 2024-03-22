@@ -60,7 +60,7 @@ export function AuthProvider({ children }) {
     try {
       onAuthStateChanged(AUTH, async (user) => {
         if (user) {
-          if (user.emailVerified) {
+          if (user) {
             const userProfile = doc(DB, 'users', user.uid);
 
             const docSnap = await getDoc(userProfile);
@@ -113,26 +113,10 @@ export function AuthProvider({ children }) {
   // LOGIN
   const login = useCallback(async (email, password) => {
     await signInWithEmailAndPassword(AUTH, email, password);
+    initialize()
   }, []);
 
-  const loginWithGoogle = useCallback(async () => {
-    const provider = new GoogleAuthProvider();
-
-    await signInWithPopup(AUTH, provider);
-  }, []);
-
-  const loginWithGithub = useCallback(async () => {
-    const provider = new GithubAuthProvider();
-
-    await signInWithPopup(AUTH, provider);
-  }, []);
-
-  const loginWithTwitter = useCallback(async () => {
-    const provider = new TwitterAuthProvider();
-
-    await signInWithPopup(AUTH, provider);
-  }, []);
-
+  
   // REGISTER
   const register = useCallback(async (email, password, firstName, lastName,storeName,phoneNumber,contactPersonInTouch,tradeLicense) => {
     const newUser = await createUserWithEmailAndPassword(AUTH, email, password);
@@ -149,6 +133,7 @@ export function AuthProvider({ children }) {
       phoneNumber,
       contactPersonInTouch,tradeLicense
     });
+    initialize()
   }, []);
 
   // LOGOUT
@@ -163,7 +148,7 @@ export function AuthProvider({ children }) {
 
   // ----------------------------------------------------------------------
 
-  const checkAuthenticated = state.user?.emailVerified ? 'authenticated' : 'unauthenticated';
+  const checkAuthenticated = state.user?.email ? 'authenticated' : 'unauthenticated';
 
   const status = state.loading ? 'loading' : checkAuthenticated;
 
@@ -179,9 +164,7 @@ export function AuthProvider({ children }) {
       logout,
       register,
       forgotPassword,
-      loginWithGoogle,
-      loginWithGithub,
-      loginWithTwitter,
+     
     }),
     [
       status,
@@ -191,9 +174,7 @@ export function AuthProvider({ children }) {
       logout,
       register,
       forgotPassword,
-      loginWithGithub,
-      loginWithGoogle,
-      loginWithTwitter,
+      
     ]
   );
 
