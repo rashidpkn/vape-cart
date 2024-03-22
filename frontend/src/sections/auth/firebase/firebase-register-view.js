@@ -77,12 +77,11 @@ export default function FirebaseRegisterView() {
   const values = watch();
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
     try {
       await register?.(data.email, data.password, data.firstName, data.lastName,data.storeName,data.phoneNumber,data.contactPersonInTouch,data.tradeLicense);
       const searchParams = new URLSearchParams({ email: data.email }).toString();
 
-      const href = '/dashboard' //`${paths.auth.firebase.verify}?${searchParams}`;
+      const href =  `${paths.auth.firebase.verify}?${searchParams}`;
 
       router.push(href);
     } catch (error) {

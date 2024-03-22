@@ -9,6 +9,9 @@ import { mainRoutes} from './main';
 import { authRoutes } from './auth';
 import { dashboardRoutes } from './dashboard';
 import Verified from 'src/pages/verified';
+import { lazy } from 'react';
+import CompactLayout from 'src/layouts/compact/layout';
+const FirebaseVerifyPage = lazy(() => import('src/pages/auth/firebase/verify'));
 
 // import { componentsRoutes } from './components';
 
@@ -16,8 +19,12 @@ import Verified from 'src/pages/verified';
 
 export default function Router() {
   return useRoutes([
-   
-    {path:'verifed',element:<Verified/>},
+    {path:'/auth/firebase/verify',element:
+    <CompactLayout>
+      <FirebaseVerifyPage/>
+    </CompactLayout>
+      },
+    {path:'verified',element:<Verified/>},
     ...authRoutes,
 
     ...dashboardRoutes,
