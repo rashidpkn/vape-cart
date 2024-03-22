@@ -13,6 +13,7 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  applyActionCode
 } from 'firebase/auth';
 import { getFirestore, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 // config
@@ -146,10 +147,14 @@ export function AuthProvider({ children }) {
     await sendPasswordResetEmail(AUTH, email);
   }, []);
 
-  // ----------------------------------------------------------------------
+  const handleVerifyEmail = useCallback(async (oob)=>{
+    await applyActionCode(AUTH,oobCode)
+    initialize()
+  },[])
+
+
 
   const checkAuthenticated = state.user?.email ? 'authenticated' : 'unauthenticated';
-
   const status = state.loading ? 'loading' : checkAuthenticated;
 
   const memoizedValue = useMemo(
@@ -164,7 +169,7 @@ export function AuthProvider({ children }) {
       logout,
       register,
       forgotPassword,
-     
+      handleVerifyEmail
     }),
     [
       status,
@@ -174,7 +179,7 @@ export function AuthProvider({ children }) {
       logout,
       register,
       forgotPassword,
-      
+      handleVerifyEmail
     ]
   );
 
