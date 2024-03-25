@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 // sections
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import { useSettingsContext } from 'src/components/settings';
 import CheckoutDelivery from './checkout-delivery';
+import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
 
 // ----------------------------------------------------------------------
 
@@ -17,11 +18,20 @@ export default function Delivery() {
         <title> Dashboard: Delivery</title>
       </Helmet>
 
-      <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+      <Box px={5}>
+      <CustomBreadcrumbs
+          heading="Delivery"
+          links={[
+            {}
+          ]}
+          sx={{
+            mb: { xs: 3, md: 5 },
+          }}
+        />
       <CheckoutDelivery  />
 
 
-      </Container>
+      </Box>
     </>
   );
 }

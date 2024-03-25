@@ -1,6 +1,6 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 // _mock
 import {
@@ -22,6 +22,7 @@ import EcommerceWidgetSummary from '../ecommerce-widget-summary';
 import EcommerceLatestProducts from '../ecommerce-latest-products';
 import EcommerceCurrentBalance from '../ecommerce-current-balance';
 import BlurLayer from 'src/common/blurlayer';
+import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +33,17 @@ export default function OverviewEcommerceView() {
   const settings = useSettingsContext();
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'xl'}>
+    <Box px={5}>
+       <CustomBreadcrumbs
+          heading="Analytics"
+          links={[
+            {}
+          ]}
+          sx={{
+            mb: { xs: 3, md: 5 },
+          }}
+        />
+
       <Grid container spacing={3} sx={{position:'relative'}}>
       <BlurLayer />
         {/* <Grid xs={12} md={8}>
@@ -179,6 +190,6 @@ export default function OverviewEcommerceView() {
           <EcommerceLatestProducts title="Latest Products" list={_ecommerceLatestProducts} />
         </Grid>
       </Grid>
-    </Container>
+    </Box>
   );
 }

@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
@@ -188,7 +188,7 @@ export default function ProductListView() {
 
   return (
     <>
-      <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+      <Box px={5}>
         <CustomBreadcrumbs
           heading="Products"
           links={[
@@ -308,7 +308,7 @@ export default function ProductListView() {
             onChangeDense={table.onChangeDense}
           />
         </Card>
-      </Container>
+      </Box>
 
       <ConfirmDialog
         open={confirm.value}

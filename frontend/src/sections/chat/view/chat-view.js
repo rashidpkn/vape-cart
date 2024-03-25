@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 // @mui
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 // routes
 import { paths } from 'src/routes/paths';
@@ -103,7 +103,7 @@ export default function ChatView() {
   );
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'xl'}>
+    <Box px={5}>
       <Typography
         variant="h4"
         sx={{
@@ -140,6 +140,6 @@ export default function ChatView() {
           </Stack>
         </Stack>
       </Stack>
-    </Container>
+    </Box>
   );
 }
