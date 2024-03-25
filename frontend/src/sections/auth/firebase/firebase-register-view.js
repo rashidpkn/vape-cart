@@ -11,6 +11,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField'
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // routes
@@ -147,15 +148,17 @@ export default function FirebaseRegisterView() {
       {!!errorMsg && <Alert severity="error">{errorMsg}</Alert>}
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <RHFTextField name="firstName" label="First name" />
-        <RHFTextField name="lastName" label="Last name" />
+        <TextField onChange={e=>setValue('firstName',e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))} value={values.firstName} name="firstName" label="First name" />
+        <TextField onChange={e=>setValue('lastName',e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))}  value={values.lastName}name="lastName" label="Last name" />
       </Stack>
 
-      <RHFTextField name="storeName" label="Store name" />
+      <TextField onChange={e=>setValue('storeName',e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))}  value={values.storeName}name="storeName" label="Store Name" />
+      {/* <RHFTextField name="storeName" label="Store name" /> */}
       
       <RHFTextField name="email" label="Email address" />
       <RHFTextField name="phoneNumber" label="Phone number" />
-      <RHFTextField name="contactPersonInTouch" label="Contact person in touch" />
+      {/* <RHFTextField name="contactPersonInTouch" label="Contact person in touch" /> */}
+      <TextField onChange={e=>setValue('contactPersonInTouch',e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))}  value={values.contactPersonInTouch}name="contactPersonInTouch" label="Contact person in touch" />
       {/* <RHFTextField name="tradeLicense" label="Trade license" /> */}
       
 
@@ -164,10 +167,6 @@ export default function FirebaseRegisterView() {
       <RHFUpload   name="tradeLicense" maxSize={3145728} onDrop={handleDrop}
                 
               />
-
-
-
-
 
 
 
