@@ -52,13 +52,13 @@ export class Product extends Model {
     })
     tags:string[]
 
-    @Column
+    @Column({type:DataType.FLOAT})
     regularPrice:number
 
-    @Column
+    @Column({type:DataType.FLOAT})
     salePrice:Number
 
-    @Column
+    @Column({type:DataType.FLOAT})
     tax:Number
 
     @Column({defaultValue:true})
