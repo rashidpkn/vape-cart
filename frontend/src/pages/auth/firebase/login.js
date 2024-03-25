@@ -6,10 +6,6 @@ import { FirebaseLoginView } from 'src/sections/auth/firebase';
 // ----------------------------------------------------------------------
 
 export default function LoginPage() {
-const {user} = useAuthContext()
-console.log(user);
-
-
 
   return (
     <>
