@@ -67,8 +67,9 @@ export default function FirebaseLoginView() {
 
       router.push(returnTo || PATH_AFTER_LOGIN);
     } catch (error) {
-      console.error(error);
-      reset();
+      console.log('hELLO' + error);
+      // console.error(error);
+      // reset();
       setErrorMsg(typeof error === 'string' ? error : error.message);
     }
   });
