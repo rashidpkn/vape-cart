@@ -1,5 +1,5 @@
 // @mui
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 // routes
 import { paths } from 'src/routes/paths';
 // components
@@ -14,7 +14,7 @@ export default function ProductCreateView() {
   const settings = useSettingsContext();
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+    <Box px={5}>
       <CustomBreadcrumbs
         heading="Create a new product"
         links={[
@@ -34,6 +34,6 @@ export default function ProductCreateView() {
       />
 
       <ProductNewEditForm />
-    </Container>
+    </Box>
   );
 }

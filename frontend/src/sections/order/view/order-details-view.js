@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 // @mui
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 // routes
 import { paths } from 'src/routes/paths';
@@ -49,7 +49,7 @@ export default function OrderDetailsView() {
   }, []);
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+    <Box px={5}>
       <OrderDetailsToolbar
         backLink={paths.dashboard.order.root}
         orderNumber={currentOrder.orderNumber}
@@ -84,6 +84,6 @@ export default function OrderDetailsView() {
           />
         </Grid>
       </Grid>
-    </Container>
+    </Box>
   );
 }

@@ -2,7 +2,7 @@
 import { useTheme } from '@mui/material/styles';
  
 import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 // hooks
 
@@ -36,8 +36,8 @@ export default function OverviewAppView() {
   const settings = useSettingsContext();
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'xl'}>
-      <Grid container spacing={3} sx={{position:'relative'}}>
+    <Box  px={5}>
+      <Grid container  spacing={3} sx={{position:'relative'}}>
         <BlurLayer />
         <Grid xs={12} md={8}>
           <AppWelcome
@@ -113,6 +113,6 @@ export default function OverviewAppView() {
 
     
       </Grid>
-    </Container>
+    </Box>
   );
 }
