@@ -116,23 +116,7 @@ export function AuthProvider({ children }) {
     await signInWithEmailAndPassword(AUTH, email, password);
   }, []);
 
-  const loginWithGoogle = useCallback(async () => {
-    const provider = new GoogleAuthProvider();
-
-    await signInWithPopup(AUTH, provider);
-  }, []);
-
-  const loginWithGithub = useCallback(async () => {
-    const provider = new GithubAuthProvider();
-
-    await signInWithPopup(AUTH, provider);
-  }, []);
-
-  const loginWithTwitter = useCallback(async () => {
-    const provider = new TwitterAuthProvider();
-
-    await signInWithPopup(AUTH, provider);
-  }, []);
+  
 
   // REGISTER
   const register = useCallback(async (email, password, firstName, lastName,storeName,phoneNumber,contactPersonInTouch,tradeLicense) => {
@@ -180,9 +164,7 @@ export function AuthProvider({ children }) {
       logout,
       register,
       forgotPassword,
-      loginWithGoogle,
-      loginWithGithub,
-      loginWithTwitter,
+      
     }),
     [
       status,
@@ -192,9 +174,7 @@ export function AuthProvider({ children }) {
       logout,
       register,
       forgotPassword,
-      loginWithGithub,
-      loginWithGoogle,
-      loginWithTwitter,
+      
     ]
   );
 

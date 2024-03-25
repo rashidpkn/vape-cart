@@ -9,9 +9,7 @@ export class ProductService {
   async createProduct(name: string, username: string,storeName:string, userId: string, subDescription: string, content: string, images: [string], SKU: string, quantity: number, category: string, colors: [string], tags: [string], regularPrice: number, salePrice: number, tax: number, publish: boolean) {
     try {
 
-      const found = await Product.findOne({ where: { name } })
-      if (found)
-        throw new BadRequestException('Product already exist')
+   
       const product = await Product.create({
         name, username, storeName,userId,
         subDescription, content,

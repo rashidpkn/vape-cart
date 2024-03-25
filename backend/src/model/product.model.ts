@@ -4,7 +4,7 @@ import { Column, Model, Table, DataType } from "sequelize-typescript";
 export class Product extends Model {
 
     
-    @Column({unique:true})
+    @Column
     name: string
 
     @Column({defaultValue:'Vape Monkey'})
