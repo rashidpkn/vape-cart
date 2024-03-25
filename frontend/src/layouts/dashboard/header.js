@@ -99,6 +99,7 @@ export default function Header({ onOpenNav }) {
             width: `calc(100% - ${NAV.W_MINI + 1}px)`,
           }),
         }),
+        backgroundColor:'#e3e6e6'
       }}
     >
       <Toolbar
