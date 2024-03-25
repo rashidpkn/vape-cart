@@ -17,6 +17,7 @@ import { NavSectionVertical } from 'src/components/nav-section';
 import { NAV } from '../config-layout';
 import { useNavData } from './config-navigation';
 import { NavToggleButton } from '../_common';
+import { Link } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -48,9 +49,11 @@ export default function NavVertical({ openNav, onCloseNav }) {
       }}
     >
       {/* <Logo sx={{ mt: 3, ml: 4, mb: 1 }} /> */}
+        <Link to={'/'}>
       <div style={{display:'flex',justifyContent:'center',marginBottom:'20px'}}>
         <img  src='/logo/logo_single.webp' style={{width:'65%'}}/>
       </div>
+        </Link>
       <NavSectionVertical
         data={navData}
         config={{

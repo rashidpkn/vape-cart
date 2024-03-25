@@ -228,7 +228,7 @@ onChange={(e,v)=>{
                     sign in
                         </Button>
                         </Link>
-                        <Typography variant="p" style={{ fontSize: '12px', display: 'flex', justifyContent: 'center', padding: '10px 0px' }}>New Customer <Link to="/auth/firebase/login" href="#" style={{ fontSize: '12px', textDecoration: 'none' }}><span> Start here.</span></Link></Typography>
+                        <Typography variant="p" style={{ fontSize: '12px', display: 'flex', justifyContent: 'center', padding: '10px 0px' }}>New Customer <Link to="/auth/firebase/register" href="#" style={{ fontSize: '12px', textDecoration: 'none' }}><span> Start here.</span></Link></Typography>
                         <Divider />
                         <Box style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
                   <Box className="signUp">
