@@ -74,7 +74,7 @@ export const PRODUCT_SORT_OPTIONS = [
 
 export const PRODUCT_CATEGORY_GROUP_OPTIONS = [
   { group: 'VAPE DEVICES', classify: ["SMOK","Vaporesso","Uwell","Innokin","Voopoo","Geek Vape"] },
-  { group: 'Vape Juice', classify: ['VGOD', 'Nasty', 'Ruthless', 'BLVK Unicorn', 'Vampire Vape','Dinner Lady','Zeus Juice'] },
+  { group: 'VAPE JUICE', classify: ['VGOD', 'Nasty', 'Ruthless', 'BLVK Unicorn', 'Vampire Vape','Dinner Lady','Zeus Juice'] },
   { group: 'SALT NIC', classify: ['Cambridge Labs', 'VGOD', 'Nastry', 'Cambridge Labs','Core','Nerd','BLVK Unicorn'] },
   { group: 'POD SYSTEMS', classify: ['Relx'] },
   { group: 'DISPOSABLES', classify: ['Youto','Tugboat','XTRA','Esco Bars','VGOD','VICIG','Vudu'] },

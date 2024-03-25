@@ -92,7 +92,7 @@ const [products, setProduct] = useState([])
       salePrice: currentProduct?.salePrice || 0,
       tags: currentProduct?.tags || [],
       tax: currentProduct?.tax || 0,
-      category: currentProduct?.category || '',
+      category: currentProduct?.category || 'SMOK',
       colors: currentProduct?.colors || [],
     }),
     [currentProduct]
@@ -141,21 +141,19 @@ const [products, setProduct] = useState([])
 
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log(data);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
       if(currentProduct){
         await api.patch('products', { ...data, username: user.displayName,userId:user.id,storeName:user.storeName })
       }else{
         await api.post('products', { ...data, username: user.displayName,userId:user.id,storeName:user.storeName })
-
       }
-
       reset();
       enqueueSnackbar(currentProduct ? 'Update success!' : 'Create success!');
       router.push(paths.dashboard.product.root);
 
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   });
 
@@ -211,7 +209,10 @@ const [products, setProduct] = useState([])
             <Autocomplete
             onChange={(e,value)=>{
               if (value) {
-                setValue('images', products.find(product => product.name === value).images);
+                const product = products.find(product => product.name === value)
+                setValue('images', product.images);
+                setValue('name',product.name)
+                setValue('SKU',product.name.toUpperCase().slice(0,3) + user.storeName.toUpperCase().charAt(0) + '-001')
               } else {
                 // Handle case where user clears the input
                 setValue('images', null);

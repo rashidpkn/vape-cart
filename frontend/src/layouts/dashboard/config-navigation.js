@@ -169,8 +169,8 @@ export const NavbarBottomLinks = [
 ];
 
 export const ProductTitle = [
-  { _id: 110, title: "Todays Deals" },
-  { _id: 111, title: "Best Selling Products" },
-  { _id: 112, title: "Upto 50% off" },
-  { _id: 113, title: "New Arrivals" },
+  { _id: 110, title: "VAPE DEVICES" },
+  { _id: 111, title: "VAPE JUICE" },
+  { _id: 112, title: "SALT NIC" },
+  { _id: 113, title: "POD SYSTEMS" },
 ];

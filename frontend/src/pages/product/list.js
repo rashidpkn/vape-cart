@@ -47,16 +47,6 @@ import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'red',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(0),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
-
-// ----------------------------------------------------------------------
-
 export default function ShopPage() {
   AOS.init();
 
@@ -74,7 +64,11 @@ export default function ShopPage() {
   };
 
   useEffect(() => {
-    api.get('products').then((res) => {
+    api.get('products',{
+      params:{
+        perPage:2000
+      }
+    }).then((res) => {
       setProducsts(res.data.products);
       setTotal(res.data.count);
     });
@@ -196,110 +190,7 @@ export default function ShopPage() {
           </SwiperSlide>
         </Swiper>
 
-        {/* <Box>
-          <Grid container spacing={3} sx={{ padding: '15px', marginTop: '-300px' }}>
-            {[
-              producsts.slice(0, 4),
-              producsts.slice(4, 8),
-              producsts.slice(8, 12),
-              producsts.slice(12, 16),
-            ].map((items, i) => (
-              <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
-                <Card style={{ width: '100%', borderRadius: '0px', zIndex: '2' }}>
-                  {ProductTitle.map((item) => (
-                    <Typography variant="h5" pl={2} py={1} key={item._id}>
-                      {item.title}
-                    </Typography>
-                  ))}
-                  <Grid container spacing={2} px={2} pb={2}>
-                    {items.map((item) => (
-                      <Grid
-                        item
-                        xs={6}
-                        component={Link}
-                        to={`/product/${item.id}`}
-                        key={item.id}
-                        sx={{ width: '50%' }}
-                      >
-                        <Box style={{ width: '100%', cursor: 'pointer' }}>
-                          <img
-                            src={item.images[0]}
-                            width={'100%'}
-                            height={150}
-                            style={{
-                              width: '100%',
-                              border: '1px solid #ccc',
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
-                            }}
-                            alt=""
-                          />
-                          <Typography
-                            variant="p"
-                            className="product-name"
-                            style={{ color: 'black', textDecoration: 'none' }}
-                          >
-                            {item.name.substring(0, 20)}
-                          </Typography>
-                        </Box>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-
-          <Grid container spacing={3} style={{ padding: '20px', marginTop: '' }}>
-            {currentPosts.map((item) => (
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <Link to={`/product/${item.id}`} key={item.id}>
-                  <Card
-                    sx={{ width: '100%', height: '100%', borderRadius: '0px', zIndex: '2' }}
-                    key={item}
-                  >
-                    <CardContent>
-                      <Box>
-                        <img
-                          src={item.images[0]}
-                          width={150}
-                          height={100}
-                          style={{ width: '100%', height: '300px' }}
-                          alt=""
-                        />
-                      </Box>
-                      <Box>
-                        <Typography variant="h6" sx={{ marginTop: '10px', textDecoration: 'none' }}>
-                          {item.name}
-                        </Typography>
-                        <Typography
-                          variant="p"
-                          sx={{ paddingBottom: '5px', fontStyle: 'italic', textDecoration: 'none' }}
-                        >
-                          {item.storeName}
-                        </Typography>{' '}
-                        <br />
-                        <Typography
-                          variant="p"
-                          style={{ color: 'gray', marginTop: '15px', textDecoration: 'none' }}
-                        >
-                          <del>{item.regularPrice}₹ 549</del>{' '}
-                          <span
-                            style={{ fontWeight: '700', color: '#000', textDecoration: 'none' }}
-                          >
-                            {item.salePrice} ₹ 539
-                          </span>
-                        </Typography>
-                      </Box>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </Grid>
-            ))}
-          </Grid>
-
-          <Pagination1 count={total / 20} onChange={handleChange} />
-        </Box> */}
+      
 
         <Box>
           <Grid container spacing={3} sx={{ padding: '15px', marginTop: '-300px' }}>
@@ -387,11 +278,11 @@ export default function ShopPage() {
                           variant="p"
                           style={{ color: 'gray', marginTop: '15px', textDecoration: 'none' }}
                         >
-                          <del>{item.regularPrice}₹ 549</del>{' '}
+                          <del>AED {item.regularPrice}</del>{' '}
                           <span
                             style={{ fontWeight: '700', color: '#000', textDecoration: 'none' }}
                           >
-                            {item.salePrice} ₹ 539
+                            AED {item.salePrice} 
                           </span>
                         </Typography>
                       </Box>
@@ -401,8 +292,9 @@ export default function ShopPage() {
               </Grid>
             ))}
           </Grid>
-
-          <Pagination1 count={total / 20} onChange={handleChange} />
+              <div style={{display:'flex',justifyContent:'center'}}>
+          <Pagination1 count={Math.ceil(total / 4)} onChange={handleChange} />
+          </div>
         </Box>
 
         <Typography variant='h3' sx={{textAlign: 'center',}} pt={5} pb={2} >Best Sellers</Typography>
