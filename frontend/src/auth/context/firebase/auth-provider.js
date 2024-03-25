@@ -20,7 +20,7 @@ import { getFirestore, collection, doc, getDoc, setDoc } from 'firebase/firestor
 import { FIREBASE_API } from 'src/config-global';
 //
 import { AuthContext } from './auth-context';
-import {useNavigate} from 'react-router-dom'
+
 // ----------------------------------------------------------------------
 
 // NOTE:
@@ -56,7 +56,6 @@ const reducer = (state, action) => {
 
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const navigate = useNavigate()
 
   const initialize = useCallback(() => {
     try {
@@ -114,19 +113,11 @@ export function AuthProvider({ children }) {
 
   // LOGIN
   const login = useCallback(async (email, password) => {
-    try {
-      const {user} =   await signInWithEmailAndPassword(AUTH, email, password);
-      
+     const {user}  = await signInWithEmailAndPassword(AUTH, email, password);
       if(!user.emailVerified){
-        window.location.href = `/auth/firebase/verify?email=${email}`
-        
+      window.location.href = `/auth/firebase/verify?email=${email}`
       }
-      initialize()
-    } catch (error) {
-      console.log(error);
-    }
-
-    
+    initialize()
   }, []);
 
   
