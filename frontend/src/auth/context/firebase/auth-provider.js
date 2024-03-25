@@ -147,14 +147,16 @@ export function AuthProvider({ children }) {
     await sendPasswordResetEmail(AUTH, email);
   }, []);
 
-  const handleVerifyEmail = useCallback(async (oob)=>{
-    await applyActionCode(AUTH,oobCode)
+  const handleVerifyEmail = useCallback(async (oobCode)=>{
+    console.log(oobCode);
+    const data = await applyActionCode(AUTH,oobCode)
+    console.log(data);
     initialize()
   },[])
 
 
 
-  const checkAuthenticated = state.user?.email ? 'authenticated' : 'unauthenticated';
+  const checkAuthenticated = state.user?.emailVerified ? 'authenticated' : 'unauthenticated';
   const status = state.loading ? 'loading' : checkAuthenticated;
 
   const memoizedValue = useMemo(
