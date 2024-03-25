@@ -8,7 +8,7 @@ export default function VerifyPage() {
   return (
     <>
       <Helmet>
-        <title> Firebase: Verify</title>
+        <title> Verify</title>
       </Helmet>
 
       <FirebaseVerifyView />

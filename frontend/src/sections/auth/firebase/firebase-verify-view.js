@@ -41,7 +41,7 @@ export default function FirebaseVerifyView() {
     <>
       {renderHead}
 
-      <Button
+      {/* <Button
         component={RouterLink}
         href={paths.auth.firebase.login}
         size="large"
@@ -51,7 +51,7 @@ export default function FirebaseVerifyView() {
         sx={{ alignSelf: 'center' }}
       >
         Return to sign in
-      </Button>
+      </Button> */}
     </>
   );
 }
