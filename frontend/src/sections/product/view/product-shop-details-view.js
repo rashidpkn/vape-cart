@@ -77,7 +77,7 @@ const [product, setProduct] = useState()
 
     fetchProduct()
 
-  }, [])
+  }, [id])
 
   const handleChangeTab = useCallback((event, newValue) => {
     setCurrentTab(newValue);

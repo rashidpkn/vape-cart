@@ -14,7 +14,7 @@ const sequelize_typescript_1 = require("sequelize-typescript");
 let Product = class Product extends sequelize_typescript_1.Model {
 };
 __decorate([
-    (0, sequelize_typescript_1.Column)({ unique: true }),
+    sequelize_typescript_1.Column,
     __metadata("design:type", String)
 ], Product.prototype, "name", void 0);
 __decorate([
@@ -71,15 +71,15 @@ __decorate([
     __metadata("design:type", Array)
 ], Product.prototype, "tags", void 0);
 __decorate([
-    sequelize_typescript_1.Column,
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.FLOAT }),
     __metadata("design:type", Number)
 ], Product.prototype, "regularPrice", void 0);
 __decorate([
-    sequelize_typescript_1.Column,
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.FLOAT }),
     __metadata("design:type", Number)
 ], Product.prototype, "salePrice", void 0);
 __decorate([
-    sequelize_typescript_1.Column,
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.FLOAT }),
     __metadata("design:type", Number)
 ], Product.prototype, "tax", void 0);
 __decorate([

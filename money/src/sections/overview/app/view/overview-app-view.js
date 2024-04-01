@@ -90,7 +90,7 @@ const [users, setUsers] = useState([])
 
         <Grid xs={12} md={4}>
           <AppWidgetSummary
-            title="Total Active Store"
+            title="Total Active Partners"
             percent={0}
             total={users.length}
             chart={{
@@ -210,7 +210,7 @@ const [users, setUsers] = useState([])
         </Grid> */}
 
         <Grid xs={12} md={6} lg={4}>
-          <AppTopInstalledCountries title="Top  Sellers" list={users} />
+          <AppTopInstalledCountries title="Top  Partners" list={users} />
         </Grid>
 
         {/* <Grid xs={12} md={6} lg={4}>

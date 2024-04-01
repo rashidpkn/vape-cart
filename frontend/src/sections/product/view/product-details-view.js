@@ -76,7 +76,7 @@ const navigate = useNavigate()
 
     fetchProduct()
 
-  }, [])
+  }, [id])
   
 
   const settings = useSettingsContext();

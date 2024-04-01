@@ -71,7 +71,7 @@ const [products, setProducts] = useState([])
       <Grid container spacing={3}>
         <Grid xs={12} md={4}>
           <EcommerceWidgetSummary
-            title="Active Store"
+            title="Active Partners"
             percent={0}
             total={users.length}
             chart={{

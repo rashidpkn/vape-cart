@@ -267,13 +267,13 @@ export default function ShopPage() {
                         <Typography variant="h6" sx={{ marginTop: '10px', textDecoration: 'none' }}>
                           {item.name}
                         </Typography>
-                        <Typography
+                        {/* <Typography
                           variant="p"
                           sx={{ paddingBottom: '5px', fontStyle: 'italic', textDecoration: 'none' }}
                         >
                           {item.storeName}
-                        </Typography>{' '}
-                        <br />
+                        </Typography>{' '} */}
+                        
                         <Typography
                           variant="p"
                           style={{ color: 'gray', marginTop: '15px', textDecoration: 'none' }}
@@ -385,10 +385,10 @@ export default function ShopPage() {
                       <Typography variant="h6" sx={{ marginTop: '10px' }}>
                         {e.name}
                       </Typography>
-                      <Typography variant="p" sx={{ paddingBottom: '5px', fontStyle: 'italic' }}>
+                      {/* <Typography variant="p" sx={{ paddingBottom: '5px', fontStyle: 'italic' }}>
                         {e.storeName}
-                      </Typography>{' '}
-                      <br />
+                      </Typography>{' '} */}
+                      
                       <Typography variant="p" style={{ color: 'gray', marginTop: '15px' }}>
                         <del>{e.regularPrice}₹ 549</del>{' '}
                         <span style={{ fontWeight: '700', color: '#000' }}>
@@ -491,10 +491,10 @@ export default function ShopPage() {
                       <Typography variant="h6" sx={{ marginTop: '10px' }}>
                         {e.name}
                       </Typography>
-                      <Typography variant="p" sx={{ paddingBottom: '5px', fontStyle: 'italic' }}>
+                      {/* <Typography variant="p" sx={{ paddingBottom: '5px', fontStyle: 'italic' }}>
                         {e.storeName}
-                      </Typography>{' '}
-                      <br />
+                      </Typography>{' '} */}
+                      
                       <Typography variant="p" style={{ color: 'gray', marginTop: '15px' }}>
                         <del>{e.regularPrice}₹ 549</del>{' '}
                         <span style={{ fontWeight: '700', color: '#000' }}>

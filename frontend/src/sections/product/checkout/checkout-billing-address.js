@@ -15,7 +15,7 @@ import CheckoutSummary from './checkout-summary';
 // ----------------------------------------------------------------------
 
 export default function CheckoutBillingAddress({ checkout, onBackStep, onCreateBilling }) {
-  const addressForm = useBoolean();
+  const addressForm = useBoolean(true);
 
   return (
     <>
