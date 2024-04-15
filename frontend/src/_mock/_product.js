@@ -82,16 +82,22 @@ export const PRODUCT_SORT_OPTIONS = [
 // ];
 
 export const PRODUCT_CATEGORY_GROUP_OPTIONS = [
-  { group: 'Batteries', classify: ['Built in','Dual','Single','Triple'] },
-  { group: 'Bottle Size', classify: ['100 ml (Shortfills)','10 ml','50 ml','50 ml (Shortfills)','75 ml','Tobacco Platinum','100 ml','120 ml','30 ml','60 ml',] },
-  { group: 'Nicotine Level', classify: ['10 MG','15 MG', '36 MG', '9 MG','11 MG','14 MG','16 MG',
-  '51 MG','52 MG','53 MG','54 MG','55 MG','56 MG','57 MG','58 MG','59 MG','61 MG','62 MG','63 MG','64 MG','65 MG','66 MG',' 0MG','3 MG','6 MG','12 MG',
-  '18 MG','20 MG','24 MG','25 MG','30 MG','35 MG','40 MG','45 MG','48 MG','50 MG','60 MG'
-] },
-  { group: 'Puffs', classify: [1000,1200,1500,2000,2500,300,3000,350,3500,400,4000,450,4500,
-    500,5000,5500,575,600,800,10000,12000,245,2600,320,5001,5002,5003,5004,5005,5006,5800,6000,700,7000,8000,8500
-  ].map(puff=>`${puff} Puffs`) },
-  
+  { group: 'Disposable', classify: ['Brand', 'Flavor', 'Puffs', 'Nicotine Strength'] },
+  { group: 'Liquids', classify: ['Brand', 'Flavor', 'Bottles Size', 'Nicotine Strength'] },
+  { group: 'Devices', classify: ['Brand', 'Color', 'Batteries'] },
+  { group: 'Accessories', classify: ['Brand','Type of Accessory'] },
+  { group: 'Batteries', classify: ['Built in', 'Dual', 'Single', 'Triple'] },
+  { group: 'Bottle Size', classify: ['100 ml (Shortfills)', '10 ml', '50 ml', '50 ml (Shortfills)', '75 ml', 'Tobacco Platinum', '100 ml', '120 ml', '30 ml', '60 ml',] },
+  { group: 'Nicotine Level', classify: ['10 MG', '15 MG', '36 MG', '9 MG', '11 MG', '14 MG', '16 MG',
+      '51 MG', '52 MG', '53 MG', '54 MG', '55 MG', '56 MG', '57 MG', '58 MG', '59 MG', '61 MG', '62 MG', '63 MG', '64 MG', '65 MG', '66 MG', ' 0MG', '3 MG', '6 MG', '12 MG',
+      '18 MG', '20 MG', '24 MG', '25 MG', '30 MG', '35 MG', '40 MG', '45 MG', '48 MG', '50 MG', '60 MG'
+    ]
+  },
+  { group: 'Puffs', classify: [1000, 1200, 1500, 2000, 2500, 300, 3000, 350, 3500, 400, 4000, 450, 4500,
+      500, 5000, 5500, 575, 600, 800, 10000, 12000, 245, 2600, 320, 5001, 5002, 5003, 5004, 5005, 5006, 5800, 6000, 700, 7000, 8000, 8500
+    ].map(puff => `${puff} Puffs`)
+  },
+
 ];
 
 export const PRODUCT_CHECKOUT_STEPS = ['Cart', 'Billing & address', 'Payment'];
