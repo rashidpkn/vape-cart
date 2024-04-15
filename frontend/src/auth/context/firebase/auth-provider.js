@@ -33,7 +33,7 @@ const firebaseApp = initializeApp(FIREBASE_API);
 
 const AUTH = getAuth(firebaseApp);
 
-const DB = getFirestore(firebaseApp);
+export const DB = getFirestore(firebaseApp);
 
 // ----------------------------------------------------------------------
 

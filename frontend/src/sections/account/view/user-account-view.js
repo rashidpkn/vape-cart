@@ -31,16 +31,16 @@ const TABS = [
     label: 'Billing',
     icon: <Iconify icon="solar:bill-list-bold" width={24} />,
   },
-  {
-    value: 'notifications',
-    label: 'Notifications',
-    icon: <Iconify icon="solar:bell-bing-bold" width={24} />,
-  },
-  {
-    value: 'social',
-    label: 'Social links',
-    icon: <Iconify icon="solar:share-bold" width={24} />,
-  },
+  // {
+  //   value: 'notifications',
+  //   label: 'Notifications',
+  //   icon: <Iconify icon="solar:bell-bing-bold" width={24} />,
+  // },
+  // {
+  //   value: 'social',
+  //   label: 'Social links',
+  //   icon: <Iconify icon="solar:share-bold" width={24} />,
+  // },
   {
     value: 'security',
     label: 'Security',
