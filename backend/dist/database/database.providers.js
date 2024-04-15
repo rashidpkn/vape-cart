@@ -4,6 +4,7 @@ exports.databaseProviders = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const invoice_model_1 = require("../model/invoice.model");
 const orders_model_1 = require("../model/orders.model");
+const payout_model_1 = require("../model/payout.model");
 const product_model_1 = require("../model/product.model");
 const storeAnalytics_model_1 = require("../model/storeAnalytics.model");
 exports.databaseProviders = [
@@ -22,7 +23,7 @@ exports.databaseProviders = [
                 },
                 logging: false
             });
-            sequelize.addModels([product_model_1.Product, orders_model_1.Orders, invoice_model_1.Invoice, storeAnalytics_model_1.StoreAnalytics]);
+            sequelize.addModels([product_model_1.Product, orders_model_1.Orders, invoice_model_1.Invoice, storeAnalytics_model_1.StoreAnalytics, payout_model_1.Payout]);
             try {
                 await sequelize.authenticate();
                 console.log('Database connection has been established successfully.');

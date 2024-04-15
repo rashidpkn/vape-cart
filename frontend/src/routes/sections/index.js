@@ -11,6 +11,7 @@ import { dashboardRoutes } from './dashboard';
 import Verified from 'src/pages/verified';
 import { lazy } from 'react';
 import CompactLayout from 'src/layouts/compact/layout';
+import { PaymentView } from 'src/pages/payment/view';
 const FirebaseVerifyPage = lazy(() => import('src/pages/auth/firebase/verify'));
 
 // import { componentsRoutes } from './components';
@@ -19,6 +20,10 @@ const FirebaseVerifyPage = lazy(() => import('src/pages/auth/firebase/verify'));
 
 export default function Router() {
   return useRoutes([
+    {
+      path: '/payment',
+      element: <PaymentView />
+    },
     {path:'/auth/firebase/verify',element:
     <CompactLayout>
       <FirebaseVerifyPage/>
@@ -33,6 +38,7 @@ export default function Router() {
     ...mainRoutes,
 
     // No match 404
+
     { path: '*', element: <Navigate to="/404" replace /> },
   ]);
 }

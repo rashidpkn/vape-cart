@@ -6,6 +6,11 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 // utils
 import { fCurrency } from 'src/utils/format-number';
+import { useNavigate } from 'react-router';
+import { useCallback, useEffect, useState } from 'react';
+import { Alert } from '@mui/material';
+import api from 'src/utils/api';
+import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -13,10 +18,36 @@ export default function EcommerceCurrentBalance({
   title,
   sentAmount,
   currentBalance,
+  orders = [],
   sx,
   ...other
 }) {
-  const totalAmount = currentBalance - sentAmount;
+
+  const { user } = useAuthContext()
+  const navigate = useNavigate()
+  const [error, setError] = useState('')
+  const [payout, setPayout] = useState([])
+
+  const fetchPayout = useCallback(
+    async () => {
+      const { data } = await api.get('/payout', {
+        params: {
+          fName: user.displayName
+        }
+      })
+
+      setPayout(data)
+      console.log(data);
+    },
+    [],
+  )
+
+  useEffect(() => {
+
+    fetchPayout()
+  }, [])
+
+
 
   return (
     <Card sx={{ p: 3, ...sx }} {...other}>
@@ -24,38 +55,68 @@ export default function EcommerceCurrentBalance({
         {title}
       </Typography>
 
+      {!!error && <Alert severity='error'>
+        {error}
+      </Alert>}
+
       <Stack spacing={2}>
-        <Typography variant="h3">{fCurrency(totalAmount)}</Typography>
+        <Typography variant="h3">AED {
+           ((orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2) - payout.reduce((a, b) => a + b.amount, 0) + payout.reduce((a, b) => b.status === 'pending' ? a + b.amount : a, 0)).toFixed(2)
+        }  </Typography>
 
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Order Total
+            Total Sales
           </Typography>
-          <Typography variant="body2">{fCurrency(currentBalance)}</Typography>
+          <Typography variant="body2"> {fCurrency(orders.reduce((a, b) => a + b.totalAmount, 0))}</Typography>
         </Stack>
 
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Earning
+            Commission (20%)
           </Typography>
-          <Typography variant="body2">- {fCurrency(sentAmount)}</Typography>
+          <Typography variant="body2">{fCurrency(orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2)}</Typography>
         </Stack>
 
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Refunded
+            Avalable Balance for requesting
           </Typography>
-          <Typography variant="subtitle1">{fCurrency(totalAmount)}</Typography>
+          <Typography variant="body2"> {fCurrency(
+            (orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2) - payout.reduce((a, b) => a + b.amount, 0)
+          )}</Typography>
+        </Stack>
+
+        <Stack direction="row" justifyContent="space-between">
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Pending Request
+          </Typography>
+          <Typography variant="body2"> {fCurrency(payout.reduce((a, b) => b.status === 'pending' ? a + b.amount : a, 0))}</Typography>
+        </Stack>
+
+        <Stack direction="row" justifyContent="space-between">
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Total Earned
+          </Typography>
+          <Typography variant="body2"> {fCurrency(payout.reduce((a, b) => b.status === 'completed' ? a + b.amount : a, 0))}</Typography>
         </Stack>
 
         <Stack direction="row" spacing={1.5}>
-          <Button fullWidth variant="contained" color="warning">
-            Request
+          <Button fullWidth variant="contained" color="warning"
+            onClick={() => {
+              if ((orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2) - payout.reduce((a, b) => a + b.amount, 0) > 10) {
+                sessionStorage.setItem('amount', orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2)
+                navigate('/payment')
+              } else {
+                setError("You must have a minimum balance of AED 10 to request a payout.")
+              }
+            }}
+          >
+            Request For Payout
           </Button>
 
-          <Button fullWidth variant="contained" color="primary">
-            Transfer
-          </Button>
+
+
         </Stack>
       </Stack>
     </Card>

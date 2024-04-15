@@ -8,6 +8,8 @@ import DashboardLayout from 'src/layouts/dashboard';
 import { LoadingScreen } from 'src/components/loading-screen';
 import Delivery from 'src/pages/dashboard/delivery';
 import { StoreEdit } from 'src/sections/store-edit/view';
+import Payout from 'src/pages/dashboard/payout';
+import Boost from '../../pages/dashboard/boost';
 
 
 // ----------------------------------------------------------------------
@@ -115,6 +117,8 @@ export const dashboardRoutes = [
       },
     
       { path: 'support', element: <ChatPage /> },
+      { path: 'payout', element: <Payout /> },
+      { path: 'boost', element: <Boost /> },
       
       
       { path: 'blank', element: <BlankPage /> },
