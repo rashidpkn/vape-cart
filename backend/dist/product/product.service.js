@@ -14,9 +14,6 @@ const storeAnalytics_model_1 = require("../model/storeAnalytics.model");
 let ProductService = class ProductService {
     async createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish) {
         try {
-            const found = await product_model_1.Product.findOne({ where: { name } });
-            if (found)
-                throw new common_1.BadRequestException('Product already exist');
             const product = await product_model_1.Product.create({
                 name, username, storeName, userId,
                 subDescription, content,

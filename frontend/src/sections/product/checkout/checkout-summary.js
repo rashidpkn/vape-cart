@@ -85,7 +85,7 @@ export default function CheckoutSummary({
             <TextField
               fullWidth
               placeholder="Discount codes / Gifts"
-              value="DISCOUNT5"
+              value=""
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">

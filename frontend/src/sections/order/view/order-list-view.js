@@ -42,6 +42,7 @@ import api from 'src/utils/api';
 import OrderTableRow from '../order-table-row';
 import OrderTableToolbar from '../order-table-toolbar';
 import OrderTableFiltersResult from '../order-table-filters-result';
+import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -67,22 +68,39 @@ const defaultFilters = {
 // ----------------------------------------------------------------------
 
 export default function OrderListView() {
+  const {user:{id}} = useAuthContext()
+
+ 
+  const [orders, setOrders] = useState([]);
+  const [myProduct, setMyProduct] = useState([]);
   const [tableData, setTableData] = useState([]);
 
-  const fetchOrders = async()=>{
-try {
-  const {data} =  await api.get('/orders')
-  setTableData(data.reverse())
-   
-} catch (error) {
- console.log(error.message); 
-}
-  }
+  const fetchProduct = async () => {
+    try {
+      const { data: { products: p } } = await api.get('products', { params: { userId: id, perPage: 100 } });
+      setMyProduct(p.map(e => e.id));
+    } catch (error) {
+      alert("Error occurred while fetching products.");
+    }
+  };
 
-useEffect(() => {
-    fetchOrders()
+  const fetchOrders = async () => {
+    try {
+      const { data } = await api.get('/orders');
+      setOrders(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-}, [])
+  useEffect(() => {
+    fetchProduct();
+    fetchOrders();
+  }, []);
+
+  useEffect(() => {
+    setTableData(orders.filter(order => order.items.some(item => myProduct.includes(item.id))).reverse());
+  }, [orders, myProduct]);
 
 
 
