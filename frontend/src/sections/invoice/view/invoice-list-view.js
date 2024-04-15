@@ -44,6 +44,7 @@ import InvoiceAnalytic from '../invoice-analytic';
 import InvoiceTableRow from '../invoice-table-row';
 import InvoiceTableToolbar from '../invoice-table-toolbar';
 import InvoiceTableFiltersResult from '../invoice-table-filters-result';
+import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -76,24 +77,45 @@ export default function InvoiceListView() {
   const table = useTable({ defaultOrderBy: 'createDate' });
 
   const confirm = useBoolean();
+  const {user:{id}} = useAuthContext()
 
+  const [invoice , setInvoice ] = useState([]);
+  const [myProduct, setMyProduct] = useState([]);
   const [tableData, setTableData] = useState([]);
+
+
+
+  const fetchProduct = async () => {
+    try {
+      const { data: { products: p } } = await api.get('products', { params: { userId: id, perPage: 100 } });
+      setMyProduct(p.map(e => e.id));
+    } catch (error) {
+      alert("Error occurred while fetching products.");
+    }
+  };
+
 
 
   const fetchInvoice = async () => {
     try {
       const { data } = await api.get('invoice')
-      console.log(data);
-      setTableData(data)
+      setInvoice(data)
     } catch (error) {
 
     }
   }
 
+
+
   useEffect(() => {
     fetchInvoice()
-  
+    fetchProduct()
   }, [])
+
+
+  useEffect(() => {
+    setTableData(invoice.filter(invoice => invoice.items.some(item => myProduct.includes(item.id))).reverse());
+  }, [invoice, myProduct]);
   
 
   const [filters, setFilters] = useState(defaultFilters);
