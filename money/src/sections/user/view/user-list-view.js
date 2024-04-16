@@ -76,25 +76,25 @@ export default function UserListView() {
 
   const [tableData, setTableData] = useState([]);
 
-  const getUsers = async()=>{
+  const getUsers = async () => {
     const querySnapshot = await getDocs(collection(DB, 'users'));
     const users = [];
-    
+
     querySnapshot.forEach((doc) => {
       users.push(doc.data());
     });
-    
-    console.log(users);
+
+
     setTableData(users)
   }
 
   useEffect(() => {
 
-   getUsers()
+    getUsers()
   }, [])
-  
 
-  
+
+
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -209,10 +209,10 @@ export default function UserListView() {
                     variant={
                       ((tab.value === 'all' || tab.value === filters.status) && 'filled') || 'soft'
                     }
-                   
+
                   >
                     {tab.value === 'all' && tableData.length}
-                  
+
                   </Label>
                 }
               />

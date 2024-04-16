@@ -28,19 +28,19 @@ export default function OrderDetailsView() {
   // const currentOrder = _orders.filter((order) => order.id === id)[0];
 
   const [currentOrder, setCurrentOrder] = useState({})
-  const fetchOrder = async()=>{
+  const fetchOrder = async () => {
     try {
-      const {data} = await api.get(`orders/${id}`)
+      const { data } = await api.get(`orders/${id}`)
       setCurrentOrder(data)
       setStatus(data.status)
     } catch (error) {
-      
+
     }
   }
   useEffect(() => {
-  fetchOrder()
+    fetchOrder()
   }, [])
-  
+
 
   const [status, setStatus] = useState(currentOrder.status);
 
@@ -60,7 +60,7 @@ export default function OrderDetailsView() {
       />
 
       <Grid container spacing={3}>
-        <Grid xs={12} md={8}>
+        <Grid xs={12} md={12}>
           <Stack spacing={3} direction={{ xs: 'column-reverse', md: 'column' }}>
             <OrderDetailsItems
               items={currentOrder.items}
@@ -75,14 +75,14 @@ export default function OrderDetailsView() {
           </Stack>
         </Grid>
 
-        <Grid xs={12} md={4}>
+        {/* <Grid xs={12} md={4}>
           <OrderDetailsInfo
             customer={currentOrder.customer}
             delivery={currentOrder.delivery}
             payment={currentOrder.payment}
             shippingAddress={currentOrder.shippingAddress}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   );

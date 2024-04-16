@@ -48,7 +48,8 @@ export default function ProductDetailsSummary({
     totalReviews,
     inventoryType,
     subDescription,
-    images
+    images,
+    userId
   } = product;
 
   const existProduct = cart?.map((item) => item.id)?.includes(id);
@@ -88,6 +89,7 @@ export default function ProductDetailsSummary({
           ...data,
           colors: [values.colors],
           subTotal: data.price * data.quantity,
+          userId:userId,
         });
       }
       onGotoStep(0);
@@ -100,7 +102,7 @@ export default function ProductDetailsSummary({
 
   const handleAddCart = useCallback(() => {
     try {
-      onAddCart({ ...values,subTotal: values.price });
+      onAddCart({ ...values,subTotal: values.price,userId:userId, });
       console.log(values);
     } catch (error) {
       console.error(error);

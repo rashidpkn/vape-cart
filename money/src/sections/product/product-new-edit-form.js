@@ -38,6 +38,7 @@ import FormProvider, {
 } from 'src/components/hook-form';
 import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
+import { TextField } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -48,7 +49,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const {user} = useAuthContext()
+  const { user } = useAuthContext()
 
 
 
@@ -56,8 +57,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     name: Yup.string().required('Name is required'),
     subDescription: Yup.string().required('Short description is required'),
     content: Yup.string(),
-    images: Yup.array().min(1,'Image is required'),
-    
+    images: Yup.array().min(1, 'Image is required'),
     SKU: Yup.string().required('SKU is required'),
     quantity: Yup.number(),
     category: Yup.string().required('Category is required'),
@@ -66,6 +66,8 @@ export default function ProductNewEditForm({ currentProduct }) {
     regularPrice: Yup.number(),
     salePrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
     tax: Yup.number().moreThan(-1, 'Tax should not be 0%'),
+    type: Yup.string().required('Type is required'),
+    variable: Yup.string(),
 
 
   });
@@ -83,8 +85,11 @@ export default function ProductNewEditForm({ currentProduct }) {
       salePrice: currentProduct?.salePrice || 0,
       tags: currentProduct?.tags || [],
       tax: currentProduct?.tax || 0,
-      category: currentProduct?.category || '',
+      category: currentProduct?.category || 'None',
       colors: currentProduct?.colors || [],
+      type: currentProduct?.type || 'simple',
+      variable: currentProduct?.variable || '',
+
     }),
     [currentProduct]
   );
@@ -115,10 +120,10 @@ export default function ProductNewEditForm({ currentProduct }) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
-      if(currentProduct){
-        await api.patch('products', { ...data, username: user.displayName,userId:user.id,storeName:user.storeName })
-      }else{
-        await api.post('products', { ...data, username: user.displayName,userId:user.id,storeName:user.storeName })
+      if (currentProduct) {
+        await api.patch('products', { ...data, username: user.displayName, userId: user.id, storeName: user.storeName })
+      } else {
+        await api.post('products', { ...data, username: user.displayName, userId: user.id, storeName: user.storeName })
 
       }
 
@@ -259,16 +264,18 @@ export default function ProductNewEditForm({ currentProduct }) {
               />
 
               <RHFSelect native name="category" label="Category" InputLabelProps={{ shrink: true }}>
-                {PRODUCT_CATEGORY_GROUP_OPTIONS.map((category) => (
-                  <optgroup key={category.group} label={category.group}>
-                    {category.classify.map((classify) => (
-                      <option key={classify} value={classify}>
-                        {classify}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
+                {['None', 'Disposable', 'Liquids', 'Devices', 'Accessories', 'Batteries', 'Bottle Size', 'Nicotine Level', 'Puffs'].map(classify => <option key={classify} value={classify}>{classify}</option>)}
               </RHFSelect>
+
+
+              {values.category !== 'None' && <RHFSelect native name="type" label="Type" InputLabelProps={{ shrink: true }}>
+                <option value={'simple'}>Simple</option>
+                <option value={'variation'}>Variation</option>
+              </RHFSelect>}
+
+
+
+
 
               <RHFMultiSelect
                 checkbox
@@ -307,7 +314,14 @@ export default function ProductNewEditForm({ currentProduct }) {
               }
             />
 
+            {
+              values.type === 'variation' &&
 
+              <Box sx={{display:'flex',gap:'10px',flexWrap:'wrap',justifyContent:'space-between'}}>
+                {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(c => c.group === values.category)?.classify?.map(e => <TextField size='small' sx={{width:'20%'}} label={`${e} Price`} />)}
+
+              </Box>
+            }
 
 
 

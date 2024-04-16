@@ -54,6 +54,7 @@ const TABLE_HEAD = [
   { id: 'createdAt', label: 'Date', width: 140 },
   { id: 'totalQuantity', label: 'Items', width: 120, align: 'center' },
   { id: 'totalAmount', label: 'Price', width: 140 },
+  { id: 'commission', label: 'Commission', width: 140 },
   { id: 'status', label: 'Status', width: 110 },
   { id: '', width: 88 },
 ];
@@ -106,7 +107,6 @@ export default function OrderListView() {
 
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
-  const settings = useSettingsContext();
 
   const router = useRouter();
 
@@ -140,16 +140,7 @@ export default function OrderListView() {
 
   const notFound = (!dataFiltered.length && canReset) || !dataFiltered.length;
 
-  const handleFilters = useCallback(
-    (name, value) => {
-      table.onResetPage();
-      setFilters((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    },
-    [table]
-  );
+
 
   const handleDeleteRow = useCallback(
     (id) => {
@@ -174,9 +165,6 @@ export default function OrderListView() {
     });
   }, [dataFiltered.length, dataInPage.length, table, tableData]);
 
-  const handleResetFilters = useCallback(() => {
-    setFilters(defaultFilters);
-  }, []);
 
   const handleViewRow = useCallback(
     (id) => {
@@ -185,12 +173,6 @@ export default function OrderListView() {
     [router]
   );
 
-  const handleFilterStatus = useCallback(
-    (event, newValue) => {
-      handleFilters('status', newValue);
-    },
-    [handleFilters]
-  );
   const [tab, setTab] = useState('all')
 
   return (
@@ -251,25 +233,8 @@ export default function OrderListView() {
             ))}
           </Tabs>
 
-          {/* <OrderTableToolbar
-            filters={filters}
-            onFilters={handleFilters}
-            //
-            canReset={canReset}
-            onResetFilters={handleResetFilters}
-          /> */}
 
-          {canReset && (
-            <OrderTableFiltersResult
-              filters={filters}
-              onFilters={handleFilters}
-              //
-              onResetFilters={handleResetFilters}
-              //
-              results={dataFiltered.length}
-              sx={{ p: 2.5, pt: 0 }}
-            />
-          )}
+
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
