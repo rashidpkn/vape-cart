@@ -317,8 +317,8 @@ export default function ProductNewEditForm({ currentProduct }) {
             {
               values.type === 'variation' &&
 
-              <Box sx={{display:'flex',gap:'10px',flexWrap:'wrap',justifyContent:'space-between'}}>
-                {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(c => c.group === values.category)?.classify?.map(e => <TextField size='small' sx={{width:'20%'}} label={`${e} Price`} />)}
+              <Box sx={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(c => c.group === values.category)?.classify?.map(e => <TextField type='number' size='small' sx={{ width: '20%' }} label={`${e} Price`} />)}
 
               </Box>
             }
