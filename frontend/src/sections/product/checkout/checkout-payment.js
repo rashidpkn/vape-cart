@@ -22,18 +22,16 @@ const DELIVERY_OPTIONS = [
   {
     value: 20,
     label: '1-2 Hour Delivery',
-    
   },
   {
     value: 10,
     label: 'Same Day Delivery',
-    
   },
   {
     value: 0,
     label: 'Next Day delivery',
   },
-]
+];
 
 const PAYMENT_OPTIONS = [
   // {
@@ -67,7 +65,7 @@ export default function CheckoutPayment({
   onGotoStep,
   onApplyShipping,
 }) {
-  const { total, discount, subTotal, shipping, billing,cart,totalItems } = checkout;
+  const { total, discount, subTotal, shipping, billing, cart, totalItems } = checkout;
 
   const PaymentSchema = Yup.object().shape({
     payment: Yup.string().required('Payment is required!'),
@@ -90,26 +88,24 @@ export default function CheckoutPayment({
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      api.post('/orders',{
-        items:cart,
+      api.post('/orders', {
+        items: cart,
         subTotal,
         shipping,
         discount,
-        totalAmount:total,
-        totalQuantity:totalItems,
-        customer:{
-            name:billing.name,
-            email:billing.email
+        totalAmount: total,
+        totalQuantity: totalItems,
+        customer: {
+          name: billing.name,
+          email: billing.email,
         },
-        shippingAddress:{
-            fullAddress:billing.fullAddress,
-            phoneNumber:billing.phoneNumber
-        }
-
-      })
+        shippingAddress: {
+          fullAddress: billing.fullAddress,
+          phoneNumber: billing.phoneNumber,
+        },
+      });
       onNextStep();
       onReset();
-      
 
       console.info('DATA', data);
     } catch (error) {

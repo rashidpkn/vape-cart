@@ -38,8 +38,6 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
 
           <Box sx={{ color: 'text.secondary' }}>{customer?.email}</Box>
 
-         
-
           <Button
             size="small"
             color="error"
@@ -112,7 +110,6 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
           {shippingAddress?.fullAddress.split(',')[1]}
         </Stack>
 
-
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
             City
@@ -120,10 +117,9 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
           {shippingAddress?.fullAddress.split(',')[2]}
         </Stack>
 
-
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
-          Country
+            Country
           </Box>
           {shippingAddress?.fullAddress.split(',')[4]}
         </Stack>
@@ -152,9 +148,8 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
         <Box component="span" sx={{ color: 'text.secondary', flexGrow: 1 }}>
           Type
         </Box>
-
         Cash
-        <Iconify icon="la:money-bill-wave"  width={24} sx={{ ml: 0.5,color:'#85bb65' }} />
+        <Iconify icon="la:money-bill-wave" width={24} sx={{ ml: 0.5, color: '#85bb65' }} />
       </Stack>
     </>
   );

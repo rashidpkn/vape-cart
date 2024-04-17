@@ -15,5 +15,5 @@ const checkoutPersistConfig = {
 
 export const rootReducer = combineReducers({
   checkout: persistReducer(checkoutPersistConfig, checkoutReducer),
-  util
+  util,
 });

@@ -6,11 +6,8 @@ import CheckoutDelivery from './checkout-delivery';
 
 // ----------------------------------------------------------------------
 
-
-
-
 export default function Delivery() {
-    const settings = useSettingsContext();
+  const settings = useSettingsContext();
   return (
     <>
       <Helmet>
@@ -18,9 +15,7 @@ export default function Delivery() {
       </Helmet>
 
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
-      <CheckoutDelivery  />
-
-
+        <CheckoutDelivery />
       </Container>
     </>
   );

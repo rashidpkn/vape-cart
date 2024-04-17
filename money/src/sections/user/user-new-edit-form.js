@@ -36,25 +36,24 @@ import { DB } from 'src/auth/context/firebase/auth-provider';
 // ----------------------------------------------------------------------
 
 export default function UserNewEditForm() {
-
   const { id } = useParams();
-  
-  const [currentUser, setCurrentUser] = useState({})
+
+  const [currentUser, setCurrentUser] = useState({});
 
   const getUsers = async () => {
-    const querySnapshot = await getDocs(query(collection(DB, 'users'), where('uid', '==', id)))
+    const querySnapshot = await getDocs(query(collection(DB, 'users'), where('uid', '==', id)));
     const users = [];
 
     querySnapshot.forEach((doc) => {
       users.push(doc.data());
     });
 
-    setCurrentUser(users[0])
-  }
+    setCurrentUser(users[0]);
+  };
 
   useEffect(() => {
-    getUsers()
-  }, [])
+    getUsers();
+  }, []);
 
   const router = useRouter();
 
@@ -144,8 +143,6 @@ export default function UserNewEditForm() {
       <Grid container spacing={3}>
         <Grid xs={12} md={4}>
           <Card sx={{ pt: 10, pb: 5, px: 3 }}>
-
-
             <Box sx={{ mb: 5 }}>
               <RHFUploadAvatar
                 name="avatarUrl"
@@ -168,12 +165,6 @@ export default function UserNewEditForm() {
                 }
               />
             </Box>
-
-
-
-
-
-
           </Card>
         </Grid>
 

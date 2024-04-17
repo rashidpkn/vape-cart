@@ -37,8 +37,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function InvoiceDetails({ invoice }) {
-
-
   const renderTotal = (
     <>
       <StyledTableRow>

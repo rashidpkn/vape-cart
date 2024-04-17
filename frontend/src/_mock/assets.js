@@ -410,13 +410,28 @@ export const _companyNames = [
   'Tremblay LLC',
 ];
 
-
 export const _tags = [
-  "SMOK","Vaporesso","Uwell","Innokin","Voopoo","Geek Vape",
-  'VGOD', 'Nasty', 'Ruthless', 'BLVK Unicorn', 'Vampire Vape','Dinner Lady','Zeus Juice',
-  'Cambridge Labs', 'VGOD', 'Nastry', 'Cambridge Labs','Core','Nerd','BLVK Unicorn'
+  'SMOK',
+  'Vaporesso',
+  'Uwell',
+  'Innokin',
+  'Voopoo',
+  'Geek Vape',
+  'VGOD',
+  'Nasty',
+  'Ruthless',
+  'BLVK Unicorn',
+  'Vampire Vape',
+  'Dinner Lady',
+  'Zeus Juice',
+  'Cambridge Labs',
+  'VGOD',
+  'Nastry',
+  'Cambridge Labs',
+  'Core',
+  'Nerd',
+  'BLVK Unicorn',
 ];
-
 
 export const _taskNames = [
   'Complete Project Proposal',

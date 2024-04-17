@@ -8,10 +8,10 @@ export function fNumber(number) {
 
 export function fCurrency(number) {
   const format = number ? numeral(number).format('0,0.00') : '';
-  if(!number){
-    return `AED 0`
+  if (!number) {
+    return `AED 0`;
   }
-  return `AED ${result(format, '.00')}`
+  return `AED ${result(format, '.00')}`;
   // ;
 }
 

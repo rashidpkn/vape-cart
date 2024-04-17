@@ -44,10 +44,6 @@ const LINKS = [
 // ----------------------------------------------------------------------
 
 export default function Footer() {
-
-
-
-
   const mainFooter = (
     <Box
       component="footer"
@@ -147,5 +143,5 @@ export default function Footer() {
   );
 
   // return isHome ? simpleFooter : mainFooter;
-  return mainFooter
+  return mainFooter;
 }

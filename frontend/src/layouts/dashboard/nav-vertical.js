@@ -14,10 +14,10 @@ import Scrollbar from 'src/components/scrollbar';
 import { usePathname } from 'src/routes/hook';
 import { NavSectionVertical } from 'src/components/nav-section';
 //
+import { Link } from 'react-router-dom';
 import { NAV } from '../config-layout';
 import { useNavData } from './config-navigation';
 import { NavToggleButton } from '../_common';
-import { Link } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -49,11 +49,11 @@ export default function NavVertical({ openNav, onCloseNav }) {
       }}
     >
       {/* <Logo sx={{ mt: 3, ml: 4, mb: 1 }} /> */}
-        <Link to={'/'}>
-      <div style={{display:'flex',justifyContent:'center',marginBottom:'20px'}}>
-        <img  src='/logo/logo_single.webp' style={{width:'65%'}}/>
-      </div>
-        </Link>
+      <Link to="/">
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+          <img src="/logo/logo_single.webp" style={{ width: '65%' }} />
+        </div>
+      </Link>
       <NavSectionVertical
         data={navData}
         config={{
@@ -62,7 +62,6 @@ export default function NavVertical({ openNav, onCloseNav }) {
       />
 
       <Box sx={{ flexGrow: 1 }} />
-
     </Scrollbar>
   );
 

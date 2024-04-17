@@ -9,14 +9,12 @@ import { RouterLink } from 'src/routes/components';
 // ----------------------------------------------------------------------
 
 const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
-
-
   // OR using local (public folder)
   // -------------------------------------------------------
   const logo = (
     <Box
       component="img"
-      src="/logo/logo_single.webp" 
+      src="/logo/logo_single.webp"
       sx={{ width: 40, height: 40, cursor: 'pointer', ...sx }}
     />
   );

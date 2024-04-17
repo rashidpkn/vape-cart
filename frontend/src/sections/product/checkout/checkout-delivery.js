@@ -59,7 +59,7 @@ CheckoutDelivery.propTypes = {
 // ----------------------------------------------------------------------
 
 function OptionItem({ option, selected, ...other }) {
-  const { value, label, description='' } = option;
+  const { value, label, description = '' } = option;
 
   return (
     <Paper

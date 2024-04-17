@@ -18,7 +18,6 @@ const icon = (name) => (
 );
 
 const iconifyIcon = (name) => (
-  
   // OR
   <Iconify icon={name} />
   // https://icon-sets.iconify.design/solar/
@@ -42,13 +41,12 @@ const ICONS = {
   ecommerce: icon('ic_ecommerce'),
   analytics: icon('ic_analytics'),
   dashboard: icon('ic_dashboard'),
-  store:iconifyIcon('material-symbols:store'),
-  delivery:iconifyIcon('icon-park-outline:delivery'),
-  customer:iconifyIcon('raphael:customer'),
-  payout :iconifyIcon('fa:usd'),
-  rocket:iconifyIcon('ion:rocket-outline'),
+  store: iconifyIcon('material-symbols:store'),
+  delivery: iconifyIcon('icon-park-outline:delivery'),
+  customer: iconifyIcon('raphael:customer'),
+  payout: iconifyIcon('fa:usd'),
+  rocket: iconifyIcon('ion:rocket-outline'),
 };
-
 
 // ----------------------------------------------------------------------
 
@@ -75,7 +73,9 @@ export function useNavData() {
         subheader: t('management'),
         items: [
           {
-            title: t('products'), path: paths.dashboard.product.root, icon: ICONS.product,
+            title: t('products'),
+            path: paths.dashboard.product.root,
+            icon: ICONS.product,
             children: [
               { title: t('products'), path: paths.dashboard.product.root },
               { title: t('create new product'), path: paths.dashboard.product.new },
@@ -104,7 +104,6 @@ export function useNavData() {
             //   // { title: t('edit'), path: paths.dashboard.invoice.demo.edit },
             // ],
           },
-       
 
           // {
           //   title: t('Delivery'),
@@ -121,15 +120,8 @@ export function useNavData() {
             path: paths.dashboard.chat,
             icon: ICONS.chat,
           },
-
-    
-
-        
         ],
       },
-
-
-      
     ],
     [t]
   );

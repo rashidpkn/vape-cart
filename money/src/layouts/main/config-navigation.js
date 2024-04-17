@@ -45,7 +45,7 @@ export const navConfig = [
           { title: 'Post', path: paths.post.demo.details },
         ],
       },
-      
+
       {
         subheader: 'Error',
         items: [

@@ -27,7 +27,6 @@ const ProductDetailsPage = lazy(() => import('src/pages/product/details'));
 const ProductCheckoutPage = lazy(() => import('src/pages/product/checkout'));
 const FirebaseLoginPage = lazy(() => import('src/pages/auth/firebase/login'));
 
-
 // ----------------------------------------------------------------------
 
 export const mainRoutes = [
@@ -53,7 +52,6 @@ export const mainRoutes = [
           { path: 'checkout-2', element: <ProductCheckoutPage /> },
         ],
       },
-      
     ],
   },
   // {

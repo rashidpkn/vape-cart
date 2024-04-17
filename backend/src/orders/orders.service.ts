@@ -16,22 +16,34 @@ export class OrdersService {
     shippingAddress: { fullAddress: string; phoneNumber: string },
   ) {
     try {
+      const dueDate = new Date(new Date().setDate(new Date().getDate() + 5));
+      await Orders.create({
+        items,
+        subTotal,
+        shipping,
+        discount,
+        totalAmount,
+        totalQuantity,
+        customer,
+        shippingAddress,
+      });
+      await Invoice.create({
+        items,
+        subTotal,
+        shipping,
+        discount,
+        totalAmount,
+        totalQuantity,
+        invoiceTo: {
+          email: customer.email,
+          fullAddress: shippingAddress.fullAddress,
+          name: customer.name,
+          phoneNumber: shippingAddress.phoneNumber,
+        },
+        dueDate,
+      });
 
-      const dueDate = new Date(new Date().setDate(new Date().getDate() +5))
-      const order = Orders.create({items,subTotal,shipping,discount,totalAmount,totalQuantity,customer,shippingAddress})
-      const invoice = Invoice.create({items,subTotal,shipping,discount,totalAmount,totalQuantity,invoiceTo:{
-        email:customer.email,
-        fullAddress:shippingAddress.fullAddress,
-        name:customer.name,
-        phoneNumber:shippingAddress.phoneNumber
-
-      },
-      dueDate
-    })
-
-      return {message:"Order is successfully placed"}
-
-
+      return { message: 'Order is successfully placed' };
     } catch (error) {
       throw error;
     }
@@ -41,31 +53,31 @@ export class OrdersService {
 
   async getAllOders() {
     try {
-        const orders = await Orders.findAll()
-        return orders
+      const orders = await Orders.findAll();
+      return orders;
     } catch (error) {
       throw error;
     }
   }
 
   //get Single Order
-  async getSingleOrder(id:number) {
+  async getSingleOrder(id: number) {
     try {
-        const orders = await Orders.findOne({where:{id}})
-        if(!orders){
-            throw new NotFoundException("Order is not found")
-        }
-        return orders
+      const orders = await Orders.findOne({ where: { id } });
+      if (!orders) {
+        throw new NotFoundException('Order is not found');
+      }
+      return orders;
     } catch (error) {
       throw error;
     }
   }
 
   // delete orders
-  async deleteOrder(id:number) {
+  async deleteOrder(id: number) {
     try {
-        const deletedOrders = await Orders.destroy({where:{id}})
-        return {message:"Order Deleted"}
+      await Orders.destroy({ where: { id } });
+      return { message: 'Order Deleted' };
     } catch (error) {
       throw error;
     }

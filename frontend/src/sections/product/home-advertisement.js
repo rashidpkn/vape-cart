@@ -41,7 +41,6 @@ export default function HomeAdvertisement() {
         justifyContent={{ xs: 'center', md: 'flex-start' }}
         spacing={2}
       >
-
         <m.div variants={varFade().inRight}>
           <Button
             color="inherit"

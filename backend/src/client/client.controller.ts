@@ -7,7 +7,8 @@ export class ClientController {
   constructor(private readonly clientService: ClientService) {}
   @Get('*')
   catchAll(@Res() res: any) {
-    
-    res.sendFile(join(__dirname, '..', '..','..', 'frontend', 'dist', 'index.html'));
+    res.sendFile(
+      join(__dirname, '..', '..', '..', 'frontend', 'dist', 'index.html'),
+    );
   }
 }

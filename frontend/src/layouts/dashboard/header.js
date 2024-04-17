@@ -16,12 +16,7 @@ import SvgColor from 'src/components/svg-color';
 import { useSettingsContext } from 'src/components/settings';
 //
 import { HEADER, NAV } from '../config-layout';
-import {
-  Searchbar,
-  AccountPopover,
-  LanguagePopover,
-  NotificationsPopover,
-} from '../_common';
+import { Searchbar, AccountPopover, LanguagePopover, NotificationsPopover } from '../_common';
 
 // ----------------------------------------------------------------------
 
@@ -99,7 +94,7 @@ export default function Header({ onOpenNav }) {
             width: `calc(100% - ${NAV.W_MINI + 1}px)`,
           }),
         }),
-        backgroundColor:'#e3e6e6'
+        backgroundColor: '#e3e6e6',
       }}
     >
       <Toolbar

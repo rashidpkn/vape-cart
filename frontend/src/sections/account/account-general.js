@@ -13,16 +13,11 @@ import Typography from '@mui/material/Typography';
 import { fData } from 'src/utils/format-number';
 
 import { useSnackbar } from 'src/components/snackbar';
-import FormProvider, {
-  RHFTextField,
-  RHFUploadAvatar,
-} from 'src/components/hook-form';
+import FormProvider, { RHFTextField, RHFUploadAvatar } from 'src/components/hook-form';
 import { useAuthContext } from 'src/auth/hooks';
 import { doc, updateDoc } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
 import api from 'src/utils/api';
-
-
 
 export default function AccountGeneral() {
   const { enqueueSnackbar } = useSnackbar();
@@ -32,13 +27,13 @@ export default function AccountGeneral() {
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string().required('Name is required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
-    storeName:Yup.string().required('Store name is required'),
-    contactPersonInTouch:Yup.string().required('Contact person in touch is required'),
+    storeName: Yup.string().required('Store name is required'),
+    contactPersonInTouch: Yup.string().required('Contact person in touch is required'),
     tradeLicense: Yup.mixed().nullable().required('Trade License is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
     address: Yup.string().required('Pick up Address is required'),
-    workingTime:Yup.string().required('working Time is required'),
-    workingDate:Yup.string().required('working Date is required'),
+    workingTime: Yup.string().required('working Time is required'),
+    workingDate: Yup.string().required('working Date is required'),
   });
 
   const defaultValues = {
@@ -46,11 +41,11 @@ export default function AccountGeneral() {
     email: user?.email || '',
     storeName: user?.storeName || '',
     tradeLicense: user?.tradeLicense || '',
-    contactPersonInTouch:user?.contactPersonInTouch || null,
+    contactPersonInTouch: user?.contactPersonInTouch || null,
     phoneNumber: user?.phoneNumber || '',
     address: user?.address || '',
-    workingTime:user?.workingTime || '',
-    workingDate:user?.workingDate || ''
+    workingTime: user?.workingTime || '',
+    workingDate: user?.workingDate || '',
   };
 
   const methods = useForm({
@@ -66,10 +61,9 @@ export default function AccountGeneral() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const userRef  = await doc(DB, 'users', user.uid)
-      await updateDoc(userRef, data)
+      const userRef = await doc(DB, 'users', user.uid);
+      await updateDoc(userRef, data);
       enqueueSnackbar('Update success!');
-      
     } catch (error) {
       console.error(error);
     }
@@ -83,10 +77,10 @@ export default function AccountGeneral() {
         preview: URL.createObjectURL(file),
       });
 
-      const form = new FormData()
-      form.append('images',file)
-       const {data} = await api.post('/upload',form)
-console.log(data);
+      const form = new FormData();
+      form.append('images', file);
+      const { data } = await api.post('/upload', form);
+      console.log(data);
 
       if (data.length) {
         setValue('tradeLicense', data[0], { shouldValidate: true });
@@ -115,12 +109,11 @@ console.log(data);
                     color: 'text.disabled',
                   }}
                 >
-                 Trade License
+                  Trade License
                   <br /> max size of {fData(3145728)}
                 </Typography>
               }
             />
-
           </Card>
         </Grid>
 
@@ -143,8 +136,6 @@ console.log(data);
               <RHFTextField name="address" label="Pick up address" />
               <RHFTextField name="workingTime" label="Working Time" />
               <RHFTextField name="workingDate" label="Working Date" />
-
-              
             </Box>
 
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>

@@ -17,9 +17,8 @@ import { useRouter } from 'src/routes/hook';
 import { fShortenNumber, fCurrency } from 'src/utils/format-number';
 // components
 
-
 import FormProvider from 'src/components/hook-form';
-import {Button} from '@mui/material';
+import { Button } from '@mui/material';
 import Iconify from 'src/components/iconify';
 //
 
@@ -49,22 +48,20 @@ export default function ProductDetailsSummary({
     inventoryType,
     subDescription,
     images,
-    userId
+    userId,
   } = product;
 
   const existProduct = cart?.map((item) => item.id)?.includes(id);
-
-  
 
   const defaultValues = {
     id,
     name,
     coverUrl,
-    quantity:1,
-    price:salePrice,
-    colors:colors?.length&& colors[0],
+    quantity: 1,
+    price: salePrice,
+    colors: colors?.length && colors[0],
     size: sizes?.lenght && sizes[0],
-    images
+    images,
   };
 
   const methods = useForm({
@@ -89,7 +86,7 @@ export default function ProductDetailsSummary({
           ...data,
           colors: [values.colors],
           subTotal: data.price * data.quantity,
-          userId:userId,
+          userId,
         });
       }
       onGotoStep(0);
@@ -99,18 +96,14 @@ export default function ProductDetailsSummary({
     }
   });
 
-
   const handleAddCart = useCallback(() => {
     try {
-      onAddCart({ ...values,subTotal: values.price,userId:userId, });
+      onAddCart({ ...values, subTotal: values.price, userId });
       console.log(values);
     } catch (error) {
       console.error(error);
     }
   }, [onAddCart, values]);
-  
-
-
 
   const renderPrice = (
     <Box sx={{ typography: 'h5' }}>
@@ -127,8 +120,6 @@ export default function ProductDetailsSummary({
     </Box>
   );
 
-  
-
   const renderColorOptions = (
     <Stack direction="row">
       <Typography variant="subtitle2" sx={{ flexGrow: 1 }}>
@@ -136,10 +127,10 @@ export default function ProductDetailsSummary({
       </Typography>
 
       <Stack direction="row">
-  {colors?.map(e=><Typography key={e}>{e} , </Typography>)}
-</Stack>
-
-     
+        {colors?.map((e) => (
+          <Typography key={e}>{e} , </Typography>
+        ))}
+      </Stack>
     </Stack>
   );
 
@@ -149,11 +140,11 @@ export default function ProductDetailsSummary({
         Size
       </Typography>
 
-<Stack direction="row">
-  {sizes?.map(e=><Typography key={e}>{e} , </Typography>)}
-</Stack>
-
-    
+      <Stack direction="row">
+        {sizes?.map((e) => (
+          <Typography key={e}>{e} , </Typography>
+        ))}
+      </Stack>
     </Stack>
   );
 
@@ -164,8 +155,6 @@ export default function ProductDetailsSummary({
       </Typography>
 
       <Stack spacing={1}>
-       
-
         <Typography variant="caption" component="div" sx={{ textAlign: 'right' }}>
           Available: {quantity}
         </Typography>
@@ -194,7 +183,6 @@ export default function ProductDetailsSummary({
     </Stack>
   );
 
-  
   const renderSubDescription = (
     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
       {subDescription}
@@ -215,8 +203,6 @@ export default function ProductDetailsSummary({
     </Stack>
   );
 
-  
-
   const renderInventoryType = (
     <Box
       component="span"
@@ -236,8 +222,6 @@ export default function ProductDetailsSummary({
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={3} sx={{ pt: 3 }} {...other}>
         <Stack spacing={2} alignItems="flex-start">
-
-
           {renderInventoryType}
 
           <Typography variant="h5">{name}</Typography>
@@ -260,7 +244,6 @@ export default function ProductDetailsSummary({
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         {renderActions}
-
 
         {/* {renderShare} */}
       </Stack>

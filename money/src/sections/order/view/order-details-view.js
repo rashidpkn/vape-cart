@@ -27,20 +27,17 @@ export default function OrderDetailsView() {
 
   // const currentOrder = _orders.filter((order) => order.id === id)[0];
 
-  const [currentOrder, setCurrentOrder] = useState({})
-  const fetchOrder = async()=>{
+  const [currentOrder, setCurrentOrder] = useState({});
+  const fetchOrder = async () => {
     try {
-      const {data} = await api.get(`orders/${id}`)
-      setCurrentOrder(data)
-      setStatus(data.status)
-    } catch (error) {
-      
-    }
-  }
+      const { data } = await api.get(`orders/${id}`);
+      setCurrentOrder(data);
+      setStatus(data.status);
+    } catch (error) {}
+  };
   useEffect(() => {
-  fetchOrder()
-  }, [])
-  
+    fetchOrder();
+  }, []);
 
   const [status, setStatus] = useState(currentOrder.status);
 

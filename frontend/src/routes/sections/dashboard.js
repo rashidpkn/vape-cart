@@ -37,8 +37,6 @@ const UserAccountPage = lazy(() => import('src/pages/dashboard/user/account'));
 const UserCreatePage = lazy(() => import('src/pages/dashboard/user/new'));
 const UserEditPage = lazy(() => import('src/pages/dashboard/user/edit'));
 
-
-
 // APP
 const ChatPage = lazy(() => import('src/pages/dashboard/chat'));
 // BLANK PAGE
@@ -103,13 +101,14 @@ export const dashboardRoutes = [
         ],
       },
       {
-        path:'delivery',element:<Delivery />
+        path: 'delivery',
+        element: <Delivery />,
       },
-    
+
       { path: 'support', element: <ChatPage /> },
       { path: 'payout', element: <Payout /> },
       { path: 'boost', element: <Boost /> },
-      
+
       { path: 'blank', element: <BlankPage /> },
     ],
   },

@@ -14,6 +14,10 @@ import { useSettingsContext } from 'src/components/settings';
 
 //
 
+import { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { DB } from 'src/auth/context/firebase/auth-provider';
+import api from 'src/utils/api';
 import EcommerceYearlySales from '../ecommerce-yearly-sales';
 import EcommerceBestSalesman from '../ecommerce-best-salesman';
 import EcommerceSaleByGender from '../ecommerce-sale-by-gender';
@@ -21,48 +25,38 @@ import EcommerceSalesOverview from '../ecommerce-sales-overview';
 import EcommerceWidgetSummary from '../ecommerce-widget-summary';
 import EcommerceLatestProducts from '../ecommerce-latest-products';
 import EcommerceCurrentBalance from '../ecommerce-current-balance';
-import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { DB } from 'src/auth/context/firebase/auth-provider';
-import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
 export default function OverviewEcommerceView() {
-
   const theme = useTheme();
 
+  const [orders, setOrders] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [products, setProducts] = useState([]);
 
-  const [orders, setOrders] = useState([])
-const [users, setUsers] = useState([])
-const [products, setProducts] = useState([])
-
-  const getUsers = async()=>{
+  const getUsers = async () => {
     const querySnapshot = await getDocs(collection(DB, 'users'));
     const users = [];
-    
+
     querySnapshot.forEach((doc) => {
       users.push(doc.data());
     });
-    
-    
-    setUsers(users.reverse())
-  }
+
+    setUsers(users.reverse());
+  };
 
   useEffect(() => {
+    getUsers();
 
-   getUsers()
+    api.get('orders').then((res) => {
+      setOrders(res.data);
+    });
 
-   api.get('orders').then(res=>{
-    setOrders(res.data)
-   })
-
-   api.get('products').then(res=>{
-    setProducts(res.data)
-   })
-
-  }, [])
-
+    api.get('products').then((res) => {
+      setProducts(res.data);
+    });
+  }, []);
 
   const settings = useSettingsContext();
 
@@ -75,7 +69,7 @@ const [products, setProducts] = useState([])
             percent={0}
             total={users.length}
             chart={{
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -84,10 +78,10 @@ const [products, setProducts] = useState([])
           <EcommerceWidgetSummary
             title="Total Order Completed"
             percent={0}
-            total={orders.filter(e=>e.status === 'completed').length}
+            total={orders.filter((e) => e.status === 'completed').length}
             chart={{
               colors: [theme.palette.info.light, theme.palette.info.main],
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -99,7 +93,7 @@ const [products, setProducts] = useState([])
             total={0}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -111,11 +105,10 @@ const [products, setProducts] = useState([])
             total={0}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
-
 
         <Grid xs={12} md={4}>
           <EcommerceWidgetSummary
@@ -124,37 +117,30 @@ const [products, setProducts] = useState([])
             total={products.count}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
-
 
         <Grid xs={12} md={4}>
           <EcommerceWidgetSummary
             title="Order Cancelled"
             percent={0}
-            total={orders.filter(e=>e.status === 'cancelled').length}
+            total={orders.filter((e) => e.status === 'cancelled').length}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
 
-       
-        
-
-
-    
-
         <Grid xs={12} md={12} lg={12}>
           <EcommerceBestSalesman
             title="Top Selling Products"
-            tableData={products.products?.sort((a,b)=>-a.quantity + b.quantity)}
+            tableData={products.products?.sort((a, b) => -a.quantity + b.quantity)}
             tableLabels={[
               { id: 'Product', label: 'Product' },
-              { id: 'price', label: 'Price', },
+              { id: 'price', label: 'Price' },
               { id: 'Store Name', label: 'Store Name' },
               { id: 'Count', label: 'Count' },
             ]}
@@ -180,11 +166,9 @@ const [products, setProducts] = useState([])
                 'Nov',
                 'Dec',
               ],
-              
             }}
           />
         </Grid>
-        
       </Grid>
     </Container>
   );

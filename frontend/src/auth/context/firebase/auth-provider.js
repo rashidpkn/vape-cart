@@ -13,7 +13,7 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  applyActionCode
+  applyActionCode,
 } from 'firebase/auth';
 import { getFirestore, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 // config
@@ -113,32 +113,44 @@ export function AuthProvider({ children }) {
 
   // LOGIN
   const login = useCallback(async (email, password) => {
-     const {user}  = await signInWithEmailAndPassword(AUTH, email, password);
-      if(!user.emailVerified){
-      window.location.href = `/auth/firebase/verify?email=${email}`
-      }
-    initialize()
+    const { user } = await signInWithEmailAndPassword(AUTH, email, password);
+    if (!user.emailVerified) {
+      window.location.href = `/auth/firebase/verify?email=${email}`;
+    }
+    initialize();
   }, []);
 
-  
   // REGISTER
-  const register = useCallback(async (email, password, firstName, lastName,storeName,phoneNumber,contactPersonInTouch,tradeLicense) => {
-    const newUser = await createUserWithEmailAndPassword(AUTH, email, password);
-
-    await sendEmailVerification(newUser.user);
-
-    const userProfile = doc(collection(DB, 'users'), newUser.user?.uid);
-
-    await setDoc(userProfile, {
-      uid: newUser.user?.uid,
+  const register = useCallback(
+    async (
       email,
-      displayName: `${firstName} ${lastName}`,
+      password,
+      firstName,
+      lastName,
       storeName,
       phoneNumber,
-      contactPersonInTouch,tradeLicense
-    });
-    initialize()
-  }, []);
+      contactPersonInTouch,
+      tradeLicense
+    ) => {
+      const newUser = await createUserWithEmailAndPassword(AUTH, email, password);
+
+      await sendEmailVerification(newUser.user);
+
+      const userProfile = doc(collection(DB, 'users'), newUser.user?.uid);
+
+      await setDoc(userProfile, {
+        uid: newUser.user?.uid,
+        email,
+        displayName: `${firstName} ${lastName}`,
+        storeName,
+        phoneNumber,
+        contactPersonInTouch,
+        tradeLicense,
+      });
+      initialize();
+    },
+    []
+  );
 
   // LOGOUT
   const logout = useCallback(async () => {
@@ -150,14 +162,12 @@ export function AuthProvider({ children }) {
     await sendPasswordResetEmail(AUTH, email);
   }, []);
 
-  const handleVerifyEmail = useCallback(async (oobCode)=>{
+  const handleVerifyEmail = useCallback(async (oobCode) => {
     console.log(oobCode);
-    const data = await applyActionCode(AUTH,oobCode)
+    const data = await applyActionCode(AUTH, oobCode);
     console.log(data);
-    initialize()
-  },[])
-
-
+    initialize();
+  }, []);
 
   const checkAuthenticated = state.user?.emailVerified ? 'authenticated' : 'unauthenticated';
   const status = state.loading ? 'loading' : checkAuthenticated;
@@ -174,7 +184,7 @@ export function AuthProvider({ children }) {
       logout,
       register,
       forgotPassword,
-      handleVerifyEmail
+      handleVerifyEmail,
     }),
     [
       status,
@@ -184,7 +194,7 @@ export function AuthProvider({ children }) {
       logout,
       register,
       forgotPassword,
-      handleVerifyEmail
+      handleVerifyEmail,
     ]
   );
 

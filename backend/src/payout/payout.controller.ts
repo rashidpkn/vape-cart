@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { PayoutService } from './payout.service';
 import { CreatePayoutDto } from './dto/create-payout.dto';
 import { UpdatePayoutDto } from './dto/update-payout.dto';
@@ -13,8 +22,7 @@ export class PayoutController {
   }
 
   @Get()
-  findAll(@Query() query : {fName:string}) {
-
+  findAll(@Query() query: { fName: string }) {
     return this.payoutService.findAll(query);
   }
 

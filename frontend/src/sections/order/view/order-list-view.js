@@ -1,4 +1,4 @@
-import { useState, useCallback , useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
@@ -15,7 +15,7 @@ import TableContainer from '@mui/material/TableContainer';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hook';
 // _mock
-import {  ORDER_STATUS_OPTIONS } from 'src/_mock';
+import { ORDER_STATUS_OPTIONS } from 'src/_mock';
 // utils
 import { fTimestamp } from 'src/utils/format-time';
 // hooks
@@ -39,10 +39,10 @@ import {
 } from 'src/components/table';
 //
 import api from 'src/utils/api';
+import { useAuthContext } from 'src/auth/hooks';
 import OrderTableRow from '../order-table-row';
 import OrderTableToolbar from '../order-table-toolbar';
 import OrderTableFiltersResult from '../order-table-filters-result';
-import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -69,19 +69,22 @@ const defaultFilters = {
 // ----------------------------------------------------------------------
 
 export default function OrderListView() {
-  const {user:{id}} = useAuthContext()
+  const {
+    user: { id },
+  } = useAuthContext();
 
- 
   const [orders, setOrders] = useState([]);
   const [myProduct, setMyProduct] = useState([]);
   const [tableData, setTableData] = useState([]);
 
   const fetchProduct = async () => {
     try {
-      const { data: { products: p } } = await api.get('products', { params: { userId: id, perPage: 100 } });
-      setMyProduct(p.map(e => e.id));
+      const {
+        data: { products: p },
+      } = await api.get('products', { params: { userId: id, perPage: 100 } });
+      setMyProduct(p.map((e) => e.id));
     } catch (error) {
-      alert("Error occurred while fetching products.");
+      alert('Error occurred while fetching products.');
     }
   };
 
@@ -100,19 +103,16 @@ export default function OrderListView() {
   }, []);
 
   useEffect(() => {
-    setTableData(orders.filter(order => order.items.some(item => myProduct.includes(item.id))).reverse());
+    setTableData(
+      orders.filter((order) => order.items.some((item) => myProduct.includes(item.id))).reverse()
+    );
   }, [orders, myProduct]);
 
-
-
   const table = useTable({ defaultOrderBy: 'orderNumber' });
-
 
   const router = useRouter();
 
   const confirm = useBoolean();
-
-  
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -140,11 +140,9 @@ export default function OrderListView() {
 
   const notFound = (!dataFiltered.length && canReset) || !dataFiltered.length;
 
-
-
   const handleDeleteRow = useCallback(
     (id) => {
-      api.delete('orders',{data:{id}})
+      api.delete('orders', { data: { id } });
       const deleteRow = tableData.filter((row) => row.id !== id);
       setTableData(deleteRow);
 
@@ -154,7 +152,7 @@ export default function OrderListView() {
   );
 
   const handleDeleteRows = useCallback(() => {
-    api.delete('orders',{data:{id:table.selected}})
+    api.delete('orders', { data: { id: table.selected } });
     const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
     setTableData(deleteRows);
 
@@ -165,7 +163,6 @@ export default function OrderListView() {
     });
   }, [dataFiltered.length, dataInPage.length, table, tableData]);
 
-
   const handleViewRow = useCallback(
     (id) => {
       router.push(paths.dashboard.order.details(id));
@@ -173,7 +170,7 @@ export default function OrderListView() {
     [router]
   );
 
-  const [tab, setTab] = useState('all')
+  const [tab, setTab] = useState('all');
 
   return (
     <>
@@ -198,7 +195,7 @@ export default function OrderListView() {
         <Card>
           <Tabs
             value={tab}
-            onChange={(e,value)=>setTab(value)}
+            onChange={(e, value) => setTab(value)}
             sx={{
               px: 2.5,
               boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
@@ -213,7 +210,8 @@ export default function OrderListView() {
                 icon={
                   <Label
                     variant={
-                      ((tabs.value === 'all' || tabs.value === filters.status) && 'filled') || 'soft'
+                      ((tabs.value === 'all' || tabs.value === filters.status) && 'filled') ||
+                      'soft'
                     }
                     color={
                       (tabs.value === 'completed' && 'success') ||
@@ -222,19 +220,22 @@ export default function OrderListView() {
                       'default'
                     }
                   >
-                    {tabs.value === 'all' && tableData.length }
-                    {tabs.value === 'pending' && tableData.filter(e=>e.status === 'Order received' || e.status === 'pending').length }
-                    {tabs.value === 'completed' && tableData.filter(e=>e.status === 'completed' ).length }
-                    {tabs.value === 'cancelled' && tableData.filter(e=>e.status === 'cancelled' ).length }
-                    {tabs.value === 'refunded' && tableData.filter(e=>e.status === 'refunded' ).length }
+                    {tabs.value === 'all' && tableData.length}
+                    {tabs.value === 'pending' &&
+                      tableData.filter(
+                        (e) => e.status === 'Order received' || e.status === 'pending'
+                      ).length}
+                    {tabs.value === 'completed' &&
+                      tableData.filter((e) => e.status === 'completed').length}
+                    {tabs.value === 'cancelled' &&
+                      tableData.filter((e) => e.status === 'cancelled').length}
+                    {tabs.value === 'refunded' &&
+                      tableData.filter((e) => e.status === 'refunded').length}
                   </Label>
                 }
               />
             ))}
           </Tabs>
-
-
-
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
@@ -275,13 +276,15 @@ export default function OrderListView() {
 
                 <TableBody>
                   {dataFiltered
-                    .filter(e=>
-                      tab==='all'  ||
-                       tab === 'pending' && (e.status === 'pending' || e.status === 'Order received')  ||
-                       tab === 'completed' && e.status ==='completed' ||
-                       tab === 'cancelled' && e.status ==='cancelled'  ||
-                       tab === 'refunded' && e.status ==='refunded' 
-                       )
+                    .filter(
+                      (e) =>
+                        tab === 'all' ||
+                        (tab === 'pending' &&
+                          (e.status === 'pending' || e.status === 'Order received')) ||
+                        (tab === 'completed' && e.status === 'completed') ||
+                        (tab === 'cancelled' && e.status === 'cancelled') ||
+                        (tab === 'refunded' && e.status === 'refunded')
+                    )
                     .map((row) => (
                       <OrderTableRow
                         key={row.id}

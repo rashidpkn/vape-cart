@@ -7,7 +7,7 @@ import { useParams } from 'src/routes/hook';
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 import InvoiceDetails from '../invoice-details';
 
@@ -20,24 +20,17 @@ export default function InvoiceDetailsView() {
 
   const { id } = params;
 
-
-  const [currentInvoice, setCurrentInvoice] = useState({})
+  const [currentInvoice, setCurrentInvoice] = useState({});
   const fetchInvoice = async () => {
     try {
-      const { data } = await api.get(`invoice/${id}`)
-      setCurrentInvoice(data)
-    } catch (error) {
-
-    }
-  }
-
+      const { data } = await api.get(`invoice/${id}`);
+      setCurrentInvoice(data);
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    
-  fetchInvoice()
-  
-  }, [])
-  
+    fetchInvoice();
+  }, []);
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>

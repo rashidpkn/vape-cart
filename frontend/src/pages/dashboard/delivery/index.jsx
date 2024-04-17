@@ -2,16 +2,13 @@ import { Helmet } from 'react-helmet-async';
 // sections
 import Box from '@mui/material/Box';
 import { useSettingsContext } from 'src/components/settings';
-import CheckoutDelivery from './checkout-delivery';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
+import CheckoutDelivery from './checkout-delivery';
 
 // ----------------------------------------------------------------------
 
-
-
-
 export default function Delivery() {
-    const settings = useSettingsContext();
+  const settings = useSettingsContext();
   return (
     <>
       <Helmet>
@@ -19,18 +16,14 @@ export default function Delivery() {
       </Helmet>
 
       <Box px={5}>
-      <CustomBreadcrumbs
+        <CustomBreadcrumbs
           heading="Delivery"
-          links={[
-            {}
-          ]}
+          links={[{}]}
           sx={{
             mb: { xs: 3, md: 5 },
           }}
         />
-      <CheckoutDelivery  />
-
-
+        <CheckoutDelivery />
       </Box>
     </>
   );

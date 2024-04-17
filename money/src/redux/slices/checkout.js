@@ -68,12 +68,9 @@ const slice = createSlice({
 
       state.cart = updateCart;
 
-      
-
       const totalItems = sum(updateCart.map((product) => product.quantity));
 
       const subTotal = sum(updateCart.map((product) => product.salePrice * product.quantity));
-
 
       state.discount = state.discount || 0;
       state.shipping = state.shipping || 0;

@@ -11,7 +11,6 @@ import { StoreEdit } from 'src/sections/store-edit/view';
 import Payout from 'src/pages/dashboard/payout';
 import Boost from '../../pages/dashboard/boost';
 
-
 // ----------------------------------------------------------------------
 
 // OVERVIEW
@@ -39,8 +38,6 @@ const UserAccountPage = lazy(() => import('src/pages/dashboard/user/account'));
 const UserCreatePage = lazy(() => import('src/pages/dashboard/user/new'));
 const UserEditPage = lazy(() => import('src/pages/dashboard/user/edit'));
 const Customers = lazy(() => import('src/pages/dashboard/customer/Customers'));
-
-
 
 // APP
 const ChatPage = lazy(() => import('src/pages/dashboard/chat'));
@@ -80,9 +77,7 @@ export const dashboardRoutes = [
       },
       {
         path: 'store',
-        children: [
-          { path: ':id/edit', element: <StoreEdit /> },
-        ],
+        children: [{ path: ':id/edit', element: <StoreEdit /> }],
       },
       {
         path: 'product',
@@ -113,14 +108,14 @@ export const dashboardRoutes = [
         ],
       },
       {
-        path:'delivery',element:<Delivery />
+        path: 'delivery',
+        element: <Delivery />,
       },
-    
+
       { path: 'support', element: <ChatPage /> },
       { path: 'payout', element: <Payout /> },
       { path: 'boost', element: <Boost /> },
-      
-      
+
       { path: 'blank', element: <BlankPage /> },
     ],
   },

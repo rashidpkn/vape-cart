@@ -35,17 +35,17 @@ import { Pagination, Navigation } from 'swiper/modules';
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 import { spacing } from '@mui/system';
-import pagignation from '../components/pagignation';
 import Pagination1 from '@mui/material/Pagination';
 
-import bg_1 from '/assets/images/hero/bg_1.jpg';
-import bg_2 from '/assets/images/hero/bg_2.jpg';
-import bg_3 from '/assets/images/hero/bg_3.jpg';
 import { Link } from 'react-router-dom';
 import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
-
 import AOS from 'aos';
-import 'aos/dist/aos.css'; 
+import bg_1 from "../../../../../../../../assets/images/hero/bg_1.jpg";
+import bg_2 from "../../../../../../../../assets/images/hero/bg_2.jpg";
+import bg_3 from "../../../../../../../../assets/images/hero/bg_3.jpg";
+
+import pagignation from '../components/pagignation';
+import 'aos/dist/aos.css';
 
 export default function ShopPage() {
   AOS.init();
@@ -64,17 +64,19 @@ export default function ShopPage() {
   };
 
   useEffect(() => {
-    api.get('products',{
-      params:{
-        perPage:2000
-      }
-    }).then((res) => {
-      setProducsts(res.data.products);
-      setTotal(res.data.count);
-    });
+    api
+      .get('products', {
+        params: {
+          perPage: 2000,
+        },
+      })
+      .then((res) => {
+        setProducsts(res.data.products);
+        setTotal(res.data.count);
+      });
   }, []);
 
-  var settings = {
+  const settings = {
     dots: false,
     infinite: true,
     speed: 500,
@@ -132,7 +134,7 @@ export default function ShopPage() {
           pagination={{
             type: 'false',
           }}
-          navigation={true}
+          navigation
           modules={[Pagination, Navigation]}
           className="mySwiper"
           style={{ position: 'relative', width: '100%', height: '100%' }}
@@ -148,11 +150,24 @@ export default function ShopPage() {
                 objectFit: 'cover',
                 backgroundPosition: 'center',
                 objectPosition: '',
-                position: 'relative'
+                position: 'relative',
               }}
               alt=""
             />
-            <Typography  data-aos="fade-up" data-aos-duration="2000" className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>Discover vape essentials effortlessly—your one-stop shop for everything vape!</Typography>
+            <Typography
+              data-aos="fade-up"
+              data-aos-duration="2000"
+              className="vertical_center bg_text"
+              variant="h3"
+              style={{
+                width: '100%',
+                textAlign: 'center',
+                color: '#fff',
+                textTransform: 'capitalize',
+              }}
+            >
+              Discover vape essentials effortlessly—your one-stop shop for everything vape!
+            </Typography>
           </SwiperSlide>
           <SwiperSlide>
             <img
@@ -165,11 +180,24 @@ export default function ShopPage() {
                 objectFit: 'cover',
                 backgroundPosition: 'center',
                 objectPosition: 'top',
-                position: 'relative'
+                position: 'relative',
               }}
               alt=""
             />
-              <Typography data-aos="fade-up" data-aos-duration="2000"  className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#000', textTransform: 'capitalize'}}>Vape made easy: Find your favorites in a snap!</Typography>
+            <Typography
+              data-aos="fade-up"
+              data-aos-duration="2000"
+              className="vertical_center bg_text"
+              variant="h3"
+              style={{
+                width: '100%',
+                textAlign: 'center',
+                color: '#000',
+                textTransform: 'capitalize',
+              }}
+            >
+              Vape made easy: Find your favorites in a snap!
+            </Typography>
           </SwiperSlide>
           <SwiperSlide>
             <img
@@ -182,15 +210,26 @@ export default function ShopPage() {
                 objectFit: 'cover',
                 backgroundPosition: 'center',
                 objectPosition: 'top',
-                position: 'relative'
+                position: 'relative',
               }}
               alt=""
             />
-              <Typography data-aos="fade-up" data-aos-duration="2000"  className='vertical_center bg_text' variant='h3' style={{ width: '100%', textAlign: 'center', color: '#fff', textTransform: 'capitalize'}}>All your vape needs, one click away—simplicity meets selection!</Typography>
+            <Typography
+              data-aos="fade-up"
+              data-aos-duration="2000"
+              className="vertical_center bg_text"
+              variant="h3"
+              style={{
+                width: '100%',
+                textAlign: 'center',
+                color: '#fff',
+                textTransform: 'capitalize',
+              }}
+            >
+              All your vape needs, one click away—simplicity meets selection!
+            </Typography>
           </SwiperSlide>
         </Swiper>
-
-      
 
         <Box>
           <Grid container spacing={3} sx={{ padding: '15px', marginTop: '-300px' }}>
@@ -219,7 +258,7 @@ export default function ShopPage() {
                         <Box style={{ width: '100%', cursor: 'pointer' }}>
                           <img
                             src={item.images[0]}
-                            width={'100%'}
+                            width="100%"
                             height={150}
                             style={{
                               width: '100%',
@@ -273,7 +312,7 @@ export default function ShopPage() {
                         >
                           {item.storeName}
                         </Typography>{' '} */}
-                        
+
                         <Typography
                           variant="p"
                           style={{ color: 'gray', marginTop: '15px', textDecoration: 'none' }}
@@ -282,7 +321,7 @@ export default function ShopPage() {
                           <span
                             style={{ fontWeight: '700', color: '#000', textDecoration: 'none' }}
                           >
-                            AED {item.salePrice} 
+                            AED {item.salePrice}
                           </span>
                         </Typography>
                       </Box>
@@ -292,12 +331,14 @@ export default function ShopPage() {
               </Grid>
             ))}
           </Grid>
-              <div style={{display:'flex',justifyContent:'center'}}>
-          <Pagination1 count={Math.ceil(total / 4)} onChange={handleChange} />
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Pagination1 count={Math.ceil(total / 4)} onChange={handleChange} />
           </div>
         </Box>
 
-        <Typography variant='h3' sx={{textAlign: 'center',}} pt={5} pb={2} >Best Sellers</Typography>
+        <Typography variant="h3" sx={{ textAlign: 'center' }} pt={5} pb={2}>
+          Best Sellers
+        </Typography>
         <Box
           style={{
             paddingLeft: '20px',
@@ -388,7 +429,7 @@ export default function ShopPage() {
                       {/* <Typography variant="p" sx={{ paddingBottom: '5px', fontStyle: 'italic' }}>
                         {e.storeName}
                       </Typography>{' '} */}
-                      
+
                       <Typography variant="p" style={{ color: 'gray', marginTop: '15px' }}>
                         <del>{e.regularPrice}₹ 549</del>{' '}
                         <span style={{ fontWeight: '700', color: '#000' }}>
@@ -403,7 +444,9 @@ export default function ShopPage() {
           </Slider>
         </Box>
 
-        <Typography variant='h3' sx={{textAlign: 'center',}} pb={2} >New Arrivals</Typography>
+        <Typography variant="h3" sx={{ textAlign: 'center' }} pb={2}>
+          New Arrivals
+        </Typography>
         <Box
           style={{
             paddingLeft: '20px',
@@ -494,7 +537,7 @@ export default function ShopPage() {
                       {/* <Typography variant="p" sx={{ paddingBottom: '5px', fontStyle: 'italic' }}>
                         {e.storeName}
                       </Typography>{' '} */}
-                      
+
                       <Typography variant="p" style={{ color: 'gray', marginTop: '15px' }}>
                         <del>{e.regularPrice}₹ 549</del>{' '}
                         <span style={{ fontWeight: '700', color: '#000' }}>

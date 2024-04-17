@@ -79,22 +79,17 @@ export default function InvoiceListView() {
 
   const [tableData, setTableData] = useState([]);
 
-
   const fetchInvoice = async () => {
     try {
-      const { data } = await api.get('invoice')
+      const { data } = await api.get('invoice');
       console.log(data);
-      setTableData(data)
-    } catch (error) {
-
-    }
-  }
+      setTableData(data);
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    fetchInvoice()
-  
-  }, [])
-  
+    fetchInvoice();
+  }, []);
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -102,8 +97,6 @@ export default function InvoiceListView() {
     filters.startDate && filters.endDate
       ? filters.startDate.getTime() > filters.endDate.getTime()
       : false;
-
-  
 
   const denseHeight = table.dense ? 56 : 76;
 
@@ -116,8 +109,6 @@ export default function InvoiceListView() {
   const notFound = (!tableData.length && canReset) || !tableData.length;
 
   const getInvoiceLength = (status) => tableData.filter((item) => item.status === status).length;
-
-
 
   const TABS = [
     { value: 'all', label: 'All', color: 'default', count: tableData.length },
@@ -140,9 +131,9 @@ export default function InvoiceListView() {
 
   const handleDeleteRow = useCallback(
     (id) => {
-      api.delete('invoice',{data:{id}}).then(res=>{
-        alert("Invoice in deleted")
-      })
+      api.delete('invoice', { data: { id } }).then((res) => {
+        alert('Invoice in deleted');
+      });
 
       const deleteRow = tableData.filter((row) => row.id !== id);
       setTableData(deleteRow);
@@ -153,9 +144,9 @@ export default function InvoiceListView() {
   );
 
   const handleDeleteRows = useCallback(() => {
-    api.delete('invoice',{data:{id:table.selected}}).then(res=>{
-      alert("Invoice in deleted")
-    })
+    api.delete('invoice', { data: { id: table.selected } }).then((res) => {
+      alert('Invoice in deleted');
+    });
 
     const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
     setTableData(deleteRows);
@@ -456,4 +447,3 @@ export default function InvoiceListView() {
 }
 
 // ----------------------------------------------------------------------
-

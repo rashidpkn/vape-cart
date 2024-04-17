@@ -1,30 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    location:{
-        city:'',
-        region:'',
-        country_name:'',
-        postal:'',
-
-
-    }
-
-}
+  location: {
+    city: '',
+    region: '',
+    country_name: '',
+    postal: '',
+  },
+};
 
 const util = createSlice({
   name: 'util',
   initialState,
   reducers: {
-    setLocation(state,{payload}){
-            state.location.city = payload.city
-            state.location.region = payload.region
-            state.location.country_name = payload.country_name
-            state.location.postal = payload.postal
-    }
-  }
+    setLocation(state, { payload }) {
+      state.location.city = payload.city;
+      state.location.region = payload.region;
+      state.location.country_name = payload.country_name;
+      state.location.postal = payload.postal;
+    },
+  },
 });
 
-export const {setLocation} = util.actions
+export const { setLocation } = util.actions;
 
-export default util.reducer
+export default util.reducer;

@@ -19,7 +19,6 @@ export default function AccountBilling({ cards, plans, invoices, addressBook }) 
 
         <AccountBillingAddress addressBook={addressBook} />
       </Grid>
-
     </Grid>
   );
 }

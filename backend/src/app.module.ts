@@ -10,10 +10,18 @@ import { InvoiceModule } from './invoice/invoice.module';
 import { StoreAnalyticsModule } from './store-analytics/store-analytics.module';
 import { PayoutModule } from './payout/payout.module';
 
-
 @Module({
-  imports: [ProductModule, DatabaseModule, UploadModule,OrdersModule,InvoiceModule,StoreAnalyticsModule,PayoutModule,ClientModule,   ],
+  imports: [
+    ProductModule,
+    DatabaseModule,
+    UploadModule,
+    OrdersModule,
+    InvoiceModule,
+    StoreAnalyticsModule,
+    PayoutModule,
+    ClientModule,
+  ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [AppService],
 })
 export class AppModule {}

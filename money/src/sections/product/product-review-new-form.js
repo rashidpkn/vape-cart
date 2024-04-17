@@ -22,8 +22,7 @@ import api from 'src/utils/api';
 // ----------------------------------------------------------------------
 
 export default function ProductReviewNewForm({ onClose, ...other }) {
-
-  const {id} = useParams()
+  const { id } = useParams();
   const ReviewSchema = Yup.object().shape({
     rating: Yup.number().min(1, 'Rating must be greater than or equal to 1'),
     review: Yup.string().required('Review is required'),
@@ -52,8 +51,8 @@ export default function ProductReviewNewForm({ onClose, ...other }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const review = await api.post('products/review',{...data,id})
-      
+      const review = await api.post('products/review', { ...data, id });
+
       reset();
       onClose();
       console.info('DATA', data);

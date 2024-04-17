@@ -13,8 +13,8 @@ export class StoreAnalyticsController {
       const { name, storeName } = req.query;
       const where: any = {};
 
-      if (name)  where.name = name; 
-      if (storeName)  where.storeName = storeName;
+      if (name) where.name = name;
+      if (storeName) where.storeName = storeName;
       const analytics = await StoreAnalytics.findAll({ where });
 
       return analytics;

@@ -20,11 +20,7 @@ import { paths } from 'src/routes/paths';
 // hooks
 import { useResponsive } from 'src/hooks/use-responsive';
 // _mock
-import {
-  _tags,
-  PRODUCT_COLOR_NAME_OPTIONS,
-  PRODUCT_CATEGORY_GROUP_OPTIONS,
-} from 'src/_mock';
+import { _tags, PRODUCT_COLOR_NAME_OPTIONS, PRODUCT_CATEGORY_GROUP_OPTIONS } from 'src/_mock';
 // components
 import { useSnackbar } from 'src/components/snackbar';
 import { useRouter } from 'src/routes/hook';
@@ -49,9 +45,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const { user } = useAuthContext()
-
-
+  const { user } = useAuthContext();
 
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -68,8 +62,6 @@ export default function ProductNewEditForm({ currentProduct }) {
     tax: Yup.number().moreThan(-1, 'Tax should not be 0%'),
     type: Yup.string().required('Type is required'),
     variable: Yup.string(),
-
-
   });
 
   const defaultValues = useMemo(
@@ -89,7 +81,6 @@ export default function ProductNewEditForm({ currentProduct }) {
       colors: currentProduct?.colors || [],
       type: currentProduct?.type || 'simple',
       variable: currentProduct?.variable || '',
-
     }),
     [currentProduct]
   );
@@ -115,22 +106,28 @@ export default function ProductNewEditForm({ currentProduct }) {
     }
   }, [currentProduct, defaultValues, reset]);
 
-
-
   const onSubmit = handleSubmit(async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       if (currentProduct) {
-        await api.patch('products', { ...data, username: user.displayName, userId: user.id, storeName: user.storeName })
+        await api.patch('products', {
+          ...data,
+          username: user.displayName,
+          userId: user.id,
+          storeName: user.storeName,
+        });
       } else {
-        await api.post('products', { ...data, username: user.displayName, userId: user.id, storeName: user.storeName })
-
+        await api.post('products', {
+          ...data,
+          username: user.displayName,
+          userId: user.id,
+          storeName: user.storeName,
+        });
       }
 
       reset();
       enqueueSnackbar(currentProduct ? 'Update success!' : 'Create success!');
       router.push(paths.dashboard.product.root);
-
     } catch (error) {
       console.error(error);
     }
@@ -162,8 +159,6 @@ export default function ProductNewEditForm({ currentProduct }) {
   const handleRemoveAllFiles = useCallback(() => {
     setValue('images', []);
   }, [setValue]);
-
-
 
   const renderDetails = (
     <>
@@ -204,19 +199,17 @@ export default function ProductNewEditForm({ currentProduct }) {
                 onRemoveAll={handleRemoveAllFiles}
                 onUpload={async (acceptedFiles) => {
                   try {
-                    const form = new FormData()
+                    const form = new FormData();
                     values.images.forEach((e) => {
-                      form.append('images', e)
-                    })
-                    const { data } = await api.post('upload', form)
+                      form.append('images', e);
+                    });
+                    const { data } = await api.post('upload', form);
                     setValue('images', data);
-                    alert('Image upload complete.')
+                    alert('Image upload complete.');
                   } catch (error) {
-                    alert(' Image upload failed, try again.')
+                    alert(' Image upload failed, try again.');
                   }
-
-                }
-                }
+                }}
               />
             </Stack>
           </Stack>
@@ -252,7 +245,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                 md: 'repeat(2, 1fr)',
               }}
             >
-
               <RHFTextField name="SKU" label="Product SKU" />
 
               <RHFTextField
@@ -264,18 +256,29 @@ export default function ProductNewEditForm({ currentProduct }) {
               />
 
               <RHFSelect native name="category" label="Category" InputLabelProps={{ shrink: true }}>
-                {['None', 'Disposable', 'Liquids', 'Devices', 'Accessories', 'Batteries', 'Bottle Size', 'Nicotine Level', 'Puffs'].map(classify => <option key={classify} value={classify}>{classify}</option>)}
+                {[
+                  'None',
+                  'Disposable',
+                  'Liquids',
+                  'Devices',
+                  'Accessories',
+                  'Batteries',
+                  'Bottle Size',
+                  'Nicotine Level',
+                  'Puffs',
+                ].map((classify) => (
+                  <option key={classify} value={classify}>
+                    {classify}
+                  </option>
+                ))}
               </RHFSelect>
 
-
-              {values.category !== 'None' && <RHFSelect native name="type" label="Type" InputLabelProps={{ shrink: true }}>
-                <option value={'simple'}>Simple</option>
-                <option value={'variation'}>Variation</option>
-              </RHFSelect>}
-
-
-
-
+              {values.category !== 'None' && (
+                <RHFSelect native name="type" label="Type" InputLabelProps={{ shrink: true }}>
+                  <option value="simple">Simple</option>
+                  <option value="variation">Variation</option>
+                </RHFSelect>
+              )}
 
               <RHFMultiSelect
                 checkbox
@@ -283,8 +286,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                 label="Colors"
                 options={PRODUCT_COLOR_NAME_OPTIONS}
               />
-
-
             </Box>
 
             <RHFAutocomplete
@@ -314,18 +315,27 @@ export default function ProductNewEditForm({ currentProduct }) {
               }
             />
 
-            {
-              values.type === 'variation' &&
-
-              <Box sx={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-                {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(c => c.group === values.category)?.classify?.map(e => <TextField type='number' size='small' sx={{ width: '20%' }} label={`${e} Price`} />)}
-
+            {values.type === 'variation' && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: '10px',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-between',
+                }}
+              >
+                {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(
+                  (c) => c.group === values.category
+                )?.classify?.map((e) => (
+                  <TextField
+                    type="number"
+                    size="small"
+                    sx={{ width: '20%' }}
+                    label={`${e} Price`}
+                  />
+                ))}
               </Box>
-            }
-
-
-
-
+            )}
           </Stack>
         </Card>
       </Grid>
@@ -384,9 +394,6 @@ export default function ProductNewEditForm({ currentProduct }) {
               }}
             />
 
-
-
-
             <RHFTextField
               name="tax"
               label="Tax (%)"
@@ -403,7 +410,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                 ),
               }}
             />
-
           </Stack>
         </Card>
       </Grid>

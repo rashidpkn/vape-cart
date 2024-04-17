@@ -26,9 +26,15 @@ export default function ProductDetailsReview({ reviews }) {
     <Stack spacing={1} alignItems="center" justifyContent="center">
       <Typography variant="subtitle2">Average rating</Typography>
 
-      <Typography variant="h2">{reviews.reduce((a,b)=>a+b.rating,0)/reviews.length}/5</Typography>
+      <Typography variant="h2">
+        {reviews.reduce((a, b) => a + b.rating, 0) / reviews.length}/5
+      </Typography>
 
-      <Rating readOnly value={reviews.reduce((a,b)=>a+b.rating,0)/reviews.length} precision={0.1} />
+      <Rating
+        readOnly
+        value={reviews.reduce((a, b) => a + b.rating, 0) / reviews.length}
+        precision={0.1}
+      />
 
       <Typography variant="caption" sx={{ color: 'text.secondary' }}>
         ({fShortenNumber(reviews.length)} reviews)
@@ -50,35 +56,34 @@ export default function ProductDetailsReview({ reviews }) {
         }),
       }}
     >
-      {[1,2,3,4,5]
-        .map((rating) => (
-          <Stack key={rating} direction="row" alignItems="center">
-            <Typography variant="subtitle2" component="span" sx={{ width: 42 }}>
-              {rating}
-            </Typography>
+      {[1, 2, 3, 4, 5].map((rating) => (
+        <Stack key={rating} direction="row" alignItems="center">
+          <Typography variant="subtitle2" component="span" sx={{ width: 42 }}>
+            {rating}
+          </Typography>
 
-            <LinearProgress
-              color="inherit"
-              variant="determinate"
-              value={(reviews.filter(e=>e.rating===rating).length / reviews.length) * 100}
-              sx={{
-                mx: 2,
-                flexGrow: 1,
-              }}
-            />
+          <LinearProgress
+            color="inherit"
+            variant="determinate"
+            value={(reviews.filter((e) => e.rating === rating).length / reviews.length) * 100}
+            sx={{
+              mx: 2,
+              flexGrow: 1,
+            }}
+          />
 
-            <Typography
-              variant="body2"
-              component="span"
-              sx={{
-                minWidth: 48,
-                color: 'text.secondary',
-              }}
-            >
-              {fShortenNumber(reviews.filter(e=>e===rating).length)}
-            </Typography>
-          </Stack>
-        ))}
+          <Typography
+            variant="body2"
+            component="span"
+            sx={{
+              minWidth: 48,
+              color: 'text.secondary',
+            }}
+          >
+            {fShortenNumber(reviews.filter((e) => e === rating).length)}
+          </Typography>
+        </Stack>
+      ))}
     </Stack>
   );
 

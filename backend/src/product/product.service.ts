@@ -5,48 +5,83 @@ import { StoreAnalytics } from 'src/model/storeAnalytics.model';
 
 @Injectable()
 export class ProductService {
-
-  async createProduct(name: string, username: string,storeName:string, userId: string, subDescription: string, content: string, images: [string], SKU: string, quantity: number, category: string, colors: [string], tags: [string], regularPrice: number, salePrice: number, tax: number, publish: boolean) {
+  async createProduct(
+    name: string,
+    username: string,
+    storeName: string,
+    userId: string,
+    subDescription: string,
+    content: string,
+    images: [string],
+    SKU: string,
+    quantity: number,
+    category: string,
+    colors: [string],
+    tags: [string],
+    regularPrice: number,
+    salePrice: number,
+    tax: number,
+    publish: boolean,
+  ) {
     try {
-
-   
       const product = await Product.create({
-        name, username, storeName,userId,
-        subDescription, content,
-        images, SKU, quantity,
-        category, colors, tags,
-        regularPrice, salePrice, tax, publish
-      })
-      return { product, message: "Product is created" }
+        name,
+        username,
+        storeName,
+        userId,
+        subDescription,
+        content,
+        images,
+        SKU,
+        quantity,
+        category,
+        colors,
+        tags,
+        regularPrice,
+        salePrice,
+        tax,
+        publish,
+      });
+      return { product, message: 'Product is created' };
     } catch (error) {
-      throw error
-
+      throw error;
     }
   }
 
   async getAllProduct(query: any) {
     try {
-      const { username, userId, name, category, inStock, publish, draft, perPage = 20, pageNo = 1,sortBy } = query
-      let where: any = {}
-      let order:any  = [];
+      const {
+        username,
+        userId,
+        name,
+        category,
+        inStock,
+        publish,
+        draft,
+        perPage = 20,
+        pageNo = 1,
+        sortBy,
+      } = query;
+      const where: any = {};
+      let order: any = [];
 
-      if (username) where.username = username
-      if (userId) where.userId = userId
-      if (name) where.name = { [Op.iLike]: `%${name}%` }
-      
-      if (category) where.category = category
-      if (inStock) where.quantity = { [Op.gt]: 0, };
-      if (publish) where.publish = true
-      if (draft) where.publish = false
+      if (username) where.username = username;
+      if (userId) where.userId = userId;
+      if (name) where.name = { [Op.iLike]: `%${name}%` };
 
-      if(sortBy === 'priceDesc') {
-order = ['salePrice', 'DESC']
+      if (category) where.category = category;
+      if (inStock) where.quantity = { [Op.gt]: 0 };
+      if (publish) where.publish = true;
+      if (draft) where.publish = false;
+
+      if (sortBy === 'priceDesc') {
+        order = ['salePrice', 'DESC'];
       }
-      if(sortBy === 'priceAsc'){
-order = ['salePrice', 'ASC']
+      if (sortBy === 'priceAsc') {
+        order = ['salePrice', 'ASC'];
       }
 
-      const count = await Product.count({ where })
+      const count = await Product.count({ where });
 
       const products = await Product.findAll({
         where,
@@ -55,83 +90,79 @@ order = ['salePrice', 'ASC']
         ...(order.length && { order: [order] }),
       });
 
-      
-
-
-      return { products, count }
+      return { products, count };
     } catch (error) {
-      return error
+      return error;
     }
   }
 
-
-  async getById(id: number,count:number) {
+  async getById(id: number, count: number) {
     try {
-      const product = await Product.findOne({ where: { id } })
+      const product = await Product.findOne({ where: { id } });
       if (!product) {
-        throw new BadRequestException("Product not found")
+        throw new BadRequestException('Product not found');
       }
-      
-if(count){
-  const analytics = await StoreAnalytics.create({storeName:product.storeName,name:product.name})
-}
 
-      return product
+      if (count) {
+        await StoreAnalytics.create({
+          storeName: product.storeName,
+          name: product.name,
+        });
+      }
 
+      return product;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
-
 
   async updateProduct(update: { id: number }) {
     try {
-      const found = await Product.findOne({ where: { id: update.id } })
+      const found = await Product.findOne({ where: { id: update.id } });
       if (!found) {
-        throw new BadRequestException('Product not found')
+        throw new BadRequestException('Product not found');
       }
-      const product = await Product.update(update, { where: { id: update.id } })
+      await Product.update(update, {
+        where: { id: update.id },
+      });
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
-
   async deleteProducts(ids: number[]) {
     try {
-      const product = await Product.destroy({ where: { id: ids } })
-      return { message: "Products are deleted" }
-
-
+      await Product.destroy({ where: { id: ids } });
+      return { message: 'Products are deleted' };
     } catch (error) {
-      throw error
+      throw error;
     }
-
   }
 
   async deleteProduct(id: number) {
     try {
-      const product = await Product.destroy({ where: { id } })
-      return { message: "Product is deleted" }
-
-
+      await Product.destroy({ where: { id } });
+      return { message: 'Product is deleted' };
     } catch (error) {
-      throw error
+      throw error;
     }
-
   }
 
-  async productReview(id: number, rating: number, review: string, name: string, email: string) {
+  async productReview(
+    id: number,
+    rating: number,
+    review: string,
+    name: string,
+    email: string,
+  ) {
     try {
-      let product = await Product.findOne({ where: { id } })
-      if (!product) throw new BadRequestException("Product not found")
-      let reviews = [...product.reviews,{ rating, review, name, email }]
-      let updatedProduct = await Product.update({reviews},{where:{id}})
-      return { message: "Review updated" }
+      const product = await Product.findOne({ where: { id } });
+      if (!product) throw new BadRequestException('Product not found');
+      const reviews = [...product.reviews, { rating, review, name, email }];
+      await Product.update({ reviews }, { where: { id } });
+      return { message: 'Review updated' };
     } catch (error) {
-      throw error
+      throw error;
     }
   }
-
-
 }

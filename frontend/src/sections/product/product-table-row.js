@@ -32,16 +32,7 @@ export default function ProductTableRow({
   onEditRow,
   onViewRow,
 }) {
-  const {
-    name,
-    salePrice,
-    publish,
-    category,
-    quantity,
-    createdAt,
-    inventoryType,
-images
-  } = row;
+  const { name, salePrice, publish, category, quantity, createdAt, inventoryType, images } = row;
 
   const confirm = useBoolean();
 
@@ -113,8 +104,8 @@ images
         <TableCell>{fCurrency(salePrice)}</TableCell>
 
         <TableCell>
-          <Label variant="soft" color={(publish  && 'info') || 'default'}>
-            {publish ? "Publish" : "Draft"}
+          <Label variant="soft" color={(publish && 'info') || 'default'}>
+            {publish ? 'Publish' : 'Draft'}
           </Label>
         </TableCell>
 

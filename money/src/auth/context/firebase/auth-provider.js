@@ -32,8 +32,7 @@ const firebaseApp = initializeApp(FIREBASE_API);
 
 const AUTH = getAuth(firebaseApp);
 
-export const  DB = getFirestore(firebaseApp);
-
+export const DB = getFirestore(firebaseApp);
 
 // ----------------------------------------------------------------------
 
@@ -116,25 +115,36 @@ export function AuthProvider({ children }) {
     await signInWithEmailAndPassword(AUTH, email, password);
   }, []);
 
-  
-
   // REGISTER
-  const register = useCallback(async (email, password, firstName, lastName,storeName,phoneNumber,contactPersonInTouch,tradeLicense) => {
-    const newUser = await createUserWithEmailAndPassword(AUTH, email, password);
-
-    await sendEmailVerification(newUser.user);
-
-    const userProfile = doc(collection(DB, 'users'), newUser.user?.uid);
-
-    await setDoc(userProfile, {
-      uid: newUser.user?.uid,
+  const register = useCallback(
+    async (
       email,
-      displayName: `${firstName} ${lastName}`,
+      password,
+      firstName,
+      lastName,
       storeName,
       phoneNumber,
-      contactPersonInTouch,tradeLicense
-    });
-  }, []);
+      contactPersonInTouch,
+      tradeLicense
+    ) => {
+      const newUser = await createUserWithEmailAndPassword(AUTH, email, password);
+
+      await sendEmailVerification(newUser.user);
+
+      const userProfile = doc(collection(DB, 'users'), newUser.user?.uid);
+
+      await setDoc(userProfile, {
+        uid: newUser.user?.uid,
+        email,
+        displayName: `${firstName} ${lastName}`,
+        storeName,
+        phoneNumber,
+        contactPersonInTouch,
+        tradeLicense,
+      });
+    },
+    []
+  );
 
   // LOGOUT
   const logout = useCallback(async () => {
@@ -164,7 +174,6 @@ export function AuthProvider({ children }) {
       logout,
       register,
       forgotPassword,
-      
     }),
     [
       status,
@@ -174,7 +183,6 @@ export function AuthProvider({ children }) {
       logout,
       register,
       forgotPassword,
-      
     ]
   );
 

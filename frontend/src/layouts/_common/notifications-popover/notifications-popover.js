@@ -37,12 +37,12 @@ const TABS = [
   {
     value: 'unread',
     label: 'Unread',
-    count:0,
+    count: 0,
   },
   {
     value: 'archived',
     label: 'Archived',
-    count:0,
+    count: 0,
   },
 ];
 

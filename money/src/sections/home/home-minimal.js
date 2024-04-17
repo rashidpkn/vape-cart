@@ -49,7 +49,7 @@ export default function HomeMinimal() {
       >
         <m.div variants={varFade().inUp}>
           <Typography component="div" variant="overline" sx={{ color: 'text.disabled' }}>
-          Vape Amazon UI
+            Vape Amazon UI
           </Typography>
         </m.div>
 

@@ -17,7 +17,6 @@ export const FIREBASE_API = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-
 export const MAPBOX_API = import.meta.env.VITE_MAPBOX_API;
 
 // ROOT PATH AFTER LOGIN SUCCESSFUL

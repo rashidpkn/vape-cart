@@ -13,14 +13,13 @@ import Scrollbar from 'src/components/scrollbar';
 // ----------------------------------------------------------------------
 
 export default function AppTopInstalledCountries({ title, subheader, list, ...other }) {
-  
   return (
     <Card {...other}>
       <CardHeader title={title} subheader={subheader} />
 
       <Scrollbar>
         <Stack spacing={3} sx={{ p: 3 }}>
-          {list.map((country,i) => (
+          {list.map((country, i) => (
             <CountryItem key={i} country={country} index={i} />
           ))}
         </Stack>
@@ -37,32 +36,24 @@ AppTopInstalledCountries.propTypes = {
 
 // ----------------------------------------------------------------------
 
-function CountryItem({ country,index }) {
+function CountryItem({ country, index }) {
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
-
-      <Stack direction="row" alignItems="center"  >
-          {index +1}
+      <Stack direction="row" alignItems="center">
+        {index + 1}
       </Stack>
 
-
-      <Stack direction="row" alignItems="center"  >
+      <Stack direction="row" alignItems="center">
         <Typography variant="subtitle2" noWrap>
           {country.displayName}
         </Typography>
       </Stack>
 
-      <Stack direction="row" alignItems="center"  >
+      <Stack direction="row" alignItems="center">
         <Typography variant="subtitle2" noWrap>
           {country.storeName}
         </Typography>
       </Stack>
-
-
-
-
-
-
     </Stack>
   );
 }

@@ -9,10 +9,10 @@ import { _userList } from 'src/_mock';
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
-import UserNewEditForm from '../user-new-edit-form';
 import { useEffect, useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
+import UserNewEditForm from '../user-new-edit-form';
 
 // ----------------------------------------------------------------------
 
@@ -23,26 +23,22 @@ export default function UserEditView() {
 
   const { id } = params;
 
+  const [currentUser, setCurrentUser] = useState();
 
-  const [currentUser, setCurrentUser] = useState()
-
-  const getUsers = async()=>{
-    const querySnapshot = await getDocs(query(collection(DB, 'users'), where('uid', '==', id)))
+  const getUsers = async () => {
+    const querySnapshot = await getDocs(query(collection(DB, 'users'), where('uid', '==', id)));
     const users = [];
 
     querySnapshot.forEach((doc) => {
       users.push(doc.data());
     });
-    
-    setCurrentUser(users[0])
-  }
+
+    setCurrentUser(users[0]);
+  };
 
   useEffect(() => {
- 
-   getUsers()
-  }, [])
-
-  
+    getUsers();
+  }, []);
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>

@@ -18,20 +18,31 @@ import { AvatarShape } from 'src/assets/illustrations';
 // components
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
 export default function UserCard({ user, products }) {
   const theme = useTheme();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { storeName, coverUrl, displayName, totalFollowers, totalPosts, avatarUrl, totalFollowing } = user;
+  const {
+    storeName,
+    coverUrl,
+    displayName,
+    totalFollowers,
+    totalPosts,
+    avatarUrl,
+    totalFollowing,
+  } = user;
 
   return (
-    <Card sx={{ textAlign: 'center' }} onClick={() => {
-      navigate(`/dashboard/store/${user.uid}/edit`)
-    }}>
+    <Card
+      sx={{ textAlign: 'center' }}
+      onClick={() => {
+        navigate(`/dashboard/store/${user.uid}/edit`);
+      }}
+    >
       <Box sx={{ position: 'relative' }}>
         <AvatarShape
           sx={{
@@ -46,7 +57,7 @@ export default function UserCard({ user, products }) {
 
         <Avatar
           alt={storeName}
-          src={'/logo/logo_single.webp'}
+          src="/logo/logo_single.webp"
           sx={{
             width: 64,
             height: 64,
@@ -56,12 +67,12 @@ export default function UserCard({ user, products }) {
             bottom: -32,
             mx: 'auto',
             position: 'absolute',
-            cursor:'pointer'
+            cursor: 'pointer',
           }}
         />
 
         <Image
-          src={'https://api-prod-minimal-v510.vercel.app/assets/images/cover/cover_15.jpg'}
+          src="https://api-prod-minimal-v510.vercel.app/assets/images/cover/cover_15.jpg"
           alt={coverUrl}
           ratio="16/9"
           overlay={alpha(theme.palette.grey[900], 0.48)}
@@ -111,7 +122,7 @@ export default function UserCard({ user, products }) {
             Product
           </Typography>
 
-          {products.filter(product => product.userId === user.uid).length}
+          {products.filter((product) => product.userId === user.uid).length}
         </div>
 
         <div>

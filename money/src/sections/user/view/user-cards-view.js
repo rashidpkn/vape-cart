@@ -13,13 +13,10 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import UserCardList from '../user-card-list';
 
-
 // ----------------------------------------------------------------------
 
 export default function UserCardsView() {
   const settings = useSettingsContext();
-
-
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>

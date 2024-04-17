@@ -11,8 +11,6 @@ export default function ProductReviewList({ reviews }) {
       {reviews.map((review) => (
         <ProductReviewItem key={review.id} reviews={review} />
       ))}
-
-      
     </>
   );
 }

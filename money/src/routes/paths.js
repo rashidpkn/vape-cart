@@ -52,25 +52,20 @@ export const paths = {
   },
   // AUTH
   auth: {
-    
     firebase: {
       login: `${ROOTS.AUTH}/firebase/login`,
       verify: `${ROOTS.AUTH}/firebase/verify`,
       register: `${ROOTS.AUTH}/firebase/register`,
       forgotPassword: `${ROOTS.AUTH}/firebase/forgot-password`,
     },
-    
   },
-  
+
   // DASHBOARD
   dashboard: {
     root: ROOTS.DASHBOARD,
     chat: `${ROOTS.DASHBOARD}/support`,
     blank: `${ROOTS.DASHBOARD}/blank`,
-  
-  
-  
-  
+
     general: {
       app: `${ROOTS.DASHBOARD}/app`,
       ecommerce: `${ROOTS.DASHBOARD}/ecommerce`,
@@ -108,7 +103,7 @@ export const paths = {
         edit: `${ROOTS.DASHBOARD}/invoice/${MOCK_ID}/edit`,
       },
     },
-    
+
     order: {
       root: `${ROOTS.DASHBOARD}/order`,
       details: (id) => `${ROOTS.DASHBOARD}/order/${id}`,
@@ -116,7 +111,6 @@ export const paths = {
         details: `${ROOTS.DASHBOARD}/order/${MOCK_ID}`,
       },
     },
-    delivery:`${ROOTS.DASHBOARD}/delivery`,
-    
+    delivery: `${ROOTS.DASHBOARD}/delivery`,
   },
 };

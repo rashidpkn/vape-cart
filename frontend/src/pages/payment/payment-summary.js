@@ -15,15 +15,23 @@ import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
-export default function PaymentSummary({ currency, setCurrency, method, amount, setAmount, network, setNetwork }) {
+export default function PaymentSummary({
+  currency,
+  setCurrency,
+  method,
+  amount,
+  setAmount,
+  network,
+  setNetwork,
+}) {
   const [error, setError] = useState('');
-  const [message, setMessage] = useState('')
-  const { user } = useAuthContext()
-  const [submitted, setSubmitted] = useState(false)
-  const navigate = useNavigate()
+  const [message, setMessage] = useState('');
+  const { user } = useAuthContext();
+  const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
 
-  const { displayName, email, phoneNumber } = user
-  const [walletAddress, setWalletAddress] = useState('')
+  const { displayName, email, phoneNumber } = user;
+  const [walletAddress, setWalletAddress] = useState('');
   const [account, setAccount] = useState({
     name: '',
     number: '',
@@ -32,15 +40,12 @@ export default function PaymentSummary({ currency, setCurrency, method, amount, 
     country: '',
     beneficiaryAddress: '',
     swift: '',
-    routingNumber: ''
-  })
+    routingNumber: '',
+  });
 
   useEffect(() => {
-
-    setError('')
-  }, [method, currency, network, walletAddress, account])
-
-
+    setError('');
+  }, [method, currency, network, walletAddress, account]);
 
   const renderPrice = (
     <>
@@ -57,7 +62,6 @@ export default function PaymentSummary({ currency, setCurrency, method, amount, 
             BTC
           </Button>
           <Button
-
             fullWidth
             sx={{ py: 1.5, mt: 2 }}
             variant="outlined"
@@ -70,8 +74,7 @@ export default function PaymentSummary({ currency, setCurrency, method, amount, 
         </div>
       )}
 
-      {
-        currency === 'usdt' &&
+      {currency === 'usdt' && (
         <div className="">
           <p style={{ fontWeight: 600 }}>Choose payment network</p>
           <Button
@@ -80,44 +83,77 @@ export default function PaymentSummary({ currency, setCurrency, method, amount, 
             variant="outlined"
             style={network === 'erc20' ? { border: '3px solid' } : { border: '1px solid' }}
             onClick={() => setNetwork('erc20')}
-          // startIcon={<Icon icon="logos:bitcoin" />}
+            // startIcon={<Icon icon="logos:bitcoin" />}
           >
             ERC20
           </Button>
           <Button
-
             fullWidth
             sx={{ py: 1.5, mt: 2 }}
             variant="outlined"
             style={network === 'trc20' ? { border: '3px solid' } : { border: '1px solid' }}
             onClick={() => setNetwork('trc20')}
-          // startIcon={<Icon icon="cryptocurrency-color:usdt" />}
+            // startIcon={<Icon icon="cryptocurrency-color:usdt" />}
           >
             TRC20
           </Button>
         </div>
-      }
+      )}
 
-      {
-        (currency === 'btc' || (currency === 'usdt' && !!network)) && <>
-          <TextField label='Enter Your Wallet Address' onChange={e => setWalletAddress(e.target.value)} value={walletAddress} />
-        </>
-      }
+      {(currency === 'btc' || (currency === 'usdt' && !!network)) && (
+        <TextField
+            label="Enter Your Wallet Address"
+            onChange={(e) => setWalletAddress(e.target.value)}
+            value={walletAddress}
+          />
+      )}
 
-      {
-        method === 'wire transfer' &&
+      {method === 'wire transfer' && (
         <>
-          <TextField value={account.name} onChange={e => setAccount(prev => ({ ...prev, name: e.target.value }))} label='Account Name' />
-          <TextField value={account.number} onChange={e => setAccount(prev => ({ ...prev, number: e.target.value }))} label='Account Number' />
-          <TextField value={account.bankName} onChange={e => setAccount(prev => ({ ...prev, bankName: e.target.value }))} label='Bank Name' />
-          <TextField value={account.address} onChange={e => setAccount(prev => ({ ...prev, address: e.target.value }))} label='Bank Address' />
-          <TextField value={account.country} onChange={e => setAccount(prev => ({ ...prev, country: e.target.value }))} label='Bank Country' />
-          <TextField value={account.beneficiaryAddress} onChange={e => setAccount(prev => ({ ...prev, beneficiaryAddress: e.target.value }))} label='Beneficiary Address' />
-          <TextField value={account.swift} onChange={e => setAccount(prev => ({ ...prev, swift: e.target.value }))} label='Swift/BIC' />
-          <TextField value={account.routingNumber} onChange={e => setAccount(prev => ({ ...prev, routingNumber: e.target.value }))} label='Routing Number' />
+          <TextField
+            value={account.name}
+            onChange={(e) => setAccount((prev) => ({ ...prev, name: e.target.value }))}
+            label="Account Name"
+          />
+          <TextField
+            value={account.number}
+            onChange={(e) => setAccount((prev) => ({ ...prev, number: e.target.value }))}
+            label="Account Number"
+          />
+          <TextField
+            value={account.bankName}
+            onChange={(e) => setAccount((prev) => ({ ...prev, bankName: e.target.value }))}
+            label="Bank Name"
+          />
+          <TextField
+            value={account.address}
+            onChange={(e) => setAccount((prev) => ({ ...prev, address: e.target.value }))}
+            label="Bank Address"
+          />
+          <TextField
+            value={account.country}
+            onChange={(e) => setAccount((prev) => ({ ...prev, country: e.target.value }))}
+            label="Bank Country"
+          />
+          <TextField
+            value={account.beneficiaryAddress}
+            onChange={(e) =>
+              setAccount((prev) => ({ ...prev, beneficiaryAddress: e.target.value }))
+            }
+            label="Beneficiary Address"
+          />
+          <TextField
+            value={account.swift}
+            onChange={(e) => setAccount((prev) => ({ ...prev, swift: e.target.value }))}
+            label="Swift/BIC"
+          />
+          <TextField
+            value={account.routingNumber}
+            onChange={(e) => setAccount((prev) => ({ ...prev, routingNumber: e.target.value }))}
+            label="Routing Number"
+          />
         </>
-      }
-
+      )}
     </>
   );
 
@@ -139,8 +175,6 @@ export default function PaymentSummary({ currency, setCurrency, method, amount, 
 
       {error && <Alert severity="error">{error}</Alert>}
       {message && <Alert severity="success">{message}</Alert>}
-
-
 
       <>
         <Stack spacing={2.5} mt={2.5}>
@@ -168,91 +202,92 @@ export default function PaymentSummary({ currency, setCurrency, method, amount, 
           sx={{ mt: 5, mb: 3 }}
           onClick={async () => {
             if (submitted) {
-              setMessage('')
-              setError("You are already submit the request")
-              return
+              setMessage('');
+              setError('You are already submit the request');
+              return;
             }
             if (method === 'crypto') {
               if (!currency) {
-                setError("Choose a currency")
-                return
+                setError('Choose a currency');
+                return;
               }
               if (currency === 'usdt' && !network) {
-                setError("Choose a network")
-                return
+                setError('Choose a network');
+                return;
               }
               if (!walletAddress) {
-                setError("Enter your wallet address")
-                return
+                setError('Enter your wallet address');
+                return;
               }
-
             } else {
               if (!account.name) {
-                setError("Enter your account name")
-                return
+                setError('Enter your account name');
+                return;
               }
               if (!account.number) {
-                setError("Enter your account number")
-                return
+                setError('Enter your account number');
+                return;
               }
               if (!account.bankName) {
-                setError("Enter your bank name")
-                return
+                setError('Enter your bank name');
+                return;
               }
               if (!account.address) {
-                setError("Enter your bank address")
-                return
+                setError('Enter your bank address');
+                return;
               }
               if (!account.country) {
-                setError("Enter your bank country")
-                return
+                setError('Enter your bank country');
+                return;
               }
               if (!account.beneficiaryAddress) {
-                setError("Enter your beneficiary address")
-                return
+                setError('Enter your beneficiary address');
+                return;
               }
               if (!account.swift) {
-                setError("Enter your Swift/BIC")
-                return
+                setError('Enter your Swift/BIC');
+                return;
               }
               if (!account.routingNumber) {
-                setError("Enter your routing number")
-                return
-              } if (!sessionStorage.amount) {
-                setError("Amount is not avalable")
-                return
+                setError('Enter your routing number');
+                return;
               }
-
+              if (!sessionStorage.amount) {
+                setError('Amount is not avalable');
+                return;
+              }
             }
 
             try {
-              setSubmitted(true)
+              setSubmitted(true);
               const { data } = await api.post('/payout', {
-                fName: displayName, email, phone: phoneNumber,
-                method, currency, network,
+                fName: displayName,
+                email,
+                phone: phoneNumber,
+                method,
+                currency,
+                network,
                 amount: sessionStorage.amount,
-                account, walletAddress
-              })
+                account,
+                walletAddress,
+              });
               // await api.post('/notifications', {
               //   title: "Payout Request",
               //   message: `${displayName} is requesting a payout of $${sessionStorage.amount} via ${method}.`,
               //   user: 'admin'
               // })
-              setMessage('Your payout request has successfully created, You will redirect to dashboard soon')
+              setMessage(
+                'Your payout request has successfully created, You will redirect to dashboard soon'
+              );
               setTimeout(() => {
-                navigate('/dashboard')
-
+                navigate('/dashboard');
               }, 4000);
-            } catch (error) {
-
-            }
+            } catch (error) {}
           }}
         >
           Request Payout
         </Button>
       </>
-
-
     </Box>
   );
 }

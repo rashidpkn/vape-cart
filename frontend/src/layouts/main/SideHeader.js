@@ -1,16 +1,24 @@
-import { Box, Divider, Typography } from "@mui/material";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import React from "react";
+import { Box, Divider, Typography } from '@mui/material';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import React from 'react';
 
-const SideHeader = ({title,one,two,three}) => {
-  return (
-    <Box style={{ paddingTop: '12px', paddingBottom: '12px'}}> 
-      <Typography variant="h3" style={{ fontSize: "18px", fontWeight: "700", paddingLeft: '20px'}}>
+const SideHeader = ({ title, one, two, three }) => (
+    <Box style={{ paddingTop: '12px', paddingBottom: '12px' }}>
+      <Typography variant="h3" style={{ fontSize: '18px', fontWeight: '700', paddingLeft: '20px' }}>
         {title}
       </Typography>
-      <ul style={{ fontSize: "14px", padding: "0px" }}>
+      <ul style={{ fontSize: '14px', padding: '0px' }}>
         <li
-          style={{ display: "flex", alignItems: "center", justifyContent: 'space-between', cursor: "pointer", paddingRight: '24px', paddingLeft: '24px', paddingTop: '8px', paddingBottom: '8px' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            cursor: 'pointer',
+            paddingRight: '24px',
+            paddingLeft: '24px',
+            paddingTop: '8px',
+            paddingBottom: '8px',
+          }}
         >
           {one}
           <span>
@@ -18,7 +26,16 @@ const SideHeader = ({title,one,two,three}) => {
           </span>
         </li>
         <li
-          style={{ display: "flex", alignItems: "center", justifyContent: 'space-between', cursor: "pointer", paddingRight: '24px', paddingLeft: '24px', paddingTop: '8px', paddingBottom: '8px' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            cursor: 'pointer',
+            paddingRight: '24px',
+            paddingLeft: '24px',
+            paddingTop: '8px',
+            paddingBottom: '8px',
+          }}
         >
           {two}
           <span>
@@ -26,7 +43,16 @@ const SideHeader = ({title,one,two,three}) => {
           </span>
         </li>
         <li
-          style={{ display: "flex", alignItems: "center", justifyContent: 'space-between', cursor: "pointer", paddingRight: '24px', paddingLeft: '24px', paddingTop: '8px', paddingBottom: '8px' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            cursor: 'pointer',
+            paddingRight: '24px',
+            paddingLeft: '24px',
+            paddingTop: '8px',
+            paddingBottom: '8px',
+          }}
         >
           {three}
           <span>
@@ -37,6 +63,5 @@ const SideHeader = ({title,one,two,three}) => {
       </ul>
     </Box>
   );
-};
 
 export default SideHeader;

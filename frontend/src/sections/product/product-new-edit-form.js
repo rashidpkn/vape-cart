@@ -24,11 +24,7 @@ import { paths } from 'src/routes/paths';
 // hooks
 import { useResponsive } from 'src/hooks/use-responsive';
 // _mock
-import {
-  _tags,
-  PRODUCT_COLOR_NAME_OPTIONS,
-  PRODUCT_CATEGORY_GROUP_OPTIONS,
-} from 'src/_mock';
+import { _tags, PRODUCT_COLOR_NAME_OPTIONS, PRODUCT_CATEGORY_GROUP_OPTIONS } from 'src/_mock';
 // components
 import { useSnackbar } from 'src/components/snackbar';
 import { useRouter } from 'src/routes/hook';
@@ -46,10 +42,7 @@ import { useAuthContext } from 'src/auth/hooks';
 // ----------------------------------------------------------------------
 
 export default function ProductNewEditForm({ currentProduct }) {
-  const [products, setProduct] = useState([])
-
-
-
+  const [products, setProduct] = useState([]);
 
   const router = useRouter();
 
@@ -57,9 +50,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const { user } = useAuthContext()
-
-
+  const { user } = useAuthContext();
 
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -75,8 +66,6 @@ export default function ProductNewEditForm({ currentProduct }) {
     regularPrice: Yup.number(),
     salePrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
     tax: Yup.number().moreThan(-1, 'Tax should not be 0%'),
-
-
   });
 
   const defaultValues = useMemo(
@@ -114,25 +103,26 @@ export default function ProductNewEditForm({ currentProduct }) {
   const values = watch();
 
   useEffect(() => {
-    setValue('SKU', values.name.toUpperCase().slice(0, 3) + user.storeName.toUpperCase().charAt(0) + '-001')
-  }, [values.name])
+    setValue(
+      'SKU',
+      `${values.name.toUpperCase().slice(0, 3) + user.storeName.toUpperCase().charAt(0)  }-001`
+    );
+  }, [values.name]);
 
-
-  const fetchProduct = useCallback(
-    async () => {
-      const { data: { products } } = await api.get('/products', {
-        params: {
-          name: values.name
-        }
-      })
-      setProduct(products)
-    },
-    [values.name],
-  )
+  const fetchProduct = useCallback(async () => {
+    const {
+      data: { products },
+    } = await api.get('/products', {
+      params: {
+        name: values.name,
+      },
+    });
+    setProduct(products);
+  }, [values.name]);
 
   useEffect(() => {
-    fetchProduct()
-  }, [values.name])
+    fetchProduct();
+  }, [values.name]);
 
   useEffect(() => {
     if (currentProduct) {
@@ -140,20 +130,27 @@ export default function ProductNewEditForm({ currentProduct }) {
     }
   }, [currentProduct, defaultValues, reset]);
 
-
-
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
     try {
       if (currentProduct) {
-        await api.patch('products', { ...data, username: user.displayName, userId: user.id, storeName: user.storeName })
+        await api.patch('products', {
+          ...data,
+          username: user.displayName,
+          userId: user.id,
+          storeName: user.storeName,
+        });
       } else {
-        await api.post('products', { ...data, username: user.displayName, userId: user.id, storeName: user.storeName })
+        await api.post('products', {
+          ...data,
+          username: user.displayName,
+          userId: user.id,
+          storeName: user.storeName,
+        });
       }
       reset();
       enqueueSnackbar(currentProduct ? 'Update success!' : 'Create success!');
       router.push(paths.dashboard.product.root);
-
     } catch (error) {
       console.log(error);
     }
@@ -186,8 +183,6 @@ export default function ProductNewEditForm({ currentProduct }) {
     setValue('images', []);
   }, [setValue]);
 
-
-
   const renderDetails = (
     <>
       {mdUp && (
@@ -211,10 +206,15 @@ export default function ProductNewEditForm({ currentProduct }) {
             <Autocomplete
               onChange={(e, value) => {
                 if (value) {
-                  const product = products.find(product => product.name === value)
+                  const product = products.find((product) => product.name === value);
                   setValue('images', product.images);
-                  setValue('name', product.name)
-                  setValue('SKU', product.name.toUpperCase().slice(0, 3) + user.storeName.toUpperCase().charAt(0) + '-001')
+                  setValue('name', product.name);
+                  setValue(
+                    'SKU',
+                    `${product.name.toUpperCase().slice(0, 3) +
+                      user.storeName.toUpperCase().charAt(0) 
+                      }-001`
+                  );
                 } else {
                   // Handle case where user clears the input
                   setValue('images', null);
@@ -222,17 +222,23 @@ export default function ProductNewEditForm({ currentProduct }) {
               }}
               name="name"
               label="Product Name"
-              options={products.map(e => e.name)}
+              options={products.map((e) => e.name)}
               getOptionLabel={(option) => option}
               isOptionEqualToValue={(option, value) => option === value.value}
-              renderInput={(params) => <TextField {...params} label="Product Name" value={values.name} onChange={e => setValue('name', e.target.value)} />}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Product Name"
+                  value={values.name}
+                  onChange={(e) => setValue('name', e.target.value)}
+                />
+              )}
               renderOption={(props, option) => (
                 <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                   <img
                     loading="lazy"
                     width="20"
-
-                    src={products.find(e => e.name === option).images[0]}
+                    src={products.find((e) => e.name === option).images[0]}
                     alt=""
                   />
                   {option}
@@ -260,19 +266,17 @@ export default function ProductNewEditForm({ currentProduct }) {
                 onRemoveAll={handleRemoveAllFiles}
                 onUpload={async (acceptedFiles) => {
                   try {
-                    const form = new FormData()
+                    const form = new FormData();
                     values.images.forEach((e) => {
-                      form.append('images', e)
-                    })
-                    const { data } = await api.post('upload', form)
+                      form.append('images', e);
+                    });
+                    const { data } = await api.post('upload', form);
                     setValue('images', data);
-                    alert('Image upload complete.')
+                    alert('Image upload complete.');
                   } catch (error) {
-                    alert(' Image upload failed, try again.')
+                    alert(' Image upload failed, try again.');
                   }
-
-                }
-                }
+                }}
               />
             </Stack>
           </Stack>
@@ -308,7 +312,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                 md: 'repeat(2, 1fr)',
               }}
             >
-
               <RHFTextField name="SKU" label="Product SKU" />
 
               <RHFTextField
@@ -320,18 +323,29 @@ export default function ProductNewEditForm({ currentProduct }) {
               />
 
               <RHFSelect native name="category" label="Category" InputLabelProps={{ shrink: true }}>
-                {['None', 'Disposable', 'Liquids', 'Devices', 'Accessories', 'Batteries', 'Bottle Size', 'Nicotine Level', 'Puffs'].map(classify => <option key={classify} value={classify}>{classify}</option>)}
+                {[
+                  'None',
+                  'Disposable',
+                  'Liquids',
+                  'Devices',
+                  'Accessories',
+                  'Batteries',
+                  'Bottle Size',
+                  'Nicotine Level',
+                  'Puffs',
+                ].map((classify) => (
+                  <option key={classify} value={classify}>
+                    {classify}
+                  </option>
+                ))}
               </RHFSelect>
 
-
-              {values.category !== 'None' && <RHFSelect native name="type" label="Type" InputLabelProps={{ shrink: true }}>
-                <option value={'simple'}>Simple</option>
-                <option value={'variation'}>Variation</option>
-              </RHFSelect>}
-
-
-
-
+              {values.category !== 'None' && (
+                <RHFSelect native name="type" label="Type" InputLabelProps={{ shrink: true }}>
+                  <option value="simple">Simple</option>
+                  <option value="variation">Variation</option>
+                </RHFSelect>
+              )}
 
               <RHFMultiSelect
                 checkbox
@@ -339,8 +353,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                 label="Colors"
                 options={PRODUCT_COLOR_NAME_OPTIONS}
               />
-
-
             </Box>
 
             <RHFAutocomplete
@@ -370,18 +382,27 @@ export default function ProductNewEditForm({ currentProduct }) {
               }
             />
 
-            {
-              values.type === 'variation' &&
-
-              <Box sx={{display:'flex',gap:'10px',flexWrap:'wrap',justifyContent:'space-between'}}>
-                {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(c => c.group === values.category)?.classify?.map(e => <TextField type='number' size='small' sx={{width:'20%'}} label={`${e} Price`} />)}
-
+            {values.type === 'variation' && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: '10px',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-between',
+                }}
+              >
+                {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(
+                  (c) => c.group === values.category
+                )?.classify?.map((e) => (
+                  <TextField
+                    type="number"
+                    size="small"
+                    sx={{ width: '20%' }}
+                    label={`${e} Price`}
+                  />
+                ))}
               </Box>
-            }
-
-
-
-
+            )}
           </Stack>
         </Card>
       </Grid>
@@ -440,9 +461,6 @@ export default function ProductNewEditForm({ currentProduct }) {
               }}
             />
 
-
-
-
             <RHFTextField
               name="tax"
               label="Tax (%)"
@@ -459,7 +477,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                 ),
               }}
             />
-
           </Stack>
         </Card>
       </Grid>

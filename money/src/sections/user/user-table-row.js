@@ -22,7 +22,15 @@ import UserQuickEditForm from './user-quick-edit-form';
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
-  const { displayName, avatarUrl, storeName, tradeLicense, contactPersonInTouch, email, phoneNumber } = row;
+  const {
+    displayName,
+    avatarUrl,
+    storeName,
+    tradeLicense,
+    contactPersonInTouch,
+    email,
+    phoneNumber,
+  } = row;
 
   const confirm = useBoolean();
 
@@ -56,11 +64,9 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
           <a href={tradeLicense} target="_blank" rel="noopener noreferrer">
             <Button>View Trade Licence</Button>
           </a>
-          </TableCell>
-
-        <TableCell>
-          {contactPersonInTouch}
         </TableCell>
+
+        <TableCell>{contactPersonInTouch}</TableCell>
 
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <Tooltip title="Quick Edit" placement="top" arrow>

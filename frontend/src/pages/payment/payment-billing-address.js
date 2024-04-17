@@ -3,10 +3,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-
 export default function PaymentBillingAddress({ customer, setCustomer }) {
-
-
   return (
     <div>
       <Typography variant="h6">Contact Details</Typography>

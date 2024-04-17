@@ -27,7 +27,6 @@ const METHODS = [
     path: paths.auth.firebase.login,
     icon: '/assets/icons/auth/ic_firebase.svg',
   },
-  
 ];
 
 export default function AuthClassicLayout({ children, image, title }) {

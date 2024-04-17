@@ -4,6 +4,6 @@ import { StoreAnalyticsController } from './store-analytics.controller';
 
 @Module({
   controllers: [StoreAnalyticsController],
-  providers: [StoreAnalyticsService]
+  providers: [StoreAnalyticsService],
 })
 export class StoreAnalyticsModule {}

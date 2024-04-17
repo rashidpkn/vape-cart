@@ -44,7 +44,16 @@ export class OrdersController {
         );
       }
 
-      return this.ordersService.createOrder(items,subTotal,shipping,discount,totalAmount,totalQuantity,customer,shippingAddress);
+      return this.ordersService.createOrder(
+        items,
+        subTotal,
+        shipping,
+        discount,
+        totalAmount,
+        totalQuantity,
+        customer,
+        shippingAddress,
+      );
     } catch (error) {
       throw error;
     }
@@ -52,7 +61,7 @@ export class OrdersController {
 
   // get all orders
   @Get()
-  async getAllOders(@Req() req: Request) {
+  async getAllOders() {
     try {
       return this.ordersService.getAllOders();
     } catch (error) {
@@ -64,9 +73,9 @@ export class OrdersController {
   @Get(':id')
   async getSingleOrder(@Req() req: Request) {
     try {
-      const { id}:{id?:number} = req.params
-      if(isNaN(id)){
-        throw new BadRequestException('id must be a number')
+      const { id }: { id?: number } = req.params;
+      if (isNaN(id)) {
+        throw new BadRequestException('id must be a number');
       }
       return this.ordersService.getSingleOrder(id);
     } catch (error) {
@@ -78,7 +87,7 @@ export class OrdersController {
   @Delete()
   async deleteOrder(@Req() req: Request) {
     try {
-      const {id}:{id:number} = req.body
+      const { id }: { id: number } = req.body;
       return this.ordersService.deleteOrder(id);
     } catch (error) {
       throw error;

@@ -39,12 +39,12 @@ import {
 } from 'src/components/table';
 //
 import api from 'src/utils/api';
-import OrderTableRow from '../order-table-row';
-import OrderTableToolbar from '../order-table-toolbar';
-import OrderTableFiltersResult from '../order-table-filters-result';
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { collection, getDocs } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
+import OrderTableRow from '../order-table-row';
+import OrderTableToolbar from '../order-table-toolbar';
+import OrderTableFiltersResult from '../order-table-filters-result';
 
 // ----------------------------------------------------------------------
 
@@ -72,21 +72,17 @@ const defaultFilters = {
 
 export default function OrderListView() {
   const [tableData, setTableData] = useState([]);
-  const [store, setStore] = useState([])
-  const [selectedPartner, setSelectedPartner] = useState('')
+  const [store, setStore] = useState([]);
+  const [selectedPartner, setSelectedPartner] = useState('');
 
   const fetchOrders = async () => {
     try {
-      const { data } = await api.get('/orders')
-      setTableData(data.reverse())
-
+      const { data } = await api.get('/orders');
+      setTableData(data.reverse());
     } catch (error) {
       console.log(error.message);
     }
-  }
-
-
-
+  };
 
   const getUsers = async () => {
     const querySnapshot = await getDocs(collection(DB, 'users'));
@@ -96,16 +92,13 @@ export default function OrderListView() {
       users.push(doc.data());
     });
 
-
-    setStore(users)
-  }
+    setStore(users);
+  };
 
   useEffect(() => {
-    fetchOrders()
-    getUsers()
-  }, [])
-
-
+    fetchOrders();
+    getUsers();
+  }, []);
 
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
@@ -114,8 +107,6 @@ export default function OrderListView() {
   const router = useRouter();
 
   const confirm = useBoolean();
-
-
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -128,7 +119,6 @@ export default function OrderListView() {
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
     filters,
-
   });
 
   const dataInPage = dataFiltered.slice(
@@ -143,10 +133,9 @@ export default function OrderListView() {
 
   const notFound = (!dataFiltered.length && canReset) || !dataFiltered.length;
 
-
   const handleDeleteRow = useCallback(
     (id) => {
-      api.delete('orders', { data: { id } })
+      api.delete('orders', { data: { id } });
       const deleteRow = tableData.filter((row) => row.id !== id);
       setTableData(deleteRow);
 
@@ -156,7 +145,7 @@ export default function OrderListView() {
   );
 
   const handleDeleteRows = useCallback(() => {
-    api.delete('orders', { data: { id: table.selected } })
+    api.delete('orders', { data: { id: table.selected } });
     const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
     setTableData(deleteRows);
 
@@ -167,8 +156,6 @@ export default function OrderListView() {
     });
   }, [dataFiltered.length, dataInPage.length, table, tableData]);
 
-
-
   const handleViewRow = useCallback(
     (id) => {
       router.push(paths.dashboard.order.details(id));
@@ -176,10 +163,7 @@ export default function OrderListView() {
     [router]
   );
 
-
-  const [tab, setTab] = useState('all')
-
-
+  const [tab, setTab] = useState('all');
 
   return (
     <>
@@ -219,7 +203,8 @@ export default function OrderListView() {
                 icon={
                   <Label
                     variant={
-                      ((tabs.value === 'all' || tabs.value === filters.status) && 'filled') || 'soft'
+                      ((tabs.value === 'all' || tabs.value === filters.status) && 'filled') ||
+                      'soft'
                     }
                     color={
                       (tabs.value === 'completed' && 'success') ||
@@ -229,10 +214,16 @@ export default function OrderListView() {
                     }
                   >
                     {tabs.value === 'all' && tableData.length}
-                    {tabs.value === 'pending' && tableData.filter(e => e.status === 'Order received' || e.status === 'pending').length}
-                    {tabs.value === 'completed' && tableData.filter(e => e.status === 'completed').length}
-                    {tabs.value === 'cancelled' && tableData.filter(e => e.status === 'cancelled').length}
-                    {tabs.value === 'refunded' && tableData.filter(e => e.status === 'refunded').length}
+                    {tabs.value === 'pending' &&
+                      tableData.filter(
+                        (e) => e.status === 'Order received' || e.status === 'pending'
+                      ).length}
+                    {tabs.value === 'completed' &&
+                      tableData.filter((e) => e.status === 'completed').length}
+                    {tabs.value === 'cancelled' &&
+                      tableData.filter((e) => e.status === 'cancelled').length}
+                    {tabs.value === 'refunded' &&
+                      tableData.filter((e) => e.status === 'refunded').length}
                   </Label>
                 }
               />
@@ -242,13 +233,21 @@ export default function OrderListView() {
           <Box p={1}>
             <FormControl>
               <InputLabel id="demo-simple-select-label">Partners</InputLabel>
-              <Select label='Partners' value={selectedPartner} onChange={e => setSelectedPartner(e.target.value)} placeholder='Partners' sx={{ minWidth: '200px' }} size='small'>
-                <MenuItem value=''>Select a partner</MenuItem>
-                {store.map(e => <MenuItem value={e.uid}>{e.displayName}</MenuItem>)}
+              <Select
+                label="Partners"
+                value={selectedPartner}
+                onChange={(e) => setSelectedPartner(e.target.value)}
+                placeholder="Partners"
+                sx={{ minWidth: '200px' }}
+                size="small"
+              >
+                <MenuItem value="">Select a partner</MenuItem>
+                {store.map((e) => (
+                  <MenuItem value={e.uid}>{e.displayName}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>
-
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
@@ -289,13 +288,15 @@ export default function OrderListView() {
 
                 <TableBody>
                   {dataFiltered
-                    .filter(e =>
-                      (tab === 'all' ||
-                        tab === 'pending' && (e.status === 'pending' || e.status === 'Order received') ||
-                        tab === 'completed' && e.status === 'completed' ||
-                        tab === 'cancelled' && e.status === 'cancelled' ||
-                        tab === 'refunded' && e.status === 'refunded') &&
-                      (selectedPartner ? e.items.find(e => e.userId === selectedPartner) : true)
+                    .filter(
+                      (e) =>
+                        (tab === 'all' ||
+                          (tab === 'pending' &&
+                            (e.status === 'pending' || e.status === 'Order received')) ||
+                          (tab === 'completed' && e.status === 'completed') ||
+                          (tab === 'cancelled' && e.status === 'cancelled') ||
+                          (tab === 'refunded' && e.status === 'refunded')) &&
+                        (selectedPartner ? e.items.find((e) => e.userId === selectedPartner) : true)
                     )
                     .map((row) => (
                       <OrderTableRow

@@ -1,30 +1,28 @@
 export class CreatePayoutDto {
+  fName: string;
 
-    fName:string
+  email: string;
 
-    email:string
+  phone: string;
 
-    phone:string
+  method: string;
 
-    method:string
+  currency: string;
 
-    currency:string
+  network: string;
 
-    network:string
+  amount: number;
 
-    amount :number
+  account: {
+    name: string;
+    number: string;
+    bankName: string;
+    address: string;
+    country: '';
+    beneficiaryAddress: string;
+    swift: string;
+    routingNumber: string;
+  };
 
-    account:{
-        name:string,
-        number:string,
-        bankName:string,
-        address:string,
-        country:'',
-        beneficiaryAddress:string,
-        swift:string,
-        routingNumber:string
-    }
-
-    walletAddress:string
-
+  walletAddress: string;
 }

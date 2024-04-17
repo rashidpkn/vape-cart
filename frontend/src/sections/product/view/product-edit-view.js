@@ -9,7 +9,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import ProductNewEditForm from '../product-new-edit-form';
 
 // ----------------------------------------------------------------------
@@ -20,27 +20,22 @@ export default function ProductEditView() {
   const params = useParams();
 
   const { id } = params;
-  const [currentProduct, setCurrentProduct] = useState({})
-  
-const navigate = useNavigate()
-  useEffect(() => {
+  const [currentProduct, setCurrentProduct] = useState({});
 
+  const navigate = useNavigate();
+  useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const {data,status} = await api.get(`products/${id}`)
-        setCurrentProduct(data)
-
+        const { data, status } = await api.get(`products/${id}`);
+        setCurrentProduct(data);
       } catch (error) {
-       alert(error.response.data.message)
-       navigate(paths.dashboard.product.root)
+        alert(error.response.data.message);
+        navigate(paths.dashboard.product.root);
       }
-    }
+    };
 
-    fetchProduct()
-
-  }, [])
-
-
+    fetchProduct();
+  }, []);
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>

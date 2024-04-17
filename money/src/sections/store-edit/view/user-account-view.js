@@ -12,12 +12,12 @@ import Iconify from 'src/components/iconify';
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
+import { useParams } from 'src/routes/hook';
 import AccountGeneral from '../account-general';
 import AccountBilling from '../account-billing';
 import AccountSocialLinks from '../account-social-links';
 import AccountNotifications from '../account-notifications';
 import AccountChangePassword from '../account-change-password';
-import { useParams } from 'src/routes/hook';
 import GetStore from './getUsers';
 
 // ----------------------------------------------------------------------
@@ -53,23 +53,19 @@ const TABS = [
 // ----------------------------------------------------------------------
 
 export default function StoreEdit() {
-
   const params = useParams();
   const { id } = params;
 
-  const [user, setUser] = useState(false)
+  const [user, setUser] = useState(false);
 
-  const getuser = async()=>{
+  const getuser = async () => {
+    const user = await GetStore(id);
+    setUser(user);
+  };
 
-    const user = await GetStore(id)
-    setUser(user)
-  }
-
-useEffect(() => {
-  getuser()
-
-}, [])
-
+  useEffect(() => {
+    getuser();
+  }, []);
 
   const settings = useSettingsContext();
 
@@ -83,10 +79,7 @@ useEffect(() => {
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <CustomBreadcrumbs
         heading="Account"
-        links={[
-          { name: 'Dashboard', href: paths.dashboard.root },
-          
-        ]}
+        links={[{ name: 'Dashboard', href: paths.dashboard.root }]}
         sx={{
           mb: { xs: 3, md: 5 },
         }}
