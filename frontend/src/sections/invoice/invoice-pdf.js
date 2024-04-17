@@ -100,7 +100,7 @@ export default function InvoicePDF({ invoice, currentStatus }) {
   } = invoice;
 
   const styles = useStyles();
-return
+  return;
 
   return (
     <Document>

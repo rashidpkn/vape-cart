@@ -14,6 +14,11 @@ import { useSettingsContext } from 'src/components/settings';
 
 //
 
+import BlurLayer from 'src/common/blurlayer';
+import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
+import { useAuthContext } from 'src/auth/hooks';
+import { useEffect, useState } from 'react';
+import api from 'src/utils/api';
 import EcommerceYearlySales from '../ecommerce-yearly-sales';
 import EcommerceBestSalesman from '../ecommerce-best-salesman';
 import EcommerceSaleByGender from '../ecommerce-sale-by-gender';
@@ -21,78 +26,69 @@ import EcommerceSalesOverview from '../ecommerce-sales-overview';
 import EcommerceWidgetSummary from '../ecommerce-widget-summary';
 import EcommerceLatestProducts from '../ecommerce-latest-products';
 import EcommerceCurrentBalance from '../ecommerce-current-balance';
-import BlurLayer from 'src/common/blurlayer';
-import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
-import { useAuthContext } from 'src/auth/hooks';
-import { useEffect, useState } from 'react';
-import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
 export default function OverviewEcommerceView() {
-
   const theme = useTheme();
 
-
-  const { user} = useAuthContext();
-  const [products, setProducts] = useState([])
+  const { user } = useAuthContext();
+  const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [invoice, setInvoice] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const [productsResponse, ordersResponse, invoiceResponse] = await Promise.all([
+          api.get('products', { params: { userId: user.id } }),
+          api.get('/orders'),
+          api.get('/invoice'),
+        ]);
 
-        const [productsResponse, ordersResponse,invoiceResponse] = await Promise.all([ api.get('products', { params: { userId: user.id } }), api.get('/orders'), api.get('/invoice') ]);
-
-        const products = productsResponse.data.products;
+        const {products} = productsResponse.data;
         const orders = ordersResponse.data;
         const invoice = invoiceResponse.data;
-  
-        const filteredOrders = orders.filter(order =>
-          order.items.some(item => products.some(product => product.id === item.id))
+
+        const filteredOrders = orders.filter((order) =>
+          order.items.some((item) => products.some((product) => product.id === item.id))
         );
 
-        const filteredInvoice = invoice.filter(inv =>
-          inv.items.some(item => products.some(product => product.id === item.id))
+        const filteredInvoice = invoice.filter((inv) =>
+          inv.items.some((item) => products.some((product) => product.id === item.id))
         );
 
-      setOrders(filteredOrders);
+        setOrders(filteredOrders);
         setProducts(products);
-        setInvoice(filteredInvoice)
+        setInvoice(filteredInvoice);
       } catch (error) {
-        console.error("An error occurred:", error);
+        console.error('An error occurred:', error);
       }
     };
-    
+
     fetchData();
-
   }, [user.id]);
-
-  
 
   return (
     <Box px={5}>
-       <CustomBreadcrumbs
-          heading="Analytics"
-          links={[
-            {}
-          ]}
-          sx={{
-            mb: { xs: 3, md: 5 },
-          }}
-        />
+      <CustomBreadcrumbs
+        heading="Analytics"
+        links={[{}]}
+        sx={{
+          mb: { xs: 3, md: 5 },
+        }}
+      />
 
-      <Grid container spacing={3} sx={{position:'relative'}}>
-      <BlurLayer />
-       
+      <Grid container spacing={3} sx={{ position: 'relative' }}>
+        <BlurLayer />
+
         <Grid xs={12} md={4}>
           <EcommerceWidgetSummary
             title="Product Sold"
             percent={0}
             total={orders.length}
             chart={{
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -101,10 +97,10 @@ export default function OverviewEcommerceView() {
           <EcommerceWidgetSummary
             title="Total Balance"
             percent={0}
-            total={orders.reduce((a,b)=>a+b.totalAmount,0)}
+            total={orders.reduce((a, b) => a + b.totalAmount, 0)}
             chart={{
               colors: [theme.palette.info.light, theme.palette.info.main],
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -113,10 +109,10 @@ export default function OverviewEcommerceView() {
           <EcommerceWidgetSummary
             title="Sales Profit"
             percent={0}
-            total={orders.reduce((a,b)=>a+b.totalAmount,0)}
+            total={orders.reduce((a, b) => a + b.totalAmount, 0)}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -154,13 +150,18 @@ export default function OverviewEcommerceView() {
                 'Dec',
               ],
               series: [
-              
                 {
                   year: '2024',
                   data: [
                     {
                       name: 'Total Income',
-                      data: [0,1,2,3,4,5,6,7,8,9,10,11].map(month=> orders.reduce((a,b)=>new Date(b.createdAt).getMonth() === month ? a+b.totalAmount : a,0)),
+                      data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((month) =>
+                        orders.reduce(
+                          (a, b) =>
+                            new Date(b.createdAt).getMonth() === month ? a + b.totalAmount : a,
+                          0
+                        )
+                      ),
                     },
                     // {
                     //   name: 'Total Expenses',
@@ -177,8 +178,7 @@ export default function OverviewEcommerceView() {
           <EcommerceSalesOverview title="Sales Overview" data={_ecommerceSalesOverview} />
         </Grid> */}
 
-
-<Grid xs={12} md={6} lg={8}>
+        <Grid xs={12} md={6} lg={8}>
           <EcommerceBestSalesman
             title="Top Selling Products"
             tableData={products}
@@ -200,8 +200,6 @@ export default function OverviewEcommerceView() {
             orders={orders}
           />
         </Grid>
-
-       
 
         {/* <Grid xs={12} md={6} lg={4}>
           <EcommerceLatestProducts title="Latest Products" list={_ecommerceLatestProducts} />

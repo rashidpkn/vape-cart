@@ -12,11 +12,8 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 // Internal Components
 
 // css
-import './css/font.css'
-import './css/index.css'
-
-
-
+import './css/font.css';
+import './css/index.css';
 
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -27,13 +24,10 @@ import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
 import ProgressBar from 'src/components/progress-bar';
 import MotionLazy from 'src/components/animate/motion-lazy';
 import SnackbarProvider from 'src/components/snackbar/snackbar-provider';
-import {
-  SettingsProvider,
-  SettingsDrawer,
-} from 'src/components/settings';
+import { SettingsProvider, SettingsDrawer } from 'src/components/settings';
 import { AuthProvider, AuthConsumer } from 'src/auth/context/firebase';
 import { useCallback, useEffect } from 'react';
-import axios  from 'axios';
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setLocation } from './redux/slices/util';
 
@@ -44,25 +38,18 @@ export default function App() {
 
   // Function to render the main content of the app
 
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const fetchLocation = useCallback(
-    async () => {
-      const {data:{city,region,country_name,postal}} = await axios.get('https://ipapi.co/json')
-      dispatch(setLocation({city,region,country_name,postal}))
-    },
-    [],
-  )
-  
+  const fetchLocation = useCallback(async () => {
+    const {
+      data: { city, region, country_name, postal },
+    } = await axios.get('https://ipapi.co/json');
+    dispatch(setLocation({ city, region, country_name, postal }));
+  }, []);
 
-
-useEffect(() => {
-  fetchLocation()
-
-}, [])
-
-
-
+  useEffect(() => {
+    fetchLocation();
+  }, []);
 
   const renderMainContent = () => (
     <>
@@ -77,29 +64,25 @@ useEffect(() => {
   // Main JSX structure of the App component
   return (
     <AuthProvider>
-      
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <SettingsProvider
-            defaultSettings={{
-              themeMode: 'light',
-              themeDirection: 'ltr',
-              themeContrast: 'default',
-              themeLayout: 'vertical',
-              themeColorPresets: 'default',
-              themeStretch: false,
-              // Add other default settings as needed
-            }}
-          >
-            <ThemeProvider>
-              <MotionLazy>
-                <SnackbarProvider>
-                  {renderMainContent()}
-                </SnackbarProvider>
-              </MotionLazy>
-            </ThemeProvider>
-          </SettingsProvider>
-        </LocalizationProvider>
-
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <SettingsProvider
+          defaultSettings={{
+            themeMode: 'light',
+            themeDirection: 'ltr',
+            themeContrast: 'default',
+            themeLayout: 'vertical',
+            themeColorPresets: 'default',
+            themeStretch: false,
+            // Add other default settings as needed
+          }}
+        >
+          <ThemeProvider>
+            <MotionLazy>
+              <SnackbarProvider>{renderMainContent()}</SnackbarProvider>
+            </MotionLazy>
+          </ThemeProvider>
+        </SettingsProvider>
+      </LocalizationProvider>
     </AuthProvider>
   );
 }

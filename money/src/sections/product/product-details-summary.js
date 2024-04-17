@@ -17,7 +17,6 @@ import { useRouter } from 'src/routes/hook';
 import { fShortenNumber, fCurrency } from 'src/utils/format-number';
 // components
 
-
 import FormProvider from 'src/components/hook-form';
 //
 
@@ -50,15 +49,13 @@ export default function ProductDetailsSummary({
 
   const existProduct = cart?.map((item) => item.id)?.includes(id);
 
-  
-
   const defaultValues = {
     id,
     name,
     coverUrl,
     quantity,
-    price:salePrice,
-    colors:colors?.length&& colors[0],
+    price: salePrice,
+    colors: colors?.length && colors[0],
     size: sizes?.lenght && sizes[0],
   };
 
@@ -93,10 +90,6 @@ export default function ProductDetailsSummary({
     }
   });
 
-  
-
-
-
   const renderPrice = (
     <Box sx={{ typography: 'h5' }}>
       {salePrice && (
@@ -112,8 +105,6 @@ export default function ProductDetailsSummary({
     </Box>
   );
 
-  
-
   const renderColorOptions = (
     <Stack direction="row">
       <Typography variant="subtitle2" sx={{ flexGrow: 1 }}>
@@ -121,10 +112,10 @@ export default function ProductDetailsSummary({
       </Typography>
 
       <Stack direction="row">
-  {colors?.map(e=><Typography key={e}>{e} , </Typography>)}
-</Stack>
-
-     
+        {colors?.map((e) => (
+          <Typography key={e}>{e} , </Typography>
+        ))}
+      </Stack>
     </Stack>
   );
 
@@ -134,11 +125,11 @@ export default function ProductDetailsSummary({
         Size
       </Typography>
 
-<Stack direction="row">
-  {sizes?.map(e=><Typography key={e}>{e} , </Typography>)}
-</Stack>
-
-    
+      <Stack direction="row">
+        {sizes?.map((e) => (
+          <Typography key={e}>{e} , </Typography>
+        ))}
+      </Stack>
     </Stack>
   );
 
@@ -149,8 +140,6 @@ export default function ProductDetailsSummary({
       </Typography>
 
       <Stack spacing={1}>
-       
-
         <Typography variant="caption" component="div" sx={{ textAlign: 'right' }}>
           Available: {quantity}
         </Typography>
@@ -158,7 +147,6 @@ export default function ProductDetailsSummary({
     </Stack>
   );
 
-  
   const renderSubDescription = (
     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
       {subDescription}
@@ -179,8 +167,6 @@ export default function ProductDetailsSummary({
     </Stack>
   );
 
-  
-
   const renderInventoryType = (
     <Box
       component="span"
@@ -200,8 +186,6 @@ export default function ProductDetailsSummary({
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={3} sx={{ pt: 3 }} {...other}>
         <Stack spacing={2} alignItems="flex-start">
-
-
           {renderInventoryType}
 
           <Typography variant="h5">{name}</Typography>
@@ -222,8 +206,6 @@ export default function ProductDetailsSummary({
         {renderQuantity}
 
         <Divider sx={{ borderStyle: 'dashed' }} />
-
-
 
         {/* {renderShare} */}
       </Stack>

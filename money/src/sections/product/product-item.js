@@ -21,8 +21,7 @@ import { ColorPreview } from 'src/components/color-utils';
 // ----------------------------------------------------------------------
 
 export default function ProductItem({ product }) {
-  const { id, name, images, salePrice, colors, regularPrice,quantity,storeName } =
-    product;
+  const { id, name, images, salePrice, colors, regularPrice, quantity, storeName } = product;
 
   const dispatch = useDispatch();
 
@@ -33,7 +32,7 @@ export default function ProductItem({ product }) {
       id,
       name,
       images,
-      available:quantity,
+      available: quantity,
       salePrice,
       colors: [colors[0]],
       quantity: 1,
@@ -44,7 +43,6 @@ export default function ProductItem({ product }) {
       console.error(error);
     }
   };
-
 
   const renderImg = (
     <Box sx={{ position: 'relative', p: 1 }}>
@@ -78,7 +76,9 @@ export default function ProductItem({ product }) {
       <Link component={RouterLink} href={linkTo} color="inherit" variant="subtitle2" noWrap>
         {name}
       </Link>
-      <p style={{margin:0,color:'gray',fontStyle:'italic'}}>Sold by {storeName || 'Vape Amazon'}</p>
+      <p style={{ margin: 0, color: 'gray', fontStyle: 'italic' }}>
+        Sold by {storeName || 'Vape Amazon'}
+      </p>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <ColorPreview colors={colors} />
@@ -104,7 +104,6 @@ export default function ProductItem({ product }) {
         },
       }}
     >
-
       {renderImg}
 
       {renderContent}

@@ -8,7 +8,7 @@ export default function ForgotPasswordPage() {
   return (
     <>
       <Helmet>
-        <title>  Forgot Password</title>
+        <title> Forgot Password</title>
       </Helmet>
 
       <FirebaseForgotPasswordView />

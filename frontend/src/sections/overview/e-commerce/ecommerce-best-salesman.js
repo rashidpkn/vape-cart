@@ -58,23 +58,15 @@ EcommerceBestSalesman.propTypes = {
 function EcommerceBestSalesmanRow({ row }) {
   return (
     <TableRow>
-      <TableCell >
-        {row.name}
-      </TableCell>
+      <TableCell>{row.name}</TableCell>
 
-      <TableCell >
-        {row.category}
-      </TableCell>
+      <TableCell>{row.category}</TableCell>
 
       <TableCell>{row.storeName}</TableCell>
 
-      
       <TableCell>{row.SKU}</TableCell>
-      
 
-      <TableCell >{fCurrency(row.salePrice)}</TableCell>
-
-      
+      <TableCell>{fCurrency(row.salePrice)}</TableCell>
     </TableRow>
   );
 }

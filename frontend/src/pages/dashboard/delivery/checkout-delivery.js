@@ -12,30 +12,24 @@ import Type from './type';
 
 // ----------------------------------------------------------------------
 
-
-
 export default function CheckoutDelivery() {
-
   const [delivery, setDelivery] = useState([
     {
       value: 20,
       label: '1-2 Hour Delivery',
-
     },
     {
       value: 10,
       label: 'Same Day Delivery',
-
     },
     {
       value: 0,
       label: 'Next Day delivery',
     },
-  ])
-
+  ]);
 
   return (
-    <Card   >
+    <Card>
       <CardHeader title="Delivery" />
 
       <Box
@@ -52,11 +46,11 @@ export default function CheckoutDelivery() {
           <Type {...option} setDelivery={setDelivery} />
         ))}
         <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
-          <Button variant='contained' color='success' >Save</Button>
+          <Button variant="contained" color="success">
+            Save
+          </Button>
         </Box>
       </Box>
-
     </Card>
   );
 }
-

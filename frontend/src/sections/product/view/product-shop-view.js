@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import {Box} from '@mui/material'
+import { Box } from '@mui/material';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // _mock
@@ -43,36 +43,31 @@ const defaultFilters = {
 // ----------------------------------------------------------------------
 
 export default function ProductShopView() {
-
   const { checkout } = useCheckout();
 
   const openFilters = useBoolean();
 
   const [sortBy, setSortBy] = useState('featured');
 
-
-
-
   const [filters, setFilters] = useState(defaultFilters);
 
-
-
-  const [products, setProducts] = useState({})
-  const [name, setName] = useState('')
+  const [products, setProducts] = useState({});
+  const [name, setName] = useState('');
 
   const fetchProduct = async () => {
     try {
-      const { data: { products: p, count } } = await api.get('products',{params:{name,sortBy,perPage:1000}})
-      setProducts(p)
+      const {
+        data: { products: p, count },
+      } = await api.get('products', { params: { name, sortBy, perPage: 1000 } });
+      setProducts(p);
     } catch (error) {
-      alert("error Occure")
+      alert('error Occure');
     }
-  }
+  };
 
   useEffect(() => {
-    fetchProduct()
-  }, [sortBy,name])
-
+    fetchProduct();
+  }, [sortBy, name]);
 
   const handleFilters = useCallback((name, value) => {
     setFilters((prevState) => ({
@@ -89,11 +84,9 @@ export default function ProductShopView() {
 
   const canReset = !isEqual(defaultFilters, filters);
 
-
   const handleSortBy = useCallback((newValue) => {
     setSortBy(newValue);
   }, []);
-
 
   const handleResetFilters = useCallback(() => {
     setFilters(defaultFilters);
@@ -111,9 +104,9 @@ export default function ProductShopView() {
         name={name}
         fetchProduct={fetchProduct}
       /> */}
-      <Box sx={{maxWidth:'275px',width:'100%'}} />
+      <Box sx={{ maxWidth: '275px', width: '100%' }} />
 
-<Typography variant="h4" > Shop </Typography>
+      <Typography variant="h4"> Shop </Typography>
 
       <Stack direction="row" spacing={1} flexShrink={0}>
         <ProductFilters
@@ -150,26 +143,17 @@ export default function ProductShopView() {
     />
   );
 
-
-
   return (
     <Container
       maxWidth={false}
-      
       sx={{
         mb: 15,
       }}
     >
-      <HomeHero 
-      setName={setName}
-      name={name}
-      fetchProduct={fetchProduct}
-       />
+      <HomeHero setName={setName} name={name} fetchProduct={fetchProduct} />
       <HomeLookingFor />
 
       <CartIcon totalItems={checkout.totalItems} />
-
-      
 
       <Stack
         spacing={2.5}

@@ -1,13 +1,13 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
- 
+
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 // hooks
 
 // _mock
-import { _appFeatured,  _appInstalled,  _appInvoices, _appRelated } from 'src/_mock';
+import { _appFeatured, _appInstalled, _appInvoices, _appRelated } from 'src/_mock';
 // components
 import { useSettingsContext } from 'src/components/settings';
 // assets
@@ -16,51 +16,43 @@ import { SeoIllustration } from 'src/assets/illustrations';
 import { useAuthContext } from 'src/auth/hooks';
 import { Link } from 'react-router-dom';
 
+import { collection, getDocs } from 'firebase/firestore';
+import { DB } from 'src/auth/context/firebase/auth-provider';
+import { useEffect, useState } from 'react';
+import api from 'src/utils/api';
 import AppWelcome from '../app-welcome';
 import AppFeatured from '../app-featured';
 import AppNewInvoice from '../app-new-invoice';
-
-
 
 import AppWidgetSummary from '../app-widget-summary';
 import AppAreaInstalled from '../app-area-installed';
 import AppTopRelated from '../app-top-related';
 import AppTopInstalledCountries from '../app-top-installed-countries';
-import { collection, getDocs } from 'firebase/firestore';
-import { DB } from 'src/auth/context/firebase/auth-provider';
-import { useEffect, useState } from 'react';
-import api from 'src/utils/api';
-
 
 // ----------------------------------------------------------------------
 
 export default function OverviewAppView() {
+  const [orders, setOrders] = useState([]);
+  const [users, setUsers] = useState([]);
 
-  const [orders, setOrders] = useState([])
-const [users, setUsers] = useState([])
-
-  const getUsers = async()=>{
+  const getUsers = async () => {
     const querySnapshot = await getDocs(collection(DB, 'users'));
     const users = [];
-    
+
     querySnapshot.forEach((doc) => {
       users.push(doc.data());
     });
-    
-    
-    setUsers(users.reverse())
-  }
+
+    setUsers(users.reverse());
+  };
 
   useEffect(() => {
+    getUsers();
 
-   getUsers()
-
-   api.get('/orders').then(res=>{
-    setOrders(res.data)
-   })
-
-  }, [])
-
+    api.get('/orders').then((res) => {
+      setOrders(res.data);
+    });
+  }, []);
 
   const theme = useTheme();
 
@@ -94,7 +86,7 @@ const [users, setUsers] = useState([])
             percent={0}
             total={users.length}
             chart={{
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -103,10 +95,10 @@ const [users, setUsers] = useState([])
           <AppWidgetSummary
             title="Total Revenue"
             percent={0}
-            total={orders.reduce((a,b)=>a+b.totalAmount,0)}
+            total={orders.reduce((a, b) => a + b.totalAmount, 0)}
             chart={{
               colors: [theme.palette.info.light, theme.palette.info.main],
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -115,10 +107,10 @@ const [users, setUsers] = useState([])
           <AppWidgetSummary
             title="Total Completed Orders"
             percent={0}
-            total={orders.filter(e=>e.status==='completed').length}
+            total={orders.filter((e) => e.status === 'completed').length}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -164,11 +156,32 @@ const [users, setUsers] = useState([])
                   data: [
                     {
                       name: 'Revenue',
-                      data: [0,1,2,3,4,5,6,7,8,9,10,11].map(e=>orders.reduce((a,b)=> (new Date(b.createdAt).getFullYear() === 2023 &&new Date(b.createdAt).getMonth() === e) ? a+b.totalAmount :a ,0)*5/100),
+                      data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(
+                        (e) =>
+                          (orders.reduce(
+                            (a, b) =>
+                              new Date(b.createdAt).getFullYear() === 2023 &&
+                              new Date(b.createdAt).getMonth() === e
+                                ? a + b.totalAmount
+                                : a,
+                            0
+                          ) *
+                            5) /
+                          100
+                      ),
                     },
                     {
                       name: 'Sales',
-                      data: [0,1,2,3,4,5,6,7,8,9,10,11].map(e=>orders.reduce((a,b)=> (new Date(b.createdAt).getFullYear() === 2023 &&new Date(b.createdAt).getMonth() === e) ? a+b.totalAmount :a ,0)),
+                      data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((e) =>
+                        orders.reduce(
+                          (a, b) =>
+                            new Date(b.createdAt).getFullYear() === 2023 &&
+                            new Date(b.createdAt).getMonth() === e
+                              ? a + b.totalAmount
+                              : a,
+                          0
+                        )
+                      ),
                     },
                   ],
                 },
@@ -177,15 +190,35 @@ const [users, setUsers] = useState([])
                   data: [
                     {
                       name: 'Revenue',
-                      data: [0,1,2,3,4,5,6,7,8,9,10,11].map(e=>orders.reduce((a,b)=> (new Date(b.createdAt).getFullYear() === 2024 &&new Date(b.createdAt).getMonth() === e) ? a+b.totalAmount :a ,0)*5/100),
+                      data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(
+                        (e) =>
+                          (orders.reduce(
+                            (a, b) =>
+                              new Date(b.createdAt).getFullYear() === 2024 &&
+                              new Date(b.createdAt).getMonth() === e
+                                ? a + b.totalAmount
+                                : a,
+                            0
+                          ) *
+                            5) /
+                          100
+                      ),
                     },
                     {
                       name: 'Sales',
-                      data: [0,1,2,3,4,5,6,7,8,9,10,11].map(e=>orders.reduce((a,b)=> (new Date(b.createdAt).getFullYear() === 2024 &&new Date(b.createdAt).getMonth() === e) ? a+b.totalAmount :a ,0)),
+                      data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((e) =>
+                        orders.reduce(
+                          (a, b) =>
+                            new Date(b.createdAt).getFullYear() === 2024 &&
+                            new Date(b.createdAt).getMonth() === e
+                              ? a + b.totalAmount
+                              : a,
+                          0
+                        )
+                      ),
                     },
                   ],
                 },
-               
               ],
             }}
           />
@@ -236,10 +269,7 @@ const [users, setUsers] = useState([])
             />
           </Stack>
         </Grid> */}
-        
-      
       </Grid>
-      
     </Container>
   );
 }

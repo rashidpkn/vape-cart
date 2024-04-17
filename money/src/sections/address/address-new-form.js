@@ -30,7 +30,7 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
   const NewAddressSchema = Yup.object().shape({
     name: Yup.string().required('Fullname is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
-    apartment:Yup.string().required('Apartment is required'),
+    apartment: Yup.string().required('Apartment is required'),
     address: Yup.string().required('Address is required'),
     city: Yup.string().required('City is required'),
     state: Yup.string().required('State is required'),
@@ -50,10 +50,10 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
     // zipCode: '',
     primary: true,
     phoneNumber: '',
-    apartment:'',
+    apartment: '',
     addressType: 'Home',
     country: 'United Arab Emirates',
-    email:''
+    email: '',
   };
 
   const methods = useForm({
@@ -74,7 +74,7 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
         fullAddress: `${data.apartment} ,${data.address}, ${data.city}, ${data.state}, ${data.country}`,
         addressType: data.addressType,
         primary: data.primary,
-        email:data.email
+        email: data.email,
       });
       onClose();
     } catch (error) {

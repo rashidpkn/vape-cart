@@ -1,4 +1,4 @@
-import { useState, useCallback , useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
@@ -15,7 +15,7 @@ import TableContainer from '@mui/material/TableContainer';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hook';
 // _mock
-import {  ORDER_STATUS_OPTIONS } from 'src/_mock';
+import { ORDER_STATUS_OPTIONS } from 'src/_mock';
 // utils
 import { fTimestamp } from 'src/utils/format-time';
 // hooks
@@ -39,7 +39,7 @@ import {
 } from 'src/components/table';
 //
 import api from 'src/utils/api';
-import OrderTableRow from './order-table-row'; 
+import OrderTableRow from './order-table-row';
 import OrderTableToolbar from './order-table-toolbar';
 import OrderTableFiltersResult from './order-table-filters-result';
 
@@ -69,22 +69,18 @@ const defaultFilters = {
 export default function OrderListView() {
   const [tableData, setTableData] = useState([]);
 
-  const fetchOrders = async()=>{
-try {
-  const {data} =  await api.get('/orders')
-  setTableData(data.reverse())
-   
-} catch (error) {
- console.log(error.message); 
-}
-  }
+  const fetchOrders = async () => {
+    try {
+      const { data } = await api.get('/orders');
+      setTableData(data.reverse());
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-useEffect(() => {
-    fetchOrders()
-
-}, [])
-
-
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
@@ -93,8 +89,6 @@ useEffect(() => {
   const router = useRouter();
 
   const confirm = useBoolean();
-
-  
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -135,7 +129,7 @@ useEffect(() => {
 
   const handleDeleteRow = useCallback(
     (id) => {
-      api.delete('orders',{data:{id}})
+      api.delete('orders', { data: { id } });
       const deleteRow = tableData.filter((row) => row.id !== id);
       setTableData(deleteRow);
 
@@ -145,7 +139,7 @@ useEffect(() => {
   );
 
   const handleDeleteRows = useCallback(() => {
-    api.delete('orders',{data:{id:table.selected}})
+    api.delete('orders', { data: { id: table.selected } });
     const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
     setTableData(deleteRows);
 
@@ -173,7 +167,7 @@ useEffect(() => {
     },
     [handleFilters]
   );
-  const [tab, setTab] = useState('all')
+  const [tab, setTab] = useState('all');
 
   return (
     <>
@@ -198,7 +192,7 @@ useEffect(() => {
         <Card>
           <Tabs
             value={tab}
-            onChange={(e,value)=>setTab(value)}
+            onChange={(e, value) => setTab(value)}
             sx={{
               px: 2.5,
               boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
@@ -213,7 +207,8 @@ useEffect(() => {
                 icon={
                   <Label
                     variant={
-                      ((tabs.value === 'all' || tabs.value === filters.status) && 'filled') || 'soft'
+                      ((tabs.value === 'all' || tabs.value === filters.status) && 'filled') ||
+                      'soft'
                     }
                     color={
                       (tabs.value === 'completed' && 'success') ||
@@ -222,11 +217,17 @@ useEffect(() => {
                       'default'
                     }
                   >
-                    {tabs.value === 'all' && tableData.length }
-                    {tabs.value === 'pending' && tableData.filter(e=>e.status === 'Order received' || e.status === 'pending').length }
-                    {tabs.value === 'completed' && tableData.filter(e=>e.status === 'completed' ).length }
-                    {tabs.value === 'cancelled' && tableData.filter(e=>e.status === 'cancelled' ).length }
-                    {tabs.value === 'refunded' && tableData.filter(e=>e.status === 'refunded' ).length }
+                    {tabs.value === 'all' && tableData.length}
+                    {tabs.value === 'pending' &&
+                      tableData.filter(
+                        (e) => e.status === 'Order received' || e.status === 'pending'
+                      ).length}
+                    {tabs.value === 'completed' &&
+                      tableData.filter((e) => e.status === 'completed').length}
+                    {tabs.value === 'cancelled' &&
+                      tableData.filter((e) => e.status === 'cancelled').length}
+                    {tabs.value === 'refunded' &&
+                      tableData.filter((e) => e.status === 'refunded').length}
                   </Label>
                 }
               />
@@ -292,13 +293,15 @@ useEffect(() => {
 
                 <TableBody>
                   {dataFiltered
-                    .filter(e=>
-                      tab==='all'  ||
-                       tab === 'pending' && (e.status === 'pending' || e.status === 'Order received')  ||
-                       tab === 'completed' && e.status ==='completed' ||
-                       tab === 'cancelled' && e.status ==='cancelled'  ||
-                       tab === 'refunded' && e.status ==='refunded' 
-                       )
+                    .filter(
+                      (e) =>
+                        tab === 'all' ||
+                        (tab === 'pending' &&
+                          (e.status === 'pending' || e.status === 'Order received')) ||
+                        (tab === 'completed' && e.status === 'completed') ||
+                        (tab === 'cancelled' && e.status === 'cancelled') ||
+                        (tab === 'refunded' && e.status === 'refunded')
+                    )
                     .map((row) => (
                       <OrderTableRow
                         key={row.id}

@@ -77,21 +77,24 @@ export default function ProductListView() {
 
   const { productsLoading, productsEmpty } = useGetProducts();
 
-  const [products, setProducts] = useState([])
-  const {user:{id}} = useAuthContext()
+  const [products, setProducts] = useState([]);
+  const {
+    user: { id },
+  } = useAuthContext();
   useEffect(() => {
     const featchProduct = async () => {
       try {
-        const { data: { products: p, count } } = await api.get('products',{params:{userId:id}})
-        setProducts(p)
+        const {
+          data: { products: p, count },
+        } = await api.get('products', { params: { userId: id } });
+        setProducts(p);
       } catch (error) {
-        alert("error Occure")
+        alert('error Occure');
       }
-    }
+    };
 
-    featchProduct()
-  }, [])
-
+    featchProduct();
+  }, []);
 
   const confirm = useBoolean();
 
@@ -130,29 +133,26 @@ export default function ProductListView() {
   const handleDeleteRow = useCallback(
     async (id) => {
       try {
-        const product = await api.delete(`products/${id}`)
+        const product = await api.delete(`products/${id}`);
 
         const deleteRow = tableData.filter((row) => row.id !== id);
         setTableData(deleteRow);
 
         table.onUpdatePageDeleteRow(dataInPage.length);
       } catch (error) {
-        alert(error.response.data.message)
+        alert(error.response.data.message);
       }
     },
     [dataInPage.length, table, tableData]
   );
 
   const handleDeleteRows = useCallback(async () => {
-
     try {
-
       const products = await api.delete('products', {
         data: {
-          ids: table.selected
-        }
-      })
-
+          ids: table.selected,
+        },
+      });
 
       const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
       setTableData(deleteRows);
@@ -161,9 +161,8 @@ export default function ProductListView() {
         totalRowsInPage: dataInPage.length,
         totalRowsFiltered: dataFiltered.length,
       });
-
     } catch (error) {
-      alert(error.response.data.message)
+      alert(error.response.data.message);
     }
   }, [dataFiltered.length, dataInPage.length, table, tableData]);
 
@@ -275,22 +274,19 @@ export default function ProductListView() {
                     ))
                   ) : (
                     <>
-                      {dataFiltered
-                        .map((row) => (
-                          <ProductTableRow
-                            key={row.id}
-                            row={row}
-                            selected={table.selected.includes(row.id)}
-                            onSelectRow={() => table.onSelectRow(row.id)}
-                            onDeleteRow={() => handleDeleteRow(row.id)}
-                            onEditRow={() => handleEditRow(row.id)}
-                            onViewRow={() => handleViewRow(row.id)}
-                          />
-                        ))}
+                      {dataFiltered.map((row) => (
+                        <ProductTableRow
+                          key={row.id}
+                          row={row}
+                          selected={table.selected.includes(row.id)}
+                          onSelectRow={() => table.onSelectRow(row.id)}
+                          onDeleteRow={() => handleDeleteRow(row.id)}
+                          onEditRow={() => handleEditRow(row.id)}
+                          onViewRow={() => handleViewRow(row.id)}
+                        />
+                      ))}
                     </>
                   )}
-
-
                 </TableBody>
               </Table>
             </Scrollbar>

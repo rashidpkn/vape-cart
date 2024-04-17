@@ -28,7 +28,7 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 // ----------------------------------------------------------------------
 
 export default function FirebaseLoginView() {
-  const { login} = useAuthContext();
+  const { login } = useAuthContext();
 
   const router = useRouter();
 
@@ -67,15 +67,12 @@ export default function FirebaseLoginView() {
 
       router.push(returnTo || PATH_AFTER_LOGIN);
     } catch (error) {
-      console.log('hELLO' + error);
+      console.log(`hELLO${  error}`);
       // console.error(error);
       // reset();
       setErrorMsg(typeof error === 'string' ? error : error.message);
     }
   });
-
-
-
 
   const renderHead = (
     <Stack spacing={2} sx={{ mb: 5 }}>
@@ -136,15 +133,11 @@ export default function FirebaseLoginView() {
     </Stack>
   );
 
-  
-
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       {renderHead}
 
       {renderForm}
-
-
     </FormProvider>
   );
 }

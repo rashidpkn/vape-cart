@@ -43,9 +43,7 @@ export default function AccountPopover() {
 
   // const { user } = useMockedUser();
 
-  const { logout,user } = useAuthContext();
-  
-
+  const { logout, user } = useAuthContext();
 
   const { enqueueSnackbar } = useSnackbar();
 

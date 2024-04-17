@@ -64,7 +64,7 @@ function EcommerceBestSalesmanRow({ row }) {
       </TableCell>
       <TableCell>{row.salePrice}</TableCell>
       <TableCell>{row.storeName}</TableCell>
-      <TableCell>{row.quantity}</TableCell>      
+      <TableCell>{row.quantity}</TableCell>
     </TableRow>
   );
 }

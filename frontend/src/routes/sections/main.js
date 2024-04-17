@@ -25,7 +25,6 @@ const ProductListPage = lazy(() => import('src/pages/product/list'));
 const ProductDetailsPage = lazy(() => import('src/pages/product/details'));
 const ProductCheckoutPage = lazy(() => import('src/pages/product/checkout'));
 
-
 // ----------------------------------------------------------------------
 
 export const mainRoutes = [
@@ -51,7 +50,6 @@ export const mainRoutes = [
           { path: 'checkout-2', element: <ProductCheckoutPage /> },
         ],
       },
-      
     ],
   },
   // {

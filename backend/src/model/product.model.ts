@@ -1,78 +1,72 @@
-import { Column, Model, Table, DataType } from "sequelize-typescript";
+import { Column, Model, Table, DataType } from 'sequelize-typescript';
 
 @Table
 export class Product extends Model {
+  @Column
+  name: string;
 
-    
-    @Column
-    name: string
+  @Column({ defaultValue: 'Vape Monkey' })
+  username: string;
 
-    @Column({defaultValue:'Vape Monkey'})
-    username:string
+  @Column({ defaultValue: 'Vape Monkey' })
+  storeName: string;
 
-    @Column({defaultValue:'Vape Monkey'})
-    storeName:string
+  @Column({})
+  userId: string;
 
-    @Column({})
-    userId:string
+  @Column({ type: DataType.STRING(15000) })
+  subDescription: string;
 
-    @Column({type:DataType.STRING(15000)})
-    subDescription:string
+  @Column({ type: DataType.STRING(15000) })
+  content: string;
 
-    @Column({type:DataType.STRING(15000)})
-    content:string
+  @Column({
+    type: DataType.ARRAY(DataType.STRING),
+    defaultValue: ['https://delhi-vape.com/img/no-image.jpg'],
+  })
+  images: string[];
 
-    @Column({
-        type: DataType.ARRAY(DataType.STRING),
-        defaultValue:['https://delhi-vape.com/img/no-image.jpg']
-    })
-    images: string[]
+  @Column
+  SKU: string;
 
-    
+  @Column({ defaultValue: 0 })
+  quantity: number;
 
-    @Column
-    SKU:string
+  @Column
+  category: string;
 
-    @Column({defaultValue:0})
-    quantity:number
+  @Column({
+    type: DataType.ARRAY(DataType.STRING),
+    defaultValue: [],
+  })
+  colors: string[];
 
-    @Column
-    category:string
+  @Column({
+    type: DataType.ARRAY(DataType.STRING),
+    defaultValue: [],
+  })
+  tags: string[];
 
-    @Column({
-        type: DataType.ARRAY(DataType.STRING),
-        defaultValue:[]
-    })
-    colors:string[]
+  @Column({ type: DataType.FLOAT })
+  regularPrice: number;
 
+  @Column({ type: DataType.FLOAT })
+  salePrice: number;
 
-    @Column({
-        type: DataType.ARRAY(DataType.STRING),
-        defaultValue:[]
-    })
-    tags:string[]
+  @Column({ type: DataType.FLOAT })
+  tax: number;
 
-    @Column({type:DataType.FLOAT})
-    regularPrice:number
+  @Column({ defaultValue: true })
+  publish: boolean;
 
-    @Column({type:DataType.FLOAT})
-    salePrice:Number
-
-    @Column({type:DataType.FLOAT})
-    tax:Number
-
-    @Column({defaultValue:true})
-    publish:Boolean
-
-    @Column({
-        type: DataType.ARRAY(DataType.JSON),
-        defaultValue:[]
-    })
-    reviews:{
-        rating:number,
-        review:string,
-        name:string,
-        email:string
-    }[]
-
+  @Column({
+    type: DataType.ARRAY(DataType.JSON),
+    defaultValue: [],
+  })
+  reviews: {
+    rating: number;
+    review: string;
+    name: string;
+    email: string;
+  }[];
 }

@@ -6,11 +6,10 @@ import { FirebaseLoginView } from 'src/sections/auth/firebase';
 // ----------------------------------------------------------------------
 
 export default function LoginPage() {
-
   return (
     <>
       <Helmet>
-        <title>  Login</title>
+        <title> Login</title>
       </Helmet>
 
       <FirebaseLoginView />

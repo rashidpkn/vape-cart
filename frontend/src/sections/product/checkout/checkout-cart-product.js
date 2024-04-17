@@ -22,13 +22,18 @@ import IncrementerButton from '../common/incrementer-button';
 // ----------------------------------------------------------------------
 
 export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncrease }) {
-  const { name, size, price, colors, images=[], quantity, available,id } = row;
-  const dispatch = useDispatch()
+  const { name, size, price, colors, images = [], quantity, available, id } = row;
+  const dispatch = useDispatch();
 
   return (
     <TableRow>
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar variant="rounded" alt={name} src={images[0]} sx={{ width: 64, height: 64, mr: 2 }} />
+        <Avatar
+          variant="rounded"
+          alt={name}
+          src={images[0]}
+          sx={{ width: 64, height: 64, mr: 2 }}
+        />
 
         <Stack spacing={0.5}>
           <Typography noWrap variant="subtitle2" sx={{ maxWidth: 240 }}>
@@ -68,10 +73,12 @@ export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncre
       <TableCell align="right">{fCurrency(price * quantity)}</TableCell>
 
       <TableCell align="right" sx={{ px: 1 }}>
-        <IconButton onClick={()=>{
-          onDelete(id);
-          dispatch(getCart())
-          }}>
+        <IconButton
+          onClick={() => {
+            onDelete(id);
+            dispatch(getCart());
+          }}
+        >
           <Iconify icon="solar:trash-bin-trash-bold" />
         </IconButton>
       </TableCell>

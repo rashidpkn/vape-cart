@@ -61,7 +61,7 @@ const StyledThumbnailsContainer = styled('div')(({ length, theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function ProductDetailsCarousel({ product={} }) {
+export default function ProductDetailsCarousel({ product = {} }) {
   const theme = useTheme();
 
   const slides = product?.images?.map((img) => ({

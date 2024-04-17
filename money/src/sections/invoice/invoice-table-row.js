@@ -98,7 +98,6 @@ export default function InvoiceTableRow({
 
         <TableCell>{fCurrency(totalAmount)}</TableCell>
 
-
         <TableCell>
           <Label
             variant="soft"

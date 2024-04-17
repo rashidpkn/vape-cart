@@ -5,7 +5,6 @@ import { Payout } from 'src/model/payout.model';
 import { Product } from 'src/model/product.model';
 import { StoreAnalytics } from 'src/model/storeAnalytics.model';
 
-
 export const databaseProviders = [
   {
     provide: 'SEQUELIZE',
@@ -17,12 +16,12 @@ export const databaseProviders = [
         username: 'postgres',
         password: '12345',
         database: 'vapecart',
-        define:{
-          timestamps:true,
+        define: {
+          timestamps: true,
         },
-        logging:false
+        logging: false,
       });
-      sequelize.addModels([Product,Orders,Invoice,StoreAnalytics,Payout]);
+      sequelize.addModels([Product, Orders, Invoice, StoreAnalytics, Payout]);
       try {
         await sequelize.authenticate();
         console.log('Database connection has been established successfully.');
@@ -30,7 +29,7 @@ export const databaseProviders = [
         console.log('Unable to connect to the database: ', error.message);
         throw new Error('Error on database');
       }
-      await sequelize.sync({alter:true});
+      await sequelize.sync({ alter: true });
       return sequelize;
     },
   },

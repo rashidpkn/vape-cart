@@ -38,11 +38,11 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 //
+import { collection, getDocs } from 'firebase/firestore';
+import { DB } from 'src/auth/context/firebase/auth-provider';
 import UserTableRow from '../user-table-row';
 import UserTableToolbar from '../user-table-toolbar';
 import UserTableFiltersResult from '../user-table-filters-result';
-import { collection, getDocs } from 'firebase/firestore';
-import { DB } from 'src/auth/context/firebase/auth-provider';
 
 // ----------------------------------------------------------------------
 
@@ -84,17 +84,12 @@ export default function UserListView() {
       users.push(doc.data());
     });
 
-
-    setTableData(users)
-  }
+    setTableData(users);
+  };
 
   useEffect(() => {
-
-    getUsers()
-  }, [])
-
-
-
+    getUsers();
+  }, []);
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -209,10 +204,8 @@ export default function UserListView() {
                     variant={
                       ((tab.value === 'all' || tab.value === filters.status) && 'filled') || 'soft'
                     }
-
                   >
                     {tab.value === 'all' && tableData.length}
-
                   </Label>
                 }
               />

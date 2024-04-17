@@ -26,21 +26,20 @@ import FormProvider, {
 } from 'src/components/hook-form';
 import { useAuthContext } from 'src/auth/hooks';
 import { useParams } from 'src/routes/hook';
-import GetStore from './view/getUsers';
 
-import {TextField} from '@mui/material'
+import { TextField } from '@mui/material';
 import { doc, updateDoc } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
+import GetStore from './view/getUsers';
 
 // ----------------------------------------------------------------------
 
-export default  function AccountGeneral({user}) {
-
+export default function AccountGeneral({ user }) {
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string(),
     email: Yup.string(),
-    storeName:Yup.string(),
-    contactPersonInTouch:Yup.string(),
+    storeName: Yup.string(),
+    contactPersonInTouch: Yup.string(),
     tradeLicense: Yup.mixed().nullable(),
     phoneNumber: Yup.string(),
     country: Yup.string(),
@@ -49,7 +48,6 @@ export default  function AccountGeneral({user}) {
     city: Yup.string(),
     zipCode: Yup.string(),
     about: Yup.string(),
-
   });
 
   const defaultValues = {
@@ -57,7 +55,7 @@ export default  function AccountGeneral({user}) {
     email: user?.email || '',
     storeName: user?.storeName || '',
     tradeLicense: user?.tradeLicense || null,
-    contactPersonInTouch:user?.contactPersonInTouch || null,
+    contactPersonInTouch: user?.contactPersonInTouch || null,
     phoneNumber: user?.phoneNumber || '',
     country: user?.country || 'United Arab Emirates',
     address: user?.address || '',
@@ -84,11 +82,10 @@ export default  function AccountGeneral({user}) {
       // await new Promise((resolve) => setTimeout(resolve, 500));
       // enqueueSnackbar('Update success!');
       // console.info('DATA', data);
-      const userRef  = doc(DB, 'users', user.uid)
+      const userRef = doc(DB, 'users', user.uid);
       console.log(data);
 
-      await updateDoc(userRef, data)
-
+      await updateDoc(userRef, data);
     } catch (error) {
       console.error(error);
     }
@@ -109,7 +106,7 @@ export default  function AccountGeneral({user}) {
     [setValue]
   );
 
-  if(!user) return
+  if (!user) return;
 
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
@@ -137,8 +134,6 @@ export default  function AccountGeneral({user}) {
               }
             />
 
-           
-
             <Button variant="soft" color="error" sx={{ mt: 3 }}>
               Delete Store
             </Button>
@@ -156,7 +151,7 @@ export default  function AccountGeneral({user}) {
                 sm: 'repeat(2, 1fr)',
               }}
             >
-              <RHFTextField name="displayName"  label="Name" />
+              <RHFTextField name="displayName" label="Name" />
               <RHFTextField name="email" label="Email Address" />
               <RHFTextField name="storeName" label="Store Name" />
               <RHFTextField name="contactPersonInTouch" label="Contact person in touch" />

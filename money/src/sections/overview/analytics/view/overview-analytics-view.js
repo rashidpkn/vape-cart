@@ -3,10 +3,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 // _mock
-import {
-  _analyticPosts,
-  _analyticOrderTimeline,
-} from 'src/_mock';
+import { _analyticPosts, _analyticOrderTimeline } from 'src/_mock';
 // components
 import { useSettingsContext } from 'src/components/settings';
 //
@@ -60,8 +57,6 @@ export default function OverviewAnalyticsView() {
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
           />
         </Grid>
-
-        
 
         <Grid xs={12} md={6} lg={8}>
           <AnalyticsWebsiteVisits
@@ -161,9 +156,6 @@ export default function OverviewAnalyticsView() {
         <Grid xs={12} md={6} lg={4}>
           <AnalyticsOrderTimeline title="Order Timeline" list={_analyticOrderTimeline} />
         </Grid>
-
-
-        
       </Grid>
     </Container>
   );

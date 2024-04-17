@@ -2,6 +2,6 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreatePayoutDto } from './create-payout.dto';
 
 export class UpdatePayoutDto extends PartialType(CreatePayoutDto) {
-    status:string
-    transactionId:string
+  status: string;
+  transactionId: string;
 }

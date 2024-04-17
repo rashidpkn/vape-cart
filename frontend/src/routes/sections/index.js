@@ -5,13 +5,14 @@ import { Navigate, useRoutes } from 'react-router-dom';
 // import { PATH_AFTER_LOGIN } from 'src/config-global';
 //
 // import { mainRoutes, HomePage } from './main';
-import { mainRoutes} from './main';
-import { authRoutes } from './auth';
-import { dashboardRoutes } from './dashboard';
 import Verified from 'src/pages/verified';
 import { lazy } from 'react';
 import CompactLayout from 'src/layouts/compact/layout';
 import { PaymentView } from 'src/pages/payment/view';
+import { dashboardRoutes } from './dashboard';
+import { authRoutes } from './auth';
+import { mainRoutes } from './main';
+
 const FirebaseVerifyPage = lazy(() => import('src/pages/auth/firebase/verify'));
 
 // import { componentsRoutes } from './components';
@@ -22,18 +23,20 @@ export default function Router() {
   return useRoutes([
     {
       path: '/payment',
-      element: <PaymentView />
+      element: <PaymentView />,
     },
-    {path:'/auth/firebase/verify',element:
-    <CompactLayout>
-      <FirebaseVerifyPage/>
-    </CompactLayout>
-      },
-    {path:'verified',element:<Verified/>},
+    {
+      path: '/auth/firebase/verify',
+      element: (
+        <CompactLayout>
+          <FirebaseVerifyPage />
+        </CompactLayout>
+      ),
+    },
+    { path: 'verified', element: <Verified /> },
     ...authRoutes,
 
     ...dashboardRoutes,
-
 
     ...mainRoutes,
 

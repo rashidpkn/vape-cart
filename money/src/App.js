@@ -11,7 +11,6 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 // Internal Components
 
-
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import ReduxProvider from 'src/redux/redux-provider';
@@ -21,10 +20,7 @@ import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
 import ProgressBar from 'src/components/progress-bar';
 import MotionLazy from 'src/components/animate/motion-lazy';
 import SnackbarProvider from 'src/components/snackbar/snackbar-provider';
-import {
-  SettingsProvider,
-  SettingsDrawer,
-} from 'src/components/settings';
+import { SettingsProvider, SettingsDrawer } from 'src/components/settings';
 import { AuthProvider, AuthConsumer } from 'src/auth/context/firebase';
 
 // Main App Component
@@ -61,9 +57,7 @@ export default function App() {
           >
             <ThemeProvider>
               <MotionLazy>
-                <SnackbarProvider>
-                  {renderMainContent()}
-                </SnackbarProvider>
+                <SnackbarProvider>{renderMainContent()}</SnackbarProvider>
               </MotionLazy>
             </ThemeProvider>
           </SettingsProvider>

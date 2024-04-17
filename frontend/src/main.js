@@ -13,12 +13,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <HelmetProvider>
     <ReduxProvider>
-
-    <BrowserRouter>
-      <Suspense>
-        <App />
-      </Suspense>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Suspense>
+          <App />
+        </Suspense>
+      </BrowserRouter>
     </ReduxProvider>
   </HelmetProvider>
 );

@@ -35,7 +35,7 @@ const NOTIFICATIONS = [
   //   subheader: 'Application',
   //   caption: '',
   //   items: [
-      
+
   //   ],
   // },
 ];

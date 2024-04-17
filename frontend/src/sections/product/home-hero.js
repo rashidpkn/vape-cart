@@ -11,7 +11,6 @@ import Button from '@mui/material/Button';
 import { MotionContainer, varFade } from 'src/components/animate';
 import Iconify from 'src/components/iconify';
 
-
 import Autocomplete from '@mui/material/Autocomplete';
 import api from 'src/utils/api';
 import { useEffect, useState } from 'react';
@@ -19,25 +18,22 @@ import { useNavigate } from 'react-router';
 
 // ----------------------------------------------------------------------
 
+export default function HomeHero({ name, setName, fetchProduct }) {
+  const navigate = useNavigate();
 
-export default function HomeHero({name,setName,fetchProduct }) {
-  const navigate = useNavigate()
-
-  const [options, setOptions] = useState([])
+  const [options, setOptions] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
 
   useEffect(() => {
-    
-  api.get('products').then(res=>{
-    setOptions(res.data.products)
-  })
-  }, [])
-  
+    api.get('products').then((res) => {
+      setOptions(res.data.products);
+    });
+  }, []);
 
   return (
     <Box
       sx={{
-        height: { sm: 735, xs:550 },
+        height: { sm: 735, xs: 550 },
         py: { xs: 20, md: 0 },
         overflow: 'hidden',
         position: 'relative',
@@ -61,14 +57,13 @@ export default function HomeHero({name,setName,fetchProduct }) {
             },
           }}
         >
-
           <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.black' }}>
-            <TextAnimate text="Get"/>
+            <TextAnimate text="Get" />
             <TextAnimate text="your" />
             <TextAnimate text="vape" />
             <TextAnimate text="delivered" />
           </Stack>
-          
+
           <br />
 
           <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.black' }}>
@@ -115,44 +110,56 @@ export default function HomeHero({name,setName,fetchProduct }) {
             }}
           /> */}
 
-
-
-<Autocomplete
-sx={{borderRadius:999,width: { sm: 300, md: 600 },position:'relative',mx:'auto'}} style={{borderRadius:999}}
-      options={options.map(({name,id})=>({name,id}))}
-      getOptionLabel={(option) => option.name}
-      value={selectedValue}
-      onChange={(event, newValue) => {
-        setName(newValue.name);
-        navigate(`/product/${newValue.id}`)
-        setSelectedValue(newValue)
-      }}
-      renderInput={(params) => (
-        <TextField {...params} variant="outlined"  sx={{borderRadius:999}} style={{borderRadius:999}}  placeholder='Search Your Product'/>
-      )}
-    />
-
-
-
+          <Autocomplete
+            sx={{
+              borderRadius: 999,
+              width: { sm: 300, md: 600 },
+              position: 'relative',
+              mx: 'auto',
+            }}
+            style={{ borderRadius: 999 }}
+            options={options.map(({ name, id }) => ({ name, id }))}
+            getOptionLabel={(option) => option.name}
+            value={selectedValue}
+            onChange={(event, newValue) => {
+              setName(newValue.name);
+              navigate(`/product/${newValue.id}`);
+              setSelectedValue(newValue);
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                sx={{ borderRadius: 999 }}
+                style={{ borderRadius: 999 }}
+                placeholder="Search Your Product"
+              />
+            )}
+          />
 
           <br />
 
-          <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.black',mt:3}} className='inter-100' >
-          <TextAnimate text="Your"/>
-          <TextAnimate text="Ultimate"/>
-          <TextAnimate text="Destination"/>
-          <TextAnimate text="for"/>
-          <TextAnimate text="All"/>
-          <TextAnimate text="Vape"/>
+          <Stack
+            spacing={2}
+            display="inline-flex"
+            direction="row"
+            sx={{ color: 'common.black', mt: 3 }}
+            className="inter-100"
+          >
+            <TextAnimate text="Your" />
+            <TextAnimate text="Ultimate" />
+            <TextAnimate text="Destination" />
+            <TextAnimate text="for" />
+            <TextAnimate text="All" />
+            <TextAnimate text="Vape" />
           </Stack>
 
-          <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.black',  }}>
-          
-          <TextAnimate text="Shops:"/>
-          <TextAnimate text="One"/>
-          <TextAnimate text="Website,"/>
-          <TextAnimate text="Endless"/>
-          <TextAnimate text="Choices!"/>
+          <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.black' }}>
+            <TextAnimate text="Shops:" />
+            <TextAnimate text="One" />
+            <TextAnimate text="Website," />
+            <TextAnimate text="Endless" />
+            <TextAnimate text="Choices!" />
           </Stack>
         </Box>
       </Container>
@@ -176,7 +183,12 @@ function TextAnimate({ text, variants, sx, ...other }) {
       {...other}
     >
       {text.split('').map((letter, index) => (
-        <m.span key={index} variants={variants || varFade().inUp} className='inter-100' style={{fontWeight:100}} >
+        <m.span
+          key={index}
+          variants={variants || varFade().inUp}
+          className="inter-100"
+          style={{ fontWeight: 100 }}
+        >
           {letter}
         </m.span>
       ))}

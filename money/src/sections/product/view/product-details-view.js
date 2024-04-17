@@ -20,7 +20,7 @@ import Iconify from 'src/components/iconify';
 import { useSettingsContext } from 'src/components/settings';
 //
 import api from 'src/utils/api';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { useCheckout } from '../hooks';
 import { ProductDetailsSkeleton } from '../product-skeleton';
 import ProductDetailsReview from '../product-details-review';
@@ -58,26 +58,22 @@ export default function ProductDetailsView() {
 
   // const { product } = useGetProduct(`${id}`);
 
-  const [product, setProduct] = useState({})
-const navigate = useNavigate()
+  const [product, setProduct] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
-
     const fetchProduct = async () => {
       try {
-        const {data,status} = await api.get(`products/${id}`)
-        setProduct(data)
-
+        const { data, status } = await api.get(`products/${id}`);
+        setProduct(data);
       } catch (error) {
-       alert(error.response.data.message)
-       navigate(paths.dashboard.product.root)
+        alert(error.response.data.message);
+        navigate(paths.dashboard.product.root);
       }
-    }
+    };
 
-    fetchProduct()
-
-  }, [])
-  
+    fetchProduct();
+  }, []);
 
   const settings = useSettingsContext();
 
@@ -103,8 +99,6 @@ const navigate = useNavigate()
 
   const renderSkeleton = <ProductDetailsSkeleton />;
 
-  
-
   const renderProduct = product && (
     <>
       <ProductDetailsToolbar
@@ -122,13 +116,15 @@ const navigate = useNavigate()
         </Grid>
 
         <Grid xs={12} md={6} lg={5}>
-          {product && <ProductDetailsSummary
-            disabledActions
-            product={product}
-            cart={checkout.cart}
-            onAddCart={onAddCart}
-            onGotoStep={onGotoStep}
-          />}
+          {product && (
+            <ProductDetailsSummary
+              disabledActions
+              product={product}
+              cart={checkout.cart}
+              onAddCart={onAddCart}
+              onGotoStep={onGotoStep}
+            />
+          )}
         </Grid>
       </Grid>
 
@@ -198,9 +194,7 @@ const navigate = useNavigate()
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
-      {!product && renderSkeleton} 
-
-      
+      {!product && renderSkeleton}
 
       {product && renderProduct}
     </Container>

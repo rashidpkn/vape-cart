@@ -18,8 +18,8 @@ import Scrollbar from 'src/components/scrollbar';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import { useTable, TableNoData, TableHeadCustom, TableSelectedAction } from 'src/components/table';
 //
-import UserTableRow from './user-table-row';
 import api from 'src/utils/api';
+import UserTableRow from './user-table-row';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name' },
@@ -75,66 +75,62 @@ export default function Customers() {
   );
 
   return (
-    <>
-      <Box px={5}>
-        <CustomBreadcrumbs
-          heading="Customer"
-          links={[
-            { name: 'Dashboard', href: paths.dashboard.root },
-            { name: 'Customer', href: '/dashboard/customer' },
-          ]}
+    <Box px={5}>
+      <CustomBreadcrumbs
+        heading="Customer"
+        links={[
+          { name: 'Dashboard', href: paths.dashboard.root },
+          { name: 'Customer', href: '/dashboard/customer' },
+        ]}
+        sx={{
+          mb: { xs: 3, md: 5 },
+        }}
+      />
+
+      <Card>
+        <Tabs
+          value={filters.status}
+          onChange={handleFilterStatus}
           sx={{
-            mb: { xs: 3, md: 5 },
+            px: 2.5,
+            boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
           }}
-        />
+        >
+          {['All', 'VIP', 'Recurring Customer', 'Blacklisted'].map((tab) => (
+            <Tab
+              style={{ color: `${tab === 'Blacklisted' && '#f00'}` }}
+              key={tab}
+              iconPosition="end"
+              value={tab}
+              label={tab}
+              icon={
+                <Label variant={((tab === 'all' || tab === filters.status) && 'filled') || 'soft'}>
+                  {tab === 'All' && customers.length}
+                  {tab !== 'All' && 0}
+                </Label>
+              }
+            />
+          ))}
+        </Tabs>
 
-        <Card>
-          <Tabs
-            value={filters.status}
-            onChange={handleFilterStatus}
-            sx={{
-              px: 2.5,
-              boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
-            }}
-          >
-            {['All', 'VIP', 'Recurring Customer', 'Blacklisted'].map((tab) => (
-              <Tab
-                style={{ color: `${tab === 'Blacklisted' && '#f00'}` }}
-                key={tab}
-                iconPosition="end"
-                value={tab}
-                label={tab}
-                icon={
-                  <Label
-                    variant={((tab === 'all' || tab === filters.status) && 'filled') || 'soft'}
-                  >
-                    {tab === 'All' && customers.length}
-                    {tab !== 'All' && 0}
-                  </Label>
-                }
-              />
-            ))}
-          </Tabs>
+        <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
+          <TableSelectedAction />
 
-          <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
-            <TableSelectedAction />
+          <Scrollbar>
+            <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
+              <TableHeadCustom headLabel={TABLE_HEAD} />
 
-            <Scrollbar>
-              <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
-                <TableHeadCustom headLabel={TABLE_HEAD} />
+              <TableBody>
+                {customers.map((row) => (
+                  <UserTableRow key={row.id} row={row} orders={orders} />
+                ))}
 
-                <TableBody>
-                  {customers.map((row) => (
-                    <UserTableRow key={row.id} row={row} orders={orders} />
-                  ))}
-
-                  <TableNoData notFound={!customers} />
-                </TableBody>
-              </Table>
-            </Scrollbar>
-          </TableContainer>
-        </Card>
-      </Box>
-    </>
+                <TableNoData notFound={!customers} />
+              </TableBody>
+            </Table>
+          </Scrollbar>
+        </TableContainer>
+      </Card>
+    </Box>
   );
 }

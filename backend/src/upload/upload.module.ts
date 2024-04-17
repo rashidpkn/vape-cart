@@ -5,10 +5,12 @@ import { MulterModule } from '@nestjs/platform-express';
 import * as path from 'path';
 
 @Module({
-  imports:[MulterModule.register({
-    dest:path.join( __dirname , '../../uploads')
-  })],
+  imports: [
+    MulterModule.register({
+      dest: path.join(__dirname, '../../uploads'),
+    }),
+  ],
   controllers: [UploadController],
-  providers: [UploadService]
+  providers: [UploadService],
 })
 export class UploadModule {}

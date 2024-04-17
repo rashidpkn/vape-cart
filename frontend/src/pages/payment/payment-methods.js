@@ -30,13 +30,13 @@ const PAYMENT_OPTIONS = [
 
 const CARD_OPTIONS = [];
 
-export default function PaymentMethods({ setMethod, method,setCurrency }) {
+export default function PaymentMethods({ setMethod, method, setCurrency }) {
   const newCard = useBoolean();
 
   const handleChangeMethod = useCallback((newValue) => {
     setMethod(newValue);
-    if(newValue === 'wire transfer'){
-      setCurrency('')
+    if (newValue === 'wire transfer') {
+      setCurrency('');
     }
   }, []);
 

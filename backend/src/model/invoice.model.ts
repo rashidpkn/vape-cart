@@ -1,9 +1,8 @@
-import { literal } from 'sequelize';
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 @Table
 export class Invoice extends Model {
-  @Column({type:DataType.JSON})
+  @Column({ type: DataType.JSON })
   invoiceTo: {
     email: string;
     fullAddress: string;
@@ -11,13 +10,16 @@ export class Invoice extends Model {
     phoneNumber: string;
   };
 
-  @Column({type:DataType.JSON,defaultValue:{
-    company: 'Vape Amazon',
-    email: 'info@vapeamazon.com',
-    fullAddress: 'vape amazon ,delhi',
-    name: 'vape Monkey',
-    phoneNumber: '123456', 
-  }})
+  @Column({
+    type: DataType.JSON,
+    defaultValue: {
+      company: 'Vape Amazon',
+      email: 'info@vapeamazon.com',
+      fullAddress: 'vape amazon ,delhi',
+      name: 'vape Monkey',
+      phoneNumber: '123456',
+    },
+  })
   invoiceFrom: {
     company: string;
     email: string;
@@ -51,8 +53,7 @@ export class Invoice extends Model {
   status: string;
 
   @Column({
-    type:DataType.DATE
-})
-  dueDate:Date
-
+    type: DataType.DATE,
+  })
+  dueDate: Date;
 }

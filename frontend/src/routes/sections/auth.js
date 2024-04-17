@@ -14,7 +14,6 @@ const FirebaseRegisterPage = lazy(() => import('src/pages/auth/firebase/register
 const FirebaseVerifyPage = lazy(() => import('src/pages/auth/firebase/verify'));
 const FirebaseForgotPasswordPage = lazy(() => import('src/pages/auth/firebase/forgot-password'));
 
-
 const authFirebase = {
   path: 'firebase',
   element: (
@@ -55,11 +54,9 @@ const authFirebase = {
   ],
 };
 
-
-
 export const authRoutes = [
   {
     path: 'auth',
-    children: [  authFirebase],
+    children: [authFirebase],
   },
 ];

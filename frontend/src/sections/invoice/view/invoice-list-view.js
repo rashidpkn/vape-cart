@@ -40,11 +40,11 @@ import {
 } from 'src/components/table';
 //
 import api from 'src/utils/api';
+import { useAuthContext } from 'src/auth/hooks';
 import InvoiceAnalytic from '../invoice-analytic';
 import InvoiceTableRow from '../invoice-table-row';
 import InvoiceTableToolbar from '../invoice-table-toolbar';
 import InvoiceTableFiltersResult from '../invoice-table-filters-result';
-import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -77,46 +77,44 @@ export default function InvoiceListView() {
   const table = useTable({ defaultOrderBy: 'createDate' });
 
   const confirm = useBoolean();
-  const {user:{id}} = useAuthContext()
+  const {
+    user: { id },
+  } = useAuthContext();
 
-  const [invoice , setInvoice ] = useState([]);
+  const [invoice, setInvoice] = useState([]);
   const [myProduct, setMyProduct] = useState([]);
   const [tableData, setTableData] = useState([]);
 
-
-
   const fetchProduct = async () => {
     try {
-      const { data: { products: p } } = await api.get('products', { params: { userId: id, perPage: 100 } });
-      setMyProduct(p.map(e => e.id));
+      const {
+        data: { products: p },
+      } = await api.get('products', { params: { userId: id, perPage: 100 } });
+      setMyProduct(p.map((e) => e.id));
     } catch (error) {
-      alert("Error occurred while fetching products.");
+      alert('Error occurred while fetching products.');
     }
   };
 
-
-
   const fetchInvoice = async () => {
     try {
-      const { data } = await api.get('invoice')
-      setInvoice(data)
-    } catch (error) {
-
-    }
-  }
-
-
+      const { data } = await api.get('invoice');
+      setInvoice(data);
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    fetchInvoice()
-    fetchProduct()
-  }, [])
-
+    fetchInvoice();
+    fetchProduct();
+  }, []);
 
   useEffect(() => {
-    setTableData(invoice.filter(invoice => invoice.items.some(item => myProduct.includes(item.id))).reverse());
+    setTableData(
+      invoice
+        .filter((invoice) => invoice.items.some((item) => myProduct.includes(item.id)))
+        .reverse()
+    );
   }, [invoice, myProduct]);
-  
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -124,8 +122,6 @@ export default function InvoiceListView() {
     filters.startDate && filters.endDate
       ? filters.startDate.getTime() > filters.endDate.getTime()
       : false;
-
-  
 
   const denseHeight = table.dense ? 56 : 76;
 
@@ -138,8 +134,6 @@ export default function InvoiceListView() {
   const notFound = (!tableData.length && canReset) || !tableData.length;
 
   const getInvoiceLength = (status) => tableData.filter((item) => item.status === status).length;
-
-
 
   const TABS = [
     { value: 'all', label: 'All', color: 'default', count: tableData.length },
@@ -162,9 +156,9 @@ export default function InvoiceListView() {
 
   const handleDeleteRow = useCallback(
     (id) => {
-      api.delete('invoice',{data:{id}}).then(res=>{
-        alert("Invoice in deleted")
-      })
+      api.delete('invoice', { data: { id } }).then((res) => {
+        alert('Invoice in deleted');
+      });
 
       const deleteRow = tableData.filter((row) => row.id !== id);
       setTableData(deleteRow);
@@ -175,9 +169,9 @@ export default function InvoiceListView() {
   );
 
   const handleDeleteRows = useCallback(() => {
-    api.delete('invoice',{data:{id:table.selected}}).then(res=>{
-      alert("Invoice in deleted")
-    })
+    api.delete('invoice', { data: { id: table.selected } }).then((res) => {
+      alert('Invoice in deleted');
+    });
 
     const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
     setTableData(deleteRows);
@@ -478,4 +472,3 @@ export default function InvoiceListView() {
 }
 
 // ----------------------------------------------------------------------
-
