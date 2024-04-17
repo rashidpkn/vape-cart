@@ -100,7 +100,7 @@ export default function InvoiceListView() {
     try {
       const { data } = await api.get('invoice');
       setInvoice(data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -223,16 +223,16 @@ export default function InvoiceListView() {
               href: paths.dashboard.invoice.root,
             },
           ]}
-          action={
-            <Button
-              component={RouterLink}
-              href={paths.dashboard.invoice.new}
-              variant="contained"
-              startIcon={<Iconify icon="mingcute:add-line" />}
-            >
-              New Invoice
-            </Button>
-          }
+          // action={
+          //   <Button
+          //     component={RouterLink}
+          //     href={paths.dashboard.invoice.new}
+          //     variant="contained"
+          //     startIcon={<Iconify icon="mingcute:add-line" />}
+          //   >
+          //     New Invoice
+          //   </Button>
+          // }
           sx={{
             mb: { xs: 3, md: 5 },
           }}

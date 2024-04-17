@@ -17,7 +17,7 @@ export default function UserTableRow({ row, orders }) {
       <TableCell>{customers.length}</TableCell>
       <TableCell>{customers.reduce((a, b) => a + b.totalAmount, 0)}</TableCell>
 
-      <TableCell>{customers.reduce((a, b) => a + b.totalAmount, 0) / customers.length}</TableCell>
+      <TableCell>{(customers.reduce((a, b) => a + b.totalAmount, 0) / customers.length).toFixed(2)}</TableCell>
 
       <TableCell>{fDateTime(customers.reverse()[0].createdAt)}</TableCell>
     </TableRow>
