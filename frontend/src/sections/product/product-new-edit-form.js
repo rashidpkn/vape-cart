@@ -319,17 +319,19 @@ export default function ProductNewEditForm({ currentProduct }) {
                 InputLabelProps={{ shrink: true }}
               />
 
-              <RHFSelect native name="category" label="Category / Variants" InputLabelProps={{ shrink: true }}>
-                {PRODUCT_CATEGORY_GROUP_OPTIONS.map((category) => (
-                  <optgroup key={category.group} label={category.group}>
-                    {category.classify.map((classify) => (
-                      <option key={classify} value={classify}>
-                        {classify}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
+              <RHFSelect native name="category" label="Category" InputLabelProps={{ shrink: true }}>
+                {['None', 'Disposable', 'Liquids', 'Devices', 'Accessories', 'Batteries', 'Bottle Size', 'Nicotine Level', 'Puffs'].map(classify => <option key={classify} value={classify}>{classify}</option>)}
               </RHFSelect>
+
+
+              {values.category !== 'None' && <RHFSelect native name="type" label="Type" InputLabelProps={{ shrink: true }}>
+                <option value={'simple'}>Simple</option>
+                <option value={'variation'}>Variation</option>
+              </RHFSelect>}
+
+
+
+
 
               <RHFMultiSelect
                 checkbox
@@ -368,7 +370,14 @@ export default function ProductNewEditForm({ currentProduct }) {
               }
             />
 
+            {
+              values.type === 'variation' &&
 
+              <Box sx={{display:'flex',gap:'10px',flexWrap:'wrap',justifyContent:'space-between'}}>
+                {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(c => c.group === values.category)?.classify?.map(e => <TextField type='number' size='small' sx={{width:'20%'}} label={`${e} Price`} />)}
+
+              </Box>
+            }
 
 
 
