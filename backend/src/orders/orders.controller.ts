@@ -9,6 +9,8 @@ import {
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { Request } from 'express';
+import { Orders } from 'src/model/orders.model';
+import { Invoice } from 'src/model/invoice.model';
 
 @Controller('orders')
 export class OrdersController {
@@ -103,4 +105,20 @@ export class OrdersController {
       throw error;
     }
   }
+
+
+    // updateOrder
+    @Patch('status/:id')
+    async updateStatus(@Req() req: Request) {
+      try {
+        const {status} = req.body
+        const {id} = req.params
+await Orders.update({status},{where:{id}})
+await Invoice.update({status},{where:{id}})
+        
+        
+      } catch (error) {
+        throw error;
+      }
+    }
 }

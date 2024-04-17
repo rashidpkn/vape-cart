@@ -33,7 +33,7 @@ export default function OrderDetailsView() {
       const { data } = await api.get(`orders/${id}`);
       setCurrentOrder(data);
       setStatus(data.status);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     fetchOrder();
@@ -41,7 +41,8 @@ export default function OrderDetailsView() {
 
   const [status, setStatus] = useState(currentOrder.status);
 
-  const handleChangeStatus = useCallback((newValue) => {
+  const handleChangeStatus = useCallback(async (newValue) => {
+    await api.patch(`/orders/status/${id}`, { status: newValue })
     setStatus(newValue);
   }, []);
 

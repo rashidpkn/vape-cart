@@ -208,11 +208,11 @@ export default function InvoiceDetails({ invoice }) {
               Invoice To
             </Typography>
             {invoice?.invoiceTo?.name}
-            <br />
+            {/* <br />
             {invoice?.invoiceTo?.fullAddress}
             <br />
             Phone: {invoice?.invoiceTo?.phoneNumber}
-            <br />
+            <br /> */}
           </Stack>
 
           <Stack sx={{ typography: 'body2' }}>
