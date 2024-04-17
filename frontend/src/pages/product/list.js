@@ -40,9 +40,9 @@ import Pagination1 from '@mui/material/Pagination';
 import { Link } from 'react-router-dom';
 import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
 import AOS from 'aos';
-import bg_1 from "../../../../../../../../assets/images/hero/bg_1.jpg";
-import bg_2 from "../../../../../../../../assets/images/hero/bg_2.jpg";
-import bg_3 from "../../../../../../../../assets/images/hero/bg_3.jpg";
+import bg_1 from "src/assets/images/hero/bg_1.jpg";
+import bg_2 from "src/assets/images/hero/bg_2.jpg";
+import bg_3 from "src/assets/images/hero/bg_3.jpg";
 
 import pagignation from '../components/pagignation';
 import 'aos/dist/aos.css';
