@@ -198,19 +198,19 @@ export default function InvoiceListView() {
               href: paths.dashboard.invoice.root,
             },
           ]}
-          action={
-            <Button
-              component={RouterLink}
-              href={paths.dashboard.invoice.new}
-              variant="contained"
-              startIcon={<Iconify icon="mingcute:add-line" />}
-            >
-              New Invoice
-            </Button>
-          }
-          sx={{
-            mb: { xs: 3, md: 5 },
-          }}
+          // action={
+          //   <Button
+          //     component={RouterLink}
+          //     href={paths.dashboard.invoice.new}
+          //     variant="contained"
+          //     startIcon={<Iconify icon="mingcute:add-line" />}
+          //   >
+          //     New Invoice
+          //   </Button>
+          // }
+          // sx={{
+          //   mb: { xs: 3, md: 5 },
+          // }}
         />
 
         <Card
