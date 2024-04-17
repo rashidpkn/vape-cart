@@ -16,23 +16,23 @@ export default function UserCardList() {
 
   const [store, setStore] = useState([])
 
-  const getUsers = async()=>{
+  const getUsers = async () => {
     const querySnapshot = await getDocs(collection(DB, 'users'));
     const users = [];
-    
+
     querySnapshot.forEach((doc) => {
       users.push(doc.data());
     });
-    
-    console.log(users);
+
+
     setStore(users)
   }
 
   useEffect(() => {
-    api.get('/products').then(res=>{
+    api.get('/products').then(res => {
       setProducts(res.data.products)
     })
-   getUsers()
+    getUsers()
   }, [])
 
   useState

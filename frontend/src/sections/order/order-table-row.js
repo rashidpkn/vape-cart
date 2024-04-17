@@ -81,6 +81,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
       <TableCell align="center"> {totalQuantity} </TableCell>
 
       <TableCell> {fCurrency(subTotal)} </TableCell>
+      <TableCell> {fCurrency(subTotal*0.2)} </TableCell>
 
       <TableCell>
         <Label

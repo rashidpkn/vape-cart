@@ -1,13 +1,13 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
- 
+
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 // hooks
 
 // _mock
-import { _appFeatured,  _appInvoices } from 'src/_mock';
+import { _appFeatured, _appInvoices } from 'src/_mock';
 // components
 import { useSettingsContext } from 'src/components/settings';
 // assets
@@ -24,20 +24,56 @@ import AppNewInvoice from '../app-new-invoice';
 
 import AppWidgetSummary from '../app-widget-summary';
 import BlurLayer from 'src/common/blurlayer';
+import { useEffect, useState } from 'react';
+import api from 'src/utils/api';
 
 
 // ----------------------------------------------------------------------
 
 export default function OverviewAppView() {
-  const { user } = useAuthContext();
-
   const theme = useTheme();
 
-  const settings = useSettingsContext();
+  
+  
+  const { user} = useAuthContext();
+  const [products, setProducts] = useState([])
+  const [orders, setOrders] = useState([]);
+  const [invoice, setInvoice] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+
+        const [productsResponse, ordersResponse,invoiceResponse] = await Promise.all([ api.get('products', { params: { userId: user.id } }), api.get('/orders'), api.get('/invoice') ]);
+
+        const products = productsResponse.data.products;
+        const orders = ordersResponse.data;
+        const invoice = invoiceResponse.data;
+  
+        const filteredOrders = orders.filter(order =>
+          order.items.some(item => products.some(product => product.id === item.id))
+        );
+
+        const filteredInvoice = invoice.filter(inv =>
+          inv.items.some(item => products.some(product => product.id === item.id))
+        );
+
+      setOrders(filteredOrders);
+        setProducts(products);
+        setInvoice(filteredInvoice)
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
+    
+    fetchData();
+
+  }, [user.id]);
+
 
   return (
-    <Box  px={5}>
-      <Grid container  spacing={3} sx={{position:'relative'}}>
+    <Box px={5}>
+      <Grid container spacing={3} sx={{ position: 'relative' }}>
         <BlurLayer />
         <Grid xs={12} md={8}>
           <AppWelcome
@@ -46,9 +82,9 @@ export default function OverviewAppView() {
             img={<SeoIllustration />}
             action={
               <Link to="/dashboard/product/new">
-              <Button variant="contained" color="primary">
-                Add Product
-              </Button>
+                <Button variant="contained" color="primary">
+                  Add Product
+                </Button>
               </Link>
             }
           />
@@ -62,9 +98,9 @@ export default function OverviewAppView() {
           <AppWidgetSummary
             title="Total Product"
             percent={0}
-            total={0}
+            total={products.length}
             chart={{
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -73,10 +109,10 @@ export default function OverviewAppView() {
           <AppWidgetSummary
             title="Total Sales"
             percent={0}
-            total={0}
+            total={orders.length}
             chart={{
               colors: [theme.palette.info.light, theme.palette.info.main],
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
@@ -85,33 +121,34 @@ export default function OverviewAppView() {
           <AppWidgetSummary
             title="Pending Orders"
             percent={0}
-            total={0}
+            total={orders.filter(e => e.status === 'pending' || e.status === 'Order received').length}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
-              series: [0,0,0,0,0,0,0,0,0,0],
+              series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
           />
         </Grid>
 
-       
+
 
         <Grid xs={12} lg={8}>
           <AppNewInvoice
             title="New Invoice"
-            tableData={_appInvoices}
+            tableData={invoice}
             tableLabels={[
               { id: 'id', label: 'Invoice ID' },
-              { id: 'category', label: 'Category' },
-              { id: 'price', label: 'Price' },
+              { id: 'Customers', label: 'Customers' },
+              { id: 'Product', label: 'Product' },
+              { id: 'Amount', label: 'Amount' },
               { id: 'status', label: 'Status' },
-              { id: '' },
+              // { id: '' },
             ]}
           />
         </Grid>
 
-    
 
-    
+
+
       </Grid>
     </Box>
   );

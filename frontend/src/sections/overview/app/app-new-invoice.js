@@ -34,7 +34,7 @@ export default function AppNewInvoice({ title, subheader, tableData, tableLabels
             <TableHeadCustom headLabel={tableLabels} />
 
             <TableBody>
-              {[].map((row) => (
+              {tableData.map((row) => (
                 <AppNewInvoiceRow key={row.id} row={row} />
               ))}
             </TableBody>
@@ -92,11 +92,13 @@ function AppNewInvoiceRow({ row }) {
   return (
     <>
       <TableRow>
-        <TableCell>{row.invoiceNumber}</TableCell>
+        <TableCell>{row.id}</TableCell>
 
-        <TableCell>{row.category}</TableCell>
+        <TableCell>{row.invoiceTo.name}</TableCell>
 
-        <TableCell>{fCurrency(row.price)}</TableCell>
+        <TableCell>{row.items[0].name}</TableCell>
+
+        <TableCell>{fCurrency(row.totalAmount)}</TableCell>
 
         <TableCell>
           <Label
@@ -111,11 +113,11 @@ function AppNewInvoiceRow({ row }) {
           </Label>
         </TableCell>
 
-        <TableCell align="right" sx={{ pr: 1 }}>
+        {/* <TableCell align="right" sx={{ pr: 1 }}>
           <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
-        </TableCell>
+        </TableCell> */}
       </TableRow>
 
       <CustomPopover

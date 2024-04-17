@@ -140,9 +140,9 @@ const [users, setUsers] = useState([])
         <Grid xs={12} md={6} lg={8}>
           <AppAreaInstalled
             title="Sales and Revenue"
-            subheader={`
-            ${((orders.reduce((a,b)=> new Date(b.createdAt).getFullYear() === 2024  ? a+b.totalAmount :a ,0)/orders.reduce((a,b)=> new Date(b.createdAt).getFullYear() === 2023  ? a+b.totalAmount :a ,0))*100).toString().substring(0,5)}
-            % than last year`}
+            // subheader={`
+            // ${((orders.reduce((a,b)=> new Date(b.createdAt).getFullYear() === 2024  ? a+b.totalAmount :a ,0)/orders.reduce((a,b)=> new Date(b.createdAt).getFullYear() === 2023  ? a+b.totalAmount :a ,0))*100).toString().substring(0,5)}
+            // % than last year`}
             chart={{
               categories: [
                 'Jan',

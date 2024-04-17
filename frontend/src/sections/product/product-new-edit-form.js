@@ -46,10 +46,10 @@ import { useAuthContext } from 'src/auth/hooks';
 // ----------------------------------------------------------------------
 
 export default function ProductNewEditForm({ currentProduct }) {
-const [products, setProduct] = useState([])
+  const [products, setProduct] = useState([])
 
-  
-  
+
+
 
   const router = useRouter();
 
@@ -57,7 +57,7 @@ const [products, setProduct] = useState([])
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const {user} = useAuthContext()
+  const { user } = useAuthContext()
 
 
 
@@ -65,8 +65,8 @@ const [products, setProduct] = useState([])
     name: Yup.string().required('Name is required'),
     subDescription: Yup.string().required('Short description is required'),
     content: Yup.string(),
-    images: Yup.array().min(1,'Image is required'),
-    
+    images: Yup.array().min(1, 'Image is required'),
+
     SKU: Yup.string().required('SKU is required'),
     quantity: Yup.number(),
     category: Yup.string().required('Category is required'),
@@ -114,21 +114,23 @@ const [products, setProduct] = useState([])
   const values = watch();
 
   useEffect(() => {
-    setValue('SKU',values.name.toUpperCase().slice(0,3) + user.storeName.toUpperCase().charAt(0) + '-001')
+    setValue('SKU', values.name.toUpperCase().slice(0, 3) + user.storeName.toUpperCase().charAt(0) + '-001')
   }, [values.name])
-  
+
 
   const fetchProduct = useCallback(
     async () => {
-      const {data:{products}} = await api.get('/products',{params:{
-        name:values.name
-      }})
+      const { data: { products } } = await api.get('/products', {
+        params: {
+          name: values.name
+        }
+      })
       setProduct(products)
     },
     [values.name],
   )
-  
-  useEffect(() => {    
+
+  useEffect(() => {
     fetchProduct()
   }, [values.name])
 
@@ -143,10 +145,10 @@ const [products, setProduct] = useState([])
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
     try {
-      if(currentProduct){
-        await api.patch('products', { ...data, username: user.displayName,userId:user.id,storeName:user.storeName })
-      }else{
-        await api.post('products', { ...data, username: user.displayName,userId:user.id,storeName:user.storeName })
+      if (currentProduct) {
+        await api.patch('products', { ...data, username: user.displayName, userId: user.id, storeName: user.storeName })
+      } else {
+        await api.post('products', { ...data, username: user.displayName, userId: user.id, storeName: user.storeName })
       }
       reset();
       enqueueSnackbar(currentProduct ? 'Update success!' : 'Create success!');
@@ -207,37 +209,37 @@ const [products, setProduct] = useState([])
             {/* <RHFTextField name="name" label="Product Name" /> */}
 
             <Autocomplete
-            onChange={(e,value)=>{
-              if (value) {
-                const product = products.find(product => product.name === value)
-                setValue('images', product.images);
-                setValue('name',product.name)
-                setValue('SKU',product.name.toUpperCase().slice(0,3) + user.storeName.toUpperCase().charAt(0) + '-001')
-              } else {
-                // Handle case where user clears the input
-                setValue('images', null);
-              }
-            }}
-                name="name"
-                label="Product Name"
-                options={products.map(e=>e.name)}
-                getOptionLabel={(option) => option}
-                isOptionEqualToValue={(option, value) => option === value.value}
-                renderInput={(params) => <TextField {...params} label="Product Name" value={values.name} onChange={e=>setValue('name',e.target.value)} />}
-                renderOption={(props, option) => (
-                  <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-          <img
-            loading="lazy"
-            width="20"
-            
-            src={ products.find(e=>e.name===option).images[0]}
-            alt=""
-          />
-          {option} 
-        </Box>
-                )}
-                freeSolo
-              />
+              onChange={(e, value) => {
+                if (value) {
+                  const product = products.find(product => product.name === value)
+                  setValue('images', product.images);
+                  setValue('name', product.name)
+                  setValue('SKU', product.name.toUpperCase().slice(0, 3) + user.storeName.toUpperCase().charAt(0) + '-001')
+                } else {
+                  // Handle case where user clears the input
+                  setValue('images', null);
+                }
+              }}
+              name="name"
+              label="Product Name"
+              options={products.map(e => e.name)}
+              getOptionLabel={(option) => option}
+              isOptionEqualToValue={(option, value) => option === value.value}
+              renderInput={(params) => <TextField {...params} label="Product Name" value={values.name} onChange={e => setValue('name', e.target.value)} />}
+              renderOption={(props, option) => (
+                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                  <img
+                    loading="lazy"
+                    width="20"
+
+                    src={products.find(e => e.name === option).images[0]}
+                    alt=""
+                  />
+                  {option}
+                </Box>
+              )}
+              freeSolo
+            />
 
             <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} />
 
@@ -318,16 +320,18 @@ const [products, setProduct] = useState([])
               />
 
               <RHFSelect native name="category" label="Category" InputLabelProps={{ shrink: true }}>
-                {PRODUCT_CATEGORY_GROUP_OPTIONS.map((category) => (
-                  <optgroup key={category.group} label={category.group}>
-                    {category.classify.map((classify) => (
-                      <option key={classify} value={classify}>
-                        {classify}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
+                {['None', 'Disposable', 'Liquids', 'Devices', 'Accessories', 'Batteries', 'Bottle Size', 'Nicotine Level', 'Puffs'].map(classify => <option key={classify} value={classify}>{classify}</option>)}
               </RHFSelect>
+
+
+              {values.category !== 'None' && <RHFSelect native name="type" label="Type" InputLabelProps={{ shrink: true }}>
+                <option value={'simple'}>Simple</option>
+                <option value={'variation'}>Variation</option>
+              </RHFSelect>}
+
+
+
+
 
               <RHFMultiSelect
                 checkbox
@@ -366,7 +370,14 @@ const [products, setProduct] = useState([])
               }
             />
 
+            {
+              values.type === 'variation' &&
 
+              <Box sx={{display:'flex',gap:'10px',flexWrap:'wrap',justifyContent:'space-between'}}>
+                {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(c => c.group === values.category)?.classify?.map(e => <TextField type='number' size='small' sx={{width:'20%'}} label={`${e} Price`} />)}
+
+              </Box>
+            }
 
 
 

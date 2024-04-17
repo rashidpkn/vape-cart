@@ -44,7 +44,9 @@ const ICONS = {
   dashboard: icon('ic_dashboard'),
   store:iconifyIcon('material-symbols:store'),
   delivery:iconifyIcon('icon-park-outline:delivery'),
-  customer:iconifyIcon('raphael:customer')
+  customer:iconifyIcon('raphael:customer'),
+  payout :iconifyIcon('fa:usd'),
+  rocket:iconifyIcon('ion:rocket-outline'),
 };
 
 
@@ -111,6 +113,9 @@ export function useNavData() {
           // },
 
           // CHAT
+
+          { title: t('payout'), path: '/dashboard/payout', icon: ICONS.payout },
+          { title: t('boost'), path: '/dashboard/boost', icon: ICONS.rocket },
           {
             title: t('support'),
             path: paths.dashboard.chat,

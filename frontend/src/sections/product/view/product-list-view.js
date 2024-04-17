@@ -76,10 +76,9 @@ export default function ProductListView() {
   const [filters, setFilters] = useState(defaultFilters);
 
   const { productsLoading, productsEmpty } = useGetProducts();
+
   const [products, setProducts] = useState([])
-
   const {user:{id}} = useAuthContext()
-
   useEffect(() => {
     const featchProduct = async () => {
       try {

@@ -8,10 +8,11 @@ import { ClientModule } from './client/client.module';
 import { OrdersModule } from './orders/orders.module';
 import { InvoiceModule } from './invoice/invoice.module';
 import { StoreAnalyticsModule } from './store-analytics/store-analytics.module';
+import { PayoutModule } from './payout/payout.module';
 
 
 @Module({
-  imports: [ProductModule, DatabaseModule, UploadModule,OrdersModule,InvoiceModule,StoreAnalyticsModule,ClientModule,   ],
+  imports: [ProductModule, DatabaseModule, UploadModule,OrdersModule,InvoiceModule,StoreAnalyticsModule,PayoutModule,ClientModule,   ],
   controllers: [AppController],
   providers: [AppService]
 })
