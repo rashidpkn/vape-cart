@@ -381,7 +381,7 @@ export default function Header({ set }) {
                   borderBottomRightRadius: '6px',
                 }}
               >
-                <Search style={{ cursor: 'pointer' }} />
+                <Search style={{ cursor: 'pointer' ,color:'#057aff'}} />
               </span>
             </Box>
 

@@ -345,3 +345,11 @@ a {
 .optgroup{
   color: black;
 }
+
+
+@media only screen and (max-width: 600px){
+  .vertical_center{
+    padding: 0px;
+  }
+	
+}
