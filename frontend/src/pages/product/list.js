@@ -41,7 +41,7 @@ import { Link } from 'react-router-dom';
 import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
 import AOS from 'aos';
 import bg_1 from "src/assets/images/hero/bg_1.jpg";
-import bg_2 from "src/assets/images/hero/bg_2.jpg";
+import bg_2 from "src/assets/images/hero/bg_5.jpg";
 import bg_3 from "src/assets/images/hero/bg_3.jpg";
 
 import pagignation from '../components/pagignation';
@@ -192,7 +192,7 @@ export default function ShopPage() {
               style={{
                 width: '100%',
                 textAlign: 'center',
-                color: '#000',
+                color: '#fff',
                 textTransform: 'capitalize',
               }}
             >
