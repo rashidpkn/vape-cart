@@ -57,7 +57,6 @@ export default function ProductNewEditForm({ currentProduct }) {
     subDescription: Yup.string().required('Short description is required'),
     content: Yup.string(),
     images: Yup.array().min(1, 'Image is required'),
-
     SKU: Yup.string().required('SKU is required'),
     quantity: Yup.number(),
     category: Yup.string().required('Category is required'),
@@ -66,6 +65,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     regularPrice: Yup.number(),
     salePrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
     tax: Yup.number().moreThan(-1, 'Tax should not be 0%'),
+    type:Yup.string()
   });
 
   const defaultValues = useMemo(
@@ -81,11 +81,15 @@ export default function ProductNewEditForm({ currentProduct }) {
       salePrice: currentProduct?.salePrice || 0,
       tags: currentProduct?.tags || [],
       tax: currentProduct?.tax || 0,
-      category: currentProduct?.category || 'SMOK',
+      category: currentProduct?.category || 'None',
       colors: currentProduct?.colors || [],
+      type:currentProduct?.type || 'simple',
     }),
     [currentProduct]
   );
+
+  const [variables, setVariable] = useState([])
+
 
   const methods = useForm({
     resolver: yupResolver(NewProductSchema),
@@ -139,6 +143,7 @@ export default function ProductNewEditForm({ currentProduct }) {
           username: user.displayName,
           userId: user.id,
           storeName: user.storeName,
+          variables
         });
       } else {
         await api.post('products', {
@@ -146,6 +151,7 @@ export default function ProductNewEditForm({ currentProduct }) {
           username: user.displayName,
           userId: user.id,
           storeName: user.storeName,
+          variables
         });
       }
       reset();
@@ -343,7 +349,7 @@ export default function ProductNewEditForm({ currentProduct }) {
               {values.category !== 'None' && (
                 <RHFSelect native name="type" label="Type" InputLabelProps={{ shrink: true }}>
                   <option value="simple">Simple</option>
-                  <option value="variation">Variation</option>
+                  <option value="variable">Variable</option>
                 </RHFSelect>
               )}
 
@@ -382,7 +388,7 @@ export default function ProductNewEditForm({ currentProduct }) {
               }
             />
 
-            {values.type === 'variation' && (
+            {values.type === 'variable' && (
               <Box
                 sx={{
                   display: 'flex',
@@ -393,12 +399,28 @@ export default function ProductNewEditForm({ currentProduct }) {
               >
                 {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(
                   (c) => c.group === values.category
-                )?.classify?.map((e) => (
+                )?.classify?.map((name) => (
                   <TextField
+                  key={name}
                     type="number"
                     size="small"
                     sx={{ width: '20%' }}
-                    label={`${e} Price`}
+                    label={`${name}`}
+                    value={variables?.find(e=>e.name === name)?.price}
+                    onChange={(ev) => {
+                      let price = parseFloat(ev.target.value)
+                      setVariable((prev) => {
+                        let filtered = prev.filter(item => !!item?.price);
+                        let existingItem = filtered.find(item => item.name === name);
+                        if (existingItem) {
+                          existingItem.price = price;
+                        } else {
+                          filtered.push({ name, price: price });
+                        }
+                        filtered = filtered.filter(item => !!item?.price);
+                          return filtered;
+                      });
+                  }}
                   />
                 ))}
               </Box>
