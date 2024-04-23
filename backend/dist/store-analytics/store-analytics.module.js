@@ -15,7 +15,7 @@ let StoreAnalyticsModule = class StoreAnalyticsModule {
 StoreAnalyticsModule = __decorate([
     (0, common_1.Module)({
         controllers: [store_analytics_controller_1.StoreAnalyticsController],
-        providers: [store_analytics_service_1.StoreAnalyticsService]
+        providers: [store_analytics_service_1.StoreAnalyticsService],
     })
 ], StoreAnalyticsModule);
 exports.StoreAnalyticsModule = StoreAnalyticsModule;

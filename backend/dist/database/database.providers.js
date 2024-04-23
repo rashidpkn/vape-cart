@@ -21,7 +21,7 @@ exports.databaseProviders = [
                 define: {
                     timestamps: true,
                 },
-                logging: false
+                logging: false,
             });
             sequelize.addModels([product_model_1.Product, orders_model_1.Orders, invoice_model_1.Invoice, storeAnalytics_model_1.StoreAnalytics, payout_model_1.Payout]);
             try {

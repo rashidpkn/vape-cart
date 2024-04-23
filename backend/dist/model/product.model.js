@@ -40,7 +40,7 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING),
-        defaultValue: ['https://delhi-vape.com/img/no-image.jpg']
+        defaultValue: ['https://delhi-vape.com/img/no-image.jpg'],
     }),
     __metadata("design:type", Array)
 ], Product.prototype, "images", void 0);
@@ -59,14 +59,14 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING),
-        defaultValue: []
+        defaultValue: [],
     }),
     __metadata("design:type", Array)
 ], Product.prototype, "colors", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING),
-        defaultValue: []
+        defaultValue: [],
     }),
     __metadata("design:type", Array)
 ], Product.prototype, "tags", void 0);
@@ -89,10 +89,23 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.JSON),
-        defaultValue: []
+        defaultValue: [],
     }),
     __metadata("design:type", Array)
 ], Product.prototype, "reviews", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        defaultValue: 'Simple'
+    }),
+    __metadata("design:type", String)
+], Product.prototype, "type", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.JSON),
+        defaultValue: []
+    }),
+    __metadata("design:type", Object)
+], Product.prototype, "variables", void 0);
 Product = __decorate([
     sequelize_typescript_1.Table
 ], Product);

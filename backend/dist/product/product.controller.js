@@ -22,11 +22,11 @@ let ProductController = class ProductController {
     }
     async createProduct(req) {
         try {
-            const { name, username, storeName, userId, subDescription, content, images, SKU, quantity = 1, category, colors, tags, regularPrice, salePrice, tax, publish } = req.body;
+            const { name, username, storeName, userId, subDescription, content, images, SKU, quantity = 1, category, colors, tags, regularPrice, salePrice, tax, publish, type, variables } = req.body;
             if (!name || !username || !storeName || !SKU || !category || !salePrice) {
                 throw new common_1.BadRequestException('Name ,Username,SKU,category, and salePrice are mandatory');
             }
-            return this.productService.createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish);
+            return this.productService.createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish, type, variables);
         }
         catch (error) {
             console.log(error.message);
@@ -45,14 +45,26 @@ let ProductController = class ProductController {
     }
     async exportProduct(req) {
         try {
-            const product = await product_model_1.Product.findAll({ attributes: { exclude: ['id', 'createdAt', 'updatedAt', 'reviews', 'publish', 'tax', 'tags', 'colors', 'content'] },
+            const product = await product_model_1.Product.findAll({
+                attributes: {
+                    exclude: [
+                        'id',
+                        'createdAt',
+                        'updatedAt',
+                        'reviews',
+                        'publish',
+                        'tax',
+                        'tags',
+                        'colors',
+                        'content',
+                    ],
+                },
                 offset: 0,
                 limit: 1,
             });
             return product;
         }
-        catch (error) {
-        }
+        catch (error) { }
     }
     async importProduct(req) {
         try {
@@ -61,7 +73,7 @@ let ProductController = class ProductController {
             for (let index = 0; index < products.length; index++) {
                 const element = products[index];
                 console.log(element);
-                const product = await product_model_1.Product.create({
+                await product_model_1.Product.create({
                     name: element.name,
                     username: element.username,
                     storeName: element.storeName,
@@ -69,8 +81,8 @@ let ProductController = class ProductController {
                     images: element.images,
                     SKU: element.SKU,
                     quantity: element.quantity,
-                    category: element.quantity
-                }).catch(errr => {
+                    category: element.quantity,
+                }).catch((errr) => {
                     console.log(errr);
                 });
             }
@@ -106,7 +118,7 @@ let ProductController = class ProductController {
         try {
             const { ids } = req.body;
             if (!ids.length) {
-                throw new common_1.BadRequestException("Ids array has zero elements");
+                throw new common_1.BadRequestException('Ids array has zero elements');
             }
             return this.productService.deleteProducts(ids);
         }

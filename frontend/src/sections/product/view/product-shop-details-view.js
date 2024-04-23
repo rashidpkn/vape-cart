@@ -105,6 +105,7 @@ export default function ProductShopDetailsView() {
             cart={checkout.cart}
             onAddCart={onAddCart}
             onGotoStep={onGotoStep}
+            setProduct={setProduct}
           />
         </Grid>
       </Grid>

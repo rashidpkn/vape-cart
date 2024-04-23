@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrdersController = void 0;
 const common_1 = require("@nestjs/common");
 const orders_service_1 = require("./orders.service");
+const orders_model_1 = require("../model/orders.model");
+const invoice_model_1 = require("../model/invoice.model");
 let OrdersController = class OrdersController {
     constructor(ordersService) {
         this.ordersService = ordersService;
@@ -31,7 +33,7 @@ let OrdersController = class OrdersController {
             throw error;
         }
     }
-    async getAllOders(req) {
+    async getAllOders() {
         try {
             return this.ordersService.getAllOders();
         }
@@ -68,6 +70,17 @@ let OrdersController = class OrdersController {
             throw error;
         }
     }
+    async updateStatus(req) {
+        try {
+            const { status } = req.body;
+            const { id } = req.params;
+            await orders_model_1.Orders.update({ status }, { where: { id } });
+            await invoice_model_1.Invoice.update({ status }, { where: { id } });
+        }
+        catch (error) {
+            throw error;
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -78,9 +91,8 @@ __decorate([
 ], OrdersController.prototype, "createOrder", null);
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], OrdersController.prototype, "getAllOders", null);
 __decorate([
@@ -104,6 +116,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], OrdersController.prototype, "updateOrders", null);
+__decorate([
+    (0, common_1.Patch)('status/:id'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], OrdersController.prototype, "updateStatus", null);
 OrdersController = __decorate([
     (0, common_1.Controller)('orders'),
     __metadata("design:paramtypes", [orders_service_1.OrdersService])

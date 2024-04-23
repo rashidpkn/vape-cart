@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useCallback, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 // @mui
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -20,6 +20,7 @@ import { fShortenNumber, fCurrency } from 'src/utils/format-number';
 import FormProvider from 'src/components/hook-form';
 import { Button } from '@mui/material';
 import Iconify from 'src/components/iconify';
+import { ColorPicker } from 'src/components/color-utils';
 //
 
 // ----------------------------------------------------------------------
@@ -30,6 +31,7 @@ export default function ProductDetailsSummary({
   onAddCart,
   onGotoStep,
   disabledActions,
+  setProduct,
   ...other
 }) {
   const router = useRouter();
@@ -68,7 +70,7 @@ export default function ProductDetailsSummary({
     defaultValues,
   });
 
-  const { reset, watch, handleSubmit } = methods;
+  const { reset, watch, handleSubmit,control } = methods;
 
   const values = watch();
 
@@ -126,11 +128,26 @@ export default function ProductDetailsSummary({
         Color
       </Typography>
 
-      <Stack direction="row">
+      {/* <Stack direction="row">
         {colors?.map((e) => (
           <Typography key={e}>{e} , </Typography>
         ))}
-      </Stack>
+
+      </Stack> */}
+
+<Controller
+        name="colors"
+        control={control}
+        render={({ field }) => (
+          <ColorPicker
+            colors={colors}
+            selected={field.value}
+            onSelectColor={field.onChange}
+            limit={4}
+          />
+        )}
+      />
+
     </Stack>
   );
 
@@ -230,6 +247,23 @@ export default function ProductDetailsSummary({
 
           {renderPrice}
 
+          <Typography variant="p">Variables</Typography>
+
+          {product.type === 'variable' && <Box display={'flex'} flexWrap={'wrap'} gap={3} >
+              {product.variables.map(variable=><Button onClick={()=>{
+                
+                  setProduct(pre=>({
+                    ...pre,
+                    name:name.split('(')[0].trim().concat(` ( ${variable.name} )`),
+                    salePrice:variable.price,regularPrice:0
+                  }))
+
+              }} variant='outlined' >
+                {variable.name} - {variable.price}
+              </Button>)}
+          </Box>}
+          
+
           {renderSubDescription}
         </Stack>
 
@@ -237,7 +271,7 @@ export default function ProductDetailsSummary({
 
         {renderColorOptions}
 
-        {renderSizeOptions}
+        {/* {renderSizeOptions} */}
 
         {renderQuantity}
 

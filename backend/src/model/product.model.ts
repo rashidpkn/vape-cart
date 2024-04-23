@@ -69,4 +69,21 @@ export class Product extends Model {
     name: string;
     email: string;
   }[];
+
+
+  @Column({
+    defaultValue:'Simple'
+  })
+  type:string
+
+  @Column({
+    type:DataType.ARRAY(DataType.JSON),
+    defaultValue:[]
+  })
+  variables:{
+    name:string,
+    price:number
+  }
+
+
 }
