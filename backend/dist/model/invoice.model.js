@@ -18,13 +18,16 @@ __decorate([
     __metadata("design:type", Object)
 ], Invoice.prototype, "invoiceTo", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.JSON, defaultValue: {
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.JSON,
+        defaultValue: {
             company: 'Vape Amazon',
             email: 'info@vapeamazon.com',
             fullAddress: 'vape amazon ,delhi',
             name: 'vape Monkey',
             phoneNumber: '123456',
-        } }),
+        },
+    }),
     __metadata("design:type", Object)
 ], Invoice.prototype, "invoiceFrom", void 0);
 __decorate([
@@ -53,7 +56,7 @@ __decorate([
 ], Invoice.prototype, "status", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.DATE
+        type: sequelize_typescript_1.DataType.DATE,
     }),
     __metadata("design:type", Date)
 ], Invoice.prototype, "dueDate", void 0);

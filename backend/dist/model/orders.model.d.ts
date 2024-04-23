@@ -1,4 +1,4 @@
-import { Model } from "sequelize-typescript";
+import { Model } from 'sequelize-typescript';
 export declare class Orders extends Model {
     items: {
         id: number;

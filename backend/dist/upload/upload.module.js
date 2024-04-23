@@ -16,11 +16,13 @@ let UploadModule = class UploadModule {
 };
 UploadModule = __decorate([
     (0, common_1.Module)({
-        imports: [platform_express_1.MulterModule.register({
-                dest: path.join(__dirname, '../../uploads')
-            })],
+        imports: [
+            platform_express_1.MulterModule.register({
+                dest: path.join(__dirname, '../../uploads'),
+            }),
+        ],
         controllers: [upload_controller_1.UploadController],
-        providers: [upload_service_1.UploadService]
+        providers: [upload_service_1.UploadService],
     })
 ], UploadModule);
 exports.UploadModule = UploadModule;

@@ -22,6 +22,8 @@ export class ProductService {
     salePrice: number,
     tax: number,
     publish: boolean,
+    type:string,
+        variables:[]
   ) {
     try {
       const product = await Product.create({
@@ -41,10 +43,13 @@ export class ProductService {
         salePrice,
         tax,
         publish,
+        type,
+        variables
       });
       return { product, message: 'Product is created' };
     } catch (error) {
-      throw error;
+      console.log(error.message);
+      // throw error;
     }
   }
 

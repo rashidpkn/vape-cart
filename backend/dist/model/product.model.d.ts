@@ -1,4 +1,4 @@
-import { Model } from "sequelize-typescript";
+import { Model } from 'sequelize-typescript';
 export declare class Product extends Model {
     name: string;
     username: string;
@@ -13,13 +13,18 @@ export declare class Product extends Model {
     colors: string[];
     tags: string[];
     regularPrice: number;
-    salePrice: Number;
-    tax: Number;
-    publish: Boolean;
+    salePrice: number;
+    tax: number;
+    publish: boolean;
     reviews: {
         rating: number;
         review: string;
         name: string;
         email: string;
     }[];
+    type: string;
+    variables: {
+        name: string;
+        price: number;
+    };
 }

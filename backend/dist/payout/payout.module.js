@@ -15,7 +15,7 @@ let PayoutModule = class PayoutModule {
 PayoutModule = __decorate([
     (0, common_1.Module)({
         controllers: [payout_controller_1.PayoutController],
-        providers: [payout_service_1.PayoutService]
+        providers: [payout_service_1.PayoutService],
     })
 ], PayoutModule);
 exports.PayoutModule = PayoutModule;

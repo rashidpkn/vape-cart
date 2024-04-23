@@ -15,7 +15,7 @@ let InvoiceModule = class InvoiceModule {
 InvoiceModule = __decorate([
     (0, common_1.Module)({
         controllers: [invoice_controller_1.InvoiceController],
-        providers: [invoice_service_1.InvoiceService]
+        providers: [invoice_service_1.InvoiceService],
     })
 ], InvoiceModule);
 exports.InvoiceModule = InvoiceModule;

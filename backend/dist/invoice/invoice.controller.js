@@ -19,7 +19,7 @@ let InvoiceController = class InvoiceController {
     constructor(invoiceService) {
         this.invoiceService = invoiceService;
     }
-    async getAllInvoice(req) {
+    async getAllInvoice() {
         try {
             return this.invoiceService.getAllInvoice();
         }
@@ -38,7 +38,7 @@ let InvoiceController = class InvoiceController {
             throw error;
         }
     }
-    async updateInvoice(req) {
+    async updateInvoice() {
         try {
             return this.invoiceService.updateInvoice();
         }
@@ -58,9 +58,8 @@ let InvoiceController = class InvoiceController {
 };
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], InvoiceController.prototype, "getAllInvoice", null);
 __decorate([
@@ -72,9 +71,8 @@ __decorate([
 ], InvoiceController.prototype, "getSingleInvoice", null);
 __decorate([
     (0, common_1.Patch)(),
-    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], InvoiceController.prototype, "updateInvoice", null);
 __decorate([

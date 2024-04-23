@@ -36,6 +36,8 @@ export class ProductController {
         salePrice,
         tax,
         publish,
+        type,
+        variables
       } = req.body;
       if (!name || !username || !storeName || !SKU || !category || !salePrice) {
         throw new BadRequestException(
@@ -59,6 +61,8 @@ export class ProductController {
         salePrice,
         tax,
         publish,
+        type,
+        variables
       );
     } catch (error) {
       console.log(error.message);

@@ -14,16 +14,32 @@ let OrdersService = class OrdersService {
     async createOrder(items, subTotal, shipping, discount, totalAmount, totalQuantity, customer, shippingAddress) {
         try {
             const dueDate = new Date(new Date().setDate(new Date().getDate() + 5));
-            const order = orders_model_1.Orders.create({ items, subTotal, shipping, discount, totalAmount, totalQuantity, customer, shippingAddress });
-            const invoice = invoice_model_1.Invoice.create({ items, subTotal, shipping, discount, totalAmount, totalQuantity, invoiceTo: {
+            await orders_model_1.Orders.create({
+                items,
+                subTotal,
+                shipping,
+                discount,
+                totalAmount,
+                totalQuantity,
+                customer,
+                shippingAddress,
+            });
+            await invoice_model_1.Invoice.create({
+                items,
+                subTotal,
+                shipping,
+                discount,
+                totalAmount,
+                totalQuantity,
+                invoiceTo: {
                     email: customer.email,
                     fullAddress: shippingAddress.fullAddress,
                     name: customer.name,
-                    phoneNumber: shippingAddress.phoneNumber
+                    phoneNumber: shippingAddress.phoneNumber,
                 },
-                dueDate
+                dueDate,
             });
-            return { message: "Order is successfully placed" };
+            return { message: 'Order is successfully placed' };
         }
         catch (error) {
             throw error;
@@ -42,7 +58,7 @@ let OrdersService = class OrdersService {
         try {
             const orders = await orders_model_1.Orders.findOne({ where: { id } });
             if (!orders) {
-                throw new common_1.NotFoundException("Order is not found");
+                throw new common_1.NotFoundException('Order is not found');
             }
             return orders;
         }
@@ -52,8 +68,8 @@ let OrdersService = class OrdersService {
     }
     async deleteOrder(id) {
         try {
-            const deletedOrders = await orders_model_1.Orders.destroy({ where: { id } });
-            return { message: "Order Deleted" };
+            await orders_model_1.Orders.destroy({ where: { id } });
+            return { message: 'Order Deleted' };
         }
         catch (error) {
             throw error;

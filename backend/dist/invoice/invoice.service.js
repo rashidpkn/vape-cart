@@ -37,8 +37,8 @@ let InvoiceService = class InvoiceService {
     }
     async deleteInvoice(id) {
         try {
-            const invoice = await invoice_model_1.Invoice.destroy({ where: { id } });
-            return { message: "Invoice were deleted" };
+            await invoice_model_1.Invoice.destroy({ where: { id } });
+            return { message: 'Invoice were deleted' };
         }
         catch (error) {
             throw error;

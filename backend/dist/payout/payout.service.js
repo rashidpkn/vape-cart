@@ -12,7 +12,7 @@ const payout_model_1 = require("../model/payout.model");
 let PayoutService = class PayoutService {
     async create(createPayoutDto) {
         try {
-            const { fName, email, phone, method, amount, account, currency, network, walletAddress } = createPayoutDto;
+            const { fName, email, phone, method, amount, account, currency, network, walletAddress, } = createPayoutDto;
             if (!fName || !email || !phone || !method || !amount) {
                 throw new common_1.BadRequestException('fName,email,phone,method and amount are mandatory');
             }
@@ -30,8 +30,18 @@ let PayoutService = class PayoutService {
             if (method === 'crypto' && !walletAddress) {
                 throw new common_1.BadRequestException('walletAddress is mandatory');
             }
-            await payout_model_1.Payout.create({ fName, email, phone, method, amount, account, currency, network, walletAddress });
-            return { message: "Payout Request successfull" };
+            await payout_model_1.Payout.create({
+                fName,
+                email,
+                phone,
+                method,
+                amount,
+                account,
+                currency,
+                network,
+                walletAddress,
+            });
+            return { message: 'Payout Request successfull' };
         }
         catch (error) {
             throw error;
@@ -39,14 +49,13 @@ let PayoutService = class PayoutService {
     }
     async findAll(query) {
         try {
-            let where = {};
+            const where = {};
             if (query.fName) {
                 where.fName = query.fName;
             }
             return await payout_model_1.Payout.findAll({ where });
         }
-        catch (error) {
-        }
+        catch (error) { }
     }
     async findOne(id) {
         try {
@@ -65,7 +74,7 @@ let PayoutService = class PayoutService {
                 throw new common_1.BadRequestException('Enter valid id');
             }
             await payout_model_1.Payout.update(updatePayoutDto, { where: { id } });
-            return { message: "updated" };
+            return { message: 'updated' };
         }
         catch (error) {
             throw error;
@@ -77,7 +86,7 @@ let PayoutService = class PayoutService {
                 throw new common_1.BadRequestException('Enter valid id');
             }
             await payout_model_1.Payout.destroy({ where: { id } });
-            return { message: "Payout is deleted" };
+            return { message: 'Payout is deleted' };
         }
         catch (error) {
             throw error;

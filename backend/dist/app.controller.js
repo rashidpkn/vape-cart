@@ -25,8 +25,7 @@ let AppController = class AppController {
             const filePath = (0, path_1.join)(__dirname, '..', 'uploads', file);
             return res.sendFile(filePath);
         }
-        catch (error) {
-        }
+        catch (error) { }
     }
 };
 __decorate([

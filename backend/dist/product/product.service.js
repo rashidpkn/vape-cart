@@ -12,25 +12,38 @@ const sequelize_1 = require("sequelize");
 const product_model_1 = require("../model/product.model");
 const storeAnalytics_model_1 = require("../model/storeAnalytics.model");
 let ProductService = class ProductService {
-    async createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish) {
+    async createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish, type, variables) {
         try {
             const product = await product_model_1.Product.create({
-                name, username, storeName, userId,
-                subDescription, content,
-                images, SKU, quantity,
-                category, colors, tags,
-                regularPrice, salePrice, tax, publish
+                name,
+                username,
+                storeName,
+                userId,
+                subDescription,
+                content,
+                images,
+                SKU,
+                quantity,
+                category,
+                colors,
+                tags,
+                regularPrice,
+                salePrice,
+                tax,
+                publish,
+                type,
+                variables
             });
-            return { product, message: "Product is created" };
+            return { product, message: 'Product is created' };
         }
         catch (error) {
-            throw error;
+            console.log(error.message);
         }
     }
     async getAllProduct(query) {
         try {
-            const { username, userId, name, category, inStock, publish, draft, perPage = 20, pageNo = 1, sortBy } = query;
-            let where = {};
+            const { username, userId, name, category, inStock, publish, draft, perPage = 20, pageNo = 1, sortBy, } = query;
+            const where = {};
             let order = [];
             if (username)
                 where.username = username;
@@ -41,7 +54,7 @@ let ProductService = class ProductService {
             if (category)
                 where.category = category;
             if (inStock)
-                where.quantity = { [sequelize_1.Op.gt]: 0, };
+                where.quantity = { [sequelize_1.Op.gt]: 0 };
             if (publish)
                 where.publish = true;
             if (draft)
@@ -64,10 +77,13 @@ let ProductService = class ProductService {
         try {
             const product = await product_model_1.Product.findOne({ where: { id } });
             if (!product) {
-                throw new common_1.BadRequestException("Product not found");
+                throw new common_1.BadRequestException('Product not found');
             }
             if (count) {
-                const analytics = await storeAnalytics_model_1.StoreAnalytics.create({ storeName: product.storeName, name: product.name });
+                await storeAnalytics_model_1.StoreAnalytics.create({
+                    storeName: product.storeName,
+                    name: product.name,
+                });
             }
             return product;
         }
@@ -81,7 +97,9 @@ let ProductService = class ProductService {
             if (!found) {
                 throw new common_1.BadRequestException('Product not found');
             }
-            const product = await product_model_1.Product.update(update, { where: { id: update.id } });
+            await product_model_1.Product.update(update, {
+                where: { id: update.id },
+            });
         }
         catch (error) {
             throw error;
@@ -89,8 +107,8 @@ let ProductService = class ProductService {
     }
     async deleteProducts(ids) {
         try {
-            const product = await product_model_1.Product.destroy({ where: { id: ids } });
-            return { message: "Products are deleted" };
+            await product_model_1.Product.destroy({ where: { id: ids } });
+            return { message: 'Products are deleted' };
         }
         catch (error) {
             throw error;
@@ -98,8 +116,8 @@ let ProductService = class ProductService {
     }
     async deleteProduct(id) {
         try {
-            const product = await product_model_1.Product.destroy({ where: { id } });
-            return { message: "Product is deleted" };
+            await product_model_1.Product.destroy({ where: { id } });
+            return { message: 'Product is deleted' };
         }
         catch (error) {
             throw error;
@@ -107,12 +125,12 @@ let ProductService = class ProductService {
     }
     async productReview(id, rating, review, name, email) {
         try {
-            let product = await product_model_1.Product.findOne({ where: { id } });
+            const product = await product_model_1.Product.findOne({ where: { id } });
             if (!product)
-                throw new common_1.BadRequestException("Product not found");
-            let reviews = [...product.reviews, { rating, review, name, email }];
-            let updatedProduct = await product_model_1.Product.update({ reviews }, { where: { id } });
-            return { message: "Review updated" };
+                throw new common_1.BadRequestException('Product not found');
+            const reviews = [...product.reviews, { rating, review, name, email }];
+            await product_model_1.Product.update({ reviews }, { where: { id } });
+            return { message: 'Review updated' };
         }
         catch (error) {
             throw error;
