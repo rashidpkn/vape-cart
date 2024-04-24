@@ -11,7 +11,7 @@ export class Product extends Model {
   @Column({ defaultValue: 'Vape Monkey' })
   storeName: string;
 
-  @Column({})
+  @Column({defaultValue:'tpquNGEnfDOqPlug2Nh7VdzgcJ33'})
   userId: string;
 
   @Column({ type: DataType.STRING(15000) })
@@ -29,10 +29,10 @@ export class Product extends Model {
   @Column
   SKU: string;
 
-  @Column({ defaultValue: 0 })
+  @Column({ defaultValue: 20 })
   quantity: number;
 
-  @Column
+  @Column({ defaultValue: 'None' })
   category: string;
 
   @Column({

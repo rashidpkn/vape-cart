@@ -111,25 +111,10 @@ export class ProductController {
   async importProduct(@Req() req: Request) {
     try {
       console.log('Uploading');
-      const products: any = req.body;
+      const products: [] = req.body;
 
-      for (let index = 0; index < products.length; index++) {
-        const element = products[index];
-        console.log(element);
-
-        await Product.create({
-          name: element.name,
-          username: element.username,
-          storeName: element.storeName,
-          subDescription: element.subDescription,
-          images: element.images,
-          SKU: element.SKU,
-          quantity: element.quantity,
-          category: element.quantity,
-        }).catch((errr) => {
-          console.log(errr);
-        });
-      }
+      await Product.bulkCreate(products)
+      
 
       console.log('Uploaded');
       return ' Done';
@@ -173,6 +158,8 @@ export class ProductController {
       throw error;
     }
   }
+
+  
 
   @Delete(':id')
   async deleteProduct(@Req() req: Request) {
