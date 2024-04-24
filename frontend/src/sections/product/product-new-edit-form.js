@@ -361,32 +361,7 @@ export default function ProductNewEditForm({ currentProduct }) {
               />
             </Box>
 
-            <RHFAutocomplete
-              name="tags"
-              label="Tags"
-              placeholder="+ Tags"
-              multiple
-              freeSolo
-              options={_tags.map((option) => option)}
-              getOptionLabel={(option) => option}
-              renderOption={(props, option) => (
-                <li {...props} key={option}>
-                  {option}
-                </li>
-              )}
-              renderTags={(selected, getTagProps) =>
-                selected.map((option, index) => (
-                  <Chip
-                    {...getTagProps({ index })}
-                    key={option}
-                    label={option}
-                    size="small"
-                    color="info"
-                    variant="soft"
-                  />
-                ))
-              }
-            />
+            
 
             {values.type === 'variable' && (
               <Box
@@ -425,6 +400,36 @@ export default function ProductNewEditForm({ currentProduct }) {
                 ))}
               </Box>
             )}
+
+
+<RHFAutocomplete
+              name="tags"
+              label="Tags"
+              placeholder="+ Tags"
+              multiple
+              freeSolo
+              options={_tags.map((option) => option)}
+              getOptionLabel={(option) => option}
+              renderOption={(props, option) => (
+                <li {...props} key={option}>
+                  {option}
+                </li>
+              )}
+              renderTags={(selected, getTagProps) =>
+                selected.map((option, index) => (
+                  <Chip
+                    {...getTagProps({ index })}
+                    key={option}
+                    label={option}
+                    size="small"
+                    color="info"
+                    variant="soft"
+                  />
+                ))
+              }
+            />
+
+
           </Stack>
         </Card>
       </Grid>

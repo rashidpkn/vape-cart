@@ -24,7 +24,7 @@ import { ColorPicker } from 'src/components/color-utils';
 //
 
 // ----------------------------------------------------------------------
-
+import parse from 'html-react-parser';
 export default function ProductDetailsSummary({
   cart,
   product,
@@ -201,9 +201,10 @@ export default function ProductDetailsSummary({
   );
 
   const renderSubDescription = (
-    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-      {subDescription}
-    </Typography>
+    // <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+    //   {subDescription}
+    // </Typography>
+    parse(subDescription)
   );
 
   const renderRating = (
