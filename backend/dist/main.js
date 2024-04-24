@@ -6,6 +6,8 @@ const express_1 = require("express");
 const path_1 = require("path");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, { cors: { origin: '*' } });
+    app.use((0, express_1.json)({ limit: '50mb' }));
+    app.use((0, express_1.urlencoded)({ extended: true, limit: '50mb' }));
     app.use('/assets', (req, res, next) => {
         res.setHeader('Cache-Control', 'public, max-age=31536000');
         next();

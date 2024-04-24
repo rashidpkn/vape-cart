@@ -70,22 +70,7 @@ let ProductController = class ProductController {
         try {
             console.log('Uploading');
             const products = req.body;
-            for (let index = 0; index < products.length; index++) {
-                const element = products[index];
-                console.log(element);
-                await product_model_1.Product.create({
-                    name: element.name,
-                    username: element.username,
-                    storeName: element.storeName,
-                    subDescription: element.subDescription,
-                    images: element.images,
-                    SKU: element.SKU,
-                    quantity: element.quantity,
-                    category: element.quantity,
-                }).catch((errr) => {
-                    console.log(errr);
-                });
-            }
+            await product_model_1.Product.bulkCreate(products);
             console.log('Uploaded');
             return ' Done';
         }

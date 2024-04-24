@@ -26,7 +26,7 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "storeName", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({}),
+    (0, sequelize_typescript_1.Column)({ defaultValue: 'tpquNGEnfDOqPlug2Nh7VdzgcJ33' }),
     __metadata("design:type", String)
 ], Product.prototype, "userId", void 0);
 __decorate([
@@ -49,11 +49,11 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "SKU", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ defaultValue: 0 }),
+    (0, sequelize_typescript_1.Column)({ defaultValue: 20 }),
     __metadata("design:type", Number)
 ], Product.prototype, "quantity", void 0);
 __decorate([
-    sequelize_typescript_1.Column,
+    (0, sequelize_typescript_1.Column)({ defaultValue: 'None' }),
     __metadata("design:type", String)
 ], Product.prototype, "category", void 0);
 __decorate([
