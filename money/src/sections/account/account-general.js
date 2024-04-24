@@ -46,8 +46,8 @@ export default function AccountGeneral() {
     city: Yup.string().required('City is required'),
     zipCode: Yup.string().required('Zip code is required'),
     about: Yup.string().required('About is required'),
-    // not required
     isPublic: Yup.boolean(),
+    
   });
 
   const defaultValues = {
