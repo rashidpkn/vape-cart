@@ -32,6 +32,7 @@ export default function OverviewAppView() {
 
   const { user } = useAuthContext();
   const [products, setProducts] = useState([]);
+  const [count, setCount] = useState(0)
   const [orders, setOrders] = useState([]);
   const [invoice, setInvoice] = useState([]);
 
@@ -44,7 +45,7 @@ export default function OverviewAppView() {
           api.get('/invoice'),
         ]);
 
-        const {products} = productsResponse.data;
+        const { products, count } = productsResponse.data;
         const orders = ordersResponse.data;
         const invoice = invoiceResponse.data;
 
@@ -58,6 +59,7 @@ export default function OverviewAppView() {
 
         setOrders(filteredOrders);
         setProducts(products);
+        setCount(count)
         setInvoice(filteredInvoice);
       } catch (error) {
         console.error('An error occurred:', error);
@@ -74,7 +76,7 @@ export default function OverviewAppView() {
         <Grid xs={12} md={12}>
           <AppWelcome
             title={`Welcome back 👋 \n ${user?.displayName}`}
-            description="If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything."
+            description=""
             img={<SeoIllustration />}
             action={
               <Link to="/dashboard/product/new">
@@ -94,7 +96,7 @@ export default function OverviewAppView() {
           <AppWidgetSummary
             title="Total Product"
             percent={0}
-            total={products.length}
+            total={count}
             chart={{
               series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
