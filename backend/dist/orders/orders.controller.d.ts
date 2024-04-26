@@ -7,7 +7,7 @@ export declare class OrdersController {
     createOrder(req: Request): Promise<{
         message: string;
     }>;
-    getAllOders(): Promise<Orders[]>;
+    getAllOders(req: Request): Promise<Orders[]>;
     getSingleOrder(req: Request): Promise<Orders>;
     deleteOrder(req: Request): Promise<{
         message: string;

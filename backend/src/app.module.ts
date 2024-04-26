@@ -9,6 +9,8 @@ import { OrdersModule } from './orders/orders.module';
 import { InvoiceModule } from './invoice/invoice.module';
 import { StoreAnalyticsModule } from './store-analytics/store-analytics.module';
 import { PayoutModule } from './payout/payout.module';
+import { CustomersModule } from './customers/customers.module';
+
 
 @Module({
   imports: [
@@ -19,6 +21,7 @@ import { PayoutModule } from './payout/payout.module';
     InvoiceModule,
     StoreAnalyticsModule,
     PayoutModule,
+    CustomersModule,
     ClientModule,
   ],
   controllers: [AppController],

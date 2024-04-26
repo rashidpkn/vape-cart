@@ -33,9 +33,10 @@ let OrdersController = class OrdersController {
             throw error;
         }
     }
-    async getAllOders() {
+    async getAllOders(req) {
         try {
-            return this.ordersService.getAllOders();
+            const { query } = req;
+            return this.ordersService.getAllOders(query);
         }
         catch (error) {
             throw error;
@@ -91,8 +92,9 @@ __decorate([
 ], OrdersController.prototype, "createOrder", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], OrdersController.prototype, "getAllOders", null);
 __decorate([

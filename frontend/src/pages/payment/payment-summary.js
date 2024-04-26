@@ -219,7 +219,7 @@ export default function PaymentSummary({
                 setError('Enter your wallet address');
                 return;
               }
-            } else {
+            } else  if(method === 'wire transfer'){
               if (!account.name) {
                 setError('Enter your account name');
                 return;

@@ -8,7 +8,7 @@ import {
   Req,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
-import { Request } from 'express';
+import { request, Request } from 'express';
 import { Orders } from 'src/model/orders.model';
 import { Invoice } from 'src/model/invoice.model';
 
@@ -63,9 +63,10 @@ export class OrdersController {
 
   // get all orders
   @Get()
-  async getAllOders() {
+  async getAllOders(@Req() req:Request) {
     try {
-      return this.ordersService.getAllOders();
+      const {query} = req
+      return this.ordersService.getAllOders(query);
     } catch (error) {
       throw error;
     }

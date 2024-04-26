@@ -90,7 +90,13 @@ export default function PayoutTableRow({ item, fetchPayout }) {
                 }}
                 variant="contained"
                 onClick={async () => {
-                  setUploadDoc((prev) => !prev);
+                  if(item.method === 'cash'){
+                    await api.patch(`/payout/${item.id}`, { status: 'completed', transactionId });
+                    fetchPayout();
+                  }else{
+
+                    setUploadDoc((prev) => !prev);
+                  }
                 }}
               >
                 Accept
@@ -150,7 +156,7 @@ export default function PayoutTableRow({ item, fetchPayout }) {
                   </Button>
                 </div>
               )}
-              {item.method !== 'crypto' && (
+              {item.method === 'wire transfer' && (
                 <div
                   style={{
                     display: 'flex',
@@ -295,7 +301,7 @@ export default function PayoutTableRow({ item, fetchPayout }) {
                   <p>Transaction ID : {item.transactionId}</p>
                 </div>
               )}
-              {item.method !== 'crypto' && (
+              {item.method === 'wire transfer' && (
                 <div
                   style={{
                     display: 'flex',

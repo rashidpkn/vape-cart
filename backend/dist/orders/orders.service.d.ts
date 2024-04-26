@@ -9,7 +9,9 @@ export declare class OrdersService {
     }): Promise<{
         message: string;
     }>;
-    getAllOders(): Promise<Orders[]>;
+    getAllOders(query: {
+        email?: string;
+    }): Promise<Orders[]>;
     getSingleOrder(id: number): Promise<Orders>;
     deleteOrder(id: number): Promise<{
         message: string;

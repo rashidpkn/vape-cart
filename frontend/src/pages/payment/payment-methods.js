@@ -14,6 +14,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import Iconify from 'src/components/iconify';
 //
 import PaymentNewCardDialog from './payment-new-card-dialog';
+import { Icon } from '@iconify/react';
 
 // ----------------------------------------------------------------------
 
@@ -25,6 +26,10 @@ const PAYMENT_OPTIONS = [
   {
     value: 'wire transfer',
     label: 'Wire Transfer',
+  },
+  {
+    value: 'cash',
+    label: 'Cash',
   },
 ];
 
@@ -100,7 +105,7 @@ function OptionItem({ option, selected, isCredit, onOpen, ...other }) {
               )}
               {value === 'crypto' && <Iconify icon="logos:bitcoin" width={24} />}
               {value === 'crypto' && <Iconify icon="cryptocurrency-color:usdt" width={24} />}
-              {value === 'cash' && <Iconify icon="solar:wad-of-money-bold" width={24} />}
+              {value === 'cash' && <Icon icon="la:money-bill-wave-alt" style={{color:'#81b562'}}   width={24} />}
             </Stack>
           </Stack>
         }
