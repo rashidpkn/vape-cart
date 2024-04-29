@@ -77,7 +77,7 @@ export default function ProductDetailsView() {
 
   const settings = useSettingsContext();
 
-  const [currentTab, setCurrentTab] = useState('description');
+  const [currentTab, setCurrentTab] = useState('reviews');
 
   const [publish, setPublish] = useState('');
 
@@ -162,10 +162,10 @@ export default function ProductDetailsView() {
           }}
         >
           {[
-            {
-              value: 'description',
-              label: 'Description',
-            },
+            // {
+            //   value: 'description',
+            //   label: 'Description',
+            // },
             {
               value: 'reviews',
               // label: `Reviews (${product?.reviews.length})`,
@@ -176,9 +176,9 @@ export default function ProductDetailsView() {
           ))}
         </Tabs>
 
-        {currentTab === 'description' && (
+        {/* {currentTab === 'description' && (
           <ProductDetailsDescription description={product?.content} />
-        )}
+        )} */}
 
         {currentTab === 'reviews' && (
           <ProductDetailsReview

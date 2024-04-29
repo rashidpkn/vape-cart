@@ -22,11 +22,11 @@ let ProductController = class ProductController {
     }
     async createProduct(req) {
         try {
-            const { name, username, storeName, userId, subDescription, content, images, SKU, quantity = 1, category, colors, tags, regularPrice, salePrice, tax, publish, type, variables } = req.body;
+            const { name, username, storeName, userId, subDescription, content, images, SKU, quantity = 1, category, colors, tags, regularPrice, salePrice, tax, publish, type, variables, attributes } = req.body;
             if (!name || !username || !storeName || !SKU || !category || !salePrice) {
                 throw new common_1.BadRequestException('Name ,Username,SKU,category, and salePrice are mandatory');
             }
-            return this.productService.createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish, type, variables);
+            return this.productService.createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish, type, variables, attributes);
         }
         catch (error) {
             console.log(error.message);

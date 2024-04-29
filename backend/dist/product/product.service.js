@@ -12,7 +12,7 @@ const sequelize_1 = require("sequelize");
 const product_model_1 = require("../model/product.model");
 const storeAnalytics_model_1 = require("../model/storeAnalytics.model");
 let ProductService = class ProductService {
-    async createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish, type, variables) {
+    async createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish, type, variables, attributes) {
         try {
             const product = await product_model_1.Product.create({
                 name,
@@ -32,7 +32,8 @@ let ProductService = class ProductService {
                 tax,
                 publish,
                 type,
-                variables
+                variables,
+                attributes
             });
             return { product, message: 'Product is created' };
         }

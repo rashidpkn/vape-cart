@@ -24,7 +24,7 @@ import { paths } from 'src/routes/paths';
 // hooks
 import { useResponsive } from 'src/hooks/use-responsive';
 // _mock
-import { _tags, PRODUCT_COLOR_NAME_OPTIONS, PRODUCT_CATEGORY_GROUP_OPTIONS } from 'src/_mock';
+import { _tags, PRODUCT_COLOR_NAME_OPTIONS, PRODUCT_CATEGORY_GROUP_OPTIONS, ATTRIBUTES } from 'src/_mock';
 // components
 import { useSnackbar } from 'src/components/snackbar';
 import { useRouter } from 'src/routes/hook';
@@ -87,8 +87,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     }),
     [currentProduct]
   );
-
-  const [variables, setVariable] = useState([])
+  const [attributes, setAttributes] = useState([])
 
 
   const methods = useForm({
@@ -143,7 +142,7 @@ export default function ProductNewEditForm({ currentProduct }) {
           username: user.displayName,
           userId: user.id,
           storeName: user.storeName,
-          variables
+          attributes
         });
       } else {
         await api.post('products', {
@@ -151,7 +150,7 @@ export default function ProductNewEditForm({ currentProduct }) {
           username: user.displayName,
           userId: user.id,
           storeName: user.storeName,
-          variables
+          attributes
         });
       }
       reset();
@@ -335,10 +334,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                   'Liquids',
                   'Devices',
                   'Accessories',
-                  'Batteries',
-                  'Bottle Size',
-                  'Nicotine Level',
-                  'Puffs',
                 ].map((classify) => (
                   <option key={classify} value={classify}>
                     {classify}
@@ -353,16 +348,17 @@ export default function ProductNewEditForm({ currentProduct }) {
                 </RHFSelect>
               )}
 
-              <RHFMultiSelect
+              {/* <RHFMultiSelect
                 checkbox
                 name="colors"
                 label="Colors"
                 options={PRODUCT_COLOR_NAME_OPTIONS}
-              />
+              /> */}
             </Box>
 
             
 
+           
             {values.type === 'variable' && (
               <Box
                 sx={{
@@ -374,31 +370,59 @@ export default function ProductNewEditForm({ currentProduct }) {
               >
                 {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(
                   (c) => c.group === values.category
-                )?.classify?.map((name) => (
-                  <TextField
-                  key={name}
-                    type="number"
-                    size="small"
-                    sx={{ width: '20%' }}
-                    label={`${name}`}
-                    value={variables?.find(e=>e.name === name)?.price}
-                    onChange={(ev) => {
-                      let price = parseFloat(ev.target.value)
-                      setVariable((prev) => {
-                        let filtered = prev.filter(item => !!item?.price);
-                        let existingItem = filtered.find(item => item.name === name);
-                        if (existingItem) {
-                          existingItem.price = price;
-                        } else {
-                          filtered.push({ name, price: price });
-                        }
-                        filtered = filtered.filter(item => !!item?.price);
-                          return filtered;
-                      });
-                  }}
+                )?.classify?.map((e) => (
+                  <Autocomplete
+                    fullWidth
+                    key={e}
+                    multiple
+                    options={ATTRIBUTES.find(att => att.group === e)?.attributes || []}
+                    value={attributes[e] || []}
+                    onChange={(event, newValue) => {
+                
+
+
+                      if (newValue.length === 0) {
+                  
+                        setAttributes(prevState => {
+                          const updatedState = { ...prevState };
+                          delete updatedState[e];
+                          return updatedState;
+                        });
+                      } else {
+    
+                        setAttributes(prevState => ({
+                          ...prevState,
+                          [e]: newValue
+                        }));
+                      }
+
+
+                    }}
+                    renderTags={(value, getTagProps) =>
+                      value.map((option, index) => (
+                        <Chip
+                          key={index}
+                          variant="outlined"
+                          label={option}
+                          {...getTagProps({ index })}
+                          style={{ margin: '2px' }}
+                        />
+                      ))
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={`${e} Attributes`}
+                        variant="outlined"
+                        fullWidth
+                      />
+                    )}
                   />
                 ))}
               </Box>
+
+
+
             )}
 
 

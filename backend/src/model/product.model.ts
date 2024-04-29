@@ -77,12 +77,18 @@ export class Product extends Model {
   type:string
 
   @Column({
-    type:DataType.ARRAY(DataType.JSON),
-    defaultValue:[]
+    type:DataType.JSON,
+    defaultValue:{}
   })
-  variables:{
-    name:string,
-    price:number
+  attributes:{
+    Brand:string[],
+    Flavor:string[],
+    Puffs:string[],
+    "Nicotine Strength":string[],
+    "Bottles Size":string[],
+    Color:string[],
+    Batteries:string[],
+    Type:string[]
   }
 
 

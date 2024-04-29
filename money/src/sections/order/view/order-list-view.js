@@ -53,6 +53,7 @@ const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...ORDER_STATUS_OPTIONS]
 const TABLE_HEAD = [
   { id: 'orderNumber', label: 'Order', width: 116 },
   { id: 'name', label: 'Customer' },
+  { id: 'partners', label: 'Partners' },  
   { id: 'createdAt', label: 'Date', width: 140 },
   { id: 'totalQuantity', label: 'Items', width: 120, align: 'center' },
   { id: 'totalAmount', label: 'Price', width: 140 },
@@ -164,6 +165,7 @@ export default function OrderListView() {
   );
 
   const [tab, setTab] = useState('all');
+
 
   return (
     <>
@@ -300,6 +302,7 @@ export default function OrderListView() {
                     )
                     .map((row) => (
                       <OrderTableRow
+                      store={store}
                         key={row.id}
                         row={row}
                         selected={table.selected.includes(row.id)}

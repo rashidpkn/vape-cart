@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
-export default function UserCard({ user, products }) {
+export default function UserCard({ user, products = [], orders = [] }) {
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -31,9 +31,7 @@ export default function UserCard({ user, products }) {
     coverUrl,
     displayName,
     totalFollowers,
-    totalPosts,
-    avatarUrl,
-    totalFollowing,
+    uid
   } = user;
 
   return (
@@ -129,7 +127,8 @@ export default function UserCard({ user, products }) {
           <Typography variant="caption" component="div" sx={{ mb: 0.5, color: 'text.secondary' }}>
             Revenue
           </Typography>
-          {fShortenNumber(totalPosts)}
+          {orders?.reduce((acc, order) => (order.items?.[0]?.userId === uid ? acc + order.subTotal : acc), 0)}
+          {/* {fShortenNumber(totalPosts)} */}
         </div>
       </Box>
     </Card>

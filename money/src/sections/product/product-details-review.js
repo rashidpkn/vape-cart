@@ -19,7 +19,7 @@ import ProductReviewNewForm from './product-review-new-form';
 
 // ----------------------------------------------------------------------
 
-export default function ProductDetailsReview({ reviews }) {
+export default function ProductDetailsReview({ reviews=[] }) {
   const review = useBoolean();
 
   const renderSummary = (

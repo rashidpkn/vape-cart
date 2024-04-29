@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { useCallback, useMemo, useEffect } from 'react';
+import { useCallback, useMemo, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
@@ -20,7 +20,7 @@ import { paths } from 'src/routes/paths';
 // hooks
 import { useResponsive } from 'src/hooks/use-responsive';
 // _mock
-import { _tags, PRODUCT_COLOR_NAME_OPTIONS, PRODUCT_CATEGORY_GROUP_OPTIONS } from 'src/_mock';
+import { _tags, PRODUCT_COLOR_NAME_OPTIONS, PRODUCT_CATEGORY_GROUP_OPTIONS, ATTRIBUTES } from 'src/_mock';
 // components
 import { useSnackbar } from 'src/components/snackbar';
 import { useRouter } from 'src/routes/hook';
@@ -34,7 +34,7 @@ import FormProvider, {
 } from 'src/components/hook-form';
 import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
-import { TextField } from '@mui/material';
+import { Autocomplete, TextField } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -115,6 +115,7 @@ export default function ProductNewEditForm({ currentProduct }) {
           username: user.displayName,
           userId: user.id,
           storeName: user.storeName,
+          attributes
         });
       } else {
         await api.post('products', {
@@ -122,6 +123,7 @@ export default function ProductNewEditForm({ currentProduct }) {
           username: user.displayName,
           userId: user.id,
           storeName: user.storeName,
+          attributes
         });
       }
 
@@ -159,6 +161,12 @@ export default function ProductNewEditForm({ currentProduct }) {
   const handleRemoveAllFiles = useCallback(() => {
     setValue('images', []);
   }, [setValue]);
+
+
+  const [attributes, setAttributes] = useState([])
+
+  console.log(attributes);
+
 
   const renderDetails = (
     <>
@@ -262,10 +270,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                   'Liquids',
                   'Devices',
                   'Accessories',
-                  'Batteries',
-                  'Bottle Size',
-                  'Nicotine Level',
-                  'Puffs',
                 ].map((classify) => (
                   <option key={classify} value={classify}>
                     {classify}
@@ -276,21 +280,26 @@ export default function ProductNewEditForm({ currentProduct }) {
               {values.category !== 'None' && (
                 <RHFSelect native name="type" label="Type" InputLabelProps={{ shrink: true }}>
                   <option value="simple">Simple</option>
-                  <option value="variation">Variation</option>
+                  <option value="variable">Variable</option>
                 </RHFSelect>
               )}
-
+              {/* 
               <RHFMultiSelect
                 checkbox
                 name="colors"
                 label="Colors"
                 options={PRODUCT_COLOR_NAME_OPTIONS}
-              />
+              /> */}
             </Box>
 
 
 
-            {values.type === 'variation' && (
+
+
+
+
+
+            {values.type === 'variable' && (
               <Box
                 sx={{
                   display: 'flex',
@@ -302,14 +311,62 @@ export default function ProductNewEditForm({ currentProduct }) {
                 {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(
                   (c) => c.group === values.category
                 )?.classify?.map((e) => (
-                  <TextField
-                    type="number"
-                    size="small"
-                    sx={{ width: '20%' }}
-                    label={`${e} Price`}
+                  <Autocomplete
+                    fullWidth
+                    key={e}
+                    multiple
+                    options={ATTRIBUTES.find(att => att.group === e)?.attributes || []}
+                    value={attributes[e] || []}
+                    onChange={(event, newValue) => {
+                      // setAttributes(prevState => ({
+                      //   ...prevState,
+                      //   [e]: newValue
+                      // }
+                      // ))
+
+
+                      if (newValue.length === 0) {
+                        // If newValue is empty, omit the key from selectedAttributes
+                        setAttributes(prevState => {
+                          const updatedState = { ...prevState };
+                          delete updatedState[e];
+                          return updatedState;
+                        });
+                      } else {
+                        // If newValue is not empty, update selectedAttributes
+                        setAttributes(prevState => ({
+                          ...prevState,
+                          [e]: newValue
+                        }));
+                      }
+
+
+                    }}
+                    renderTags={(value, getTagProps) =>
+                      value.map((option, index) => (
+                        <Chip
+                          key={index}
+                          variant="outlined"
+                          label={option}
+                          {...getTagProps({ index })}
+                          style={{ margin: '2px' }}
+                        />
+                      ))
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={`${e} Attributes`}
+                        variant="outlined"
+                        fullWidth
+                      />
+                    )}
                   />
                 ))}
               </Box>
+
+
+
             )}
 
             <RHFAutocomplete

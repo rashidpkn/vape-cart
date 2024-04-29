@@ -87,7 +87,7 @@ export default function ProductListView() {
       try {
         const {
           data: { products: p, count },
-        } = await api.get('products');
+        } = await api.get('products',{params:{perPage:10000}});
         setProducts(p);
       } catch (error) {
         alert('error Occure');

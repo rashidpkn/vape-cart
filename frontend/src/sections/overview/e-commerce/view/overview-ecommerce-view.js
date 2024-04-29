@@ -46,7 +46,7 @@ export default function OverviewEcommerceView() {
           api.get('/invoice'),
         ]);
 
-        const {products} = productsResponse.data;
+        const { products } = productsResponse.data;
         const orders = ordersResponse.data;
         const invoice = invoiceResponse.data;
 
@@ -109,7 +109,7 @@ export default function OverviewEcommerceView() {
           <EcommerceWidgetSummary
             title="Sales Profit"
             percent={0}
-            total={orders.reduce((a, b) => a + b.totalAmount, 0)}
+            total={orders.reduce((a, b) => a + b.totalAmount, 0) * 0.8}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
               series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

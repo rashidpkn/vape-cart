@@ -19,7 +19,7 @@ import ProductReviewNewForm from './product-review-new-form';
 
 // ----------------------------------------------------------------------
 
-export default function ProductDetailsReview({ reviews }) {
+export default function ProductDetailsReview({ reviews=[] }) {
   const review = useBoolean();
 
   const renderSummary = (
@@ -27,12 +27,12 @@ export default function ProductDetailsReview({ reviews }) {
       <Typography variant="subtitle2">Average rating</Typography>
 
       <Typography variant="h2">
-        {reviews.reduce((a, b) => a + b.rating, 0) / reviews.length}/5
+        {reviews?.reduce((a, b) => a + b.rating, 0) / reviews.length}/5
       </Typography>
 
       <Rating
         readOnly
-        value={reviews.reduce((a, b) => a + b.rating, 0) / reviews.length}
+        value={reviews?.reduce((a, b) => a + b.rating, 0) / reviews.length}
         precision={0.1}
       />
 

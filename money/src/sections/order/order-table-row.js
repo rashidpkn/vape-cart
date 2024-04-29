@@ -25,14 +25,18 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
-export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
-  const { id, items, status, createdAt, customer, totalQuantity, subTotal } = row;
+export default function OrderTableRow({ row, store = [], selected, onViewRow, onSelectRow, onDeleteRow }) {
+  const { id, items, status, createdAt, customer, totalQuantity, subTotal, userId } = row;
 
   const confirm = useBoolean();
 
   const collapse = useBoolean();
 
   const popover = usePopover();
+
+  console.log(store);
+  console.log(items[0].userId);
+
 
   const renderPrimary = (
     <TableRow hover selected={selected}>
@@ -63,6 +67,10 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
           primaryTypographyProps={{ typography: 'body2' }}
           secondaryTypographyProps={{ component: 'span', color: 'text.disabled' }}
         />
+      </TableCell>
+
+      <TableCell width={"300px"}>
+        {store?.find(e => e.uid === items[0].userId)?.displayName}
       </TableCell>
 
       <TableCell>

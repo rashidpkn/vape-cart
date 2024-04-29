@@ -25,6 +25,7 @@ import { ColorPicker } from 'src/components/color-utils';
 
 // ----------------------------------------------------------------------
 import parse from 'html-react-parser';
+import { useState } from 'react';
 export default function ProductDetailsSummary({
   cart,
   product,
@@ -70,7 +71,7 @@ export default function ProductDetailsSummary({
     defaultValues,
   });
 
-  const { reset, watch, handleSubmit,control } = methods;
+  const { reset, watch, handleSubmit, control } = methods;
 
   const values = watch();
 
@@ -135,7 +136,7 @@ export default function ProductDetailsSummary({
 
       </Stack> */}
 
-<Controller
+      <Controller
         name="colors"
         control={control}
         render={({ field }) => (
@@ -204,8 +205,8 @@ export default function ProductDetailsSummary({
     // <Typography variant="body2" sx={{ color: 'text.secondary' }}>
     //   {subDescription}
     // </Typography>
-    parse(subDescription)
-  );
+    !!subDescription && parse(subDescription)
+  )
 
   const renderRating = (
     <Stack
@@ -236,6 +237,9 @@ export default function ProductDetailsSummary({
     </Box>
   );
 
+  const attributes = product?.attributes ? Object.keys(product?.attributes) : []
+
+  const [selectedAttributes, setSelectedAttributes] = useState([])
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={3} sx={{ pt: 3 }} {...other}>
@@ -248,22 +252,23 @@ export default function ProductDetailsSummary({
 
           {renderPrice}
 
-          <Typography variant="p">Variables</Typography>
 
-          {product.type === 'variable' && <Box display={'flex'} flexWrap={'wrap'} gap={3} >
-              {product.variables.map(variable=><Button onClick={()=>{
-                
-                  setProduct(pre=>({
-                    ...pre,
-                    name:name.split('(')[0].trim().concat(` ( ${variable.name} )`),
-                    salePrice:variable.price,regularPrice:0
-                  }))
+        <Box>
+          {attributes.length && <Typography variant="p">Variables</Typography>}
 
-              }} variant='outlined' >
-                {variable.name} - {variable.price}
-              </Button>)}
-          </Box>}
-          
+          {
+            attributes.map(e=><Box key={e}>
+              <p style={{margin:'10px 0px',fontSize:'14px'}} >{e}</p>
+              {product.attributes[e].map(ev=><Button key={ev} size='small' variant='outlined'  sx={{mx:0.25,fontSize:'12px',}} style={{fontSize:'12px',fontWeight:'400',border:selectedAttributes.find(ep=>ep==ev) ? '2px solid':'1px solid'}} onClick={()=>{
+                if(selectedAttributes.find(att=>att===ev)){
+                  setSelectedAttributes(selectedAttributes.filter(at=>at!==ev))
+              }else{
+                setSelectedAttributes(prev=>([...prev,ev]))
+              }
+              }}> {ev}</Button>)}
+            </Box>)
+          }
+          </Box>
 
           {renderSubDescription}
         </Stack>

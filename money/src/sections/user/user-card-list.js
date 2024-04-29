@@ -12,6 +12,7 @@ import UserCard from './user-card';
 
 export default function UserCardList() {
   const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([])
 
   const [store, setStore] = useState([]);
 
@@ -27,9 +28,16 @@ export default function UserCardList() {
   };
 
   useEffect(() => {
-    api.get('/products').then((res) => {
+    api.get('/products',{params:{
+      perPage:10000
+    }}).then((res) => {
       setProducts(res.data.products);
     });
+
+    api.get('/orders').then(res=>{
+      setOrders(res.data)
+    })
+
     getUsers();
   }, []);
 
@@ -45,7 +53,7 @@ export default function UserCardList() {
       }}
     >
       {store?.map((user) => (
-        <UserCard key={user.uid} user={user} products={products} />
+        <UserCard key={user.uid} user={user} products={products} orders={orders} />
       ))}
     </Box>
   );
