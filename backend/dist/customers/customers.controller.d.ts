@@ -6,7 +6,9 @@ export declare class CustomersController {
     constructor(customersService: CustomersService);
     create(createCustomerDto: CreateCustomerDto): Promise<{
         message: string;
+        customer: import("../model/customers.model").Customers;
     }>;
+    findAll(): Promise<import("../model/customers.model").Customers[]>;
     update(id: string, updateCustomerDto: UpdateCustomerDto): Promise<{
         message: string;
     }>;

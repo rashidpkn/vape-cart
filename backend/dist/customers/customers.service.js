@@ -15,12 +15,15 @@ let CustomersService = class CustomersService {
             const found = await customers_model_1.Customers.findOne({ where: { email: createCustomerDto.email } });
             if (found) {
                 if (found.password === createCustomerDto.password) {
-                    return { message: 'Login successfull' };
+                    return { message: 'Login successfull', customer: found };
                 }
                 throw new common_1.BadRequestException("Check your email and password");
             }
-            await customers_model_1.Customers.create(Object.assign({}, createCustomerDto));
-            return { message: 'Account created' };
+            if (!createCustomerDto.fName) {
+                throw new common_1.BadRequestException("Account not existed");
+            }
+            const customer = await customers_model_1.Customers.create(Object.assign({}, createCustomerDto));
+            return { message: 'Account created', customer };
         }
         catch (error) {
             throw error;

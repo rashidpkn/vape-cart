@@ -24,6 +24,9 @@ let CustomersController = class CustomersController {
     create(createCustomerDto) {
         return this.customersService.create(createCustomerDto);
     }
+    findAll() {
+        return this.customersService.findAll();
+    }
     update(id, updateCustomerDto) {
         return this.customersService.update(+id, updateCustomerDto);
     }
@@ -38,6 +41,12 @@ __decorate([
     __metadata("design:paramtypes", [create_customer_dto_1.CreateCustomerDto]),
     __metadata("design:returntype", void 0)
 ], CustomersController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], CustomersController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),

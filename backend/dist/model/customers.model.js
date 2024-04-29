@@ -21,6 +21,14 @@ __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
 ], Customers.prototype, "password", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], Customers.prototype, "fName", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], Customers.prototype, "lName", void 0);
 Customers = __decorate([
     sequelize_typescript_1.Table
 ], Customers);

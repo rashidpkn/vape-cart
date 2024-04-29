@@ -7,4 +7,10 @@ export class Customers extends Model {
 
   @Column
   password: string;
+
+  @Column
+  fName: string;
+
+  @Column
+  lName: string;
 }

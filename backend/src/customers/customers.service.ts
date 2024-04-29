@@ -11,12 +11,16 @@ export class CustomersService {
       const found = await Customers.findOne({where:{email:createCustomerDto.email}})
       if(found){
         if(found.password === createCustomerDto.password){
-          return {message:'Login successfull'}    
+          return {message:'Login successfull',customer:found}    
         }
         throw new BadRequestException("Check your email and password")
       }
-      await Customers.create({...createCustomerDto})
-      return {message:'Account created'}
+      if(!createCustomerDto.fName){
+        throw new BadRequestException("Account not existed")
+
+      }
+      const customer = await Customers.create({...createCustomerDto})
+      return {message:'Account created',customer}
     } catch (error) {
       throw error
     }

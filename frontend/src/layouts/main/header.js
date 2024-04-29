@@ -47,6 +47,7 @@ import NavDesktop from './nav/desktop';
 import NavMobile from './nav/mobile';
 import { navConfig } from './config-navigation';
 import { HEADER } from '../config-layout';
+import ShowLogin from './ShowLogin';
 // ----------------------------------------------------------------------
 const style = {
   position: 'absolute',
@@ -65,23 +66,17 @@ export default function Header({ set }) {
 
   const { city, postal } = useSelector((state) => state.util.location);
   const dispatch = useDispatch();
-  const theme = useTheme();
 
-  const mdUp = useResponsive('up', 'md');
-
-  const offsetTop = useOffSetTop(HEADER.H_DESKTOP);
 
   const [showAll, setShowAll] = useState(false);
-  const [showAllLang, setShowAllLang] = useState(false);
+
   const [showAllSign, setShowAllSign] = useState(false);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const [value, setValue] = useState('');
-  const onChnage = (event) => {
-    setValue(event.target.value);
-  };
+
 
   const [result, setResults] = useState([]);
   const [input, setInput] = useState('');
@@ -97,9 +92,7 @@ export default function Header({ set }) {
     fetchProducts();
   }, [input]);
 
-  const handleChange = (value) => {
-    setInput(value);
-  };
+
 
   return (
     <AppBar>
@@ -405,7 +398,7 @@ export default function Header({ set }) {
               variant="p"
               style={{ fontSize: '12px', fontWeight: '400', height: '8px' }}
             >
-              Hello, Sign in
+              Hello {localStorage.customer ? JSON.parse(localStorage.customer).fName : ' Sign in'},
             </Typography>
             <Typography variant="p" style={{ fontSize: '14px', fontWeight: '700' }}>
               Account & Lists
@@ -414,121 +407,7 @@ export default function Header({ set }) {
               </span>
             </Typography>
             {showAllSign && (
-              <Box>
-                <ul
-                  className="sign_box"
-                  style={{
-                    position: 'absolute',
-                    width: '500px',
-                    height: 'auto',
-                    top: '35px',
-                    left: '-200px',
-                    overflowX: 'hidden',
-                    background: '#fff',
-                    color: '#000',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1',
-                    zIndex: '50',
-                    padding: '8px',
-                    border: '1px solid #131921',
-                  }}
-                >
-                  <Link
-                    to="/customer-dashboard"
-                    href=""
-                    style={{
-                      color: '#111111',
-                      textTransform: 'capitalize',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    <Button
-                      style={{
-                        background: '#FFD814',
-                        display: 'flex',
-                        margin: 'auto',
-                        width: '200px',
-                      }}
-                    >
-                      sign in
-                    </Button>
-                  </Link>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', px: 3 }}>
-                    <Typography
-                      variant="p"
-                      style={{
-                        fontSize: '12px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        padding: '10px 0px',
-                      }}
-                    >
-                      New Customer
-                      <Link
-                        to="/customer-dashboard"
-                        href="#"
-                        style={{ fontSize: '12px', textDecoration: 'none', paddingLeft: '5px' }}
-                      >
-                        <span> Start here.</span>
-                      </Link>
-                    </Typography>
-
-                    <Typography
-                      variant="p"
-                      style={{
-                        fontSize: '12px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        padding: '10px 0px',
-                      }}
-                    >
-                      Sell on vape amazon?
-                      <Link
-                        to="/auth/firebase/register"
-                        href="#"
-                        style={{ fontSize: '12px', textDecoration: 'none', paddingLeft: '5px' }}
-                      >
-                        <span> Click here</span>
-                      </Link>
-                    </Typography>
-                  </Box>
-                  <Divider />
-                  <Box
-                    style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}
-                  >
-                    <Box className="signUp">
-                      <Typography variant="p" style={{ fontWeight: 'bold' }}>
-                        Your List
-                      </Typography>
-                      <ul style={{ fontSize: '12px', padding: '0px', listStyleType: 'none' }}>
-                        {/* <li>
-                            <a>Create a Wish List</a>
-                          </li> */}
-                        <li>
-                          <Link to={'/product/checkout-2'}>Wishlist</Link >
-                        </li>
-                      </ul>
-                    </Box>
-                    <Box className="signUp">
-                      <Typography variant="p" style={{ fontWeight: 'bold' }}>
-                        Your Account
-                      </Typography>
-                      <ul style={{ fontSize: '12px', padding: '0px', listStyleType: 'none' }}>
-                        <li>
-                          <a>Your Account</a>
-                        </li>
-                        <li>
-                          <a>Your Orders</a>
-                        </li>
-                        {/* <li>
-                          <a>Your Wish list</a>
-                        </li> */}
-                      </ul>
-                    </Box>
-                  </Box>
-                </ul>
-              </Box>
+              <ShowLogin />
             )}
           </Box>
 

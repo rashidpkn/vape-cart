@@ -14,6 +14,7 @@ export default function Auth({customer, setCustomer,setLoginStatus}) {
     setError('')
     }, [customer])
     
+    const [type, setType] = useState('sign in')
 
   return (
     <>
@@ -27,13 +28,13 @@ export default function Auth({customer, setCustomer,setLoginStatus}) {
                    return
                }
                const {data} =  await api.post('/customers',customer)
-               localStorage.setItem('customer',JSON.stringify(customer))
+               localStorage.setItem('customer',JSON.stringify(data.customer))
                setError('')
                setMessage(data.message)
                setTimeout(() => {
                 
                    setLoginStatus(true)
-               }, 2000);
+               }, 500);
 
             } catch (error) {
                 setMessage('')
@@ -44,9 +45,16 @@ export default function Auth({customer, setCustomer,setLoginStatus}) {
             <h2>Welcome To Vape Amazon</h2>
             {!!error &&<Alert sx={{width:'100%'}} severity="error" >{error}</Alert>}
             {!!message &&<Alert sx={{width:'100%'}} severity="success" >{message}</Alert>}
+            {type === 'sign up' && <>
+            <TextField  fullWidth label='First Name' onChange={e=>setCustomer(prev=>({...prev,fName:e.target.value}))}  value={customer.fName} type='text' required/>
+            <TextField  fullWidth label='Last Name' onChange={e=>setCustomer(prev=>({...prev,lName:e.target.value}))}  value={customer.lName} type='text' required/>
+            </>}
             <TextField  fullWidth label='Email' onChange={e=>setCustomer(prev=>({...prev,email:e.target.value}))}  value={customer.email} type='email' required/>
             <TextField  fullWidth label='Password' onChange={e=>setCustomer(prev=>({...prev,password:e.target.value}))}  value={customer.password} type='password' required/>
-            <Button variant='contained' color='success' sx={{px:5,py:1}} type='submit'>Login</Button>
+            <Button variant='contained' color='success' sx={{px:5,py:1}} type='submit'>{type === 'sign in' ? 'Login' : 'Register'}</Button>
+            {type === 'sign in' ? <p style={{fontSize:'14px'}} onClick={()=>setType('sign up')}>Do you not have an Account?</p> :
+            <p style={{fontSize:'14px'}} onClick={()=>setType('sign in')}>Already have an Account?</p>}
+        
         </form>
     </div>
     </>

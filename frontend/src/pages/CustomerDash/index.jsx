@@ -8,7 +8,9 @@ export default function CustomerDash() {
   const [loginStatus, setLoginStatus] = useState(localStorage.loginStatus || false)
   const [customer, setCustomer] = useState(  localStorage.customer ||{
     email:'',    
-    password:''
+    password:'',
+    fName:'',
+    lName:''
   })
 
   useEffect(() => {
