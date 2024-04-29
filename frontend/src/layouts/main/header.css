@@ -11,3 +11,8 @@
 padding: 0px !important;
 }
 
+@media screen and (max-width: 600px){
+    .login-type{
+            flex-direction: column;
+    }
+}

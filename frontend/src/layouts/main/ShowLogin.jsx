@@ -61,7 +61,7 @@ const navigate = useNavigate()
                       {/* sign in */}
                     </Button>
                 
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', px: 3 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', px: 3 }} className='login-type'>
                     <Typography
                       variant="p"
                       style={{
