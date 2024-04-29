@@ -47,6 +47,7 @@ const TABLE_HEAD = [
   { id: 'createdAt', label: 'Create at', width: 160 },
   { id: 'inventoryType', label: 'Stock', width: 160 },
   { id: 'price', label: 'Price', width: 140 },
+  { id: 'sales Price', label: 'Sales Price', width: 140 },
   { id: 'publish', label: 'Publish', width: 110 },
   { id: '', width: 88 },
 ];
@@ -58,8 +59,7 @@ const PUBLISH_OPTIONS = [
 
 const defaultFilters = {
   name: '',
-  publish: [],
-  stock: [],
+  stock: '',
 };
 
 // ----------------------------------------------------------------------
@@ -218,7 +218,7 @@ export default function ProductListView() {
             publishOptions={PUBLISH_OPTIONS}
           />
 
-          {canReset && (
+          {/* {canReset && (
             <ProductTableFiltersResult
               filters={filters}
               onFilters={handleFilters}
@@ -228,7 +228,7 @@ export default function ProductListView() {
               results={dataFiltered.length}
               sx={{ p: 2.5, pt: 0 }}
             />
-          )}
+          )} */}
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
@@ -353,12 +353,11 @@ function applyFilter({ inputData, comparator, filters }) {
   }
 
   if (stock.length) {
-    inputData = inputData.filter((product) => stock.includes(product.inventoryType));
+    // inputData = inputData.filter((product) => stock.includes(product.inventoryType));
+    inputData = inputData.filter((product) => stock[0]==='in stock' ? !!product.quantity  : !product.quantity);
   }
 
-  if (publish.length) {
-    inputData = inputData.filter((product) => publish.includes(product.publish));
-  }
+
 
   return inputData;
 }

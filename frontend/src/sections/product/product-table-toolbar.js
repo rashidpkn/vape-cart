@@ -25,6 +25,7 @@ export default function ProductTableToolbar({
   publishOptions,
 }) {
   const popover = usePopover();
+  console.log(filters);
 
   const handleFilterName = useCallback(
     (event) => {
@@ -43,15 +44,6 @@ export default function ProductTableToolbar({
     [onFilters]
   );
 
-  const handleFilterPublish = useCallback(
-    (event) => {
-      onFilters(
-        'publish',
-        typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
-      );
-    },
-    [onFilters]
-  );
 
   return (
     <>
@@ -76,7 +68,7 @@ export default function ProductTableToolbar({
           <InputLabel>Stock</InputLabel>
 
           <Select
-            multiple
+            
             value={filters.stock}
             onChange={handleFilterStock}
             input={<OutlinedInput label="Stock" />}
@@ -96,34 +88,7 @@ export default function ProductTableToolbar({
           </Select>
         </FormControl>
 
-        <FormControl
-          sx={{
-            flexShrink: 0,
-            width: { xs: 1, md: 200 },
-          }}
-        >
-          <InputLabel>Publish</InputLabel>
-
-          <Select
-            multiple
-            value={filters.publish}
-            onChange={handleFilterPublish}
-            input={<OutlinedInput label="Publish" />}
-            renderValue={(selected) => selected.map((value) => value).join(', ')}
-            sx={{ textTransform: 'capitalize' }}
-          >
-            {publishOptions.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                <Checkbox
-                  disableRipple
-                  size="small"
-                  checked={filters.publish.includes(option.value)}
-                />
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        
 
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
           <TextField

@@ -32,7 +32,7 @@ export default function ProductTableRow({
   onEditRow,
   onViewRow,
 }) {
-  const { name, salePrice, publish, category, quantity, createdAt, inventoryType, images } = row;
+  const { name, salePrice, publish, category, quantity, createdAt, inventoryType, images,regularPrice } = row;
 
   const confirm = useBoolean();
 
@@ -100,6 +100,8 @@ export default function ProductTableRow({
           />
           {!!quantity && quantity} {inventoryType}
         </TableCell>
+
+        <TableCell>{fCurrency(regularPrice)}</TableCell>
 
         <TableCell>{fCurrency(salePrice)}</TableCell>
 

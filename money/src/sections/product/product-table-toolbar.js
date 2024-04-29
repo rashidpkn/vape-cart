@@ -76,7 +76,6 @@ export default function ProductTableToolbar({
           <InputLabel>Stock</InputLabel>
 
           <Select
-            multiple
             value={filters.stock}
             onChange={handleFilterStock}
             input={<OutlinedInput label="Stock" />}
@@ -96,7 +95,7 @@ export default function ProductTableToolbar({
           </Select>
         </FormControl>
 
-        <FormControl
+        {/* <FormControl
           sx={{
             flexShrink: 0,
             width: { xs: 1, md: 200 },
@@ -123,7 +122,7 @@ export default function ProductTableToolbar({
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
 
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
           <TextField
