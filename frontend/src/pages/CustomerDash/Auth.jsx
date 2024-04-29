@@ -52,7 +52,7 @@ export default function Auth({customer, setCustomer,setLoginStatus}) {
             <TextField  fullWidth label='Email' onChange={e=>setCustomer(prev=>({...prev,email:e.target.value}))}  value={customer.email} type='email' required/>
             <TextField  fullWidth label='Password' onChange={e=>setCustomer(prev=>({...prev,password:e.target.value}))}  value={customer.password} type='password' required/>
             <Button variant='contained' color='success' sx={{px:5,py:1}} type='submit'>{type === 'sign in' ? 'Login' : 'Register'}</Button>
-            {type === 'sign in' ? <p style={{fontSize:'14px'}} onClick={()=>setType('sign up')}>Do you not have an Account?</p> :
+            {type === 'sign in' ? <p style={{fontSize:'14px'}} onClick={()=>setType('sign up')}>Do you not have an Account? <span style={{fontSize:'14px',color:'#2382ed',cursor:'pointer'}}>Register</span></p> :
             <p style={{fontSize:'14px'}} onClick={()=>setType('sign in')}>Already have an Account?</p>}
         
         </form>
