@@ -100,12 +100,16 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "type", void 0);
 __decorate([
+    (0, sequelize_typescript_1.Column)({ defaultValue: [], type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING) }),
+    __metadata("design:type", Array)
+], Product.prototype, "attributes", void 0);
+__decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.JSON,
         defaultValue: {}
     }),
     __metadata("design:type", Object)
-], Product.prototype, "attributes", void 0);
+], Product.prototype, "variable", void 0);
 Product = __decorate([
     sequelize_typescript_1.Table
 ], Product);

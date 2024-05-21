@@ -55,10 +55,10 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
       </TableCell>
 
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar alt={customer.name} src={customer.avatarUrl} sx={{ mr: 2 }} />
+        <Avatar alt={customer?.name} src={customer?.avatarUrl} sx={{ mr: 2 }} />
 
         <ListItemText
-          primary={customer.name}
+          primary={customer?.name}
           // secondary={customer.email}
           primaryTypographyProps={{ typography: 'body2' }}
           secondaryTypographyProps={{ component: 'span', color: 'text.disabled' }}
@@ -78,10 +78,10 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
         />
       </TableCell>
 
-      <TableCell align="center"> {totalQuantity} </TableCell>
+      <TableCell align="center"> {items.length} </TableCell>
 
-      <TableCell> {fCurrency(subTotal)} </TableCell>
-      <TableCell> {fCurrency(subTotal * 0.2)} </TableCell>
+      <TableCell> {fCurrency(items.reduce((a,b)=>a+b.price,0))} </TableCell>
+      <TableCell> {fCurrency(items.reduce((a,b)=>a+b.price,0) * 0.2)} </TableCell>
 
       <TableCell>
         <Label
@@ -160,7 +160,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
 
                 <Box>x{item.quantity}</Box>
 
-                <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(item.salePrice)}</Box>
+                <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(item.price)}</Box>
               </Stack>
             ))}
           </Stack>

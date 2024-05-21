@@ -23,14 +23,6 @@ export declare class Product extends Model {
         email: string;
     }[];
     type: string;
-    attributes: {
-        Brand: string[];
-        Flavor: string[];
-        Puffs: string[];
-        "Nicotine Strength": string[];
-        "Bottles Size": string[];
-        Color: string[];
-        Batteries: string[];
-        Type: string[];
-    };
+    attributes: [string];
+    variable: {};
 }

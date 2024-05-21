@@ -102,11 +102,24 @@ export default function OrderListView() {
     fetchOrders();
   }, []);
 
+
+  function filterOrdersByUserId(orders, userId) {
+    return orders.map(order => {
+        
+        const filteredItems = order.items.filter(item => item.userId === userId);
+        return {
+            ...order,
+            items: filteredItems
+        };
+    });
+}
+
   useEffect(() => {
-    setTableData(
-      orders.filter((order) => order.items.some((item) => myProduct.includes(item.id))).reverse()
-    );
+    let sortOrders = orders.filter((order) => order.items.some((item) => myProduct.includes(item.id))).reverse()
+    setTableData(filterOrdersByUserId(sortOrders,id))
   }, [orders, myProduct]);
+
+
 
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
@@ -364,8 +377,8 @@ function applyFilter({ inputData, comparator, filters, dateError }) {
     inputData = inputData.filter(
       (order) =>
         order.orderNumber.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        order.customer.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        order.customer.email.toLowerCase().indexOf(name.toLowerCase()) !== -1
+        order.customer?.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
+        order.customer?.email.toLowerCase().indexOf(name.toLowerCase()) !== -1
     );
   }
 

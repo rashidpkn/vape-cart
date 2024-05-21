@@ -30,7 +30,14 @@ export default function OrderDetailsView() {
   const [currentOrder, setCurrentOrder] = useState({});
   const fetchOrder = async () => {
     try {
-      const { data } = await api.get(`orders/${id}`);
+      let { data } = await api.get(`orders/${id}`);
+      data.items = data.items.filter(item => item.userId !== "tpquNGEnfDOqPlug2Nh7VdzgcJ33");
+
+      
+      data.subTotal = data.items.reduce((sum, item) => sum + item.subTotal, 0);
+      data.totalQuantity = data.items.reduce((sum, item) => sum + item.quantity, 0);
+      data.totalAmount = data.subTotal + data.shipping;
+    
       setCurrentOrder(data);
       setStatus(data.status);
     } catch (error) {}

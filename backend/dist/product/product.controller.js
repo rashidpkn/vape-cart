@@ -16,17 +16,18 @@ exports.ProductController = void 0;
 const common_1 = require("@nestjs/common");
 const product_service_1 = require("./product.service");
 const product_model_1 = require("../model/product.model");
+const sequelize_1 = require("sequelize");
 let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
     }
     async createProduct(req) {
         try {
-            const { name, username, storeName, userId, subDescription, content, images, SKU, quantity = 1, category, colors, tags, regularPrice, salePrice, tax, publish, type, attributes } = req.body;
+            const { name, username, storeName, userId, subDescription, content, images, SKU, quantity = 1, category, colors, tags, regularPrice, salePrice, tax, publish, type, attributes, variable } = req.body;
             if (!name || !username || !storeName || !SKU || !category || !salePrice) {
                 throw new common_1.BadRequestException('Name ,Username,SKU,category, and salePrice are mandatory');
             }
-            return this.productService.createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish, type, attributes);
+            return this.productService.createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish, type, attributes, variable);
         }
         catch (error) {
             console.log(error.message);
@@ -40,6 +41,21 @@ let ProductController = class ProductController {
         }
         catch (error) {
             console.log(error);
+            throw error;
+        }
+    }
+    async similarProduct(word) {
+        try {
+            const product = await product_model_1.Product.findAll({ where: {
+                    name: {
+                        [sequelize_1.Op.iLike]: `%${word}%`
+                    }
+                },
+                limit: 6
+            });
+            return product;
+        }
+        catch (error) {
             throw error;
         }
     }
@@ -148,6 +164,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getAllProduct", null);
+__decorate([
+    (0, common_1.Get)('/similar-product/:word'),
+    __param(0, (0, common_1.Param)('word')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "similarProduct", null);
 __decorate([
     (0, common_1.Get)('/export'),
     __param(0, (0, common_1.Req)()),

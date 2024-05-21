@@ -23,7 +23,8 @@ export class ProductService {
     tax: number,
     publish: boolean,
     type:string,
-        attributes:{}[]
+        attributes:[string],
+        variable:{}
   ) {
     try {
       const product = await Product.create({
@@ -44,7 +45,8 @@ export class ProductService {
         tax,
         publish,
         type,
-        attributes
+        attributes,
+        variable
       });
       return { product, message: 'Product is created' };
     } catch (error) {

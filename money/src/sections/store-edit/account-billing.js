@@ -16,8 +16,6 @@ export default function AccountBilling({ user }) {
     setBilling(user.billing)
   }, [user])
 
-  console.log(user);
-
   const onSubmit = async () => {
     const userRef = doc(DB, 'users', user.uid);
     await updateDoc(userRef, { billing });
@@ -40,6 +38,10 @@ export default function AccountBilling({ user }) {
           <TextField value={billing?.orderName} onChange={e => setBilling(prev => ({ ...prev, orderName: e.target.value }))} sx={{ m: 1, width: '30%' }} label='Order Name' />
           <TextField value={billing?.orderContact} onChange={e => setBilling(prev => ({ ...prev, orderContact: e.target.value }))} sx={{ m: 1, width: '30%' }} label='Order Contact' />
           <TextField value={billing?.orderEmail} onChange={e => setBilling(prev => ({ ...prev, orderEmail: e.target.value }))} sx={{ m: 1, width: '30%' }} label='Order Email' />
+
+          <TextField value={billing?.pickupName} onChange={e => setBilling(prev => ({ ...prev, pickupName: e.target.value }))} sx={{ m: 1, width: '30%' }} label='Pickup Name' />
+          <TextField value={billing?.pickupContact} onChange={e => setBilling(prev => ({ ...prev, pickupContact: e.target.value }))} sx={{ m: 1, width: '30%' }} label='Pickup Contact' />
+          <TextField value={billing?.pickupEmail} onChange={e => setBilling(prev => ({ ...prev, pickupEmail: e.target.value }))} sx={{ m: 1, width: '30%' }} label='Pickup Email' />
 
           <div style={{ gridColumn: "1 / -1", display: 'flex', justifyContent: 'flex-end' }} >
             <Button variant='contained' color='success' onClick={() => onSubmit()}>Submit</Button>

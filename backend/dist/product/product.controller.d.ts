@@ -9,6 +9,7 @@ export declare class ProductController {
         message: string;
     }>;
     getAllProduct(req: Request): Promise<any>;
+    similarProduct(word: string): Promise<Product[]>;
     exportProduct(req: Request): Promise<Product[]>;
     importProduct(req: Request): Promise<string>;
     getById(req: Request): Promise<Product>;

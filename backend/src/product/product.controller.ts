@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
   Req,
@@ -10,6 +11,7 @@ import {
 import { ProductService } from './product.service';
 import { Request } from 'express';
 import { Product } from 'src/model/product.model';
+import { Op } from 'sequelize';
 
 @Controller('products')
 export class ProductController {
@@ -37,7 +39,8 @@ export class ProductController {
         tax,
         publish,
         type,
-        attributes
+        attributes,
+        variable
       } = req.body;
       if (!name || !username || !storeName || !SKU || !category || !salePrice) {
         throw new BadRequestException(
@@ -62,7 +65,8 @@ export class ProductController {
         tax,
         publish,
         type,
-        attributes
+        attributes,
+        variable
       );
     } catch (error) {
       console.log(error.message);
@@ -81,6 +85,23 @@ export class ProductController {
       console.log(error);
       throw error;
     }
+  }
+
+  @Get('/similar-product/:word')
+  async similarProduct(@Param('word') word:string){
+try {
+  const product = await Product.findAll({where:{
+    name: {
+      [Op.iLike]: `%${word}%`
+    }
+  
+  },
+  limit:6
+})
+  return product
+} catch (error) {
+  throw error
+}
   }
 
   @Get('/export')

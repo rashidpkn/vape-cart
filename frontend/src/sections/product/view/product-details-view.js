@@ -66,6 +66,8 @@ export default function ProductDetailsView() {
       try {
         const { data, status } = await api.get(`products/${id}`, { params: { count: 1 } });
         setProduct(data);
+        
+
       } catch (error) {
         alert(error.response.data.message);
         navigate(paths.dashboard.product.root);

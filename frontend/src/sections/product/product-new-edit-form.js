@@ -206,6 +206,8 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Details" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
+
+            <p className='' style={{margin:0,padding:0,fontSize:12}}> * Search for your product</p>
             {/* <RHFTextField name="name" label="Product Name" /> */}
 
             <Autocomplete
@@ -554,6 +556,9 @@ export default function ProductNewEditForm({ currentProduct }) {
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Grid container spacing={3}>
+
+
+
         {renderDetails}
 
         {renderProperties}

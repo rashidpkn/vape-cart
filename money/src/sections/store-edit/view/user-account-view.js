@@ -19,6 +19,7 @@ import AccountSocialLinks from '../account-social-links';
 import AccountNotifications from '../account-notifications';
 import AccountChangePassword from '../account-change-password';
 import GetStore from './getUsers';
+import DeliverySettings from '../DeliverySettings';
 
 // ----------------------------------------------------------------------
 
@@ -32,6 +33,11 @@ const TABS = [
     value: 'billing',
     label: 'Billing',
     icon: <Iconify icon="solar:bill-list-bold" width={24} />,
+  },
+  {
+    value: 'deliverySettings',
+    label: 'Delivery Settings',
+    icon: <Iconify icon="mdi:truck-cargo-container" width={24} />,
   },
   {
     value: 'notifications',
@@ -98,6 +104,8 @@ export default function StoreEdit() {
       {currentTab === 'notifications' && <AccountNotifications />}
 
       {currentTab === 'security' && <AccountChangePassword />}
+
+      {currentTab === 'deliverySettings' && <DeliverySettings user={user}/>}
     </Container>
   );
 }

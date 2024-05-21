@@ -18,7 +18,7 @@ import { fShortenNumber, fCurrency } from 'src/utils/format-number';
 // components
 
 import FormProvider from 'src/components/hook-form';
-import { Button } from '@mui/material';
+import { Button, Card, Grid } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import { ColorPicker } from 'src/components/color-utils';
 //
@@ -26,6 +26,7 @@ import { ColorPicker } from 'src/components/color-utils';
 // ----------------------------------------------------------------------
 import parse from 'html-react-parser';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 export default function ProductDetailsSummary({
   cart,
   product,
@@ -33,6 +34,7 @@ export default function ProductDetailsSummary({
   onGotoStep,
   disabledActions,
   setProduct,
+  similarProduct=[],
   ...other
 }) {
   const router = useRouter();
@@ -280,6 +282,29 @@ export default function ProductDetailsSummary({
         {/* {renderSizeOptions} */}
 
         {renderQuantity}
+
+        <Box>
+          <h4>Products related to this item</h4>
+
+          <Grid container gap={1} justifyContent={'center'} mt={2}>
+
+            {similarProduct.map(row=>{
+              return(
+            <Grid key={row.id} item xs={5.5} component={Link} to={'/product/'+row.id} >
+              <Card>
+
+              <img src={row.images[0]} width='100%'  />
+              <Stack direction={'row'} sx={{fontSize:'16px'}} justifyContent={'space-between'} alignItems={'center'} px={0.5}>
+              <p>{row.name}</p>
+              <p>AED {row.salePrice}</p>
+                </Stack>
+              </Card>
+            </Grid>
+
+              )
+            })}
+          </Grid>
+        </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
