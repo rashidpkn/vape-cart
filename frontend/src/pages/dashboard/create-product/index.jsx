@@ -143,7 +143,7 @@ if(product.type === 'Variable'){
           }}
         >
           <h4>Drop or Select files</h4>
-          <p>Drop files here or click browse thorough your machine</p>
+          <p>Please upload the files from your system</p>
           <input
             multiple
             type="file"
@@ -535,8 +535,10 @@ const Step6 = ({product , setProduct}) => {
 };
 
 
-const VariablePrice = ({variable,att}) =>{
-  const setPrice = (attribute, variable,Image) => {
+const VariablePrice = ({variable,att,product , setProduct}) =>{
+
+  console.log(product);
+  const setPrice = (attribute, variable,price) => {
     setProduct(prev => {
       let currentVariable =  prev.variable
         for (let key in currentVariable) {
