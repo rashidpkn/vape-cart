@@ -475,7 +475,7 @@ const puffsVariable = [
 
 const Step6 = ({product , setProduct}) => {
 
-    console.log(product);
+    
 
     const setPrice = (attribute, variable, price) => {
         setProduct(prev => {
@@ -516,13 +516,13 @@ const Step6 = ({product , setProduct}) => {
             return(
         <Box key={att} sx={{ display: 'flex', gap: '10px', flexDirection: 'row',flexWrap:'wrap' }}>
             <p style={{width:'100%'}}>{att}</p>
-            {att === 'Batteries' && batteriesVariable.map(variable=><TextField key={variable} size='small' label={variable} onChange={e=>setPrice(att,variable,parseFloat(e.target.value))} />)}
-            {att === 'Bottle Size' && bottleSizeVariable.map(variable=><TextField key={variable} size='small' label={variable} onChange={e=>setPrice(att,variable,parseFloat(e.target.value))} />)}
-            {att === 'Brand' && brandVariable.map(variable=><TextField key={variable} size='small' label={variable} onChange={e=>setPrice(att,variable,parseFloat(e.target.value))} />)}
-            {att === 'Device Color' && colorVariable.map(variable=><TextField key={variable} size='small' label={variable} onChange={e=>setPrice(att,variable,parseFloat(e.target.value))} />)}
-            {att === 'Nicotine Level' && nicotineLevelVariable.map(variable=><TextField key={variable} size='small' label={variable} onChange={e=>setPrice(att,variable,parseFloat(e.target.value))} />)}
-            {att === 'Option' && optionsVariable.map(variable=><TextField key={variable} size='small' label={variable} onChange={e=>setPrice(att,variable,parseFloat(e.target.value))} />)}
-            {att === 'Puffs' && puffsVariable.map(variable=><TextField key={variable} size='small' label={variable} onChange={e=>setPrice(att,variable,parseFloat(e.target.value))} />)}
+            {att === 'Batteries' && batteriesVariable.map(variable=><VariablePrice variable={variable} att={att}  product={product} setProduct={setProduct}/>)}
+            {att === 'Bottle Size' && bottleSizeVariable.map(variable=><VariablePrice variable={variable} att={att}  product={product} setProduct={setProduct}/>)}
+            {att === 'Brand' && brandVariable.map(variable=><VariablePrice variable={variable} att={att}  product={product} setProduct={setProduct}/>)}
+            {att === 'Device Color' && colorVariable.map(variable=><VariablePrice variable={variable} att={att}  product={product} setProduct={setProduct}/>)}
+            {att === 'Nicotine Level' && nicotineLevelVariable.map(variable=><VariablePrice variable={variable} att={att}  product={product} setProduct={setProduct}/>)}
+            {att === 'Option' && optionsVariable.map(variable=><VariablePrice variable={variable} att={att}  product={product} setProduct={setProduct}/>)}
+            {att === 'Puffs' && puffsVariable.map(variable=><VariablePrice variable={variable} att={att}  product={product} setProduct={setProduct}/>)}
             
 
         </Box>)
@@ -534,3 +534,31 @@ const Step6 = ({product , setProduct}) => {
   );
 };
 
+
+const VariablePrice = ({variable,att}) =>{
+  const setPrice = (attribute, variable,Image) => {
+    setProduct(prev => {
+      let currentVariable =  prev.variable
+        for (let key in currentVariable) {
+        if ( currentVariable[key].length === 0) delete currentVariable[key];
+    }
+
+    if (price && !Array.isArray(currentVariable[attribute])) currentVariable[attribute] = [];
+  
+    currentVariable[attribute] = currentVariable[attribute].filter(item => item.name !== variable);        
+
+    if(price) currentVariable[attribute].push({name:variable,price})
+      else currentVariable[attribute].filter(e=>e.name !== variable)
+    
+    return ({...prev,variable:currentVariable})
+
+    });
+  };
+
+
+  return(
+    <Box sx={{width:'40%'}}>
+    <TextField key={variable} size='small' label={variable} onChange={e=>setPrice(att,variable,parseFloat(e.target.value))} />
+    </Box>
+  )
+}

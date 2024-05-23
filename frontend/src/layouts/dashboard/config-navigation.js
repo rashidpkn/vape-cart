@@ -73,6 +73,7 @@ export function useNavData() {
             children: [
               { title: t('products'), path: paths.dashboard.product.root },
               { title: t('create new product'), path: paths.dashboard.product.new },
+              { title: t('create product'), path: '/dashboard/create-product' },
             ],
           },
 

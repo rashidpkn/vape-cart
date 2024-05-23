@@ -58,6 +58,9 @@ export default function ProductDetailsSummary({
 
   const existProduct = cart?.map((item) => item.id)?.includes(id);
 
+  const attributes = product?.variable ? Object.keys(product?.variable) : []
+  const [selectedAttributes, setSelectedAttributes] = useState({})
+
   const defaultValues = {
     id,
     name,
@@ -120,8 +123,8 @@ export default function ProductDetailsSummary({
           {fCurrency(regularPrice)}
         </Box>
       )}
-
-      {fCurrency(salePrice)}
+      
+      {!!selectedAttributes.price  ? fCurrency(selectedAttributes.price) : fCurrency(salePrice)}
     </Box>
   );
 
@@ -154,19 +157,6 @@ export default function ProductDetailsSummary({
     </Stack>
   );
 
-  const renderSizeOptions = (
-    <Stack direction="row">
-      <Typography variant="subtitle2" sx={{ flexGrow: 1 }}>
-        Size
-      </Typography>
-
-      <Stack direction="row">
-        {sizes?.map((e) => (
-          <Typography key={e}>{e} , </Typography>
-        ))}
-      </Stack>
-    </Stack>
-  );
 
   const renderQuantity = (
     <Stack direction="row">
@@ -239,37 +229,39 @@ export default function ProductDetailsSummary({
     </Box>
   );
 
-  const attributes = product?.attributes ? Object.keys(product?.attributes) : []
+  
 
-  const [selectedAttributes, setSelectedAttributes] = useState([])
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={3} sx={{ pt: 3 }} {...other}>
         <Stack spacing={2} alignItems="flex-start">
           {renderInventoryType}
 
-          <Typography variant="h5">{name}</Typography>
+          <Typography variant="h5">{name} {selectedAttributes.name && <>({selectedAttributes.name })</>}</Typography>
 
           {renderRating}
 
           {renderPrice}
 
 
-        <Box>
-          {attributes.length && <Typography variant="p">Variables</Typography>}
+        <Box display={'flex'} flexWrap={'wrap'}  gap={2}>
+                {attributes.map(att=>{
+                  return(
+                    <>
+                       <Typography variant="subtitle2" sx={{ flexGrow: 1,width:'100%' }}>{att}</Typography>
+                    
+                    {product?.variable[att].map(variable=>{
+                      return(
+                        <Box display={'flex'} justifyContent={'space-between'} width={'30%'} px={1} border={selectedAttributes.name === variable.name ? '2px solid rgba(0,0,0,0.3)' :  '1px solid rgba(0,0,0,0.1)'} borderRadius={'8px'} sx={{cursor:'pointer'}} onClick={()=>setSelectedAttributes(variable)}>
+                          <p style={{fontSize:'14px'}}>{variable?.name}</p>
+                          <p style={{fontSize:'14px'}}>AED{variable?.price}</p>
+                          </Box>
 
-          {
-            attributes.map(e=><Box key={e}>
-              <p style={{margin:'10px 0px',fontSize:'14px'}} >{e}</p>
-              {product.attributes[e].map(ev=><Button key={ev} size='small' variant='outlined'  sx={{mx:0.25,fontSize:'12px',}} style={{fontSize:'12px',fontWeight:'400',border:selectedAttributes.find(ep=>ep==ev) ? '2px solid':'1px solid'}} onClick={()=>{
-                if(selectedAttributes.find(att=>att===ev)){
-                  setSelectedAttributes(selectedAttributes.filter(at=>at!==ev))
-              }else{
-                setSelectedAttributes(prev=>([...prev,ev]))
-              }
-              }}> {ev}</Button>)}
-            </Box>)
-          }
+                      )
+                    })}
+                    </>
+                  )
+                })}
           </Box>
 
           {renderSubDescription}
