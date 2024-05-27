@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://delhi-vape.com/',
+  baseURL: 'https://vape-amazon.com/',
   // baseURL:'/'
   // baseURL:'http://localhost:3000/'
 });
