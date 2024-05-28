@@ -18,7 +18,7 @@ export class UploadService {
           webpBuffer,
         );
         await fsPromises.unlink(file.path);
-        result.push(`https://delhi-vape.com/uploads/${fileName}`);
+        result.push(`https://vape-amazon.com/uploads/${fileName}`);
         // result.push(`/uploads/${fileName}`);
       }
       return result;

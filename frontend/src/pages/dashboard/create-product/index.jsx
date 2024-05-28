@@ -559,8 +559,10 @@ const VariablePrice = ({variable,att,product , setProduct}) =>{
 
 
   return(
-    <Box sx={{width:'40%'}}>
+    <Box sx={{width:'40%',}} display={'flex'} flexDirection={'column'} gap={2}>
+      <input type="file" name="" id="" style={{width:'100%',height:'200px',border:'1px solid rgba(0,0,0,0.1)'}} />
     <TextField key={variable} size='small' label={variable} onChange={e=>setPrice(att,variable,parseFloat(e.target.value))} />
+    <Button variant='contained' color='success'>Add Varible</Button>
     </Box>
   )
 }

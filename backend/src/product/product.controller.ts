@@ -17,6 +17,12 @@ import { Op } from 'sequelize';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
+  @Get('/update-images')
+  async updateImg(){
+    await Product.update({images:['https://vape-amazon.com/img/no-image.jpg']},{where:{}})  
+  }
+
+
   //create product
   @Post()
   async createProduct(@Req() req: Request) {
