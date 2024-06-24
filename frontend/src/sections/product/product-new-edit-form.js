@@ -62,6 +62,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     category: Yup.string().required('Category is required'),
     colors: Yup.array(),
     tags: Yup.array(),
+    attributes : Yup.array(),
     regularPrice: Yup.number(),
     salePrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
     tax: Yup.number().moreThan(-1, 'Tax should not be 0%'),
@@ -84,6 +85,7 @@ export default function ProductNewEditForm({ currentProduct }) {
       category: currentProduct?.category || 'None',
       colors: currentProduct?.colors || [],
       type:currentProduct?.type || 'simple',
+      attributes:currentProduct?.attributes || []
     }),
     [currentProduct]
   );
@@ -319,7 +321,108 @@ export default function ProductNewEditForm({ currentProduct }) {
                 md: 'repeat(2, 1fr)',
               }}
             >
+
+<RHFSelect native name="type" label="Product Type" InputLabelProps={{ shrink: true }}>
+                {[
+                  'Simple','Variable'
+                ].map((classify) => (
+                  <option key={classify} value={classify}>
+                    {classify}
+                  </option>
+                ))}
+              </RHFSelect>
+
+              <RHFSelect native name="category" label="Category" InputLabelProps={{ shrink: true }}>
+                {[
+                  'Disposables',
+                  'Vape Liquids',
+                  'Salt Nicotine',
+                  'Accessories',,
+                  'Vape Devices',
+                  'Pod Systems',
+                  'Nicotine Pouches',
+                  'Pods & Coils',
+                  'Batteries',
+                  'Tanks',
+                  'Others'
+                ].map((classify) => (
+                  <option key={classify} value={classify}>
+                    {classify}
+                  </option>
+                ))}
+              </RHFSelect>
+
+              <RHFAutocomplete
+              name="tags"
+              label="Tags"
+              placeholder="+ Tags"
+              multiple
+              freeSolo
+              options={_tags.map((option) => option)}
+              getOptionLabel={(option) => option}
+              renderOption={(props, option) => (
+                <li {...props} key={option}>
+                  {option}
+                </li>
+              )}
+              renderTags={(selected, getTagProps) =>
+                selected.map((option, index) => (
+                  <Chip
+                    {...getTagProps({ index })}
+                    key={option}
+                    label={option}
+                    size="small"
+                    color="info"
+                    variant="soft"
+                  />
+                ))
+              }
+            />
+
+
+
+
+
               <RHFTextField name="SKU" label="Product SKU" />
+
+<RHFSelect native name="brand" label="Brand" InputLabelProps={{ shrink: true }}>
+                {[
+                 "SMOK",
+                 "Vaporesso",
+                 "GeekVape",
+                 "Voopoo",
+                 "Innokin",
+                 "Uwell",
+                 "Aspire",
+                 "Eleaf",
+                 "Lost Vape",
+                 "Joyetech",
+                 "Wismec",
+                 "Freemax",
+                 "Suorin",
+                 "iJoy",
+                 "Rincoe",
+                 "Augvape",
+                 "Vandy Vape",
+                 "OBS",
+                 "Hellvape",
+                 "Teslacigs",
+                 "Artery",
+                 "Dovpo",
+                 "Vaptio",
+                 "Kangertech",
+                 "Digiflavor",
+                 "Sigelei",
+                 "Smoant",
+                 "Pioneer4You",
+                 "Vapor Storm",
+                 "Hugo Vapor"
+                ].map((classify) => (
+                  <option key={classify} value={classify}>
+                    {classify}
+                  </option>
+                ))}
+              </RHFSelect>
 
               <RHFTextField
                 name="quantity"
@@ -329,19 +432,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 InputLabelProps={{ shrink: true }}
               />
 
-              <RHFSelect native name="category" label="Category" InputLabelProps={{ shrink: true }}>
-                {[
-                  'None',
-                  'Disposable',
-                  'Liquids',
-                  'Devices',
-                  'Accessories',
-                ].map((classify) => (
-                  <option key={classify} value={classify}>
-                    {classify}
-                  </option>
-                ))}
-              </RHFSelect>
+            
 
               {values.category !== 'None' && (
                 <RHFSelect native name="type" label="Type" InputLabelProps={{ shrink: true }}>
@@ -428,13 +519,54 @@ export default function ProductNewEditForm({ currentProduct }) {
             )}
 
 
-<RHFAutocomplete
-              name="tags"
-              label="Tags"
-              placeholder="+ Tags"
+
+
+
+          </Stack>
+        </Card>
+      </Grid>
+    </>
+  );
+
+  const renderAttributes = (
+    <>
+      {mdUp && (
+        <Grid md={4}>
+          <Typography variant="h6" sx={{ mb: 0.5 }}>
+            Product  Attributes
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Additional functions and attributes...
+          </Typography>
+        </Grid>
+      )}
+
+      <Grid xs={12} md={8}>
+        <Card>
+          {!mdUp && <CardHeader title="Attributes" />}
+
+          <Stack spacing={3} sx={{ p: 3 }}>
+            <Box
+              columnGap={2}
+              rowGap={3}
+              display="grid"
+              gridTemplateColumns={{
+                xs: 'repeat(1, 1fr)',
+                md: 'repeat(2, 1fr)',
+              }}
+            >
+
+
+              <Box  sx={{gridColumn:'span 2 '}}>
+
+              <RHFAutocomplete
+              
+              name="attributes"
+              label="Attributes"
+              placeholder="+ Attributes"
               multiple
               freeSolo
-              options={_tags.map((option) => option)}
+              options={['Bottle Size',"Puffs","Flavour","Nicotine Strength","Color","Batteries"].map((option) => option)}
               getOptionLabel={(option) => option}
               renderOption={(props, option) => (
                 <li {...props} key={option}>
@@ -454,8 +586,22 @@ export default function ProductNewEditForm({ currentProduct }) {
                 ))
               }
             />
+        </Box>
+              {values.attributes.map(e=>
+                <Box  sx={{gridColumn:'span 2 '}}>
 
+<RHFTextField
+                name={e}
+                label={e}
+                placeholder={e}
+                type="text"
+                InputLabelProps={{ shrink: true }}
+              />
+                </Box>
+              )}
+        
 
+            </Box>
           </Stack>
         </Card>
       </Grid>
@@ -562,6 +708,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         {renderDetails}
 
         {renderProperties}
+        {renderAttributes}
 
         {renderPricing}
 
