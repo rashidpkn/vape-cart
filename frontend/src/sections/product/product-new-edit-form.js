@@ -35,7 +35,17 @@ import FormProvider, {
 import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
 import { _attributes, _brands, _category, _tags, _type, _variables } from 'src/data/createProducts';
-import { Checkbox, FormControlLabel, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import {
+  Checkbox,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -87,7 +97,7 @@ export default function ProductNewEditForm({ currentProduct }) {
       brand: currentProduct?.brand || '',
 
       attributes: currentProduct?.attributes || [],
-      variables:currentProduct?.attributes || [],
+      variables: currentProduct?.attributes || [],
 
       quantity: currentProduct?.quantity || 0,
 
@@ -98,12 +108,11 @@ export default function ProductNewEditForm({ currentProduct }) {
   );
 
   const [variables, setVariables] = useState({
-"Bottle Size":[],
-"Puffs":[],
+    'Bottle Size': [],
+    Puffs: [],
+  });
 
-  })
-
-  const [variation, setVariation] = useState([])
+  const [variation, setVariation] = useState([]);
 
   const methods = useForm({
     resolver: yupResolver(NewProductSchema),
@@ -388,8 +397,6 @@ export default function ProductNewEditForm({ currentProduct }) {
     }));
   };
 
-  
-
   const renderAttributes = (
     <>
       {mdUp && (
@@ -477,20 +484,25 @@ export default function ProductNewEditForm({ currentProduct }) {
                     }
                   />
 
-                  {values.type === 'Variable' && variables[e]?.length >=2 && (
+                  {values.type === 'Variable' && variables[e]?.length >= 2 && (
                     <FormControlLabel
                       label="Use this attributes to create variation"
-                      control={<Checkbox checked={variation.find(ev=>ev===e)} onChange={event=>{
-                        if(event.target.checked){
-                          if(variation.find(ev=>ev===e)){
-                            return
-                          }else{
-                            setVariation(prev=>[...prev,e])
-                          }
-                        }else{
-                          setVariation(prev=>prev.filter(ev=>ev!==e))
-                        }
-                      }} />}
+                      control={
+                        <Checkbox
+                          checked={variation.find((ev) => ev === e)}
+                          onChange={(event) => {
+                            if (event.target.checked) {
+                              if (variation.find((ev) => ev === e)) {
+                                return;
+                              } else {
+                                setVariation((prev) => [...prev, e]);
+                              }
+                            } else {
+                              setVariation((prev) => prev.filter((ev) => ev !== e));
+                            }
+                          }}
+                        />
+                      }
                     />
                   )}
                 </Box>
@@ -570,25 +582,22 @@ export default function ProductNewEditForm({ currentProduct }) {
     </>
   );
 
-  const skuAlpha = ['b','c','d','e','f','g','h']
-  let counter = 2
-  let counter2 = 0
+  const skuAlpha = ['a','b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  let counter = 1;
+  let counter2 = 0;
 
-  const  productTable = (
-      <>
-
-{mdUp && (
+  const productTable = (
+    <>
+      {mdUp && (
         <Grid md={4}>
           <Typography variant="h6" sx={{ mb: 0.5 }}>
             Product Table
           </Typography>
-          
         </Grid>
       )}
 
       <Grid xs={12} md={8}>
         <Card>
-
           <Table>
             <TableHead>
               <TableRow>
@@ -597,65 +606,40 @@ export default function ProductNewEditForm({ currentProduct }) {
                 <TableCell>Attributes</TableCell>
                 <TableCell>Track Stock</TableCell>
                 <TableCell>Stock</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Image</TableCell>  
+                <TableCell>Regular Price</TableCell>
+                <TableCell>Sales Price</TableCell>
+                <TableCell>Image</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-            <TableRow>
-                <TableCell>1</TableCell>
-                <TableCell>{values.SKU}-a</TableCell>
-                <TableCell>Parent</TableCell>
-                <TableCell>
-                <FormControlLabel
-                      label="Instock"
-                      control={<Checkbox />}
-                    />
-                </TableCell>
-                <TableCell>
-                  <TextField size='small' label='Quantity' type="number" />
-                </TableCell>
-                <TableCell>
-                  <TextField size='small' label='Price'type="number" />
-                </TableCell>
-                <TableCell>
-                <TextField size='small' label='image' type='file'/>
-                  </TableCell>  
-              </TableRow>
-                {variation?.map((v,i)=> variables[v].map((va,j)=>
-                  <TableRow>
-                  <TableCell>{counter++}</TableCell>
-                  <TableCell>{values.SKU}-{skuAlpha[counter2++]}</TableCell>
-                  <TableCell>{va}</TableCell>
-                  <TableCell>
-                  <FormControlLabel
-                        label="Instock"
-                        control={<Checkbox />}
-                      />
-                  </TableCell>
-                  <TableCell>
-                    <TextField size='small' label='Quantity' type="number" />
-                  </TableCell>
-                  <TableCell>
-                    <TextField size='small' label='Price'type="number" />
-                  </TableCell>
-                  <TableCell>
-                  <TextField size='small' label='image' type='file'/>
-                    </TableCell>  
-                </TableRow>
-                ))}
-                
+              
 
+              <ProductTable
+                    counter={counter++}
+                    counter2={counter2++}
+                    skuAlpha={skuAlpha}
+                    va={'Parent'}
+                    values={values}
+                    key={counter}
+                  />
+              {variation?.map((v, i) =>
+                variables[v].map((va, j) => (
+                  <ProductTable
+                    counter={counter++}
+                    counter2={counter2++}
+                    skuAlpha={skuAlpha}
+                    va={va}
+                    values={values}
+                    key={counter}
+                  />
+                ))
+              )}
             </TableBody>
-            </Table>
-        
-
-        
+          </Table>
         </Card>
       </Grid>
-
-      </>
-  ) 
+    </>
+  );
 
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
@@ -666,7 +650,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
         {renderAttributes}
 
-      {values.type === 'Simple' && renderPricing}
+        {values.type === 'Simple' && renderPricing}
 
         {values.type === 'Variable' && productTable}
 
@@ -676,6 +660,40 @@ export default function ProductNewEditForm({ currentProduct }) {
   );
 }
 
-ProductNewEditForm.propTypes = {
-  currentProduct: PropTypes.object,
-};
+function ProductTable({ counter, values, skuAlpha, counter2, va }) {
+  const [trackStock, setTrackStock] = useState(true);
+  const [stock, setStock] = useState('instock')
+  return (
+    <TableRow>
+      <TableCell>{counter}</TableCell>
+      <TableCell>
+        {values.SKU}-{skuAlpha[counter2]}
+      </TableCell>
+      <TableCell>{va}</TableCell>
+      <TableCell>
+        <FormControlLabel
+          label=""
+          control={<Checkbox checked={trackStock} onChange={(e) => setTrackStock(e.target.checked)} />}
+        />
+      </TableCell>
+      <TableCell>
+        {trackStock && <TextField size="small" label="Quantity" type="number" />}
+        {!trackStock && (
+          <RadioGroup aria-label="Stock" name="Stock" value={stock} onChange={e=>setStock(e.target.value)}>
+            <FormControlLabel value="instock" control={<Radio />} label="Instock" />
+            <FormControlLabel value="outstock" control={<Radio />} label="Outstock" />
+          </RadioGroup>
+        )}
+      </TableCell>
+      <TableCell>
+        <TextField size="small" label="Regular Price" type="number" />
+      </TableCell>
+      <TableCell>
+        <TextField size="small" label="Sales Price" type="number" />
+      </TableCell>
+      <TableCell>
+        <TextField size="small" label="image" type="file" />
+      </TableCell>
+    </TableRow>
+  );
+}
