@@ -216,7 +216,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         </Grid>
       )}
 
-      <Grid xs={12} md={8}>
+      <Grid xs={12} md={12}>
         <Card>
           {!mdUp && <CardHeader title="Details" />}
 
@@ -317,7 +317,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         </Grid>
       )}
 
-      <Grid xs={12} md={8}>
+      <Grid xs={12} md={12}>
         <Card>
           {!mdUp && <CardHeader title="Properties" />}
 
@@ -410,7 +410,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         </Grid>
       )}
 
-      <Grid xs={12} md={8}>
+      <Grid xs={12} md={12}>
         <Card>
           {!mdUp && <CardHeader title="Attributes" />}
 
@@ -527,7 +527,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         </Grid>
       )}
 
-      <Grid xs={12} md={8}>
+      <Grid xs={12} md={12}>
         <Card>
           {!mdUp && <CardHeader title="Pricing" />}
 
@@ -573,7 +573,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const renderActions = (
     <>
-      {mdUp && <Grid md={4} />}
+      {/* {mdUp && <Grid md={4} />} */}
       <Grid xs={12} md={8} sx={{ display: 'flex', alignItems: 'center' }}>
         <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
           {!currentProduct ? 'Create Product' : 'Save Changes'}
@@ -591,20 +591,20 @@ export default function ProductNewEditForm({ currentProduct }) {
       {mdUp && (
         <Grid md={4}>
           <Typography variant="h6" sx={{ mb: 0.5 }}>
-            Product Table
+          Variation Table
           </Typography>
         </Grid>
       )}
 
-      <Grid xs={12} md={8}>
+      <Grid xs={12} md={12}>
         <Card>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell>ID</TableCell>
-                <TableCell>SKU</TableCell>
-                <TableCell>Attributes</TableCell>
-                <TableCell>Track Stock</TableCell>
+                <TableCell width={150}>SKU</TableCell>
+                <TableCell width={150}>Attributes</TableCell>
+                <TableCell>Track</TableCell>
                 <TableCell>Stock</TableCell>
                 <TableCell>Regular Price</TableCell>
                 <TableCell>Sales Price</TableCell>
@@ -669,7 +669,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va }) {
       <TableCell>
         {values.SKU}-{skuAlpha[counter2]}
       </TableCell>
-      <TableCell>{va}</TableCell>
+      <TableCell>{values.name}-{va}</TableCell>
       <TableCell>
         <FormControlLabel
           label=""
@@ -686,13 +686,13 @@ function ProductTable({ counter, values, skuAlpha, counter2, va }) {
         )}
       </TableCell>
       <TableCell>
-        <TextField size="small" label="Regular Price" type="number" />
+        <TextField size="small" label="Price" type="number" />
       </TableCell>
       <TableCell>
-        <TextField size="small" label="Sales Price" type="number" />
+        <TextField size="small" label="Price" type="number" />
       </TableCell>
       <TableCell>
-        <TextField size="small" label="image" type="file" />
+        <TextField size="small" label="Image" type="file" />
       </TableCell>
     </TableRow>
   );
