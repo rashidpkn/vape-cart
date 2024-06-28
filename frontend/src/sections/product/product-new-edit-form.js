@@ -9,12 +9,10 @@ import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Switch from '@mui/material/Switch';
 import Grid from '@mui/material/Unstable_Grid2';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
 import Autocomplete from '@mui/lab/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -24,7 +22,6 @@ import { paths } from 'src/routes/paths';
 // hooks
 import { useResponsive } from 'src/hooks/use-responsive';
 // _mock
-import { _tags, PRODUCT_COLOR_NAME_OPTIONS, PRODUCT_CATEGORY_GROUP_OPTIONS, ATTRIBUTES } from 'src/_mock';
 // components
 import { useSnackbar } from 'src/components/snackbar';
 import { useRouter } from 'src/routes/hook';
@@ -33,11 +30,12 @@ import FormProvider, {
   RHFEditor,
   RHFUpload,
   RHFTextField,
-  RHFMultiSelect,
   RHFAutocomplete,
 } from 'src/components/hook-form';
 import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
+import { _attributes, _brands, _category, _tags, _type, _variables } from 'src/data/createProducts';
+import { Checkbox, FormControlLabel, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -57,40 +55,55 @@ export default function ProductNewEditForm({ currentProduct }) {
     subDescription: Yup.string().required('Short description is required'),
     content: Yup.string(),
     images: Yup.array().min(1, 'Image is required'),
-    SKU: Yup.string().required('SKU is required'),
-    quantity: Yup.number(),
+
+    type: Yup.string(),
     category: Yup.string().required('Category is required'),
-    colors: Yup.array(),
     tags: Yup.array(),
-    attributes : Yup.array(),
+    SKU: Yup.string().required('SKU is required'),
+    brand: Yup.string().required('brand is required'),
+
+    attributes: Yup.array(),
+    variables: Yup.array(),
+
+    quantity: Yup.number(),
+
     regularPrice: Yup.number(),
     salePrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
-    tax: Yup.number().moreThan(-1, 'Tax should not be 0%'),
-    type:Yup.string()
   });
 
   const defaultValues = useMemo(
     () => ({
       id: currentProduct?.id || '',
+
       name: currentProduct?.name || '',
       subDescription: currentProduct?.subDescription || '',
       content: currentProduct?.content || '',
       images: currentProduct?.images || [],
-      SKU: currentProduct?.SKU || '',
-      regularPrice: currentProduct?.regularPrice || 0,
-      quantity: currentProduct?.quantity || 0,
-      salePrice: currentProduct?.salePrice || 0,
-      tags: currentProduct?.tags || [],
-      tax: currentProduct?.tax || 0,
+
+      type: currentProduct?.type || 'Simple',
       category: currentProduct?.category || 'None',
-      colors: currentProduct?.colors || [],
-      type:currentProduct?.type || 'simple',
-      attributes:currentProduct?.attributes || []
+      tags: currentProduct?.tags || [],
+      SKU: currentProduct?.SKU || '',
+      brand: currentProduct?.brand || '',
+
+      attributes: currentProduct?.attributes || [],
+      variables:currentProduct?.attributes || [],
+
+      quantity: currentProduct?.quantity || 0,
+
+      regularPrice: currentProduct?.regularPrice || 0,
+      salePrice: currentProduct?.salePrice || 0,
     }),
     [currentProduct]
   );
-  const [attributes, setAttributes] = useState([])
 
+  const [variables, setVariables] = useState({
+"Bottle Size":[],
+"Puffs":[],
+
+  })
+
+  const [variation, setVariation] = useState([])
 
   const methods = useForm({
     resolver: yupResolver(NewProductSchema),
@@ -106,13 +119,6 @@ export default function ProductNewEditForm({ currentProduct }) {
   } = methods;
 
   const values = watch();
-
-  useEffect(() => {
-    setValue(
-      'SKU',
-      `${values.name.toUpperCase().slice(0, 3) + user.storeName.toUpperCase().charAt(0)  }-001`
-    );
-  }, [values.name]);
 
   const fetchProduct = useCallback(async () => {
     const {
@@ -144,7 +150,6 @@ export default function ProductNewEditForm({ currentProduct }) {
           username: user.displayName,
           userId: user.id,
           storeName: user.storeName,
-          attributes
         });
       } else {
         await api.post('products', {
@@ -152,7 +157,6 @@ export default function ProductNewEditForm({ currentProduct }) {
           username: user.displayName,
           userId: user.id,
           storeName: user.storeName,
-          attributes
         });
       }
       reset();
@@ -208,22 +212,19 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Details" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
+            {/* <p className="" style={{ margin: 0, padding: 0, fontSize: 12 }}>
+              {' '}
+              * Search for your product
+            </p> */}
 
-            <p className='' style={{margin:0,padding:0,fontSize:12}}> * Search for your product</p>
-            {/* <RHFTextField name="name" label="Product Name" /> */}
+            <RHFTextField name="name" label="Product Name" />
 
-            <Autocomplete
+            {/* <Autocomplete
               onChange={(e, value) => {
                 if (value) {
                   const product = products.find((product) => product.name === value);
                   setValue('images', product.images);
                   setValue('name', product.name);
-                  setValue(
-                    'SKU',
-                    `${product.name.toUpperCase().slice(0, 3) +
-                      user.storeName.toUpperCase().charAt(0) 
-                      }-001`
-                  );
                 } else {
                   // Handle case where user clears the input
                   setValue('images', null);
@@ -254,7 +255,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 </Box>
               )}
               freeSolo
-            />
+            /> */}
 
             <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} />
 
@@ -299,7 +300,7 @@ export default function ProductNewEditForm({ currentProduct }) {
       {mdUp && (
         <Grid md={4}>
           <Typography variant="h6" sx={{ mb: 0.5 }}>
-            Properties
+            Key Properties
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             Additional functions and attributes...
@@ -321,11 +322,8 @@ export default function ProductNewEditForm({ currentProduct }) {
                 md: 'repeat(2, 1fr)',
               }}
             >
-
-<RHFSelect native name="type" label="Product Type" InputLabelProps={{ shrink: true }}>
-                {[
-                  'Simple','Variable'
-                ].map((classify) => (
+              <RHFSelect native name="type" label="Product Type" InputLabelProps={{ shrink: true }}>
+                {_type.map((classify) => (
                   <option key={classify} value={classify}>
                     {classify}
                   </option>
@@ -333,19 +331,7 @@ export default function ProductNewEditForm({ currentProduct }) {
               </RHFSelect>
 
               <RHFSelect native name="category" label="Category" InputLabelProps={{ shrink: true }}>
-                {[
-                  'Disposables',
-                  'Vape Liquids',
-                  'Salt Nicotine',
-                  'Accessories',,
-                  'Vape Devices',
-                  'Pod Systems',
-                  'Nicotine Pouches',
-                  'Pods & Coils',
-                  'Batteries',
-                  'Tanks',
-                  'Others'
-                ].map((classify) => (
+                {_category.map((classify) => (
                   <option key={classify} value={classify}>
                     {classify}
                   </option>
@@ -353,187 +339,63 @@ export default function ProductNewEditForm({ currentProduct }) {
               </RHFSelect>
 
               <RHFAutocomplete
-              name="tags"
-              label="Tags"
-              placeholder="+ Tags"
-              multiple
-              freeSolo
-              options={_tags.map((option) => option)}
-              getOptionLabel={(option) => option}
-              renderOption={(props, option) => (
-                <li {...props} key={option}>
-                  {option}
-                </li>
-              )}
-              renderTags={(selected, getTagProps) =>
-                selected.map((option, index) => (
-                  <Chip
-                    {...getTagProps({ index })}
-                    key={option}
-                    label={option}
-                    size="small"
-                    color="info"
-                    variant="soft"
-                  />
-                ))
-              }
-            />
-
-
-
-
+                name="tags"
+                label="Tags"
+                placeholder="+ Tags"
+                multiple
+                freeSolo
+                options={_tags.map((option) => option)}
+                getOptionLabel={(option) => option}
+                renderOption={(props, option) => (
+                  <li {...props} key={option}>
+                    {option}
+                  </li>
+                )}
+                renderTags={(selected, getTagProps) =>
+                  selected.map((option, index) => (
+                    <Chip
+                      {...getTagProps({ index })}
+                      key={option}
+                      label={option}
+                      size="small"
+                      color="info"
+                      variant="soft"
+                    />
+                  ))
+                }
+              />
 
               <RHFTextField name="SKU" label="Product SKU" />
 
-<RHFSelect native name="brand" label="Brand" InputLabelProps={{ shrink: true }}>
-                {[
-                 "SMOK",
-                 "Vaporesso",
-                 "GeekVape",
-                 "Voopoo",
-                 "Innokin",
-                 "Uwell",
-                 "Aspire",
-                 "Eleaf",
-                 "Lost Vape",
-                 "Joyetech",
-                 "Wismec",
-                 "Freemax",
-                 "Suorin",
-                 "iJoy",
-                 "Rincoe",
-                 "Augvape",
-                 "Vandy Vape",
-                 "OBS",
-                 "Hellvape",
-                 "Teslacigs",
-                 "Artery",
-                 "Dovpo",
-                 "Vaptio",
-                 "Kangertech",
-                 "Digiflavor",
-                 "Sigelei",
-                 "Smoant",
-                 "Pioneer4You",
-                 "Vapor Storm",
-                 "Hugo Vapor"
-                ].map((classify) => (
+              <RHFSelect native name="brand" label="Brand" InputLabelProps={{ shrink: true }}>
+                {_brands.map((classify) => (
                   <option key={classify} value={classify}>
                     {classify}
                   </option>
                 ))}
               </RHFSelect>
-
-              <RHFTextField
-                name="quantity"
-                label="Quantity"
-                placeholder="0"
-                type="number"
-                InputLabelProps={{ shrink: true }}
-              />
-
-            
-
-              {values.category !== 'None' && (
-                <RHFSelect native name="type" label="Type" InputLabelProps={{ shrink: true }}>
-                  <option value="simple">Simple</option>
-                  <option value="variable">Variable</option>
-                </RHFSelect>
-              )}
-
-              {/* <RHFMultiSelect
-                checkbox
-                name="colors"
-                label="Colors"
-                options={PRODUCT_COLOR_NAME_OPTIONS}
-              /> */}
             </Box>
-
-            
-
-           
-            {values.type === 'variable' && (
-              <Box
-                sx={{
-                  display: 'flex',
-                  gap: '10px',
-                  flexWrap: 'wrap',
-                  justifyContent: 'space-between',
-                }}
-              >
-                {PRODUCT_CATEGORY_GROUP_OPTIONS?.find(
-                  (c) => c.group === values.category
-                )?.classify?.map((e) => (
-                  <Autocomplete
-                    fullWidth
-                    key={e}
-                    multiple
-                    options={ATTRIBUTES.find(att => att.group === e)?.attributes || []}
-                    value={attributes[e] || []}
-                    onChange={(event, newValue) => {
-                
-
-
-                      if (newValue.length === 0) {
-                  
-                        setAttributes(prevState => {
-                          const updatedState = { ...prevState };
-                          delete updatedState[e];
-                          return updatedState;
-                        });
-                      } else {
-    
-                        setAttributes(prevState => ({
-                          ...prevState,
-                          [e]: newValue
-                        }));
-                      }
-
-
-                    }}
-                    renderTags={(value, getTagProps) =>
-                      value.map((option, index) => (
-                        <Chip
-                          key={index}
-                          variant="outlined"
-                          label={option}
-                          {...getTagProps({ index })}
-                          style={{ margin: '2px' }}
-                        />
-                      ))
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={`${e} Attributes`}
-                        variant="outlined"
-                        fullWidth
-                      />
-                    )}
-                  />
-                ))}
-              </Box>
-
-
-
-            )}
-
-
-
-
-
           </Stack>
         </Card>
       </Grid>
     </>
   );
 
+  const handleAutocompleteChange = (e, newValue, attribute) => {
+    setVariables((prevVariables) => ({
+      ...prevVariables,
+      [attribute]: newValue,
+    }));
+  };
+
+  
+
   const renderAttributes = (
     <>
       {mdUp && (
         <Grid md={4}>
           <Typography variant="h6" sx={{ mb: 0.5 }}>
-            Product  Attributes
+            Product Attributes
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             Additional functions and attributes...
@@ -555,52 +417,84 @@ export default function ProductNewEditForm({ currentProduct }) {
                 md: 'repeat(2, 1fr)',
               }}
             >
+              <Box sx={{ gridColumn: 'span 2 ' }}>
+                <RHFAutocomplete
+                  name="attributes"
+                  label="Attributes"
+                  placeholder="+ Attributes"
+                  multiple
+                  freeSolo
+                  options={_attributes.map((option) => option)}
+                  getOptionLabel={(option) => option}
+                  renderOption={(props, option) => (
+                    <li {...props} key={option}>
+                      {option}
+                    </li>
+                  )}
+                  renderTags={(selected, getTagProps) =>
+                    selected.map((option, index) => (
+                      <Chip
+                        {...getTagProps({ index })}
+                        key={option}
+                        label={option}
+                        size="small"
+                        color="info"
+                        variant="soft"
+                      />
+                    ))
+                  }
+                />
+              </Box>
 
-
-              <Box  sx={{gridColumn:'span 2 '}}>
-
-              <RHFAutocomplete
-              
-              name="attributes"
-              label="Attributes"
-              placeholder="+ Attributes"
-              multiple
-              freeSolo
-              options={['Bottle Size',"Puffs","Flavour","Nicotine Strength","Color","Batteries"].map((option) => option)}
-              getOptionLabel={(option) => option}
-              renderOption={(props, option) => (
-                <li {...props} key={option}>
-                  {option}
-                </li>
-              )}
-              renderTags={(selected, getTagProps) =>
-                selected.map((option, index) => (
-                  <Chip
-                    {...getTagProps({ index })}
-                    key={option}
-                    label={option}
-                    size="small"
-                    color="info"
-                    variant="soft"
+              {values.attributes.map((e) => (
+                <Box sx={{ gridColumn: 'span 2 ' }} key={e}>
+                  <Autocomplete
+                    multiple={true}
+                    freeSolo={true}
+                    options={
+                      (e === 'Bottle Size' && _variables.bottleSize) ||
+                      (e === 'Puffs' && _variables.puffs) ||
+                      (e === 'Flavour' && _variables.flavour) ||
+                      (e === 'Nicotine Strength' && _variables.nicotineStrength) ||
+                      (e === 'Color' && _variables.color) ||
+                      (e === 'Batteries' && _variables.batteries) ||
+                      []
+                    }
+                    value={variables[e]}
+                    onChange={(event, newValue) => handleAutocompleteChange(event, newValue, e)}
+                    renderInput={(params) => <TextField {...params} label={e} placeholder={e} />}
+                    renderTags={(selected, getTagProps) =>
+                      selected.map((option, index) => (
+                        <Chip
+                          {...getTagProps({ index })}
+                          key={option}
+                          label={option}
+                          size="small"
+                          color="info"
+                          variant="soft"
+                        />
+                      ))
+                    }
                   />
-                ))
-              }
-            />
-        </Box>
-              {values.attributes.map(e=>
-                <Box  sx={{gridColumn:'span 2 '}}>
 
-<RHFTextField
-                name={e}
-                label={e}
-                placeholder={e}
-                type="text"
-                InputLabelProps={{ shrink: true }}
-              />
+                  {values.type === 'Variable' && variables[e]?.length >=2 && (
+                    <FormControlLabel
+                      label="Use this attributes to create variation"
+                      control={<Checkbox checked={variation.find(ev=>ev===e)} onChange={event=>{
+                        if(event.target.checked){
+                          if(variation.find(ev=>ev===e)){
+                            return
+                          }else{
+                            setVariation(prev=>[...prev,e])
+                          }
+                        }else{
+                          setVariation(prev=>prev.filter(ev=>ev!==e))
+                        }
+                      }} />}
+                    />
+                  )}
                 </Box>
-              )}
-        
-
+              ))}
             </Box>
           </Stack>
         </Card>
@@ -659,23 +553,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                 ),
               }}
             />
-
-            <RHFTextField
-              name="tax"
-              label="Tax (%)"
-              placeholder="0.00"
-              type="number"
-              InputLabelProps={{ shrink: true }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Box component="span" sx={{ color: 'text.disabled' }}>
-                      %
-                    </Box>
-                  </InputAdornment>
-                ),
-              }}
-            />
           </Stack>
         </Card>
       </Grid>
@@ -686,12 +563,6 @@ export default function ProductNewEditForm({ currentProduct }) {
     <>
       {mdUp && <Grid md={4} />}
       <Grid xs={12} md={8} sx={{ display: 'flex', alignItems: 'center' }}>
-        <FormControlLabel
-          control={<Switch defaultChecked />}
-          label="Publish"
-          sx={{ flexGrow: 1, pl: 3 }}
-        />
-
         <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
           {!currentProduct ? 'Create Product' : 'Save Changes'}
         </LoadingButton>
@@ -699,18 +570,105 @@ export default function ProductNewEditForm({ currentProduct }) {
     </>
   );
 
+  const skuAlpha = ['b','c','d','e','f','g','h']
+  let counter = 2
+  let counter2 = 0
+
+  const  productTable = (
+      <>
+
+{mdUp && (
+        <Grid md={4}>
+          <Typography variant="h6" sx={{ mb: 0.5 }}>
+            Product Table
+          </Typography>
+          
+        </Grid>
+      )}
+
+      <Grid xs={12} md={8}>
+        <Card>
+
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>SKU</TableCell>
+                <TableCell>Attributes</TableCell>
+                <TableCell>Track Stock</TableCell>
+                <TableCell>Stock</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell>Image</TableCell>  
+              </TableRow>
+            </TableHead>
+            <TableBody>
+            <TableRow>
+                <TableCell>1</TableCell>
+                <TableCell>{values.SKU}-a</TableCell>
+                <TableCell>Parent</TableCell>
+                <TableCell>
+                <FormControlLabel
+                      label="Instock"
+                      control={<Checkbox />}
+                    />
+                </TableCell>
+                <TableCell>
+                  <TextField size='small' label='Quantity' type="number" />
+                </TableCell>
+                <TableCell>
+                  <TextField size='small' label='Price'type="number" />
+                </TableCell>
+                <TableCell>
+                <TextField size='small' label='image' type='file'/>
+                  </TableCell>  
+              </TableRow>
+                {variation?.map((v,i)=> variables[v].map((va,j)=>
+                  <TableRow>
+                  <TableCell>{counter++}</TableCell>
+                  <TableCell>{values.SKU}-{skuAlpha[counter2++]}</TableCell>
+                  <TableCell>{va}</TableCell>
+                  <TableCell>
+                  <FormControlLabel
+                        label="Instock"
+                        control={<Checkbox />}
+                      />
+                  </TableCell>
+                  <TableCell>
+                    <TextField size='small' label='Quantity' type="number" />
+                  </TableCell>
+                  <TableCell>
+                    <TextField size='small' label='Price'type="number" />
+                  </TableCell>
+                  <TableCell>
+                  <TextField size='small' label='image' type='file'/>
+                    </TableCell>  
+                </TableRow>
+                ))}
+                
+
+            </TableBody>
+            </Table>
+        
+
+        
+        </Card>
+      </Grid>
+
+      </>
+  ) 
+
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Grid container spacing={3}>
-
-
-
         {renderDetails}
 
         {renderProperties}
+
         {renderAttributes}
 
-        {renderPricing}
+      {values.type === 'Simple' && renderPricing}
+
+        {values.type === 'Variable' && productTable}
 
         {renderActions}
       </Grid>
