@@ -128,34 +128,7 @@ export default function ProductDetailsSummary({
     </Box>
   );
 
-  const renderColorOptions = (
-    <Stack direction="row">
-      <Typography variant="subtitle2" sx={{ flexGrow: 1 }}>
-        Color
-      </Typography>
-
-      {/* <Stack direction="row">
-        {colors?.map((e) => (
-          <Typography key={e}>{e} , </Typography>
-        ))}
-
-      </Stack> */}
-
-      <Controller
-        name="colors"
-        control={control}
-        render={({ field }) => (
-          <ColorPicker
-            colors={colors}
-            selected={field.value}
-            onSelectColor={field.onChange}
-            limit={4}
-          />
-        )}
-      />
-
-    </Stack>
-  );
+ 
 
 
   const renderQuantity = (
@@ -268,8 +241,6 @@ export default function ProductDetailsSummary({
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
-
-        {renderColorOptions}
 
         {/* {renderSizeOptions} */}
 

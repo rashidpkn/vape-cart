@@ -91,7 +91,7 @@ export default function ProductNewEditForm({ currentProduct }) {
       images: currentProduct?.images || [],
 
       type: currentProduct?.type || 'Simple',
-      category: currentProduct?.category || 'None',
+      category: currentProduct?.category || 'Disposables',
       tags: currentProduct?.tags || [],
       SKU: currentProduct?.SKU || '',
       brand: currentProduct?.brand || 'SMOK',
@@ -706,15 +706,30 @@ export default function ProductNewEditForm({ currentProduct }) {
 function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disabled }) {
   const { user } = useAuthContext();
   const sku = values.SKU + '-' + skuAlpha[counter2];
-  const name = values.name + '-' + va;
+  const name = values.name + ' - ' + va;
 
   const [track, setTrack] = useState(true);
   const [stock, setStock] = useState('instock');
-  const [regularPrice, setRegularPrice] = useState(0);
-  const [salePrice, setSalePrice] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+  const [regularPrice, setRegularPrice] = useState(null);
+  const [salePrice, setSalePrice] = useState(null);
+  const [quantity, setQuantity] = useState(null);
 
   const [status, setStatus] = useState('pending');
+  const [images, setImages] = useState(null)
+
+  const _uploadImage = async(e)=>{
+    try {
+      const formData = new FormData();
+      formData.append('images', e.target.files[0]);
+  
+      const { data } = await api.post('upload', formData);
+
+      setImages([data[0],...values.images])
+
+  } catch (error) {
+      
+    }
+  }
 
   const _addProduct = async () => {
 
@@ -748,7 +763,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disab
         name: name,
         subDescription: values.subDescription,
         content: values.content,
-        images: values.images,
+        images: images ?? values.images,
 
         type: values.type,
         category: values.category,
@@ -790,7 +805,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disab
             size="small"
             label="Quantity"
             type="number"
-            onChange={(e) => setQuantity(e.target.value)}
+            onChange={(e) => setQuantity(+e.target.value || null)}
             value={quantity}
           />
         )}
@@ -812,7 +827,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disab
           size="small"
           label="Price"
           type="number"
-          onChange={(e) => setRegularPrice(e.target.value)}
+          onChange={(e) => setRegularPrice(+e.target.value || null)}
           value={regularPrice}
         />
       </TableCell>
@@ -822,12 +837,12 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disab
           size="small"
           label="Price"
           type="number"
-          onChange={(e) => setSalePrice(e.target.value)}
+          onChange={(e) => setSalePrice(+e.target.value || null)}
           value={salePrice}
         />
       </TableCell>
       <TableCell>
-        <TextField size="small" label="Image" type="file" disabled={disabled}/>
+        <TextField size="small" label="Image" type="file" onChange={_uploadImage} disabled={disabled}/>
       </TableCell>
       <TableCell>
         {status === 'pending' && (
