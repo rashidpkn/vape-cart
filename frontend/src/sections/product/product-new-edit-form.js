@@ -298,6 +298,11 @@ export default function ProductNewEditForm({ currentProduct }) {
     </>
   );
 
+  const [newBrand, setNewBrand] = useState({
+    name:'',
+    show:false
+  })
+
   const renderProperties = (
     <>
       {mdUp && (
@@ -377,6 +382,30 @@ export default function ProductNewEditForm({ currentProduct }) {
                   </option>
                 ))}
               </RHFSelect>
+              <Box display={'flex'} alignItems={'center'} gap={1}>
+
+
+              <FormControlLabel
+              sx={{width:190}}
+  label="Is your brand missing? Click here to add it."
+  control={
+    <Checkbox
+      checked={newBrand.show}
+      onChange={e=>setNewBrand(_=>({..._,show:e.target.checked}))}
+    />
+  }
+/>
+  {newBrand.show && <>
+      <TextField label='Brand Name' style={{width:300}} onChange={e=>setNewBrand(_=>({..._,name:e.target.value}))} value={newBrand.name}/>
+      <Button variant='contained' color='success' onClick={()=>{
+        if(newBrand.name){
+          alert("Your request to create a new brand is being processed. Please wait while we verify the brand.")
+        }else{
+          alert("Please enter new brand")
+        }
+      }}>Add Brand</Button>
+</>}
+              </Box>
             </Box>
           </Stack>
         </Card>
@@ -632,6 +661,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 values={values}
                 key={counter}
                 variables={variables}
+                disabled={true}
               />
               {variation?.map((v) =>
                 variables[v].map((va) => (
@@ -643,6 +673,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                     values={values}
                     key={counter}
                     variables={variables}
+                    disabled={false}
                   />
                 ))
               )}
@@ -672,7 +703,7 @@ export default function ProductNewEditForm({ currentProduct }) {
   );
 }
 
-function ProductTable({ counter, values, skuAlpha, counter2, va, variables }) {
+function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disabled }) {
   const { user } = useAuthContext();
   const sku = values.SKU + '-' + skuAlpha[counter2];
   const name = values.name + '-' + va;
@@ -686,6 +717,11 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables }) {
   const [status, setStatus] = useState('pending');
 
   const _addProduct = async () => {
+
+    if(disabled){
+      return
+    }
+
     const emojiPattern =
       /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2B50}\u{2B55}\u{231A}-\u{231B}\u{23E9}-\u{23EC}\u{23F0}\u{23F3}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}\u{2B1B}-\u{2B1C}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21A9}-\u{21AA}\u{2B06}\u{2B07}\u{2B1B}\u{2B1C}]/u;
     const threeDigitPattern = /\d{4,}/;
@@ -737,19 +773,20 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables }) {
   };
 
   return (
-    <TableRow>
+    <TableRow style={{backgroundColor:disabled && 'rgba(0,0,0,0.1)'}}> 
       <TableCell>{counter}</TableCell>
       <TableCell>{sku}</TableCell>
       <TableCell>{name}</TableCell>
       <TableCell>
         <FormControlLabel
           label=""
-          control={<Checkbox checked={track} onChange={(e) => setTrack(e.target.checked)} />}
+          control={<Checkbox checked={track} onChange={(e) => setTrack(e.target.checked)} disabled={disabled}/>}
         />
       </TableCell>
       <TableCell>
         {track && (
           <TextField
+          disabled={disabled}
             size="small"
             label="Quantity"
             type="number"
@@ -771,6 +808,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables }) {
       </TableCell>
       <TableCell>
         <TextField
+        disabled={disabled}
           size="small"
           label="Price"
           type="number"
@@ -780,6 +818,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables }) {
       </TableCell>
       <TableCell>
         <TextField
+        disabled={disabled}
           size="small"
           label="Price"
           type="number"
@@ -788,7 +827,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables }) {
         />
       </TableCell>
       <TableCell>
-        <TextField size="small" label="Image" type="file" />
+        <TextField size="small" label="Image" type="file" disabled={disabled}/>
       </TableCell>
       <TableCell>
         {status === 'pending' && (
