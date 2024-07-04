@@ -36,6 +36,7 @@ import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
 import { _attributes, _brands, _category, _tags, _type, _variables } from 'src/data/createProducts';
 import {
+  Button,
   Checkbox,
   FormControlLabel,
   Radio,
@@ -73,7 +74,6 @@ export default function ProductNewEditForm({ currentProduct }) {
     brand: Yup.string().required('brand is required'),
 
     attributes: Yup.array(),
-    variables: Yup.array(),
 
     quantity: Yup.number(),
 
@@ -94,10 +94,9 @@ export default function ProductNewEditForm({ currentProduct }) {
       category: currentProduct?.category || 'None',
       tags: currentProduct?.tags || [],
       SKU: currentProduct?.SKU || '',
-      brand: currentProduct?.brand || '',
+      brand: currentProduct?.brand || 'SMOK',
 
       attributes: currentProduct?.attributes || [],
-      variables: currentProduct?.attributes || [],
 
       quantity: currentProduct?.quantity || 0,
 
@@ -221,11 +220,6 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Details" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
-            {/* <p className="" style={{ margin: 0, padding: 0, fontSize: 12 }}>
-              {' '}
-              * Search for your product
-            </p> */}
-
             <RHFTextField name="name" label="Product Name" />
 
             {/* <Autocomplete
@@ -430,7 +424,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                   label="Attributes"
                   placeholder="+ Attributes"
                   multiple
-                  freeSolo
+                 
                   options={_attributes.map((option) => option)}
                   getOptionLabel={(option) => option}
                   renderOption={(props, option) => (
@@ -454,7 +448,7 @@ export default function ProductNewEditForm({ currentProduct }) {
               </Box>
 
               {values.attributes.map((e) => (
-                <Box sx={{ gridColumn: 'span 2 ' }} key={e}>
+                <Box sx={{ gridColumn: 'span 1 ' }} key={e}>
                   <Autocomplete
                     multiple={true}
                     freeSolo={true}
@@ -468,7 +462,19 @@ export default function ProductNewEditForm({ currentProduct }) {
                       []
                     }
                     value={variables[e]}
-                    onChange={(event, newValue) => handleAutocompleteChange(event, newValue, e)}
+                    onChange={(event, newValue) => {
+                      handleAutocompleteChange(event, newValue, e);
+                      console.log();
+                      if (newValue.length >= 2) {
+                        if (variation.find((ev) => ev === e)) {
+                          return;
+                        } else {
+                          setVariation((prev) => [...prev, e]);
+                        }
+                      } else {
+                        setVariation((prev) => prev.filter((ev) => ev !== e));
+                      }
+                    }}
                     renderInput={(params) => <TextField {...params} label={e} placeholder={e} />}
                     renderTags={(selected, getTagProps) =>
                       selected.map((option, index) => (
@@ -483,28 +489,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                       ))
                     }
                   />
-
-                  {values.type === 'Variable' && variables[e]?.length >= 2 && (
-                    <FormControlLabel
-                      label="Use this attributes to create variation"
-                      control={
-                        <Checkbox
-                          checked={variation.find((ev) => ev === e)}
-                          onChange={(event) => {
-                            if (event.target.checked) {
-                              if (variation.find((ev) => ev === e)) {
-                                return;
-                              } else {
-                                setVariation((prev) => [...prev, e]);
-                              }
-                            } else {
-                              setVariation((prev) => prev.filter((ev) => ev !== e));
-                            }
-                          }}
-                        />
-                      }
-                    />
-                  )}
                 </Box>
               ))}
             </Box>
@@ -582,7 +566,34 @@ export default function ProductNewEditForm({ currentProduct }) {
     </>
   );
 
-  const skuAlpha = ['a','b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  const skuAlpha = [
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+    'p',
+    'q',
+    'r',
+    's',
+    't',
+    'u',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z',
+  ];
   let counter = 1;
   let counter2 = 0;
 
@@ -591,7 +602,7 @@ export default function ProductNewEditForm({ currentProduct }) {
       {mdUp && (
         <Grid md={4}>
           <Typography variant="h6" sx={{ mb: 0.5 }}>
-          Variation Table
+            Variation Table
           </Typography>
         </Grid>
       )}
@@ -604,26 +615,26 @@ export default function ProductNewEditForm({ currentProduct }) {
                 <TableCell>ID</TableCell>
                 <TableCell width={150}>SKU</TableCell>
                 <TableCell width={150}>Attributes</TableCell>
-                <TableCell>Track</TableCell>
+                <TableCell width={150}>Track Order</TableCell>
                 <TableCell>Stock</TableCell>
                 <TableCell>Regular Price</TableCell>
                 <TableCell>Sales Price</TableCell>
                 <TableCell>Image</TableCell>
+                <TableCell width={150}>Add Product</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              
-
               <ProductTable
-                    counter={counter++}
-                    counter2={counter2++}
-                    skuAlpha={skuAlpha}
-                    va={'Parent'}
-                    values={values}
-                    key={counter}
-                  />
-              {variation?.map((v, i) =>
-                variables[v].map((va, j) => (
+                counter={counter++}
+                counter2={counter2++}
+                skuAlpha={skuAlpha}
+                va={'Parent'}
+                values={values}
+                key={counter}
+                variables={variables}
+              />
+              {variation?.map((v) =>
+                variables[v].map((va) => (
                   <ProductTable
                     counter={counter++}
                     counter2={counter2++}
@@ -631,6 +642,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                     va={va}
                     values={values}
                     key={counter}
+                    variables={variables}
                   />
                 ))
               )}
@@ -660,39 +672,145 @@ export default function ProductNewEditForm({ currentProduct }) {
   );
 }
 
-function ProductTable({ counter, values, skuAlpha, counter2, va }) {
-  const [trackStock, setTrackStock] = useState(true);
-  const [stock, setStock] = useState('instock')
+function ProductTable({ counter, values, skuAlpha, counter2, va, variables }) {
+  const { user } = useAuthContext();
+  const sku = values.SKU + '-' + skuAlpha[counter2];
+  const name = values.name + '-' + va;
+
+  const [track, setTrack] = useState(true);
+  const [stock, setStock] = useState('instock');
+  const [regularPrice, setRegularPrice] = useState(0);
+  const [salePrice, setSalePrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+
+  const [status, setStatus] = useState('pending');
+
+  const _addProduct = async () => {
+    const emojiPattern =
+      /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2B50}\u{2B55}\u{231A}-\u{231B}\u{23E9}-\u{23EC}\u{23F0}\u{23F3}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}\u{2B1B}-\u{2B1C}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21A9}-\u{21AA}\u{2B06}\u{2B07}\u{2B1B}\u{2B1C}]/u;
+    const threeDigitPattern = /\d{4,}/;
+
+    if (emojiPattern.test(values.subDescription) || emojiPattern.test(values.content)) {
+      alert('Your content contain emojis, Please remove emojis');
+      return;
+    }
+    if (threeDigitPattern.test(values.subDescription) || threeDigitPattern.test(values.content)) {
+      alert('Your content contain continues 4 digit number, Please remove');
+      return;
+    }
+
+    if (status !== 'pending') {
+      return;
+    }
+    setStatus('loading');
+    try {
+      await api.post('/products', {
+        username: user.displayName,
+        userId: user.id,
+        storeName: user.storeName,
+
+        name: name,
+        subDescription: values.subDescription,
+        content: values.content,
+        images: values.images,
+
+        type: values.type,
+        category: values.category,
+        tags: values.tags,
+        parentSku: values.SKU,
+        brand: values.brand,
+
+        attributes: values.attributes,
+        variables,
+
+        SKU: sku,
+        track,
+        quantity,
+        regularPrice,
+        salePrice,
+      });
+      setStatus('success');
+    } catch (error) {
+      console.log('Product Creation failed :' + error);
+      setStatus('failed');
+    }
+  };
+
   return (
     <TableRow>
       <TableCell>{counter}</TableCell>
-      <TableCell>
-        {values.SKU}-{skuAlpha[counter2]}
-      </TableCell>
-      <TableCell>{values.name}-{va}</TableCell>
+      <TableCell>{sku}</TableCell>
+      <TableCell>{name}</TableCell>
       <TableCell>
         <FormControlLabel
           label=""
-          control={<Checkbox checked={trackStock} onChange={(e) => setTrackStock(e.target.checked)} />}
+          control={<Checkbox checked={track} onChange={(e) => setTrack(e.target.checked)} />}
         />
       </TableCell>
       <TableCell>
-        {trackStock && <TextField size="small" label="Quantity" type="number" />}
-        {!trackStock && (
-          <RadioGroup aria-label="Stock" name="Stock" value={stock} onChange={e=>setStock(e.target.value)}>
+        {track && (
+          <TextField
+            size="small"
+            label="Quantity"
+            type="number"
+            onChange={(e) => setQuantity(e.target.value)}
+            value={quantity}
+          />
+        )}
+        {!track && (
+          <RadioGroup
+            aria-label="Stock"
+            name="Stock"
+            value={stock}
+            onChange={(e) => setStock(e.target.value)}
+          >
             <FormControlLabel value="instock" control={<Radio />} label="Instock" />
             <FormControlLabel value="outstock" control={<Radio />} label="Outstock" />
           </RadioGroup>
         )}
       </TableCell>
       <TableCell>
-        <TextField size="small" label="Price" type="number" />
+        <TextField
+          size="small"
+          label="Price"
+          type="number"
+          onChange={(e) => setRegularPrice(e.target.value)}
+          value={regularPrice}
+        />
       </TableCell>
       <TableCell>
-        <TextField size="small" label="Price" type="number" />
+        <TextField
+          size="small"
+          label="Price"
+          type="number"
+          onChange={(e) => setSalePrice(e.target.value)}
+          value={salePrice}
+        />
       </TableCell>
       <TableCell>
         <TextField size="small" label="Image" type="file" />
+      </TableCell>
+      <TableCell>
+        {status === 'pending' && (
+          <Button color="success" variant="contained" size="small" onClick={_addProduct}>
+            Add Product
+          </Button>
+        )}
+        {status === 'loading' && (
+          <Button color="success" variant="contained" size="small">
+            Loading
+          </Button>
+        )}
+        {status === 'success' && (
+          <Button color="success" variant="contained" size="small">
+            Product Created
+          </Button>
+        )}
+        {status === 'failed' && (
+          <Button color="success" variant="contained" size="small">
+            Product creation failed
+          </Button>
+        )}
       </TableCell>
     </TableRow>
   );
