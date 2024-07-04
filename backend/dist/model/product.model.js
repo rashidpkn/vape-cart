@@ -14,10 +14,6 @@ const sequelize_typescript_1 = require("sequelize-typescript");
 let Product = class Product extends sequelize_typescript_1.Model {
 };
 __decorate([
-    sequelize_typescript_1.Column,
-    __metadata("design:type", String)
-], Product.prototype, "name", void 0);
-__decorate([
     (0, sequelize_typescript_1.Column)({ defaultValue: 'Vape Monkey' }),
     __metadata("design:type", String)
 ], Product.prototype, "username", void 0);
@@ -29,6 +25,10 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ defaultValue: 'tpquNGEnfDOqPlug2Nh7VdzgcJ33' }),
     __metadata("design:type", String)
 ], Product.prototype, "userId", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], Product.prototype, "name", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(15000) }),
     __metadata("design:type", String)
@@ -45,13 +45,11 @@ __decorate([
     __metadata("design:type", Array)
 ], Product.prototype, "images", void 0);
 __decorate([
-    sequelize_typescript_1.Column,
+    (0, sequelize_typescript_1.Column)({
+        defaultValue: 'Simple'
+    }),
     __metadata("design:type", String)
-], Product.prototype, "SKU", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({ defaultValue: 20 }),
-    __metadata("design:type", Number)
-], Product.prototype, "quantity", void 0);
+], Product.prototype, "type", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ defaultValue: 'None' }),
     __metadata("design:type", String)
@@ -62,14 +60,35 @@ __decorate([
         defaultValue: [],
     }),
     __metadata("design:type", Array)
-], Product.prototype, "colors", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING),
-        defaultValue: [],
-    }),
-    __metadata("design:type", Array)
 ], Product.prototype, "tags", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], Product.prototype, "parentSku", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], Product.prototype, "brand", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ defaultValue: [], type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING) }),
+    __metadata("design:type", Array)
+], Product.prototype, "attributes", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ defaultValue: {}, type: sequelize_typescript_1.DataType.JSON }),
+    __metadata("design:type", Object)
+], Product.prototype, "variables", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], Product.prototype, "SKU", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", Boolean)
+], Product.prototype, "track", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ defaultValue: 20 }),
+    __metadata("design:type", Number)
+], Product.prototype, "quantity", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.FLOAT }),
     __metadata("design:type", Number)
@@ -79,37 +98,12 @@ __decorate([
     __metadata("design:type", Number)
 ], Product.prototype, "salePrice", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.FLOAT }),
-    __metadata("design:type", Number)
-], Product.prototype, "tax", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({ defaultValue: true }),
-    __metadata("design:type", Boolean)
-], Product.prototype, "publish", void 0);
-__decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.JSON),
         defaultValue: [],
     }),
     __metadata("design:type", Array)
 ], Product.prototype, "reviews", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({
-        defaultValue: 'Simple'
-    }),
-    __metadata("design:type", String)
-], Product.prototype, "type", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({ defaultValue: [], type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING) }),
-    __metadata("design:type", Array)
-], Product.prototype, "attributes", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.JSON,
-        defaultValue: {}
-    }),
-    __metadata("design:type", Object)
-], Product.prototype, "variable", void 0);
 Product = __decorate([
     sequelize_typescript_1.Table
 ], Product);

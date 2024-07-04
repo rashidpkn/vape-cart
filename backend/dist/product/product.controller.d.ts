@@ -4,6 +4,7 @@ import { Product } from 'src/model/product.model';
 export declare class ProductController {
     private readonly productService;
     constructor(productService: ProductService);
+    updateImg(): Promise<void>;
     createProduct(req: Request): Promise<{
         product: Product;
         message: string;

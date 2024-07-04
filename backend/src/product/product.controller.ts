@@ -28,25 +28,29 @@ export class ProductController {
   async createProduct(@Req() req: Request) {
     try {
       const {
-        name,
         username,
         storeName,
         userId,
+
+        name,
         subDescription,
         content,
         images,
-        SKU,
-        quantity = 1,
+
+        type,
         category,
-        colors,
         tags,
+        parentSku,
+        brand,
+
+        attributes,
+        variables,
+
+        SKU,
+        track,
+        quantity = 1,
         regularPrice,
         salePrice,
-        tax,
-        publish,
-        type,
-        attributes,
-        variable
       } = req.body;
       if (!name || !username || !storeName || !SKU || !category || !salePrice) {
         throw new BadRequestException(
@@ -54,25 +58,30 @@ export class ProductController {
         );
       }
       return this.productService.createProduct(
-        name,
         username,
         storeName,
         userId,
+
+        name,
         subDescription,
         content,
         images,
-        SKU,
-        quantity,
+
+        type,
         category,
-        colors,
         tags,
+        parentSku,
+        brand,
+        
+        attributes,
+        variables,
+        
+        SKU,
+        track,
+        quantity,
         regularPrice,
         salePrice,
-        tax,
-        publish,
-        type,
-        attributes,
-        variable
+        
       );
     } catch (error) {
       console.log(error.message);

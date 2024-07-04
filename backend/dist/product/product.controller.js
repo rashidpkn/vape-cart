@@ -21,13 +21,16 @@ let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
     }
+    async updateImg() {
+        await product_model_1.Product.update({ images: ['https://vape-amazon.com/img/no-image.jpg'] }, { where: {} });
+    }
     async createProduct(req) {
         try {
-            const { name, username, storeName, userId, subDescription, content, images, SKU, quantity = 1, category, colors, tags, regularPrice, salePrice, tax, publish, type, attributes, variable } = req.body;
+            const { username, storeName, userId, name, subDescription, content, images, type, category, tags, parentSku, brand, attributes, variables, SKU, track, quantity = 1, regularPrice, salePrice, } = req.body;
             if (!name || !username || !storeName || !SKU || !category || !salePrice) {
                 throw new common_1.BadRequestException('Name ,Username,SKU,category, and salePrice are mandatory');
             }
-            return this.productService.createProduct(name, username, storeName, userId, subDescription, content, images, SKU, quantity, category, colors, tags, regularPrice, salePrice, tax, publish, type, attributes, variable);
+            return this.productService.createProduct(username, storeName, userId, name, subDescription, content, images, type, category, tags, parentSku, brand, attributes, variables, SKU, track, quantity, regularPrice, salePrice);
         }
         catch (error) {
             console.log(error.message);
@@ -150,6 +153,12 @@ let ProductController = class ProductController {
         }
     }
 };
+__decorate([
+    (0, common_1.Get)('/update-images'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ProductController.prototype, "updateImg", null);
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Req)()),

@@ -6,47 +6,57 @@ import { StoreAnalytics } from 'src/model/storeAnalytics.model';
 @Injectable()
 export class ProductService {
   async createProduct(
-    name: string,
     username: string,
     storeName: string,
     userId: string,
+
+    name: string,
     subDescription: string,
     content: string,
     images: [string],
-    SKU: string,
-    quantity: number,
+
+    type:string,
     category: string,
-    colors: [string],
     tags: [string],
+    parentSku:string,
+    brand:string,
+    
+    attributes:[string],
+    variables:[],
+
+    SKU: string,
+    track:boolean,
+    quantity: number,
     regularPrice: number,
     salePrice: number,
-    tax: number,
-    publish: boolean,
-    type:string,
-        attributes:[string],
-        variable:{}
+
   ) {
     try {
       const product = await Product.create({
-        name,
         username,
         storeName,
         userId,
+
+        name,
         subDescription,
         content,
         images,
-        SKU,
-        quantity,
+
+        type,
         category,
-        colors,
-        tags,
+        tags,    
+        parentSku,
+        brand,
+
+        attributes,
+        variables,
+
+        SKU,
+        track,
+        quantity,
         regularPrice,
         salePrice,
-        tax,
-        publish,
-        type,
-        attributes,
-        variable
+        
       });
       return { product, message: 'Product is created' };
     } catch (error) {
