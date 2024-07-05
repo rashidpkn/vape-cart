@@ -31,15 +31,17 @@ import Pagination1 from '@mui/material/Pagination';
 import { Link } from 'react-router-dom';
 import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
 import AOS from 'aos';
+import bg_1 from 'src/assets/images/hero/bg_1.jpg';
 import bg_2 from 'src/assets/images/hero/bg_5.jpg';
 import bg_3 from 'src/assets/images/hero/bg_3.jpg';
 
 import 'aos/dist/aos.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function ShopPage() {
   AOS.init();
 
-  
+  const [producsts, setProducsts] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
   const [total, setTotal] = useState(0);
@@ -275,7 +277,7 @@ export default function ShopPage() {
 
           <Grid container spacing={3} style={{ padding: '20px', marginTop: '' }}>
             {currentPosts.map((item) => (
-              <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
                 <Link to={`/product/${item.id}`} key={item.id}>
                   <Card
                     sx={{ width: '100%', height: '100%', borderRadius: '0px', zIndex: '2' }}

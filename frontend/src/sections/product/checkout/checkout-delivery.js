@@ -33,9 +33,9 @@ export default function CheckoutDelivery({ options, onApplyShipping, ...other })
             }}
             sx={{ p: 3 }}
           >
-            {options.map((option) => (
+            {options.map((option,i) => (
               <OptionItem
-                key={option.label}
+                key={i}
                 option={option}
                 selected={field.value === option.value}
                 onClick={() => {

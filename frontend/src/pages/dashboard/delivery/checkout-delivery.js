@@ -56,8 +56,8 @@ export default function CheckoutDelivery() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {deliverySettings.map((e) => (
-            <Row row={e} setDeliverySettings={setDeliverySettings} />
+          {deliverySettings.map((e,i) => (
+            <Row key={i} row={e} setDeliverySettings={setDeliverySettings} />
           ))}
           <TableRow>
             <TableCell colSpan={4} align="right" />
