@@ -26,7 +26,7 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 // ----------------------------------------------------------------------
 
 export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
-  const { id, items, status, createdAt, customer, totalQuantity, subTotal } = row;
+  const { id, items, status, createdAt, customer} = row;
 
   const confirm = useBoolean();
 
@@ -80,8 +80,8 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
 
       <TableCell align="center"> {items.length} </TableCell>
 
-      <TableCell> {fCurrency(items.reduce((a,b)=>a+b.price,0))} </TableCell>
-      <TableCell> {fCurrency(items.reduce((a,b)=>a+b.price,0) * 0.2)} </TableCell>
+      <TableCell> {fCurrency(items.reduce((a, b) => a + b.price, 0))} </TableCell>
+      <TableCell> {fCurrency(items.reduce((a, b) => a + b.price, 0) * 0.2)} </TableCell>
 
       <TableCell>
         <Label

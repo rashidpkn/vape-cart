@@ -57,7 +57,7 @@ export default function ProductShopView() {
   const fetchProduct = async () => {
     try {
       const {
-        data: { products: p, count },
+        data: { products: p },
       } = await api.get('products', { params: { name, sortBy, perPage: 1000 } });
       setProducts(p);
     } catch (error) {

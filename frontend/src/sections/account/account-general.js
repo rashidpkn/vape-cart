@@ -73,9 +73,7 @@ export default function AccountGeneral() {
     async (acceptedFiles) => {
       const file = acceptedFiles[0];
 
-      const newFile = Object.assign(file, {
-        preview: URL.createObjectURL(file),
-      });
+    
 
       const form = new FormData();
       form.append('images', file);

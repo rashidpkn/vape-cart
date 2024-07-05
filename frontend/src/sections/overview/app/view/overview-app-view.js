@@ -6,10 +6,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 // hooks
 
-// _mock
-import { _appFeatured, _appInvoices } from 'src/_mock';
-// components
-import { useSettingsContext } from 'src/components/settings';
+
 // assets
 import { SeoIllustration } from 'src/assets/illustrations';
 //
@@ -20,7 +17,6 @@ import BlurLayer from 'src/common/blurlayer';
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 import AppWelcome from '../app-welcome';
-import AppFeatured from '../app-featured';
 import AppNewInvoice from '../app-new-invoice';
 
 import AppWidgetSummary from '../app-widget-summary';
@@ -31,8 +27,7 @@ export default function OverviewAppView() {
   const theme = useTheme();
 
   const { user } = useAuthContext();
-  const [products, setProducts] = useState([]);
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   const [orders, setOrders] = useState([]);
   const [invoice, setInvoice] = useState([]);
 
@@ -58,8 +53,7 @@ export default function OverviewAppView() {
         );
 
         setOrders(filteredOrders);
-        setProducts(products);
-        setCount(count)
+        setCount(count);
         setInvoice(filteredInvoice);
       } catch (error) {
         console.error('An error occurred:', error);

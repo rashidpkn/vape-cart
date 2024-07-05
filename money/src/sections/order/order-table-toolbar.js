@@ -161,12 +161,6 @@ export default function OrderListView() {
     [router]
   );
 
-  const handleFilterStatus = useCallback(
-    (event, newValue) => {
-      handleFilters('status', newValue);
-    },
-    [handleFilters]
-  );
   const [tab, setTab] = useState('all');
 
   return (

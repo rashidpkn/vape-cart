@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
@@ -17,20 +17,14 @@ import { fData } from 'src/utils/format-number';
 import { countries } from 'src/assets/data';
 // components
 import Iconify from 'src/components/iconify';
-import { useSnackbar } from 'src/components/snackbar';
 import FormProvider, {
-  RHFSwitch,
   RHFTextField,
   RHFUploadAvatar,
   RHFAutocomplete,
 } from 'src/components/hook-form';
-import { useAuthContext } from 'src/auth/hooks';
-import { useParams } from 'src/routes/hook';
 
-import { TextField } from '@mui/material';
 import { doc, updateDoc } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
-import GetStore from './view/getUsers';
 
 // ----------------------------------------------------------------------
 
@@ -71,7 +65,6 @@ export default function AccountGeneral({ user }) {
   });
 
   const {
-    getValues,
     setValue,
     handleSubmit,
     formState: { isSubmitting },

@@ -43,7 +43,7 @@ export default function OrderDetailsItems({
           {shipping ? `- ${fCurrency(shipping)}` : '-'}
         </Box>
       </Stack>
-{/* 
+      {/* 
       <Stack direction="row">
         <Box sx={{ color: 'text.secondary' }}>Discount</Box>
         <Box
@@ -55,8 +55,6 @@ export default function OrderDetailsItems({
           {discount ? `- ${fCurrency(discount)}` : '-'}
         </Box>
       </Stack> */}
-
-      
 
       <Stack direction="row" sx={{ typography: 'subtitle1' }}>
         <Box>Total</Box>

@@ -30,10 +30,10 @@ const ProductCheckoutPage = lazy(() => import('src/pages/product/checkout'));
 
 export const mainRoutes = [
   {
-    path:'/customer-dashboard',
-    element:<CustomerDash />
-  }
-  ,{
+    path: '/customer-dashboard',
+    element: <CustomerDash />,
+  },
+  {
     element: (
       <MainLayout>
         <Suspense fallback={<SplashScreen />}>
@@ -43,7 +43,7 @@ export const mainRoutes = [
     ),
     children: [
       { element: <ProductListPage />, index: true },
-      
+
       // { path: 'about-us', element: <AboutPage /> },
       // { path: 'contact-us', element: <ContactPage /> },
       // { path: 'faqs', element: <FaqsPage /> },

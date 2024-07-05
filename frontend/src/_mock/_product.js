@@ -85,18 +85,91 @@ export const PRODUCT_CATEGORY_GROUP_OPTIONS = [
   { group: 'Liquids', classify: ['Brand', 'Flavor', 'Bottles Size', 'Nicotine Strength'] },
   { group: 'Devices', classify: ['Brand', 'Color', 'Batteries'] },
   { group: 'Accessories', classify: ['Brand', 'Type'] },
-  // 
+  //
 ];
 
-
-export const  ATTRIBUTES = [
-  { group: 'Brand', attributes: ["Juul", "SMOK", "Vaporesso", "Innokin", "Aspire", "GeekVape", "Uwell", "Voopoo", "Eleaf", "Lost Vape", "Joyetech", "Vandy Vape", "Wismec", "Rincoe", "Augvape"] },
-  { group: 'Flavor', attributes: ["Tobacco", "Menthol", "Fruit", "Dessert", "Candy", "Beverage", "Cream", "Vanilla", "Chocolate", "Cereal", "Nuts", "Spice", "Mint", "Citrus", "Berries"] },
-  { group: 'Puffs', attributes: [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000].map(e => `${e} Puffs`) },
-  { group: 'Nicotine Strength', attributes: [3, 6, 12, 18, 24, 36, 50].map(e => `${e} mg`) },
-  { group: 'Bottles Size', attributes: [30, 60, 100, 120, 180, 200].map(e => `${e} ml`) },
-  { group: 'Color', attributes: ["Black", "Silver", "White", "Blue", "Red", "Green", "Purple", "Pink", "Gold", "Gunmetal", "Rainbow", "Orange"] },
-  { group: 'Batteries', attributes: ["Single", "Dual", "Triple", "Internal", "Replaceable"] },
-  { group: 'Type', attributes: ["Pod", "Mod", "Pen", "AIO", "Disposable", "Squonk", "Starter Kit", "Tank", "RTA", "RDA", "RDTA"] },
-]
+export const ATTRIBUTES = [
+  {
+    group: 'Brand',
+    attributes: [
+      'Juul',
+      'SMOK',
+      'Vaporesso',
+      'Innokin',
+      'Aspire',
+      'GeekVape',
+      'Uwell',
+      'Voopoo',
+      'Eleaf',
+      'Lost Vape',
+      'Joyetech',
+      'Vandy Vape',
+      'Wismec',
+      'Rincoe',
+      'Augvape',
+    ],
+  },
+  {
+    group: 'Flavor',
+    attributes: [
+      'Tobacco',
+      'Menthol',
+      'Fruit',
+      'Dessert',
+      'Candy',
+      'Beverage',
+      'Cream',
+      'Vanilla',
+      'Chocolate',
+      'Cereal',
+      'Nuts',
+      'Spice',
+      'Mint',
+      'Citrus',
+      'Berries',
+    ],
+  },
+  {
+    group: 'Puffs',
+    attributes: [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000].map(
+      (e) => `${e} Puffs`
+    ),
+  },
+  { group: 'Nicotine Strength', attributes: [3, 6, 12, 18, 24, 36, 50].map((e) => `${e} mg`) },
+  { group: 'Bottles Size', attributes: [30, 60, 100, 120, 180, 200].map((e) => `${e} ml`) },
+  {
+    group: 'Color',
+    attributes: [
+      'Black',
+      'Silver',
+      'White',
+      'Blue',
+      'Red',
+      'Green',
+      'Purple',
+      'Pink',
+      'Gold',
+      'Gunmetal',
+      'Rainbow',
+      'Orange',
+    ],
+  },
+  { group: 'Batteries', attributes: ['Single', 'Dual', 'Triple', 'Internal', 'Replaceable'] },
+  {
+    group: 'Type',
+    attributes: [
+      'Pod',
+      'Mod',
+      'Pen',
+      'AIO',
+      'Disposable',
+      'Squonk',
+      'Starter Kit',
+      'Tank',
+      'RTA',
+      'RDA',
+      'RDTA',
+    ],
+  },
+];
 export const PRODUCT_CHECKOUT_STEPS = ['Cart', 'Billing & address', 'Payment'];

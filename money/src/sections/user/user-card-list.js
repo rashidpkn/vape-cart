@@ -12,7 +12,7 @@ import UserCard from './user-card';
 
 export default function UserCardList() {
   const [products, setProducts] = useState([]);
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState([]);
 
   const [store, setStore] = useState([]);
 
@@ -28,15 +28,19 @@ export default function UserCardList() {
   };
 
   useEffect(() => {
-    api.get('/products',{params:{
-      perPage:10000
-    }}).then((res) => {
-      setProducts(res.data.products);
-    });
+    api
+      .get('/products', {
+        params: {
+          perPage: 10000,
+        },
+      })
+      .then((res) => {
+        setProducts(res.data.products);
+      });
 
-    api.get('/orders').then(res=>{
-      setOrders(res.data)
-    })
+    api.get('/orders').then((res) => {
+      setOrders(res.data);
+    });
 
     getUsers();
   }, []);

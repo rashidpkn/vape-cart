@@ -3,21 +3,17 @@ import PropTypes from 'prop-types';
 import { alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 // utils
 import { fShortenNumber } from 'src/utils/format-number';
 // _mock
-import { _socials } from 'src/_mock';
 // assets
 import { AvatarShape } from 'src/assets/illustrations';
 // components
 import Image from 'src/components/image';
-import Iconify from 'src/components/iconify';
 import { useNavigate } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
@@ -26,13 +22,7 @@ export default function UserCard({ user, products = [], orders = [] }) {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const {
-    storeName,
-    coverUrl,
-    displayName,
-    totalFollowers,
-    uid
-  } = user;
+  const { storeName, coverUrl, displayName, totalFollowers, uid } = user;
 
   return (
     <Card
@@ -127,7 +117,10 @@ export default function UserCard({ user, products = [], orders = [] }) {
           <Typography variant="caption" component="div" sx={{ mb: 0.5, color: 'text.secondary' }}>
             Revenue
           </Typography>
-          {orders?.reduce((acc, order) => (order.items?.[0]?.userId === uid ? acc + order.subTotal : acc), 0)}
+          {orders?.reduce(
+            (acc, order) => (order.items?.[0]?.userId === uid ? acc + order.subTotal : acc),
+            0
+          )}
           {/* {fShortenNumber(totalPosts)} */}
         </div>
       </Box>

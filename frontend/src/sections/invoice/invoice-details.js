@@ -67,7 +67,6 @@ export default function InvoiceDetails({ invoice }) {
         </TableCell>
       </StyledTableRow> */}
 
-
       <StyledTableRow>
         <TableCell colSpan={3} />
         <TableCell sx={{ typography: 'subtitle1' }}>Total</TableCell>

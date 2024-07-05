@@ -9,7 +9,6 @@ import { paths } from 'src/routes/paths';
 import { ORDER_STATUS_OPTIONS } from 'src/_mock';
 // components
 import { useParams } from 'src/routes/hook';
-import { useSettingsContext } from 'src/components/settings';
 //
 import api from 'src/utils/api';
 import OrderDetailsInfo from '../order-details-info';
@@ -19,8 +18,6 @@ import OrderDetailsToolbar from '../order-details-toolbar';
 // ----------------------------------------------------------------------
 
 export default function OrderDetailsView() {
-  const settings = useSettingsContext();
-
   const params = useParams();
 
   const { id } = params;
@@ -33,7 +30,7 @@ export default function OrderDetailsView() {
       const { data } = await api.get(`orders/${id}`);
       setCurrentOrder(data);
       setStatus(data.status);
-    } catch (error) { }
+    } catch (error) {}
   };
   useEffect(() => {
     fetchOrder();
@@ -42,7 +39,7 @@ export default function OrderDetailsView() {
   const [status, setStatus] = useState(currentOrder.status);
 
   const handleChangeStatus = useCallback(async (newValue) => {
-    await api.patch(`/orders/status/${id}`, { status: newValue })
+    await api.patch(`/orders/status/${id}`, { status: newValue });
     setStatus(newValue);
   }, []);
 

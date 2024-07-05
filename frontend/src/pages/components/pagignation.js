@@ -10,14 +10,14 @@ const pagignation = ({ totalPosts, postsPerPage, setCurrentPage, currentPage }) 
   return (
     <div className="pagination">
       {pages.map((page, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentPage(page)}
-            className={page == currentPage ? 'active' : ''}
-          >
-            {page}
-          </button>
-        ))}
+        <button
+          key={index}
+          onClick={() => setCurrentPage(page)}
+          className={page == currentPage ? 'active' : ''}
+        >
+          {page}
+        </button>
+      ))}
     </div>
   );
 };

@@ -26,7 +26,7 @@ export default function ProductEditView() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data, status } = await api.get(`products/${id}`);
+        const { data } = await api.get(`products/${id}`);
         setCurrentProduct(data);
       } catch (error) {
         alert(error.response.data.message);

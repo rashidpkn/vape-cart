@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { useCallback, useMemo, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -51,7 +50,6 @@ import {
 // ----------------------------------------------------------------------
 
 export default function ProductNewEditForm({ currentProduct }) {
-  const [products, setProduct] = useState([]);
 
   const router = useRouter();
 
@@ -127,13 +125,13 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const fetchProduct = useCallback(async () => {
     const {
-      data: { products },
+      data: {  },
     } = await api.get('/products', {
       params: {
         name: values.name,
       },
     });
-    setProduct(products);
+    // setProduct(products);
   }, [values.name]);
 
   useEffect(() => {
@@ -379,7 +377,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                   </option>
                 ))}
               </RHFSelect>
-              <Box display={'flex'} alignItems={'center'} gap={1}>
+              <Box display="flex" alignItems="center" gap={1}>
                 <FormControlLabel
                   sx={{ width: 190 }}
                   label="Is your brand missing? Click here to add it."
@@ -488,8 +486,8 @@ export default function ProductNewEditForm({ currentProduct }) {
               {values.attributes.map((e) => (
                 <Box sx={{ gridColumn: 'span 1 ' }} key={e}>
                   <Autocomplete
-                    multiple={true}
-                    freeSolo={true}
+                    multiple
+                    freeSolo
                     options={
                       (e === 'Bottle Size' && _variables.bottleSize) ||
                       (e === 'Puffs' && _variables.puffs) ||
@@ -505,7 +503,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                       console.log();
                       if (newValue.length >= 2) {
                         if (variation.find((ev) => ev === e)) {
-                          return;
+                          
                         } else {
                           setVariation((prev) => [...prev, e]);
                         }
@@ -604,9 +602,37 @@ export default function ProductNewEditForm({ currentProduct }) {
     </>
   );
 
-  const alpha = ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-  const skuAlpha = [...alpha, ...alpha.slice(1).flatMap(i => alpha.slice(1).map(j => i + j))];
-  
+  const alpha = [
+    '',
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+    'p',
+    'q',
+    'r',
+    's',
+    't',
+    'u',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z',
+  ];
+  const skuAlpha = [...alpha, ...alpha.slice(1).flatMap((i) => alpha.slice(1).map((j) => i + j))];
+
   let counter = 1;
   let counter2 = 0;
 
@@ -641,11 +667,11 @@ export default function ProductNewEditForm({ currentProduct }) {
                 counter={counter++}
                 counter2={counter2++}
                 skuAlpha={skuAlpha}
-                va={'Parent'}
+                va="Parent"
                 values={values}
                 key={counter}
                 variables={variables}
-                disabled={true}
+                disabled
               />
 
               {/* {
@@ -680,7 +706,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                     disabled={false}
                   />
                 ))}
-
             </TableBody>
           </Table>
         </Card>
@@ -695,13 +720,13 @@ export default function ProductNewEditForm({ currentProduct }) {
 
         {renderProperties}
 
-        {renderAttributes}
+        {values.type === 'Variable' && renderAttributes}
 
         {values.type === 'Simple' && renderPricing}
 
         {values.type === 'Variable' && productTable}
 
-        {renderActions}
+        {values.type === 'Simple' && renderActions}
       </Grid>
     </FormProvider>
   );
@@ -709,8 +734,8 @@ export default function ProductNewEditForm({ currentProduct }) {
 
 function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disabled }) {
   const { user } = useAuthContext();
-  const sku =!!skuAlpha[counter2] ?   values.SKU + '-' + skuAlpha[counter2] : values.SKU;
-  const name = values.name + ' - ' + va;
+  const sku = skuAlpha[counter2] ? `${values.SKU  }-${  skuAlpha[counter2]}` : values.SKU;
+  const name = `${values.name  } - ${  va}`;
 
   const [track, setTrack] = useState(true);
   const [stock, setStock] = useState('instock');
@@ -760,7 +785,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
         userId: user.id,
         storeName: user.storeName,
 
-        name: name,
+        name,
         subDescription: values.subDescription,
         content: values.content,
         images: images ?? values.images,
@@ -782,7 +807,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
       });
       setStatus('success');
     } catch (error) {
-      console.log('Product Creation failed :' + error);
+      console.log(`Product Creation failed :${  error}`);
       setStatus('failed');
     }
   };
@@ -848,13 +873,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
         />
       </TableCell>
       <TableCell>
-        <input
-          size="small"
-          label="Image"
-          type="file"
-          onChange={_uploadImage}
-          disabled={disabled}
-        />
+        <input size="small" label="Image" type="file" onChange={_uploadImage} disabled={disabled} />
       </TableCell>
       <TableCell>
         {status === 'pending' && (

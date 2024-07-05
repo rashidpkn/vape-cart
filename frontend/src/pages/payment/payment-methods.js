@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
+import {  useCallback } from 'react';
 // @mui
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+
+
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
@@ -13,8 +13,8 @@ import { useBoolean } from 'src/hooks/use-boolean';
 // components
 import Iconify from 'src/components/iconify';
 //
-import PaymentNewCardDialog from './payment-new-card-dialog';
 import { Icon } from '@iconify/react';
+
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +33,6 @@ const PAYMENT_OPTIONS = [
   },
 ];
 
-const CARD_OPTIONS = [];
 
 export default function PaymentMethods({ setMethod, method, setCurrency }) {
   const newCard = useBoolean();
@@ -105,7 +104,9 @@ function OptionItem({ option, selected, isCredit, onOpen, ...other }) {
               )}
               {value === 'crypto' && <Iconify icon="logos:bitcoin" width={24} />}
               {value === 'crypto' && <Iconify icon="cryptocurrency-color:usdt" width={24} />}
-              {value === 'cash' && <Icon icon="la:money-bill-wave-alt" style={{color:'#81b562'}}   width={24} />}
+              {value === 'cash' && (
+                <Icon icon="la:money-bill-wave-alt" style={{ color: '#81b562' }} width={24} />
+              )}
             </Stack>
           </Stack>
         }

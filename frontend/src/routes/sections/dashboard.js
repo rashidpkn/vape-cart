@@ -9,7 +9,6 @@ import { LoadingScreen } from 'src/components/loading-screen';
 import Delivery from 'src/pages/dashboard/delivery';
 import Payout from 'src/pages/dashboard/payout';
 import Boost from 'src/pages/dashboard/boost';
-import CreateProduct from 'src/pages/dashboard/create-product';
 
 // ----------------------------------------------------------------------
 
@@ -58,13 +57,7 @@ export const dashboardRoutes = [
       </AuthGuard>
     ),
     children: [
-
-
-      
-      
       { element: <IndexPage />, index: true },
-
-      {path:'create-product',element:<CreateProduct/>,},
       { path: 'ecommerce', element: <OverviewEcommercePage /> },
       { path: 'analytics', element: <OverviewAnalyticsPage /> },
       {

@@ -17,7 +17,6 @@ import './css/index.css';
 
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import ReduxProvider from 'src/redux/redux-provider';
 import Router from 'src/routes/sections';
 import ThemeProvider from 'src/theme';
 import { useScrollToTop } from 'src/hooks/use-scroll-to-top';

@@ -25,8 +25,6 @@ import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 import { ConfirmDialog } from 'src/components/custom-dialog';
-import { useSettingsContext } from 'src/components/settings';
-import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import {
   useTable,
   getComparator,
@@ -41,8 +39,6 @@ import {
 import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
 import OrderTableRow from '../order-table-row';
-import OrderTableToolbar from '../order-table-toolbar';
-import OrderTableFiltersResult from '../order-table-filters-result';
 
 // ----------------------------------------------------------------------
 
@@ -102,24 +98,22 @@ export default function OrderListView() {
     fetchOrders();
   }, []);
 
-
   function filterOrdersByUserId(orders, userId) {
-    return orders.map(order => {
-        
-        const filteredItems = order.items.filter(item => item.userId === userId);
-        return {
-            ...order,
-            items: filteredItems
-        };
+    return orders.map((order) => {
+      const filteredItems = order.items.filter((item) => item.userId === userId);
+      return {
+        ...order,
+        items: filteredItems,
+      };
     });
-}
+  }
 
   useEffect(() => {
-    let sortOrders = orders.filter((order) => order.items.some((item) => myProduct.includes(item.id))).reverse()
-    setTableData(filterOrdersByUserId(sortOrders,id))
+    const sortOrders = orders
+      .filter((order) => order.items.some((item) => myProduct.includes(item.id)))
+      .reverse();
+    setTableData(filterOrdersByUserId(sortOrders, id));
   }, [orders, myProduct]);
-
-
 
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
@@ -127,7 +121,7 @@ export default function OrderListView() {
 
   const confirm = useBoolean();
 
-  const [filters, setFilters] = useState(defaultFilters);
+  const filters=defaultFilters;
 
   const dateError =
     filters.startDate && filters.endDate

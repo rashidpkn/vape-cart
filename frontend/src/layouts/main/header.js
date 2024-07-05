@@ -1,52 +1,31 @@
 // @mui
-import { useTheme } from '@mui/material/styles';
-import { Link, json, useNavigate } from 'react-router-dom';
-import Stack from '@mui/material/Stack';
+
+import { Link,  useNavigate } from 'react-router-dom';
+
 import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
-import Badge, { badgeClasses } from '@mui/material/Badge';
+
+
 
 import './header.css';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-// hooks
-import { useOffSetTop } from 'src/hooks/use-off-set-top';
-import { useResponsive } from 'src/hooks/use-responsive';
 
-import axios from 'axios';
 
 import api from 'src/utils/api';
 // var data =require('/src/map/PRODUCT_MAP.json')
 
-// theme
-import { bgBlur } from 'src/theme/css';
-// routes
-import { paths } from 'src/routes/paths';
-// components
-import Logo from 'src/components/logo';
-//
-//
 import React, { useCallback, useEffect, useState } from 'react';
-import { Box, Button, CssBaseline, Divider, FormGroup, Typography } from '@mui/material';
+import { Box, Button, CssBaseline, Typography } from '@mui/material';
 import { AddShoppingCart, ArrowDropDown, LocationOn, Search } from '@mui/icons-material';
 import Modal from '@mui/material/Modal';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocation } from 'src/redux/slices/util';
 import { allItems } from '../dashboard/config-navigation';
 import BottomHeader from './BottomHeader';
-import { SettingsButton, HeaderShadow, LoginButton } from '../_common';
-import NavDesktop from './nav/desktop';
-import NavMobile from './nav/mobile';
-import { navConfig } from './config-navigation';
-import { HEADER } from '../config-layout';
+
 import ShowLogin from './ShowLogin';
 // ----------------------------------------------------------------------
 const style = {
@@ -67,7 +46,6 @@ export default function Header({ set }) {
   const { city, postal } = useSelector((state) => state.util.location);
   const dispatch = useDispatch();
 
-
   const [showAll, setShowAll] = useState(false);
 
   const [showAllSign, setShowAllSign] = useState(false);
@@ -75,15 +53,14 @@ export default function Header({ set }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [value, setValue] = useState('');
-
+  
 
   const [result, setResults] = useState([]);
   const [input, setInput] = useState('');
 
   const fetchProducts = useCallback(async () => {
     const {
-      data: { count, products },
+      data: {  products },
     } = await api.get('/products', { params: { name: input } });
     setResults(products);
   }, [input]);
@@ -91,8 +68,6 @@ export default function Header({ set }) {
   useEffect(() => {
     fetchProducts();
   }, [input]);
-
-
 
   return (
     <AppBar>
@@ -288,7 +263,8 @@ export default function Header({ set }) {
                 cursor: 'pointer',
               }}
             >
-              All<span />
+              All
+              <span />
               <ArrowDropDown />
             </span>
             {showAll && (
@@ -394,10 +370,7 @@ export default function Header({ set }) {
               cursor: 'pointer',
             }}
           >
-            <Typography
-              variant="p"
-              style={{ fontSize: '12px', fontWeight: '400', height: '8px' }}
-            >
+            <Typography variant="p" style={{ fontSize: '12px', fontWeight: '400', height: '8px' }}>
               Hello {localStorage.customer ? JSON.parse(localStorage.customer).fName : ' Sign in'},
             </Typography>
             <Typography variant="p" style={{ fontSize: '14px', fontWeight: '700' }}>
@@ -406,9 +379,7 @@ export default function Header({ set }) {
                 <ArrowDropDown />
               </span>
             </Typography>
-            {showAllSign && (
-              <ShowLogin />
-            )}
+            {showAllSign && <ShowLogin />}
           </Box>
 
           <Box

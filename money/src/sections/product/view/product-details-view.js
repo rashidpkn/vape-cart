@@ -27,7 +27,6 @@ import ProductDetailsReview from '../product-details-review';
 import ProductDetailsSummary from '../product-details-summary';
 import ProductDetailsToolbar from '../product-details-toolbar';
 import ProductDetailsCarousel from '../product-details-carousel';
-import ProductDetailsDescription from '../product-details-description';
 
 // ----------------------------------------------------------------------
 
@@ -64,7 +63,7 @@ export default function ProductDetailsView() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data, status } = await api.get(`products/${id}`);
+        const { data } = await api.get(`products/${id}`);
         setProduct(data);
       } catch (error) {
         alert(error.response.data.message);

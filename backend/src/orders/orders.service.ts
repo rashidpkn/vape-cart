@@ -51,11 +51,11 @@ export class OrdersService {
 
   // get all orders
 
-  async getAllOders(query:{email?:string}) {
+  async getAllOders(query: { email?: string }) {
     try {
       const orders = await Orders.findAll();
-      if(!!query.email){
-          return orders.filter(order => order.customer.email === query.email);
+      if (!!query.email) {
+        return orders.filter((order) => order.customer.email === query.email);
       }
       return orders;
     } catch (error) {

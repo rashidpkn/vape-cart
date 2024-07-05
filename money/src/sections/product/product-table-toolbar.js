@@ -43,15 +43,15 @@ export default function ProductTableToolbar({
     [onFilters]
   );
 
-  const handleFilterPublish = useCallback(
-    (event) => {
-      onFilters(
-        'publish',
-        typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
-      );
-    },
-    [onFilters]
-  );
+  // const handleFilterPublish = useCallback(
+  //   (event) => {
+  //     onFilters(
+  //       'publish',
+  //       typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
+  //     );
+  //   },
+  //   [onFilters]
+  // );
 
   return (
     <>

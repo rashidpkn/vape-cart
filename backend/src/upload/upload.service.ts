@@ -20,7 +20,6 @@ export class UploadService {
         await fsPromises.unlink(file.path);
         // result.push(`http://localhost:3000/uploads/${fileName}`);
         result.push(`https://vape-amazon.com/uploads/${fileName}`);
-        
       }
       return result;
     } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 
 import Button from '@mui/material/Button';
@@ -90,11 +90,10 @@ export default function PayoutTableRow({ item, fetchPayout }) {
                 }}
                 variant="contained"
                 onClick={async () => {
-                  if(item.method === 'cash'){
+                  if (item.method === 'cash') {
                     await api.patch(`/payout/${item.id}`, { status: 'completed', transactionId });
                     fetchPayout();
-                  }else{
-
+                  } else {
                     setUploadDoc((prev) => !prev);
                   }
                 }}

@@ -7,55 +7,51 @@ import { Customers } from 'src/model/customers.model';
 export class CustomersService {
   async create(createCustomerDto: CreateCustomerDto) {
     try {
-      
-      const found = await Customers.findOne({where:{email:createCustomerDto.email}})
-      if(found){
-        if(found.password === createCustomerDto.password){
-          return {message:'Login successfull',customer:found}    
+      const found = await Customers.findOne({
+        where: { email: createCustomerDto.email },
+      });
+      if (found) {
+        if (found.password === createCustomerDto.password) {
+          return { message: 'Login successfull', customer: found };
         }
-        throw new BadRequestException("Check your email and password")
+        throw new BadRequestException('Check your email and password');
       }
-      if(!createCustomerDto.fName){
-        throw new BadRequestException("Account not existed")
-
+      if (!createCustomerDto.fName) {
+        throw new BadRequestException('Account not existed');
       }
-      const customer = await Customers.create({...createCustomerDto})
-      return {message:'Account created',customer}
+      const customer = await Customers.create({ ...createCustomerDto });
+      return { message: 'Account created', customer };
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
   async findAll() {
     try {
-      return await Customers.findAll()
-  } catch (error) {
-      throw error
+      return await Customers.findAll();
+    } catch (error) {
+      throw error;
     }
   }
 
   async findOne(id: number) {
     try {
-      return await Customers.findOne({where:{id}})
+      return await Customers.findOne({ where: { id } });
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
   async update(id: number, updateCustomerDto: UpdateCustomerDto) {
     try {
-      await Customers.update(updateCustomerDto,{where:{id}})
-      return { message:'Updated'}
-  } catch (error) {
-      
-    }
+      await Customers.update(updateCustomerDto, { where: { id } });
+      return { message: 'Updated' };
+    } catch (error) {}
   }
 
   async remove(id: number) {
     try {
-      await Customers.destroy({where:{id}})
-  } catch (error) {
-      
-    }
+      await Customers.destroy({ where: { id } });
+    } catch (error) {}
   }
 }

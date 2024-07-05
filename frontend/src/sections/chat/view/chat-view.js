@@ -12,7 +12,6 @@ import { useMockedUser } from 'src/hooks/use-mocked-user';
 // api
 import { useGetContacts, useGetConversation, useGetConversations } from 'src/api/chat';
 // components
-import { useSettingsContext } from 'src/components/settings';
 //
 import ChatNav from '../chat-nav';
 import ChatRoom from '../chat-room';
@@ -28,7 +27,6 @@ export default function ChatView() {
 
   const { user } = useMockedUser();
 
-  const settings = useSettingsContext();
 
   const searchParams = useSearchParams();
 

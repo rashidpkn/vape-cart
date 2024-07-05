@@ -1,17 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import Box from '@mui/material/Box';
 
 import Button from '@mui/material/Button';
 import { TableRow, TableCell } from '@mui/material';
 
-import api from 'src/utils/api';
 import { fDate } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
 import Label from 'src/components/label';
 import Avatar from '@mui/material/Avatar';
 import Collapse from '@mui/material/Collapse';
-import TextField from '@mui/material/TextField';
-import { Icon } from '@iconify/react';
+
 
 export default function PayoutTableRow({ item, fetchPayout }) {
   const [viewTranaction, setViewTranaction] = useState(false);
@@ -49,9 +47,7 @@ export default function PayoutTableRow({ item, fetchPayout }) {
         <TableCell>{fCurrency(item.amount)}</TableCell>
         <TableCell sx={{ maxWidth: '100px', wordBreak: 'break-word' }}>
           {item.walletAddress}
-          {!item.walletAddress && (
-            <p style={{ margin: 0 }}>{item.account.name}</p>
-          )}
+          {!item.walletAddress && <p style={{ margin: 0 }}>{item.account.name}</p>}
         </TableCell>
         <TableCell sx={{ textTransform: 'capitalize' }}>
           <Label variant="soft" color={(item.status === 'pending' && 'warning') || 'success'}>

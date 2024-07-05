@@ -3,11 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 // _mock
-import {
-  _ecommerceSalesOverview,
-  _ecommerceBestSalesman,
-  _ecommerceLatestProducts,
-} from 'src/_mock';
+
 // components
 import { useSettingsContext } from 'src/components/settings';
 // assets
@@ -18,13 +14,10 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
 import api from 'src/utils/api';
-import EcommerceYearlySales from '../ecommerce-yearly-sales';
+
 import EcommerceBestSalesman from '../ecommerce-best-salesman';
-import EcommerceSaleByGender from '../ecommerce-sale-by-gender';
-import EcommerceSalesOverview from '../ecommerce-sales-overview';
+
 import EcommerceWidgetSummary from '../ecommerce-widget-summary';
-import EcommerceLatestProducts from '../ecommerce-latest-products';
-import EcommerceCurrentBalance from '../ecommerce-current-balance';
 
 // ----------------------------------------------------------------------
 

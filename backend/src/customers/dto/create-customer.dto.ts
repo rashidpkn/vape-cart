@@ -1,9 +1,9 @@
 export class CreateCustomerDto {
-    email:string
-    
-    password:string
+  email: string;
 
-    fName:string
+  password: string;
 
-    lName:string
+  fName: string;
+
+  lName: string;
 }

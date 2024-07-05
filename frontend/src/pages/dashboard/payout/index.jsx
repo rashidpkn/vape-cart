@@ -5,25 +5,18 @@ import TableBody from '@mui/material/TableBody';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
 import Scrollbar from 'src/components/scrollbar';
 import Table from '@mui/material/Table';
-import Button from '@mui/material/Button';
-import { TableRow, TableCell } from '@mui/material';
 
-import { TableHeadCustom, TableNoData, useTable } from 'src/components/table';
+
+
+import { TableHeadCustom, TableNoData} from 'src/components/table';
 import api from 'src/utils/api';
-import { fDate } from 'src/utils/format-time';
-import { fCurrency } from 'src/utils/format-number';
-import Label from 'src/components/label';
-import Avatar from '@mui/material/Avatar';
-import Collapse from '@mui/material/Collapse';
-import TextField from '@mui/material/TextField';
-import { Icon } from '@iconify/react';
+
 import { useAuthContext } from 'src/auth/hooks';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import PayoutTableRow from './Table-Row';
 
 export default function Payout() {
-  const [uploadDoc, setUploadDoc] = useState(false);
   const [payout, setPayout] = useState([]);
   const TABLE_HEAD = [
     { id: 'User', label: 'User' },

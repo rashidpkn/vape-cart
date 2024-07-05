@@ -9,17 +9,16 @@ import { paths } from 'src/routes/paths';
 import { ORDER_STATUS_OPTIONS } from 'src/_mock';
 // components
 import { useParams } from 'src/routes/hook';
-import { useSettingsContext } from 'src/components/settings';
 //
 import api from 'src/utils/api';
-import OrderDetailsInfo from '../order-details-info';
+
 import OrderDetailsItems from '../order-details-item';
 import OrderDetailsToolbar from '../order-details-toolbar';
 
 // ----------------------------------------------------------------------
 
 export default function OrderDetailsView() {
-  const settings = useSettingsContext();
+  
 
   const params = useParams();
 
@@ -30,14 +29,13 @@ export default function OrderDetailsView() {
   const [currentOrder, setCurrentOrder] = useState({});
   const fetchOrder = async () => {
     try {
-      let { data } = await api.get(`orders/${id}`);
-      data.items = data.items.filter(item => item.userId !== "tpquNGEnfDOqPlug2Nh7VdzgcJ33");
+      const { data } = await api.get(`orders/${id}`);
+      data.items = data.items.filter((item) => item.userId !== 'tpquNGEnfDOqPlug2Nh7VdzgcJ33');
 
-      
       data.subTotal = data.items.reduce((sum, item) => sum + item.subTotal, 0);
       data.totalQuantity = data.items.reduce((sum, item) => sum + item.quantity, 0);
       data.totalAmount = data.subTotal + data.shipping;
-    
+
       setCurrentOrder(data);
       setStatus(data.status);
     } catch (error) {}

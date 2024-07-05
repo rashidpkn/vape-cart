@@ -25,7 +25,6 @@ const Page404 = lazy(() => import('src/pages/404'));
 const ProductListPage = lazy(() => import('src/pages/product/list'));
 const ProductDetailsPage = lazy(() => import('src/pages/product/details'));
 const ProductCheckoutPage = lazy(() => import('src/pages/product/checkout'));
-const FirebaseLoginPage = lazy(() => import('src/pages/auth/firebase/login'));
 
 // ----------------------------------------------------------------------
 

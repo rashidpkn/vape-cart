@@ -11,7 +11,6 @@ import { StoreAnalyticsModule } from './store-analytics/store-analytics.module';
 import { PayoutModule } from './payout/payout.module';
 import { CustomersModule } from './customers/customers.module';
 
-
 @Module({
   imports: [
     ProductModule,

@@ -8,7 +8,7 @@ import {
   Req,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
-import { request, Request } from 'express';
+import { Request } from 'express';
 import { Orders } from 'src/model/orders.model';
 import { Invoice } from 'src/model/invoice.model';
 
@@ -63,9 +63,9 @@ export class OrdersController {
 
   // get all orders
   @Get()
-  async getAllOders(@Req() req:Request) {
+  async getAllOders(@Req() req: Request) {
     try {
-      const {query} = req
+      const { query } = req;
       return this.ordersService.getAllOders(query);
     } catch (error) {
       throw error;
@@ -107,19 +107,16 @@ export class OrdersController {
     }
   }
 
-
-    // updateOrder
-    @Patch('status/:id')
-    async updateStatus(@Req() req: Request) {
-      try {
-        const {status} = req.body
-        const {id} = req.params
-await Orders.update({status},{where:{id}})
-await Invoice.update({status},{where:{id}})
-        
-        
-      } catch (error) {
-        throw error;
-      }
+  // updateOrder
+  @Patch('status/:id')
+  async updateStatus(@Req() req: Request) {
+    try {
+      const { status } = req.body;
+      const { id } = req.params;
+      await Orders.update({ status }, { where: { id } });
+      await Invoice.update({ status }, { where: { id } });
+    } catch (error) {
+      throw error;
     }
+  }
 }

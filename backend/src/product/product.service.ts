@@ -15,21 +15,20 @@ export class ProductService {
     content: string,
     images: [string],
 
-    type:string,
+    type: string,
     category: string,
     tags: [string],
-    parentSku:string,
-    brand:string,
-    
-    attributes:[string],
-    variables:[],
+    parentSku: string,
+    brand: string,
+
+    attributes: [string],
+    variables: [],
 
     SKU: string,
-    track:boolean,
+    track: boolean,
     quantity: number,
     regularPrice: number,
     salePrice: number,
-
   ) {
     try {
       const product = await Product.create({
@@ -44,7 +43,7 @@ export class ProductService {
 
         type,
         category,
-        tags,    
+        tags,
         parentSku,
         brand,
 
@@ -56,7 +55,6 @@ export class ProductService {
         quantity,
         regularPrice,
         salePrice,
-        
       });
       return { product, message: 'Product is created' };
     } catch (error) {

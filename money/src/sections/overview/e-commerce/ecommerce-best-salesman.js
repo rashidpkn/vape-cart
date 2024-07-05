@@ -9,10 +9,7 @@ import CardHeader from '@mui/material/CardHeader';
 import Card from '@mui/material/Card';
 import TableContainer from '@mui/material/TableContainer';
 // utils
-import { fCurrency } from 'src/utils/format-number';
-// components
-import Label from 'src/components/label';
-import Iconify from 'src/components/iconify';
+
 import Scrollbar from 'src/components/scrollbar';
 import { TableHeadCustom } from 'src/components/table';
 

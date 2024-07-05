@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
@@ -11,9 +10,8 @@ import Typography from '@mui/material/Typography';
 // utils
 import { fCurrency } from 'src/utils/format-number';
 // components
-import Label from 'src/components/label';
+
 import Iconify from 'src/components/iconify';
-import { ColorPreview } from 'src/components/color-utils';
 //
 import { getCart } from 'src/redux/slices/checkout';
 import { useDispatch } from 'src/redux/store';
@@ -22,7 +20,7 @@ import IncrementerButton from '../common/incrementer-button';
 // ----------------------------------------------------------------------
 
 export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncrease }) {
-  const { name, size, price, colors, images = [], quantity, available, id } = row;
+  const { name, price,  images = [], quantity, available, id } = row;
   const dispatch = useDispatch();
 
   return (

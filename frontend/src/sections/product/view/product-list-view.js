@@ -1,4 +1,3 @@
-import isEqual from 'lodash/isEqual';
 import { useState, useEffect, useCallback } from 'react';
 // @mui
 import Card from '@mui/material/Card';
@@ -20,7 +19,6 @@ import { PRODUCT_STOCK_OPTIONS } from 'src/_mock';
 // api
 import { useGetProducts } from 'src/api/product';
 // components
-import { useSettingsContext } from 'src/components/settings';
 import {
   useTable,
   getComparator,
@@ -38,7 +36,7 @@ import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
 import ProductTableRow from '../product-table-row';
 import ProductTableToolbar from '../product-table-toolbar';
-import ProductTableFiltersResult from '../product-table-filters-result';
+
 
 // ----------------------------------------------------------------------
 
@@ -69,13 +67,13 @@ export default function ProductListView() {
 
   const table = useTable();
 
-  const settings = useSettingsContext();
+  
 
   const [tableData, setTableData] = useState([]);
 
   const [filters, setFilters] = useState(defaultFilters);
 
-  const { productsLoading, productsEmpty } = useGetProducts();
+  const { productsLoading } = useGetProducts();
 
   const [products, setProducts] = useState([]);
   const {
@@ -85,8 +83,8 @@ export default function ProductListView() {
     const featchProduct = async () => {
       try {
         const {
-          data: { products: p, count },
-        } = await api.get('products', { params: { userId: id ,perPage:5000} });
+          data: { products: p,  },
+        } = await api.get('products', { params: { userId: id, perPage: 5000 } });
         setProducts(p);
       } catch (error) {
         alert('error Occure');
@@ -117,7 +115,7 @@ export default function ProductListView() {
 
   const denseHeight = table.dense ? 60 : 80;
 
-  const canReset = !isEqual(defaultFilters, filters);
+  
 
   const handleFilters = useCallback(
     (name, value) => {
@@ -133,7 +131,7 @@ export default function ProductListView() {
   const handleDeleteRow = useCallback(
     async (id) => {
       try {
-        const product = await api.delete(`products/${id}`);
+         await api.delete(`products/${id}`);
 
         const deleteRow = tableData.filter((row) => row.id !== id);
         setTableData(deleteRow);
@@ -148,7 +146,7 @@ export default function ProductListView() {
 
   const handleDeleteRows = useCallback(async () => {
     try {
-      const products = await api.delete('products', {
+      await api.delete('products', {
         data: {
           ids: table.selected,
         },
@@ -180,9 +178,6 @@ export default function ProductListView() {
     [router]
   );
 
-  const handleResetFilters = useCallback(() => {
-    setFilters(defaultFilters);
-  }, []);
 
   return (
     <>
@@ -334,7 +329,7 @@ export default function ProductListView() {
 // ----------------------------------------------------------------------
 
 function applyFilter({ inputData, comparator, filters }) {
-  const { name, stock, publish } = filters;
+  const { name, stock, } = filters;
 
   const stabilizedThis = inputData.map((el, index) => [el, index]);
 
@@ -354,10 +349,10 @@ function applyFilter({ inputData, comparator, filters }) {
 
   if (stock.length) {
     // inputData = inputData.filter((product) => stock.includes(product.inventoryType));
-    inputData = inputData.filter((product) => stock[0]==='in stock' ? !!product.quantity  : !product.quantity);
+    inputData = inputData.filter((product) =>
+      stock[0] === 'in stock' ? !!product.quantity : !product.quantity
+    );
   }
-
-
 
   return inputData;
 }

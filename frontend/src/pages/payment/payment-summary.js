@@ -4,13 +4,12 @@ import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 // components
-import Iconify from 'src/components/iconify';
-import { Alert, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Alert, TextField } from '@mui/material';
 import { Icon } from '@iconify/react';
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 // import QRCode from 'react-qr-code';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
@@ -102,10 +101,10 @@ export default function PaymentSummary({
 
       {(currency === 'btc' || (currency === 'usdt' && !!network)) && (
         <TextField
-            label="Enter Your Wallet Address"
-            onChange={(e) => setWalletAddress(e.target.value)}
-            value={walletAddress}
-          />
+          label="Enter Your Wallet Address"
+          onChange={(e) => setWalletAddress(e.target.value)}
+          value={walletAddress}
+        />
       )}
 
       {method === 'wire transfer' && (
@@ -219,7 +218,7 @@ export default function PaymentSummary({
                 setError('Enter your wallet address');
                 return;
               }
-            } else  if(method === 'wire transfer'){
+            } else if (method === 'wire transfer') {
               if (!account.name) {
                 setError('Enter your account name');
                 return;
@@ -260,7 +259,7 @@ export default function PaymentSummary({
 
             try {
               setSubmitted(true);
-              const { data } = await api.post('/payout', {
+              await api.post('/payout', {
                 fName: displayName,
                 email,
                 phone: phoneNumber,

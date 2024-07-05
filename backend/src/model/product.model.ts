@@ -2,17 +2,16 @@ import { Column, Model, Table, DataType } from 'sequelize-typescript';
 
 @Table
 export class Product extends Model {
-  
-    @Column({ defaultValue: 'Vape Monkey' })
-    username: string;
+  @Column({ defaultValue: 'Vape Monkey' })
+  username: string;
 
-    @Column({ defaultValue: 'Vape Monkey' })
-    storeName: string;
-  
-    @Column({defaultValue:'tpquNGEnfDOqPlug2Nh7VdzgcJ33'})
-    userId: string;
+  @Column({ defaultValue: 'Vape Monkey' })
+  storeName: string;
 
-    @Column
+  @Column({ defaultValue: 'tpquNGEnfDOqPlug2Nh7VdzgcJ33' })
+  userId: string;
+
+  @Column
   name: string;
 
   @Column({ type: DataType.STRING(15000) })
@@ -28,9 +27,9 @@ export class Product extends Model {
   images: string[];
 
   @Column({
-    defaultValue:'Simple'
+    defaultValue: 'Simple',
   })
-  type:string
+  type: string;
 
   @Column({ defaultValue: 'None' })
   category: string;
@@ -42,26 +41,22 @@ export class Product extends Model {
   tags: string[];
 
   @Column
-  parentSku:string
+  parentSku: string;
 
   @Column
-  brand:string
+  brand: string;
 
+  @Column({ defaultValue: [], type: DataType.ARRAY(DataType.STRING) })
+  attributes: [string];
 
-  @Column({defaultValue:[],type:DataType.ARRAY(DataType.STRING)})
-  attributes:[string]
-
-  @Column({defaultValue:{},type:DataType.JSON})
-  variables:{
-
-  }
+  @Column({ defaultValue: {}, type: DataType.JSON })
+  variables: {};
 
   @Column
   SKU: string;
 
-@Column
-track:boolean
-
+  @Column
+  track: boolean;
 
   @Column({ defaultValue: 20 })
   quantity: number;
@@ -71,7 +66,6 @@ track:boolean
 
   @Column({ type: DataType.FLOAT })
   salePrice: number;
-
 
   @Column({
     type: DataType.ARRAY(DataType.JSON),
@@ -83,6 +77,4 @@ track:boolean
     name: string;
     email: string;
   }[];
-
-
 }

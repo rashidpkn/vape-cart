@@ -1,6 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { json, Request, Response, static as static_, urlencoded } from 'express';
+import {
+  json,
+  Request,
+  Response,
+  static as static_,
+  urlencoded,
+} from 'express';
 import { join } from 'path';
 
 async function bootstrap() {

@@ -16,7 +16,6 @@ import TableContainer from '@mui/material/TableContainer';
 // routes
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hook';
-import { RouterLink } from 'src/routes/components';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // utils
@@ -27,7 +26,6 @@ import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 import { ConfirmDialog } from 'src/components/custom-dialog';
-import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import {
   useTable,
@@ -70,7 +68,7 @@ const defaultFilters = {
 export default function InvoiceListView() {
   const theme = useTheme();
 
-  const settings = useSettingsContext();
+  
 
   const router = useRouter();
 
@@ -100,7 +98,7 @@ export default function InvoiceListView() {
     try {
       const { data } = await api.get('invoice');
       setInvoice(data);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {

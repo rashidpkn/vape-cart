@@ -3,8 +3,7 @@ import Container from '@mui/material/Container';
 // routes
 import { paths } from 'src/routes/paths';
 import { useParams } from 'src/routes/hook';
-// _mock
-import { _userList } from 'src/_mock';
+
 // components
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';

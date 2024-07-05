@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 // routes
 import { paths } from 'src/routes/paths';
 // _mock
-import { _userAbout, _userPlans, _userPayment, _userInvoices, _userAddressBook } from 'src/_mock';
+
 // components
 import Iconify from 'src/components/iconify';
 import { useSettingsContext } from 'src/components/settings';
@@ -15,7 +15,6 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import { useParams } from 'src/routes/hook';
 import AccountGeneral from '../account-general';
 import AccountBilling from '../account-billing';
-import AccountSocialLinks from '../account-social-links';
 import AccountNotifications from '../account-notifications';
 import AccountChangePassword from '../account-change-password';
 import GetStore from './getUsers';
@@ -44,8 +43,6 @@ const TABS = [
     label: 'Notifications',
     icon: <Iconify icon="solar:bell-bing-bold" width={24} />,
   },
-
-
 ];
 
 // ----------------------------------------------------------------------
@@ -97,15 +94,13 @@ export default function StoreEdit() {
 
       {currentTab === 'general' && user && <AccountGeneral user={user} />}
 
-      {currentTab === 'billing' && (
-        <AccountBilling user={user}/>
-      )}
+      {currentTab === 'billing' && <AccountBilling user={user} />}
 
       {currentTab === 'notifications' && <AccountNotifications />}
 
       {currentTab === 'security' && <AccountChangePassword />}
 
-      {currentTab === 'deliverySettings' && <DeliverySettings user={user}/>}
+      {currentTab === 'deliverySettings' && <DeliverySettings user={user} />}
     </Container>
   );
 }

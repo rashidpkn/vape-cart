@@ -18,10 +18,12 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get('/update-images')
-  async updateImg(){
-    await Product.update({images:['https://vape-amazon.com/img/no-image.jpg']},{where:{}})  
+  async updateImg() {
+    await Product.update(
+      { images: ['https://vape-amazon.com/img/no-image.jpg'] },
+      { where: {} },
+    );
   }
-
 
   //create product
   @Post()
@@ -72,16 +74,15 @@ export class ProductController {
         tags,
         parentSku,
         brand,
-        
+
         attributes,
         variables,
-        
+
         SKU,
         track,
         quantity,
         regularPrice,
         salePrice,
-        
       );
     } catch (error) {
       console.log(error.message);
@@ -103,24 +104,24 @@ export class ProductController {
   }
 
   @Get('/similar-product/:word')
-  async similarProduct(@Param('word') word:string){
-try {
-  const product = await Product.findAll({where:{
-    name: {
-      [Op.iLike]: `%${word}%`
+  async similarProduct(@Param('word') word: string) {
+    try {
+      const product = await Product.findAll({
+        where: {
+          name: {
+            [Op.iLike]: `%${word}%`,
+          },
+        },
+        limit: 6,
+      });
+      return product;
+    } catch (error) {
+      throw error;
     }
-  
-  },
-  limit:6
-})
-  return product
-} catch (error) {
-  throw error
-}
   }
 
   @Get('/export')
-  async exportProduct(@Req() req: Request) {
+  async exportProduct() {
     try {
       const product = await Product.findAll({
         attributes: {
@@ -149,8 +150,7 @@ try {
       console.log('Uploading');
       const products: [] = req.body;
 
-      await Product.bulkCreate(products)
-      
+      await Product.bulkCreate(products);
 
       console.log('Uploaded');
       return ' Done';
@@ -194,8 +194,6 @@ try {
       throw error;
     }
   }
-
-  
 
   @Delete(':id')
   async deleteProduct(@Req() req: Request) {

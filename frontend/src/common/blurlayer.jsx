@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { AuthContext } from 'src/auth/context/firebase';
 import api from 'src/utils/api';
 import Button from '@mui/material/Button';
 
@@ -22,19 +21,16 @@ export default function BlurLayer({ children }) {
   }, []);
 
   if (products.length) {
-    return <></>;
-  } 
-    return (
-      <div className="blurLayout">
-        <p>
-          You haven't added any products to your store. Please start adding products to see them.
-        </p>
-        <Link to="/dashboard/product/new">
-          <Button variant="contained" color="success">
-            Add Product
-          </Button>
-        </Link>
-      </div>
-    );
-  
+    return null;
+  }
+  return (
+    <div className="blurLayout">
+      <p>You haven't added any products to your store. Please start adding products to see them.</p>
+      <Link to="/dashboard/product/new">
+        <Button variant="contained" color="success">
+          Add Product
+        </Button>
+      </Link>
+    </div>
+  );
 }

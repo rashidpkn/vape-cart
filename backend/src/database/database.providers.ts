@@ -22,7 +22,14 @@ export const databaseProviders = [
         },
         logging: false,
       });
-      sequelize.addModels([Product, Orders, Invoice, StoreAnalytics, Payout,Customers]);
+      sequelize.addModels([
+        Product,
+        Orders,
+        Invoice,
+        StoreAnalytics,
+        Payout,
+        Customers,
+      ]);
       try {
         await sequelize.authenticate();
         console.log('Database connection has been established successfully.');

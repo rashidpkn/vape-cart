@@ -65,7 +65,7 @@ export default function ProductShopDetailsView() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data, status } = await api.get(`products/${id}`, { count: 1 });
+        const { data } = await api.get(`products/${id}`, { count: 1 });
         setProduct(data);
       } catch (error) {
         alert(error.response.data.message);

@@ -43,8 +43,6 @@ import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { collection, getDocs } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
 import OrderTableRow from '../order-table-row';
-import OrderTableToolbar from '../order-table-toolbar';
-import OrderTableFiltersResult from '../order-table-filters-result';
 
 // ----------------------------------------------------------------------
 
@@ -53,7 +51,7 @@ const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...ORDER_STATUS_OPTIONS]
 const TABLE_HEAD = [
   { id: 'orderNumber', label: 'Order', width: 116 },
   { id: 'name', label: 'Customer' },
-  { id: 'partners', label: 'Partners' },  
+  { id: 'partners', label: 'Partners' },
   { id: 'createdAt', label: 'Date', width: 140 },
   { id: 'totalQuantity', label: 'Items', width: 120, align: 'center' },
   { id: 'totalAmount', label: 'Price', width: 140 },
@@ -109,12 +107,7 @@ export default function OrderListView() {
 
   const confirm = useBoolean();
 
-  const [filters, setFilters] = useState(defaultFilters);
-
-  const dateError =
-    filters.startDate && filters.endDate
-      ? filters.startDate.getTime() > filters.endDate.getTime()
-      : false;
+  const filters = defaultFilters;
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -165,7 +158,6 @@ export default function OrderListView() {
   );
 
   const [tab, setTab] = useState('all');
-
 
   return (
     <>
@@ -302,7 +294,7 @@ export default function OrderListView() {
                     )
                     .map((row) => (
                       <OrderTableRow
-                      store={store}
+                        store={store}
                         key={row.id}
                         row={row}
                         selected={table.selected.includes(row.id)}

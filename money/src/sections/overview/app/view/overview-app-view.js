@@ -1,32 +1,23 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
 
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 // hooks
 
 // _mock
-import { _appFeatured, _appInstalled, _appInvoices, _appRelated } from 'src/_mock';
+
 // components
 import { useSettingsContext } from 'src/components/settings';
 // assets
-import { SeoIllustration } from 'src/assets/illustrations';
-//
-import { useAuthContext } from 'src/auth/hooks';
-import { Link } from 'react-router-dom';
 
 import { collection, getDocs } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
-import AppWelcome from '../app-welcome';
-import AppFeatured from '../app-featured';
-import AppNewInvoice from '../app-new-invoice';
 
 import AppWidgetSummary from '../app-widget-summary';
 import AppAreaInstalled from '../app-area-installed';
-import AppTopRelated from '../app-top-related';
 import AppTopInstalledCountries from '../app-top-installed-countries';
 
 // ----------------------------------------------------------------------

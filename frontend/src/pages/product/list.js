@@ -5,21 +5,13 @@ import {
   Container,
   Card,
   CardContent,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Button,
-  Stack,
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import { styled } from '@mui/material/styles';
-// sections
-import { ProductShopView } from 'src/sections/product/view';
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// sections
+
 
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -34,23 +26,20 @@ import 'slick-carousel/slick/slick-theme.css';
 import { Pagination, Navigation } from 'swiper/modules';
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
-import { spacing } from '@mui/system';
 import Pagination1 from '@mui/material/Pagination';
 
 import { Link } from 'react-router-dom';
 import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
 import AOS from 'aos';
-import bg_1 from "src/assets/images/hero/bg_1.jpg";
-import bg_2 from "src/assets/images/hero/bg_5.jpg";
-import bg_3 from "src/assets/images/hero/bg_3.jpg";
+import bg_2 from 'src/assets/images/hero/bg_5.jpg';
+import bg_3 from 'src/assets/images/hero/bg_3.jpg';
 
-import pagignation from '../components/pagignation';
 import 'aos/dist/aos.css';
 
 export default function ShopPage() {
   AOS.init();
 
-  const [producsts, setProducsts] = useState([]);
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
   const [total, setTotal] = useState(0);

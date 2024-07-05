@@ -1,14 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 // sections
 import Box from '@mui/material/Box';
-import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
 import CheckoutDelivery from './checkout-delivery';
 
 // ----------------------------------------------------------------------
 
 export default function Delivery() {
-  const settings = useSettingsContext();
   return (
     <>
       <Helmet>
