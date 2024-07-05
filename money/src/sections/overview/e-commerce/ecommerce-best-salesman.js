@@ -59,7 +59,7 @@ function EcommerceBestSalesmanRow({ row }) {
   return (
     <TableRow>
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar alt={row.name} src={`https://delhi-vape.com${row.images[0]}`} sx={{ mr: 2 }} />
+        <Avatar alt={row.name} src={row.images[0]} sx={{ mr: 2 }} />
         {row.name}
       </TableCell>
       <TableCell>{row.salePrice}</TableCell>

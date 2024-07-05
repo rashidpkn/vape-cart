@@ -168,7 +168,7 @@ export default function OrderTableRow({ row, store = [], selected, onViewRow, on
 
                 <Box>x{item.quantity}</Box>
 
-                <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(item.salePrice)}</Box>
+                <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(item.price)}</Box>
               </Stack>
             ))}
           </Stack>

@@ -136,9 +136,9 @@ export default function InvoiceDetails({ invoice }) {
 
                 <TableCell>{row?.quantity}</TableCell>
 
-                <TableCell align="right">{fCurrency(row?.salePrice)}</TableCell>
+                <TableCell align="right">{fCurrency(row?.price)}</TableCell>
 
-                <TableCell align="right">{fCurrency(row.salePrice * row.quantity)}</TableCell>
+                <TableCell align="right">{fCurrency(row.price * row.quantity)}</TableCell>
               </TableRow>
             ))}
 

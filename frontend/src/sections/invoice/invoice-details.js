@@ -59,19 +59,14 @@ export default function InvoiceDetails({ invoice }) {
         </TableCell>
       </StyledTableRow>
 
-      <StyledTableRow>
+      {/* <StyledTableRow>
         <TableCell colSpan={3} />
         <TableCell sx={{ color: 'text.secondary' }}>Discount</TableCell>
         <TableCell width={120} sx={{ color: 'error.main', typography: 'body2' }}>
           {fCurrency(-invoice?.discount)}
         </TableCell>
-      </StyledTableRow>
+      </StyledTableRow> */}
 
-      <StyledTableRow>
-        <TableCell colSpan={3} />
-        <TableCell sx={{ color: 'text.secondary' }}>Taxes</TableCell>
-        <TableCell width={120}>{fCurrency(invoice?.taxes)}</TableCell>
-      </StyledTableRow>
 
       <StyledTableRow>
         <TableCell colSpan={3} />
@@ -136,9 +131,9 @@ export default function InvoiceDetails({ invoice }) {
 
                 <TableCell>{row?.quantity}</TableCell>
 
-                <TableCell align="right">{fCurrency(row?.salePrice)}</TableCell>
+                <TableCell align="right">{fCurrency(row?.price)}</TableCell>
 
-                <TableCell align="right">{fCurrency(row.salePrice * row.quantity)}</TableCell>
+                <TableCell align="right">{fCurrency(row.price * row.quantity)}</TableCell>
               </TableRow>
             ))}
 

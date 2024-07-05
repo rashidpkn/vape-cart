@@ -147,7 +147,7 @@ export default function OverviewEcommerceView() {
           />
         </Grid>
 
-        <Grid xs={12} md={12} lg={12}>
+        {/* <Grid xs={12} md={12} lg={12}>
           <EcommerceYearlySales
             title="Store Traffic"
             subheader=""
@@ -168,7 +168,7 @@ export default function OverviewEcommerceView() {
               ],
             }}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Container>
   );
