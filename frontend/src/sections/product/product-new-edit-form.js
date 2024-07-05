@@ -106,8 +106,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     [currentProduct]
   );
 
-  const [variables, setVariables] = useState({
-  });
+  const [variables, setVariables] = useState({});
 
   const [variation, setVariation] = useState([]);
 
@@ -297,9 +296,9 @@ export default function ProductNewEditForm({ currentProduct }) {
   );
 
   const [newBrand, setNewBrand] = useState({
-    name:'',
-    show:false
-  })
+    name: '',
+    show: false,
+  });
 
   const renderProperties = (
     <>
@@ -381,28 +380,41 @@ export default function ProductNewEditForm({ currentProduct }) {
                 ))}
               </RHFSelect>
               <Box display={'flex'} alignItems={'center'} gap={1}>
-
-
-              <FormControlLabel
-              sx={{width:190}}
-  label="Is your brand missing? Click here to add it."
-  control={
-    <Checkbox
-      checked={newBrand.show}
-      onChange={e=>setNewBrand(_=>({..._,show:e.target.checked}))}
-    />
-  }
-/>
-  {newBrand.show && <>
-      <TextField label='Brand Name' style={{width:300}} onChange={e=>setNewBrand(_=>({..._,name:e.target.value}))} value={newBrand.name}/>
-      <Button variant='contained' color='success' onClick={()=>{
-        if(newBrand.name){
-          alert("Your request to create a new brand is being processed. Please wait while we verify the brand.")
-        }else{
-          alert("Please enter brand name")
-        }
-      }}>Add Brand</Button>
-</>}
+                <FormControlLabel
+                  sx={{ width: 190 }}
+                  label="Is your brand missing? Click here to add it."
+                  control={
+                    <Checkbox
+                      checked={newBrand.show}
+                      onChange={(e) => setNewBrand((_) => ({ ..._, show: e.target.checked }))}
+                    />
+                  }
+                />
+                {newBrand.show && (
+                  <>
+                    <TextField
+                      label="Brand Name"
+                      style={{ width: 300 }}
+                      onChange={(e) => setNewBrand((_) => ({ ..._, name: e.target.value }))}
+                      value={newBrand.name}
+                    />
+                    <Button
+                      variant="contained"
+                      color="success"
+                      onClick={() => {
+                        if (newBrand.name) {
+                          alert(
+                            'Your request to create a new brand is being processed. Please wait while we verify the brand.'
+                          );
+                        } else {
+                          alert('Please enter brand name');
+                        }
+                      }}
+                    >
+                      Add Brand
+                    </Button>
+                  </>
+                )}
               </Box>
             </Box>
           </Stack>
@@ -451,7 +463,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                   label="Attributes"
                   placeholder="+ Attributes"
                   multiple
-                 
                   options={_attributes.map((option) => option)}
                   getOptionLabel={(option) => option}
                   renderOption={(props, option) => (
@@ -518,7 +529,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                   />
                 </Box>
               ))}
-
             </Box>
           </Stack>
         </Card>
@@ -642,7 +652,7 @@ export default function ProductNewEditForm({ currentProduct }) {
               <TableRow>
                 <TableCell>ID</TableCell>
                 <TableCell width={150}>SKU</TableCell>
-                <TableCell width={150}>Attributes</TableCell>
+                <TableCell width={250}>Attributes</TableCell>
                 <TableCell width={150}>Track Order</TableCell>
                 <TableCell>Stock</TableCell>
                 <TableCell>Regular Price</TableCell>
@@ -663,8 +673,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 disabled={true}
               />
 
-
-              {
+              {/* {
                 Object.keys(variables).map(v=>
                   variables[v].length >= 2 &&
                 variables[v].map((va) => (
@@ -680,9 +689,22 @@ export default function ProductNewEditForm({ currentProduct }) {
                   />
                 ))
               )
-              }
+              } */}
 
-              {console.log(variables)}
+              {Object.keys(variables)
+                .reduce((a, k) => a.flatMap((c) => variables[k].map((v) => `${c} - ${v}`)), [''])
+                .map((c) => (
+                  <ProductTable
+                    counter={counter++}
+                    counter2={counter2++}
+                    skuAlpha={skuAlpha}
+                    va={c.slice(3)}
+                    values={values}
+                    key={counter}
+                    variables={variables}
+                    disabled={false}
+                  />
+                ))}
 
             </TableBody>
           </Table>
@@ -710,7 +732,7 @@ export default function ProductNewEditForm({ currentProduct }) {
   );
 }
 
-function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disabled }) {
+function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disabled }) {
   const { user } = useAuthContext();
   const sku = values.SKU + '-' + skuAlpha[counter2];
   const name = values.name + ' - ' + va;
@@ -722,26 +744,22 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disab
   const [quantity, setQuantity] = useState(null);
 
   const [status, setStatus] = useState('pending');
-  const [images, setImages] = useState(null)
+  const [images, setImages] = useState(null);
 
-  const _uploadImage = async(e)=>{
+  const _uploadImage = async (e) => {
     try {
       const formData = new FormData();
       formData.append('images', e.target.files[0]);
-  
+
       const { data } = await api.post('upload', formData);
 
-      setImages([data[0],...values.images])
-
-  } catch (error) {
-      
-    }
-  }
+      setImages([data[0], ...values.images]);
+    } catch (error) {}
+  };
 
   const _addProduct = async () => {
-
-    if(disabled){
-      return
+    if (disabled) {
+      return;
     }
 
     const emojiPattern =
@@ -795,20 +813,26 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disab
   };
 
   return (
-    <TableRow style={{backgroundColor:disabled && 'rgba(0,0,0,0.1)'}}> 
+    <TableRow style={{ backgroundColor: disabled && 'rgba(0,0,0,0.1)' }}>
       <TableCell>{counter}</TableCell>
       <TableCell>{sku}</TableCell>
       <TableCell>{name}</TableCell>
       <TableCell>
         <FormControlLabel
           label=""
-          control={<Checkbox checked={track} onChange={(e) => setTrack(e.target.checked)} disabled={disabled}/>}
+          control={
+            <Checkbox
+              checked={track}
+              onChange={(e) => setTrack(e.target.checked)}
+              disabled={disabled}
+            />
+          }
         />
       </TableCell>
       <TableCell>
         {track && (
           <TextField
-          disabled={disabled}
+            disabled={disabled}
             size="small"
             label="Quantity"
             type="number"
@@ -830,7 +854,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disab
       </TableCell>
       <TableCell>
         <TextField
-        disabled={disabled}
+          disabled={disabled}
           size="small"
           label="Price"
           type="number"
@@ -840,7 +864,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disab
       </TableCell>
       <TableCell>
         <TextField
-        disabled={disabled}
+          disabled={disabled}
           size="small"
           label="Price"
           type="number"
@@ -849,7 +873,13 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables,disab
         />
       </TableCell>
       <TableCell>
-        <TextField size="small" label="Image" type="file" onChange={_uploadImage} disabled={disabled}/>
+        <TextField
+          size="small"
+          label="Image"
+          type="file"
+          onChange={_uploadImage}
+          disabled={disabled}
+        />
       </TableCell>
       <TableCell>
         {status === 'pending' && (
