@@ -107,8 +107,6 @@ export default function ProductNewEditForm({ currentProduct }) {
   );
 
   const [variables, setVariables] = useState({
-    'Bottle Size': [],
-    Puffs: [],
   });
 
   const [variation, setVariation] = useState([]);
@@ -401,7 +399,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         if(newBrand.name){
           alert("Your request to create a new brand is being processed. Please wait while we verify the brand.")
         }else{
-          alert("Please enter new brand")
+          alert("Please enter brand name")
         }
       }}>Add Brand</Button>
 </>}
@@ -520,6 +518,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                   />
                 </Box>
               ))}
+
             </Box>
           </Stack>
         </Card>
@@ -663,7 +662,11 @@ export default function ProductNewEditForm({ currentProduct }) {
                 variables={variables}
                 disabled={true}
               />
-              {variation?.map((v) =>
+
+
+              {
+                Object.keys(variables).map(v=>
+                  variables[v].length >= 2 &&
                 variables[v].map((va) => (
                   <ProductTable
                     counter={counter++}
@@ -676,7 +679,11 @@ export default function ProductNewEditForm({ currentProduct }) {
                     disabled={false}
                   />
                 ))
-              )}
+              )
+              }
+
+              {console.log(variables)}
+
             </TableBody>
           </Table>
         </Card>
