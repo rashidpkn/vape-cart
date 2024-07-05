@@ -605,6 +605,7 @@ export default function ProductNewEditForm({ currentProduct }) {
   );
 
   const skuAlpha = [
+    '',
     'a',
     'b',
     'c',
@@ -734,7 +735,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
 function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disabled }) {
   const { user } = useAuthContext();
-  const sku = values.SKU + '-' + skuAlpha[counter2];
+  const sku =!!skuAlpha[counter2] ?   values.SKU + '-' + skuAlpha[counter2] : values.SKU;
   const name = values.name + ' - ' + va;
 
   const [track, setTrack] = useState(true);
