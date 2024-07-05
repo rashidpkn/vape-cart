@@ -671,7 +671,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 values={values}
                 key={counter}
                 variables={variables}
-                disabled
+                disabled={false}
               />
 
               {/* {
@@ -735,7 +735,10 @@ export default function ProductNewEditForm({ currentProduct }) {
 function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disabled }) {
   const { user } = useAuthContext();
   const sku = skuAlpha[counter2] ? `${values.SKU  }-${  skuAlpha[counter2]}` : values.SKU;
-  const name = `${values.name  } - ${  va}`;
+  let name = values.name
+  if (va !== 'Parent'){
+    name = `${values.name} - ${  va}`;
+  }
 
   const [track, setTrack] = useState(true);
   const [stock, setStock] = useState('instock');
@@ -804,6 +807,9 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
         quantity,
         regularPrice,
         salePrice,
+
+        productGroup : va === 'Parent' ? 'parent' : 'child'
+
       });
       setStatus('success');
     } catch (error) {
@@ -816,7 +822,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
     <TableRow style={{ backgroundColor: disabled && 'rgba(0,0,0,0.1)' }}>
       <TableCell>{counter}</TableCell>
       <TableCell>{sku}</TableCell>
-      <TableCell>{name}</TableCell>
+      <TableCell>{va === 'Parent' ? name + ' - Parent'  : name}</TableCell>
       <TableCell>
         <FormControlLabel
           label=""

@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
-import { useCallback, useEffect , useState } from 'react';
-import {  useForm } from 'react-hook-form';
+import PropTypes, { object } from 'prop-types';
+import { useCallback, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 // @mui
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -18,13 +18,13 @@ import { fShortenNumber, fCurrency } from 'src/utils/format-number';
 // components
 
 import FormProvider from 'src/components/hook-form';
-import { Button, Card, Grid } from '@mui/material';
+import { Button, Card, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
 import Iconify from 'src/components/iconify';
-
 
 // ----------------------------------------------------------------------
 import parse from 'html-react-parser';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import api from 'src/utils/api';
 
 export default function ProductDetailsSummary({
   cart,
@@ -37,6 +37,9 @@ export default function ProductDetailsSummary({
   ...other
 }) {
   const router = useRouter();
+  
+
+  const navigate = useNavigate()
 
   const {
     id,
@@ -53,12 +56,28 @@ export default function ProductDetailsSummary({
     subDescription,
     images,
     userId,
+    type,
+    productGroup,
+    variables
   } = product;
+
+  const [allProducts, setAllProducts] = useState([])
+
+  const getAllproducts = async () =>{
+    if(type === 'Variable' && productGroup === "parent"){
+      const {data} = await api.get('/products',{perPage:2000})
+      setAllProducts(data.products)
+    }
+    }
+
+    useEffect(() => {
+      
+    getAllproducts()
+    }, [])
+    
 
   const existProduct = cart?.map((item) => item.id)?.includes(id);
 
-  const attributes = product?.variable ? Object.keys(product?.variable) : [];
-  const [selectedAttributes, setSelectedAttributes] = useState({});
 
   const defaultValues = {
     id,
@@ -66,8 +85,6 @@ export default function ProductDetailsSummary({
     coverUrl,
     quantity: 1,
     price: salePrice,
-    colors: colors?.length && colors[0],
-    size: sizes?.lenght && sizes[0],
     images,
   };
 
@@ -75,7 +92,7 @@ export default function ProductDetailsSummary({
     defaultValues,
   });
 
-  const { reset, watch, handleSubmit,  } = methods;
+  const { reset, watch, handleSubmit } = methods;
 
   const values = watch();
 
@@ -83,7 +100,6 @@ export default function ProductDetailsSummary({
     if (product) {
       reset(defaultValues);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
   const onSubmit = handleSubmit(async (data) => {
@@ -123,7 +139,7 @@ export default function ProductDetailsSummary({
         </Box>
       )}
 
-      {selectedAttributes.price ? fCurrency(selectedAttributes.price) : fCurrency(salePrice)}
+      {fCurrency(salePrice)}
     </Box>
   );
 
@@ -145,7 +161,6 @@ export default function ProductDetailsSummary({
     <Stack direction="row" spacing={2}>
       <Button
         fullWidth
-        // disabled={isMaxQuantity || disabledActions}
         size="large"
         color="warning"
         variant="contained"
@@ -162,11 +177,7 @@ export default function ProductDetailsSummary({
     </Stack>
   );
 
-  const renderSubDescription =
-    // <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-    //   {subDescription}
-    // </Typography>
-    !!subDescription && parse(subDescription);
+  const renderSubDescription = !!subDescription && parse(subDescription);
 
   const renderRating = (
     <Stack
@@ -197,6 +208,45 @@ export default function ProductDetailsSummary({
     </Box>
   );
 
+
+  const [selectedVariable, setSelectedVariable] = useState({})
+const [error, setError] = useState('')
+  useEffect(() => {
+    setError('')
+  }, [selectedVariable])
+  
+
+  const renderVariables = (
+    type === 'Variable' && productGroup === "parent" &&
+     <Box display={'flex'} flexDirection={'column'} gap={"10px"}>
+
+      {Object.keys(variables).map((v,i)=>
+       <FormControl sx={{width:'50%'}} size='small'>
+        <InputLabel id="demo-simple-select-label">{v}</InputLabel>
+      <Select label={v} key={i} onChange={e=>setSelectedVariable(_=>({..._,[v]:e.target.value}))}>
+        
+          {variables[v].map((va,j)=><MenuItem key={j} value={va} >{va}</MenuItem>)}
+          
+      </Select>
+       </FormControl>
+      )}
+
+      <Button sx={{width:'50%'}}  variant='contained' color='success'  onClick={()=>{
+        let selectedName = name
+        Object.keys(selectedVariable).map(e=>selectedName = selectedName + ' - ' + selectedVariable[e])
+        const found = allProducts.find(e=>e.name.toLowerCase().includes(selectedName.toLowerCase()))
+        if(found){
+          const {id,name, salePrice,images,} = found
+          onAddCart({ id,name, price:salePrice,images, subTotal: salePrice, userId,quantity:1 });
+          navigate(paths.product.checkout)
+        }else{
+          setError("Out of stock")
+        }
+      }}>Buy</Button>
+  {!!error &&<p style={{color:'#F00A'}}>{error}</p>}
+    </Box>
+  )
+
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={3} sx={{ pt: 3 }} {...other}>
@@ -204,49 +254,19 @@ export default function ProductDetailsSummary({
           {renderInventoryType}
 
           <Typography variant="h5">
-            {name} {selectedAttributes.name && <>({selectedAttributes.name})</>}
+            {name} 
           </Typography>
 
           {renderRating}
 
           {renderPrice}
 
-          <Box display="flex" flexWrap="wrap" gap={2}>
-            {attributes.map((att) => (
-                <>
-                  <Typography variant="subtitle2" sx={{ flexGrow: 1, width: '100%' }}>
-                    {att}
-                  </Typography>
-
-                  {product?.variable[att].map((variable) => (
-                      <Box
-                        display="flex"
-                        justifyContent="space-between"
-                        width="30%"
-                        px={1}
-                        border={
-                          selectedAttributes.name === variable.name
-                            ? '2px solid rgba(0,0,0,0.3)'
-                            : '1px solid rgba(0,0,0,0.1)'
-                        }
-                        borderRadius="8px"
-                        sx={{ cursor: 'pointer' }}
-                        onClick={() => setSelectedAttributes(variable)}
-                      >
-                        <p style={{ fontSize: '14px' }}>{variable?.name}</p>
-                        <p style={{ fontSize: '14px' }}>AED{variable?.price}</p>
-                      </Box>
-                    ))}
-                </>
-              ))}
-          </Box>
-
           {renderSubDescription}
         </Stack>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+      {renderVariables}
 
-        {/* {renderSizeOptions} */}
+        <Divider sx={{ borderStyle: 'dashed' }} />
 
         {renderQuantity}
 
@@ -255,39 +275,31 @@ export default function ProductDetailsSummary({
 
           <Grid container gap={1} justifyContent="center" mt={2}>
             {similarProduct.map((row) => (
-                <Grid key={row.id} item xs={5.5} component={Link} to={`/product/${  row.id}`}>
-                  <Card>
-                    <img src={row.images[0]} width="100%" />
-                    <Stack
-                      direction="row"
-                      sx={{ fontSize: '16px' }}
-                      justifyContent="space-between"
-                      alignItems="center"
-                      px={0.5}
-                    >
-                      <p>{row.name}</p>
-                      <p>AED {row.salePrice}</p>
-                    </Stack>
-                  </Card>
-                </Grid>
-              ))}
+              <Grid key={row.id} item xs={5.5} component={Link} to={`/product/${row.id}`}>
+                <Card>
+                  <img src={row.images[0]} width="100%" />
+                  <Stack
+                    direction="row"
+                    sx={{ fontSize: '16px' }}
+                    justifyContent="space-between"
+                    alignItems="center"
+                    px={0.5}
+                  >
+                    <p>{row.name}</p>
+                    <p>AED {row.salePrice}</p>
+                  </Stack>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         {renderActions}
-
-        {/* {renderShare} */}
       </Stack>
     </FormProvider>
   );
 }
 
-ProductDetailsSummary.propTypes = {
-  cart: PropTypes.array,
-  disabledActions: PropTypes.bool,
-  onAddCart: PropTypes.func,
-  onGotoStep: PropTypes.func,
-  product: PropTypes.object,
-};
+
