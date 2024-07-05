@@ -604,35 +604,9 @@ export default function ProductNewEditForm({ currentProduct }) {
     </>
   );
 
-  const skuAlpha = [
-    '',
-    'a',
-    'b',
-    'c',
-    'd',
-    'e',
-    'f',
-    'g',
-    'h',
-    'i',
-    'j',
-    'k',
-    'l',
-    'm',
-    'n',
-    'o',
-    'p',
-    'q',
-    'r',
-    's',
-    't',
-    'u',
-    'v',
-    'w',
-    'x',
-    'y',
-    'z',
-  ];
+  const alpha = ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+  const skuAlpha = [...alpha, ...alpha.slice(1).flatMap(i => alpha.slice(1).map(j => i + j))];
+  
   let counter = 1;
   let counter2 = 0;
 
@@ -874,7 +848,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
         />
       </TableCell>
       <TableCell>
-        <TextField
+        <input
           size="small"
           label="Image"
           type="file"
