@@ -24,7 +24,14 @@ exports.databaseProviders = [
                 },
                 logging: false,
             });
-            sequelize.addModels([product_model_1.Product, orders_model_1.Orders, invoice_model_1.Invoice, storeAnalytics_model_1.StoreAnalytics, payout_model_1.Payout, customers_model_1.Customers]);
+            sequelize.addModels([
+                product_model_1.Product,
+                orders_model_1.Orders,
+                invoice_model_1.Invoice,
+                storeAnalytics_model_1.StoreAnalytics,
+                payout_model_1.Payout,
+                customers_model_1.Customers,
+            ]);
             try {
                 await sequelize.authenticate();
                 console.log('Database connection has been established successfully.');

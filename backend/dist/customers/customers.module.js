@@ -15,7 +15,7 @@ let CustomersModule = class CustomersModule {
 CustomersModule = __decorate([
     (0, common_1.Module)({
         controllers: [customers_controller_1.CustomersController],
-        providers: [customers_service_1.CustomersService]
+        providers: [customers_service_1.CustomersService],
     })
 ], CustomersModule);
 exports.CustomersModule = CustomersModule;

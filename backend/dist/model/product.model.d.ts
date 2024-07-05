@@ -19,6 +19,7 @@ export declare class Product extends Model {
     quantity: number;
     regularPrice: number;
     salePrice: number;
+    productGroup: string;
     reviews: {
         rating: number;
         review: string;

@@ -49,7 +49,7 @@ let OrdersService = class OrdersService {
         try {
             const orders = await orders_model_1.Orders.findAll();
             if (!!query.email) {
-                return orders.filter(order => order.customer.email === query.email);
+                return orders.filter((order) => order.customer.email === query.email);
             }
             return orders;
         }

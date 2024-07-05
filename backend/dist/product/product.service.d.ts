@@ -1,6 +1,6 @@
 import { Product } from 'src/model/product.model';
 export declare class ProductService {
-    createProduct(username: string, storeName: string, userId: string, name: string, subDescription: string, content: string, images: [string], type: string, category: string, tags: [string], parentSku: string, brand: string, attributes: [string], variables: [], SKU: string, track: boolean, quantity: number, regularPrice: number, salePrice: number): Promise<{
+    createProduct(username: string, storeName: string, userId: string, name: string, subDescription: string, content: string, images: [string], type: string, category: string, tags: [string], parentSku: string, brand: string, attributes: [string], variables: [], SKU: string, track: boolean, quantity: number, regularPrice: number, salePrice: number, productGroup: string): Promise<{
         product: Product;
         message: string;
     }>;

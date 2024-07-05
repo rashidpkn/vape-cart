@@ -29,6 +29,8 @@ export class ProductService {
     quantity: number,
     regularPrice: number,
     salePrice: number,
+
+    productGroup:string
   ) {
     try {
       const product = await Product.create({
@@ -55,6 +57,8 @@ export class ProductService {
         quantity,
         regularPrice,
         salePrice,
+
+        productGroup
       });
       return { product, message: 'Product is created' };
     } catch (error) {

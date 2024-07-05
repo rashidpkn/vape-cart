@@ -26,11 +26,11 @@ let ProductController = class ProductController {
     }
     async createProduct(req) {
         try {
-            const { username, storeName, userId, name, subDescription, content, images, type, category, tags, parentSku, brand, attributes, variables, SKU, track, quantity = 1, regularPrice, salePrice, } = req.body;
+            const { username, storeName, userId, name, subDescription, content, images, type, category, tags, parentSku, brand, attributes, variables, SKU, track, quantity = 1, regularPrice, salePrice, productGroup } = req.body;
             if (!name || !username || !storeName || !SKU || !category || !salePrice) {
                 throw new common_1.BadRequestException('Name ,Username,SKU,category, and salePrice are mandatory');
             }
-            return this.productService.createProduct(username, storeName, userId, name, subDescription, content, images, type, category, tags, parentSku, brand, attributes, variables, SKU, track, quantity, regularPrice, salePrice);
+            return this.productService.createProduct(username, storeName, userId, name, subDescription, content, images, type, category, tags, parentSku, brand, attributes, variables, SKU, track, quantity, regularPrice, salePrice, productGroup);
         }
         catch (error) {
             console.log(error.message);
@@ -49,12 +49,13 @@ let ProductController = class ProductController {
     }
     async similarProduct(word) {
         try {
-            const product = await product_model_1.Product.findAll({ where: {
+            const product = await product_model_1.Product.findAll({
+                where: {
                     name: {
-                        [sequelize_1.Op.iLike]: `%${word}%`
-                    }
+                        [sequelize_1.Op.iLike]: `%${word}%`,
+                    },
                 },
-                limit: 6
+                limit: 6,
             });
             return product;
         }
@@ -62,7 +63,7 @@ let ProductController = class ProductController {
             throw error;
         }
     }
-    async exportProduct(req) {
+    async exportProduct() {
         try {
             const product = await product_model_1.Product.findAll({
                 attributes: {
@@ -182,9 +183,8 @@ __decorate([
 ], ProductController.prototype, "similarProduct", null);
 __decorate([
     (0, common_1.Get)('/export'),
-    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "exportProduct", null);
 __decorate([

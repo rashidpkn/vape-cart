@@ -22,7 +22,7 @@ let UploadService = class UploadService {
                 const fileName = `${(0, uuid_1.v4)()}.webp`;
                 await fs_1.promises.writeFile((0, path_1.join)(__dirname, `../../uploads/${fileName}`), webpBuffer);
                 await fs_1.promises.unlink(file.path);
-                result.push(`http://localhost:3000/uploads/${fileName}`);
+                result.push(`https://vape-amazon.com/uploads/${fileName}`);
             }
             return result;
         }

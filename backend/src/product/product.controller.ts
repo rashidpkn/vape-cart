@@ -53,6 +53,8 @@ export class ProductController {
         quantity = 1,
         regularPrice,
         salePrice,
+
+        productGroup
       } = req.body;
       if (!name || !username || !storeName || !SKU || !category || !salePrice) {
         throw new BadRequestException(
@@ -83,6 +85,8 @@ export class ProductController {
         quantity,
         regularPrice,
         salePrice,
+
+        productGroup
       );
     } catch (error) {
       console.log(error.message);

@@ -67,6 +67,9 @@ export class Product extends Model {
   @Column({ type: DataType.FLOAT })
   salePrice: number;
 
+  @Column({defaultValue:'parent'})
+  productGroup:string
+
   @Column({
     type: DataType.ARRAY(DataType.JSON),
     defaultValue: [],

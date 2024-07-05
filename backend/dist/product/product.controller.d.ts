@@ -11,7 +11,7 @@ export declare class ProductController {
     }>;
     getAllProduct(req: Request): Promise<any>;
     similarProduct(word: string): Promise<Product[]>;
-    exportProduct(req: Request): Promise<Product[]>;
+    exportProduct(): Promise<Product[]>;
     importProduct(req: Request): Promise<string>;
     getById(req: Request): Promise<Product>;
     updateProduct(req: Request): Promise<void>;

@@ -12,15 +12,17 @@ const customers_model_1 = require("../model/customers.model");
 let CustomersService = class CustomersService {
     async create(createCustomerDto) {
         try {
-            const found = await customers_model_1.Customers.findOne({ where: { email: createCustomerDto.email } });
+            const found = await customers_model_1.Customers.findOne({
+                where: { email: createCustomerDto.email },
+            });
             if (found) {
                 if (found.password === createCustomerDto.password) {
                     return { message: 'Login successfull', customer: found };
                 }
-                throw new common_1.BadRequestException("Check your email and password");
+                throw new common_1.BadRequestException('Check your email and password');
             }
             if (!createCustomerDto.fName) {
-                throw new common_1.BadRequestException("Account not existed");
+                throw new common_1.BadRequestException('Account not existed');
             }
             const customer = await customers_model_1.Customers.create(Object.assign({}, createCustomerDto));
             return { message: 'Account created', customer };
@@ -50,15 +52,13 @@ let CustomersService = class CustomersService {
             await customers_model_1.Customers.update(updateCustomerDto, { where: { id } });
             return { message: 'Updated' };
         }
-        catch (error) {
-        }
+        catch (error) { }
     }
     async remove(id) {
         try {
             await customers_model_1.Customers.destroy({ where: { id } });
         }
-        catch (error) {
-        }
+        catch (error) { }
     }
 };
 CustomersService = __decorate([

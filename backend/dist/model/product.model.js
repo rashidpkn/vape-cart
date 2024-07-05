@@ -46,7 +46,7 @@ __decorate([
 ], Product.prototype, "images", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
-        defaultValue: 'Simple'
+        defaultValue: 'Simple',
     }),
     __metadata("design:type", String)
 ], Product.prototype, "type", void 0);
@@ -97,6 +97,10 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.FLOAT }),
     __metadata("design:type", Number)
 ], Product.prototype, "salePrice", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ defaultValue: 'parent' }),
+    __metadata("design:type", String)
+], Product.prototype, "productGroup", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.JSON),
