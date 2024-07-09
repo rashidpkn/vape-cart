@@ -238,7 +238,7 @@ if(found){
         variant="contained"
         color="success"
         onClick={() => {
-          let selectedName = name;
+          let selectedName =name.split(" -")[0];
           Object.keys(selectedVariable).map(
             (e) => (selectedName = selectedName + ' - ' + selectedVariable[e])
           );
