@@ -50,18 +50,13 @@ import {
 // ----------------------------------------------------------------------
 
 export default function ProductNewEditForm({ currentProduct }) {
-
-  const [savedAttibutes, setSavedAttibutes] = useState([])
+  const [savedAttibutes, setSavedAttibutes] = useState([]);
 
   useEffect(() => {
-    
-    api.get('/attributes').then(res=>{
-      setSavedAttibutes(res.data)
-    })
-  
-  }, [])
-  
-
+    api.get('/attributes').then((res) => {
+      setSavedAttibutes(res.data);
+    });
+  }, []);
 
   const router = useRouter();
 
@@ -410,27 +405,28 @@ export default function ProductNewEditForm({ currentProduct }) {
       ...prevVariables,
       [attribute]: newValue,
     }));
-  
-    const att =  (attribute === 'Bottle Size' && _variables.bottleSize) ||
-    (attribute === 'Puffs' && _variables.puffs) ||
-    (attribute === 'Flavour' && _variables.flavour) ||
-    (attribute === 'Nicotine Strength' && _variables.nicotineStrength) ||
-    (attribute === 'Color' && _variables.color) ||
-    (attribute === 'Batteries' && _variables.batteries) || []
 
-    const value = newValue[newValue.length-1]
+    const att =
+      (attribute === 'Bottle Size' && _variables.bottleSize) ||
+      (attribute === 'Puffs' && _variables.puffs) ||
+      (attribute === 'Flavour' && _variables.flavour) ||
+      (attribute === 'Nicotine Strength' && _variables.nicotineStrength) ||
+      (attribute === 'Color' && _variables.color) ||
+      (attribute === 'Batteries' && _variables.batteries) ||
+      [];
 
-    if(!value){
-      return
+    const value = newValue[newValue.length - 1];
+
+    if (!value) {
+      return;
     }
 
-    if(!att.find(at=>at === value)){
-      console.log("upload")
-      api.post('/attributes',{username:user.displayName,attribute,value}).then(res=>{
-        console.log("updated")
-      })
+    if (!att.find((at) => at === value)) {
+      console.log('upload');
+      api.post('/attributes', { username: user.displayName, attribute, value }).then((res) => {
+        console.log('updated');
+      });
     }
-
   };
 
   const renderAttributes = (
@@ -493,17 +489,15 @@ export default function ProductNewEditForm({ currentProduct }) {
                   <Autocomplete
                     multiple
                     freeSolo
-                    options={
-[
-  ...(e === 'Bottle Size' ? _variables.bottleSize : []),
-  ...(e === 'Puffs' ? _variables.puffs : []),
-  ...(e === 'Flavour' ? _variables.flavour : []),
-  ...(e === 'Nicotine Strength' ? _variables.nicotineStrength : []),
-  ...(e === 'Color' ? _variables.color : []),
-  ...(e === 'Batteries' ? _variables.batteries : []),
-  ...savedAttibutes.filter(v => v.attribute === e).map(e => e.value)
-                      ]
-                    }
+                    options={[
+                      ...(e === 'Bottle Size' ? _variables.bottleSize : []),
+                      ...(e === 'Puffs' ? _variables.puffs : []),
+                      ...(e === 'Flavour' ? _variables.flavour : []),
+                      ...(e === 'Nicotine Strength' ? _variables.nicotineStrength : []),
+                      ...(e === 'Color' ? _variables.color : []),
+                      ...(e === 'Batteries' ? _variables.batteries : []),
+                      ...savedAttibutes.filter((v) => v.attribute === e).map((e) => e.value),
+                    ]}
                     value={variables[e]}
                     onChange={(event, newValue) => {
                       handleAutocompleteChange(event, newValue, e);

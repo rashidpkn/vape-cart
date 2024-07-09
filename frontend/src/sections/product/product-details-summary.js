@@ -37,52 +37,43 @@ export default function ProductDetailsSummary({
   ...other
 }) {
   const router = useRouter();
-  
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     id,
     name,
-    sizes,
     regularPrice,
-    coverUrl,
-    colors = [],
     quantity,
     salePrice,
     totalRatings,
     totalReviews,
-    inventoryType,
     subDescription,
     images,
     userId,
     type,
     productGroup,
-    variables
+    variables,
   } = product;
 
-  const [allProducts, setAllProducts] = useState([])
+  const [allProducts, setAllProducts] = useState([]);
 
-  const getAllproducts = async () =>{
-    if(type === 'Variable' && productGroup === "parent"){
-      const {data} = await api.get('/products',{perPage:2000})
-      setAllProducts(data.products)
+  const getAllproducts = async () => {
+    if (type === 'Variable' && productGroup === 'parent') {
+      const { data } = await api.get('/products', { perPage: 2000 });
+      setAllProducts(data.products);
     }
-    }
+  };
 
-    useEffect(() => {
-      
-    getAllproducts()
-    }, [])
-    
+  useEffect(() => {
+    getAllproducts();
+  }, []);
 
   const existProduct = cart?.map((item) => item.id)?.includes(id);
-
 
   const defaultValues = {
     id,
     name,
-    coverUrl,
     quantity: 1,
     price: salePrice,
     images,
@@ -193,69 +184,95 @@ export default function ProductDetailsSummary({
     </Stack>
   );
 
-  const renderInventoryType = (
-    <Box
-      component="span"
-      sx={{
-        typography: 'overline',
-        color:
-          (inventoryType === 'out of stock' && 'error.main') ||
-          (inventoryType === 'low stock' && 'warning.main') ||
-          'success.main',
-      }}
-    >
-      {inventoryType}
+  const [selectedVariable, setSelectedVariable] = useState({});
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    setError('');
+
+    let selectedName = name.split(" -")[0];
+    Object.keys(selectedVariable).map(
+      (e) => (selectedName = selectedName + ' - ' + selectedVariable[e])
+    );
+
+    const found = allProducts.find((e) =>
+      e.name.toLowerCase().includes(selectedName.toLowerCase())
+    );
+if(found){
+  setProduct(_=>({
+    ..._,
+    name:found.name,
+    images:found.images,
+    quantity:found.quantity,
+    salePrice:found.salePrice,
+    regularPrice:found.regularPrice
+  }))
+}
+
+    
+  }, [selectedVariable]);
+
+  const renderVariables = type === 'Variable' && productGroup === 'parent' && (
+    <Box display={'flex'} flexDirection={'column'} gap={'10px'}>
+      {Object.keys(variables).map((v, i) => (
+        <FormControl sx={{ width: '50%' }} size="small">
+          <InputLabel id="demo-simple-select-label">{v}</InputLabel>
+          <Select
+            label={v}
+            key={i}
+            onChange={(e) => {
+              setSelectedVariable((_) => ({ ..._, [v]: e.target.value }));
+            }}
+          >
+            {variables[v].map((va, j) => (
+              <MenuItem key={j} value={va}>
+                {va}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      ))}
+
+      <Button
+        sx={{ width: '50%' }}
+        variant="contained"
+        color="success"
+        onClick={() => {
+          let selectedName = name;
+          Object.keys(selectedVariable).map(
+            (e) => (selectedName = selectedName + ' - ' + selectedVariable[e])
+          );
+          const found = allProducts.find((e) =>
+            e.name.toLowerCase().includes(selectedName.toLowerCase())
+          );
+          if (found) {
+            const { id, name, salePrice, images } = found;
+            onAddCart({
+              id,
+              name,
+              price: salePrice,
+              images,
+              subTotal: salePrice,
+              userId,
+              quantity: 1,
+            });
+            navigate(paths.product.checkout);
+          } else {
+            setError('Out of stock');
+          }
+        }}
+      >
+        Buy
+      </Button>
+      {!!error && <p style={{ color: '#F00A' }}>{error}</p>}
     </Box>
   );
-
-
-  const [selectedVariable, setSelectedVariable] = useState({})
-const [error, setError] = useState('')
-  useEffect(() => {
-    setError('')
-  }, [selectedVariable])
-  
-
-  const renderVariables = (
-    type === 'Variable' && productGroup === "parent" &&
-     <Box display={'flex'} flexDirection={'column'} gap={"10px"}>
-
-      {Object.keys(variables).map((v,i)=>
-       <FormControl sx={{width:'50%'}} size='small'>
-        <InputLabel id="demo-simple-select-label">{v}</InputLabel>
-      <Select label={v} key={i} onChange={e=>setSelectedVariable(_=>({..._,[v]:e.target.value}))}>
-        
-          {variables[v].map((va,j)=><MenuItem key={j} value={va} >{va}</MenuItem>)}
-          
-      </Select>
-       </FormControl>
-      )}
-
-      <Button sx={{width:'50%'}}  variant='contained' color='success'  onClick={()=>{
-        let selectedName = name
-        Object.keys(selectedVariable).map(e=>selectedName = selectedName + ' - ' + selectedVariable[e])
-        const found = allProducts.find(e=>e.name.toLowerCase().includes(selectedName.toLowerCase()))
-        if(found){
-          const {id,name, salePrice,images,} = found
-          onAddCart({ id,name, price:salePrice,images, subTotal: salePrice, userId,quantity:1 });
-          navigate(paths.product.checkout)
-        }else{
-          setError("Out of stock")
-        }
-      }}>Buy</Button>
-  {!!error &&<p style={{color:'#F00A'}}>{error}</p>}
-    </Box>
-  )
 
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={3} sx={{ pt: 3 }} {...other}>
         <Stack spacing={2} alignItems="flex-start">
-          {renderInventoryType}
-
-          <Typography variant="h5">
-            {name} 
-          </Typography>
+          <Typography variant="h5">{name}</Typography>
 
           {renderRating}
 
@@ -264,7 +281,7 @@ const [error, setError] = useState('')
           {renderSubDescription}
         </Stack>
 
-      {renderVariables}
+        {renderVariables}
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -296,10 +313,8 @@ const [error, setError] = useState('')
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        {renderActions}
+        {productGroup !== 'parent' && renderActions}
       </Stack>
     </FormProvider>
   );
 }
-
-
