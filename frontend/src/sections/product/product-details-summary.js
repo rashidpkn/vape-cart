@@ -60,7 +60,9 @@ export default function ProductDetailsSummary({
 
   const getAllproducts = async () => {
     if (type === 'Variable' && productGroup === 'parent') {
-      const { data } = await api.get('/products', { perPage: 2000 });
+      const { data } = await api.get('/products', { params:{
+        perPage: 2000
+      } });
       setAllProducts(data.products);
     }
   };
