@@ -10,6 +10,7 @@ import { InvoiceModule } from './invoice/invoice.module';
 import { StoreAnalyticsModule } from './store-analytics/store-analytics.module';
 import { PayoutModule } from './payout/payout.module';
 import { CustomersModule } from './customers/customers.module';
+import { AttributesModule } from './attributes/attributes.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { CustomersModule } from './customers/customers.module';
     StoreAnalyticsModule,
     PayoutModule,
     CustomersModule,
+    AttributesModule,
     ClientModule,
   ],
   controllers: [AppController],

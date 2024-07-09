@@ -19,6 +19,7 @@ const invoice_module_1 = require("./invoice/invoice.module");
 const store_analytics_module_1 = require("./store-analytics/store-analytics.module");
 const payout_module_1 = require("./payout/payout.module");
 const customers_module_1 = require("./customers/customers.module");
+const attributes_module_1 = require("./attributes/attributes.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -32,6 +33,7 @@ AppModule = __decorate([
             store_analytics_module_1.StoreAnalyticsModule,
             payout_module_1.PayoutModule,
             customers_module_1.CustomersModule,
+            attributes_module_1.AttributesModule,
             client_module_1.ClientModule,
         ],
         controllers: [app_controller_1.AppController],

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.databaseProviders = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
+const attributes_model_1 = require("../model/attributes.model");
 const customers_model_1 = require("../model/customers.model");
 const invoice_model_1 = require("../model/invoice.model");
 const orders_model_1 = require("../model/orders.model");
@@ -31,6 +32,7 @@ exports.databaseProviders = [
                 storeAnalytics_model_1.StoreAnalytics,
                 payout_model_1.Payout,
                 customers_model_1.Customers,
+                attributes_model_1.Attributes
             ]);
             try {
                 await sequelize.authenticate();

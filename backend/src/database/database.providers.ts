@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
+import { Attributes } from 'src/model/attributes.model';
 import { Customers } from 'src/model/customers.model';
 import { Invoice } from 'src/model/invoice.model';
 import { Orders } from 'src/model/orders.model';
@@ -29,6 +30,7 @@ export const databaseProviders = [
         StoreAnalytics,
         Payout,
         Customers,
+        Attributes
       ]);
       try {
         await sequelize.authenticate();
