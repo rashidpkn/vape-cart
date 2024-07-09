@@ -27,8 +27,8 @@ let ProductController = class ProductController {
     async createProduct(req) {
         try {
             const { username, storeName, userId, name, subDescription, content, images, type, category, tags, parentSku, brand, attributes, variables, SKU, track, quantity = 1, regularPrice, salePrice, productGroup } = req.body;
-            if (!name || !username || !storeName || !SKU || !category || !salePrice) {
-                throw new common_1.BadRequestException('Name ,Username,SKU,category, and salePrice are mandatory');
+            if (!name || !username || !storeName || !SKU || !category) {
+                throw new common_1.BadRequestException('Name ,Username,SKU and category are mandatory');
             }
             return this.productService.createProduct(username, storeName, userId, name, subDescription, content, images, type, category, tags, parentSku, brand, attributes, variables, SKU, track, quantity, regularPrice, salePrice, productGroup);
         }

@@ -35,7 +35,7 @@ export default function ProductTableRow({
   const {
     name,
     salePrice,
-    publish,
+    publish="Publish",
     category,
     quantity,
     createdAt,

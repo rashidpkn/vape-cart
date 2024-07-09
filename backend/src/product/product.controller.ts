@@ -56,9 +56,9 @@ export class ProductController {
 
         productGroup
       } = req.body;
-      if (!name || !username || !storeName || !SKU || !category || !salePrice) {
+      if (!name || !username || !storeName || !SKU || !category) {
         throw new BadRequestException(
-          'Name ,Username,SKU,category, and salePrice are mandatory',
+          'Name ,Username,SKU and category are mandatory',
         );
       }
       return this.productService.createProduct(

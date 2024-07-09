@@ -23,7 +23,7 @@ __decorate([
         defaultValue: {
             company: 'Vape Amazon',
             email: 'info@vape-amazon.com',
-            fullAddress: 'Vape Amazon ,',
+            fullAddress: 'Vape Amazon',
             name: 'vape Monkey',
             phoneNumber: '123456',
         },

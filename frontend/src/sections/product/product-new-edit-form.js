@@ -50,7 +50,6 @@ import {
 // ----------------------------------------------------------------------
 
 export default function ProductNewEditForm({ currentProduct }) {
-
   const router = useRouter();
 
   const mdUp = useResponsive('up', 'md');
@@ -61,8 +60,18 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
-    subDescription: Yup.string().required('Short description is required'),
-    content: Yup.string(),
+    subDescription: Yup.string()
+      .required('Short description is required')
+      .test(
+        'not-four-digits',
+        'Your content contain continues 4 digit number, Please remove',
+        (value) => !/\d{4,}/.test(value)
+      ),
+    content: Yup.string().test(
+      'not-four-digits',
+      'Your content contain continues 4 digit number, Please remove',
+      (value) => !/\d{4,}/.test(value)
+    ),
     images: Yup.array().min(1, 'Image is required'),
 
     type: Yup.string(),
@@ -118,14 +127,14 @@ export default function ProductNewEditForm({ currentProduct }) {
     watch,
     setValue,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isValid },
   } = methods;
 
   const values = watch();
 
   const fetchProduct = useCallback(async () => {
     const {
-      data: {  },
+      data: {},
     } = await api.get('/products', {
       params: {
         name: values.name,
@@ -216,44 +225,6 @@ export default function ProductNewEditForm({ currentProduct }) {
 
           <Stack spacing={3} sx={{ p: 3 }}>
             <RHFTextField name="name" label="Product Name" />
-
-            {/* <Autocomplete
-              onChange={(e, value) => {
-                if (value) {
-                  const product = products.find((product) => product.name === value);
-                  setValue('images', product.images);
-                  setValue('name', product.name);
-                } else {
-                  // Handle case where user clears the input
-                  setValue('images', null);
-                }
-              }}
-              name="name"
-              label="Product Name"
-              options={products.map((e) => e.name)}
-              getOptionLabel={(option) => option}
-              isOptionEqualToValue={(option, value) => option === value.value}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Product Name"
-                  value={values.name}
-                  onChange={(e) => setValue('name', e.target.value)}
-                />
-              )}
-              renderOption={(props, option) => (
-                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                  <img
-                    loading="lazy"
-                    width="20"
-                    src={products.find((e) => e.name === option).images[0]}
-                    alt=""
-                  />
-                  {option}
-                </Box>
-              )}
-              freeSolo
-            /> */}
 
             <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} />
 
@@ -503,7 +474,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                       console.log();
                       if (newValue.length >= 2) {
                         if (variation.find((ev) => ev === e)) {
-                          
                         } else {
                           setVariation((prev) => [...prev, e]);
                         }
@@ -659,7 +629,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 <TableCell>Regular Price</TableCell>
                 <TableCell>Sales Price</TableCell>
                 <TableCell>Image</TableCell>
-                <TableCell width={150}>Add Product</TableCell>
+                <TableCell width={200}>Add Product</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -671,26 +641,10 @@ export default function ProductNewEditForm({ currentProduct }) {
                 values={values}
                 key={counter}
                 variables={variables}
-                disabled={false}
+                disabled
+                isSubmitting={isSubmitting}
+                isValid={isValid}
               />
-
-              {/* {
-                Object.keys(variables).map(v=>
-                  variables[v].length >= 2 &&
-                variables[v].map((va) => (
-                  <ProductTable
-                    counter={counter++}
-                    counter2={counter2++}
-                    skuAlpha={skuAlpha}
-                    va={va}
-                    values={values}
-                    key={counter}
-                    variables={variables}
-                    disabled={false}
-                  />
-                ))
-              )
-              } */}
 
               {Object.keys(variables)
                 .reduce((a, k) => a.flatMap((c) => variables[k].map((v) => `${c} - ${v}`)), [''])
@@ -704,6 +658,8 @@ export default function ProductNewEditForm({ currentProduct }) {
                     key={counter}
                     variables={variables}
                     disabled={false}
+                    isSubmitting={isSubmitting}
+                    isValid={isValid}
                   />
                 ))}
             </TableBody>
@@ -732,12 +688,22 @@ export default function ProductNewEditForm({ currentProduct }) {
   );
 }
 
-function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disabled }) {
+function ProductTable({
+  counter,
+  values,
+  skuAlpha,
+  counter2,
+  va,
+  variables,
+  disabled,
+  isSubmitting,
+  isValid,
+}) {
   const { user } = useAuthContext();
-  const sku = skuAlpha[counter2] ? `${values.SKU  }-${  skuAlpha[counter2]}` : values.SKU;
-  let name = values.name
-  if (va !== 'Parent'){
-    name = `${values.name} - ${  va}`;
+  const sku = skuAlpha[counter2] ? `${values.SKU}-${skuAlpha[counter2]}` : values.SKU;
+  let name = values.name;
+  if (va !== 'Parent') {
+    name = `${values.name} - ${va}`;
   }
 
   const [track, setTrack] = useState(true);
@@ -761,10 +727,6 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
   };
 
   const _addProduct = async () => {
-    if (disabled) {
-      return;
-    }
-
     const emojiPattern =
       /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2B50}\u{2B55}\u{231A}-\u{231B}\u{23E9}-\u{23EC}\u{23F0}\u{23F3}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}\u{2B1B}-\u{2B1C}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21A9}-\u{21AA}\u{2B06}\u{2B07}\u{2B1B}\u{2B1C}]/u;
     const threeDigitPattern = /\d{4,}/;
@@ -808,12 +770,11 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
         regularPrice,
         salePrice,
 
-        productGroup : va === 'Parent' ? 'parent' : 'child'
-
+        productGroup: va === 'Parent' ? 'parent' : 'child',
       });
       setStatus('success');
     } catch (error) {
-      console.log(`Product Creation failed :${  error}`);
+      console.log(`Product Creation failed :${error}`);
       setStatus('failed');
     }
   };
@@ -822,7 +783,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
     <TableRow style={{ backgroundColor: disabled && 'rgba(0,0,0,0.1)' }}>
       <TableCell>{counter}</TableCell>
       <TableCell>{sku}</TableCell>
-      <TableCell>{va === 'Parent' ? name + ' - Parent'  : name}</TableCell>
+      <TableCell>{va === 'Parent' ? name + ' - Parent' : name}</TableCell>
       <TableCell>
         <FormControlLabel
           label=""
@@ -882,11 +843,32 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
         <input size="small" label="Image" type="file" onChange={_uploadImage} disabled={disabled} />
       </TableCell>
       <TableCell>
-        {status === 'pending' && (
-          <Button color="success" variant="contained" size="small" onClick={_addProduct}>
+        {/* {status === 'pending' && !isValid && (
+          <LoadingButton
+            type="submit"
+            variant="contained"
+            size="small"
+            color="success"
+            loading={isSubmitting}
+            onClick={_addProduct}
+          >
+            {' '}
+            Add Product
+          </LoadingButton>
+        )} */}
+
+        {status === 'pending' && true && (
+          <Button
+            color="success"
+            variant="contained"
+            size="small"
+            onClick={_addProduct}
+            type="submit"
+          >
             Add Product
           </Button>
         )}
+
         {status === 'loading' && (
           <Button color="success" variant="contained" size="small">
             Loading

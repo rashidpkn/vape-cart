@@ -1,19 +1,6 @@
-import {
-  Box,
-  Typography,
-  Grid,
-  Container,
-  Card,
-  CardContent,
-} from '@mui/material';
+import { Box, Typography, Grid, Container, Card, CardContent } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 
-// sections
-
-
-// Import Swiper React components
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -22,7 +9,6 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-// import required modules
 import { Pagination, Navigation } from 'swiper/modules';
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
@@ -37,11 +23,14 @@ import bg_3 from 'src/assets/images/hero/bg_3.jpg';
 
 import 'aos/dist/aos.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { _tags } from 'src/data/createProducts';
+
+const card = _tags.slice(0,4)
 
 export default function ShopPage() {
   AOS.init();
 
-  const [producsts, setProducsts] = useState([])
+  const [producsts, setProducsts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
   const [total, setTotal] = useState(0);
@@ -224,17 +213,13 @@ export default function ShopPage() {
 
         <Box>
           <Grid container spacing={3} sx={{ padding: '15px', marginTop: '-300px' }}>
-            {[
-              producsts.slice(0, 4),
-              producsts.slice(4, 8),
-              producsts.slice(8, 12),
-              producsts.slice(12, 16),
-            ].map((items, i) => (
+            {card.map(c=>
+              producsts.filter(p=>p.tags.find(t=>t===c)).slice(0,4)
+            ).map((items, i) => (
               <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
                 <Card style={{ width: '100%', borderRadius: '0px', zIndex: '2' }}>
-                  {/* Render only one title for each card */}
                   <Typography variant="h5" pl={2} py={1}>
-                    {ProductTitle[i].title}
+                    {card[i]}
                   </Typography>
                   <Grid container spacing={2} px={2} pb={2}>
                     {items.map((item) => (
@@ -297,13 +282,6 @@ export default function ShopPage() {
                         <Typography variant="h6" sx={{ marginTop: '10px', textDecoration: 'none' }}>
                           {item.name}
                         </Typography>
-                        {/* <Typography
-                          variant="p"
-                          sx={{ paddingBottom: '5px', fontStyle: 'italic', textDecoration: 'none' }}
-                        >
-                          {item.storeName}
-                        </Typography>{' '} */}
-
                         <Typography
                           variant="p"
                           style={{ color: 'gray', marginTop: '15px', textDecoration: 'none' }}
@@ -339,74 +317,13 @@ export default function ShopPage() {
           }}
         >
           <Slider {...settings} style={{ marginRight: '10px' }}>
-            {[
-              // {
-              //   name: 'test',
-              //   storeName: 'vap amzon',
-              //   img: '/assets/images/banner/vaping_device.jpg',
-              //   id: 1,
-              // },
-              // {
-              //   name: 'test2',
-              //   storeName: 'vap amzon',
-              //   img: '/assets/images/banner/p2.jpg',
-              //   id: 2,
-              // },
-              {
-                name: 'Smok V8 X-Baby T6',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p3.jpg',
-                id: 3,
-              },
-              {
-                name: 'Smok V8 X-Baby M2',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p4.jpg',
-                id: 4,
-              },
-              {
-                name: 'Smok V8 X-Baby Q2',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p5.jpg',
-                id: 5,
-              },
-              {
-                name: 'Smok V8 Baby X4',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p6.jpg',
-                id: 6,
-              },
-              {
-                name: 'Smok V8 Baby T8',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p7.jpg',
-                id: 7,
-              },
-              {
-                name: 'Smok V8 Baby - Q2',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p8.jpg',
-                id: 8,
-              },
-              {
-                name: 'Smok V8 Baby M2',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p9.jpg',
-                id: 9,
-              },
-              {
-                name: 'Smok V12 Prince - T10',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p10.jpg',
-                id: 10,
-              },
-            ].map((e) => (
+            {producsts.map((e) => (
               <Link to={`/product/${e.id}`} key={e.id} style={{ textDecoration: 'none' }}>
                 <Card sx={{ width: '100%', height: '100%', borderRadius: '0px' }}>
                   <CardContent>
                     <Box>
                       <img
-                        src={e.img}
+                        src={e.images[0]}
                         width={150}
                         height={100}
                         style={{ width: '100%', height: '300px' }}
@@ -417,15 +334,10 @@ export default function ShopPage() {
                       <Typography variant="h6" sx={{ marginTop: '10px' }}>
                         {e.name}
                       </Typography>
-                      {/* <Typography variant="p" sx={{ paddingBottom: '5px', fontStyle: 'italic' }}>
-                        {e.storeName}
-                      </Typography>{' '} */}
 
                       <Typography variant="p" style={{ color: 'gray', marginTop: '15px' }}>
-                        <del>{e.regularPrice}₹ 549</del>{' '}
-                        <span style={{ fontWeight: '700', color: '#000' }}>
-                          {e.salePrice} ₹ 539
-                        </span>
+                        <del>AED {e.regularPrice}</del>{' '}
+                        <span style={{ fontWeight: '700', color: '#000' }}>AED {e.salePrice}</span>
                       </Typography>
                     </Box>
                   </CardContent>
@@ -447,74 +359,13 @@ export default function ShopPage() {
           }}
         >
           <Slider {...settings} style={{ marginRight: '10px' }}>
-            {[
-              // {
-              //   name: 'test',
-              //   storeName: 'vap amzon',
-              //   img: '/assets/images/banner/vaping_device.jpg',
-              //   id: 1,
-              // },
-              // {
-              //   name: 'test2',
-              //   storeName: 'vap amzon',
-              //   img: '/assets/images/banner/p2.jpg',
-              //   id: 2,
-              // },
-              {
-                name: 'Smok V8 X-Baby T6',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p3.jpg',
-                id: 3,
-              },
-              {
-                name: 'Smok V8 X-Baby M2',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p4.jpg',
-                id: 4,
-              },
-              {
-                name: 'Smok V8 X-Baby Q2',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p5.jpg',
-                id: 5,
-              },
-              {
-                name: 'Smok V8 Baby X4',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p6.jpg',
-                id: 6,
-              },
-              {
-                name: 'Smok V8 Baby T8',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p7.jpg',
-                id: 7,
-              },
-              {
-                name: 'Smok V8 Baby - Q2',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p8.jpg',
-                id: 8,
-              },
-              {
-                name: 'Smok V8 Baby M2',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p9.jpg',
-                id: 9,
-              },
-              {
-                name: 'Smok V12 Prince - T10',
-                storeName: 'vap amzon',
-                img: '/assets/images/banner/p10.jpg',
-                id: 10,
-              },
-            ].map((e) => (
+            {producsts.reverse().map((e) => (
               <Link to={`/product/${e.id}`} key={e.id} style={{ textDecoration: 'none' }}>
                 <Card sx={{ width: '100%', height: '100%', borderRadius: '0px' }}>
                   <CardContent>
                     <Box>
                       <img
-                        src={e.img}
+                        src={e.images[0]}
                         width={150}
                         height={100}
                         style={{ width: '100%', height: '300px' }}
@@ -525,15 +376,10 @@ export default function ShopPage() {
                       <Typography variant="h6" sx={{ marginTop: '10px' }}>
                         {e.name}
                       </Typography>
-                      {/* <Typography variant="p" sx={{ paddingBottom: '5px', fontStyle: 'italic' }}>
-                        {e.storeName}
-                      </Typography>{' '} */}
 
                       <Typography variant="p" style={{ color: 'gray', marginTop: '15px' }}>
-                        <del>{e.regularPrice}₹ 549</del>{' '}
-                        <span style={{ fontWeight: '700', color: '#000' }}>
-                          {e.salePrice} ₹ 539
-                        </span>
+                        <del>AED {e.regularPrice}</del>{' '}
+                        <span style={{ fontWeight: '700', color: '#000' }}>AED {e.salePrice}</span>
                       </Typography>
                     </Box>
                   </CardContent>
