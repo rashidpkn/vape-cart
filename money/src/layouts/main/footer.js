@@ -37,7 +37,7 @@ const LINKS = [
   },
   {
     headline: 'Contact',
-    children: [{ name: 'info@delhi-vape.com', href: '#' }],
+    children: [{ name: 'info@vape-amazon.com', href: '#' }],
   },
 ];
 

@@ -22,8 +22,8 @@ __decorate([
         type: sequelize_typescript_1.DataType.JSON,
         defaultValue: {
             company: 'Vape Amazon',
-            email: 'info@vapeamazon.com',
-            fullAddress: 'vape amazon ,delhi',
+            email: 'info@vape-amazon.com',
+            fullAddress: 'Vape Amazon ,',
             name: 'vape Monkey',
             phoneNumber: '123456',
         },

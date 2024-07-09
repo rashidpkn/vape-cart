@@ -22,7 +22,7 @@ export class Product extends Model {
 
   @Column({
     type: DataType.ARRAY(DataType.STRING),
-    defaultValue: ['https://delhi-vape.com/img/no-image.jpg'],
+    defaultValue: ['https://vape-amazon.com/img/no-image.jpg'],
   })
   images: string[];
 

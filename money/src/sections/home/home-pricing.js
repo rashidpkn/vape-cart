@@ -123,7 +123,7 @@ export default function HomePricing() {
               color="inherit"
               size="large"
               variant="contained"
-              href="mailto:info@delhi-vape.com?subject=[Feedback] from Customer"
+              href="mailto:info@vape-amazon.com?subject=[Feedback] from Customer"
             >
               Contact us
             </Button>

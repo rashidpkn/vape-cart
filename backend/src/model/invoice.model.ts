@@ -14,8 +14,8 @@ export class Invoice extends Model {
     type: DataType.JSON,
     defaultValue: {
       company: 'Vape Amazon',
-      email: 'info@vapeamazon.com',
-      fullAddress: 'vape amazon ,delhi',
+      email: 'info@vape-amazon.com',
+      fullAddress: 'Vape Amazon',
       name: 'vape Monkey',
       phoneNumber: '123456',
     },

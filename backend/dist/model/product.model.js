@@ -40,7 +40,7 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING),
-        defaultValue: ['https://delhi-vape.com/img/no-image.jpg'],
+        defaultValue: ['https://vape-amazon.com/img/no-image.jpg'],
     }),
     __metadata("design:type", Array)
 ], Product.prototype, "images", void 0);
