@@ -11,7 +11,16 @@ import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-app.enableCors({origin:"*"})
+app.enableCors({
+  origin: [
+    'http://monkey.vape-amazon.com',
+    'https://monkey.vape-amazon.com',
+    'http://vape-amazon.com',
+    'https://vape-amazon.com',
+    'http://localhost',
+    'https://localhost'
+  ]
+})
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
 
