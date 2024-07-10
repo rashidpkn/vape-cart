@@ -65,10 +65,9 @@ export default function FirebaseLoginView() {
 
       router.push(returnTo || PATH_AFTER_LOGIN);
     } catch (error) {
-      console.log(`hELLO${error}`);
       // console.error(error);
       // reset();
-      setErrorMsg(typeof error === 'string' ? error : error.message);
+      setErrorMsg(typeof error === 'string' ? error : error.message.replace("Firebase: Error ","").replace("(","").replace(")","").replace("auth/","").replaceAll("-"," "));
     }
   });
 
@@ -88,7 +87,7 @@ export default function FirebaseLoginView() {
 
   const renderForm = (
     <Stack spacing={2.5}>
-      {!!errorMsg && <Alert severity="error">{errorMsg}</Alert>}
+      {!!errorMsg && <Alert severity="error" style={{textTransform:"capitalize"}}>{errorMsg}</Alert>}
 
       <RHFTextField name="email" label="Email address" />
 

@@ -92,12 +92,12 @@ const Row = ({ row, setDeliverySettings }) => {
       </TableCell>
       <TableCell>{day}</TableCell>
       <TableCell>
-        <TextField
+        <input
           disabled={!enable}
           sx={{ width: '200px' }}
           type="time"
-          size="small"
-          label="Open Time"
+          style={{width:'150px',height:'40px',borderRadius:"4px",background:'none',outline:'none',border:"1px solid black" ,padding:"0 10px"}}
+          placeholder="Open Time"
           value={open}
           onChange={(e) =>
             setDeliverySettings((prev) => prev.map((item) => {
@@ -110,12 +110,12 @@ const Row = ({ row, setDeliverySettings }) => {
         />
       </TableCell>
       <TableCell>
-        <TextField
+        <input
           disabled={!enable}
           sx={{ width: '200px' }}
           type="time"
-          size="small"
-          label="Close Time"
+          style={{width:'150px',height:'40px',borderRadius:"4px",background:'none',outline:'none',border:"1px solid black" ,padding:"0 10px"}}
+          placeholder="Close Time"
           value={close}
           onChange={(e) =>
             setDeliverySettings((prev) => prev.map((item) => {
@@ -128,12 +128,12 @@ const Row = ({ row, setDeliverySettings }) => {
         />
       </TableCell>
       <TableCell>
-        <TextField
+        <input
           disabled={!enable}
           sx={{ width: '200px' }}
           type="time"
-          size="small"
-          label="Last Call"
+          style={{width:'150px',height:'40px',borderRadius:"4px",background:'none',outline:'none',border:"1px solid black" ,padding:"0 10px"}}
+          placeholder="Last Call"
           value={lastCall}
           onChange={(e) =>
             setDeliverySettings((prev) => prev.map((item) => {

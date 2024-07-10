@@ -92,7 +92,7 @@ export default function FirebaseRegisterView() {
     } catch (error) {
       console.error(error);
       reset();
-      setErrorMsg(typeof error === 'string' ? error : error.message);
+      setErrorMsg(typeof error === 'string' ? error : error.message.replace("Firebase: Error ","").replace("(","").replace(")","").replace("auth/","").replaceAll("-"," "));
     }
   });
 
@@ -145,7 +145,7 @@ export default function FirebaseRegisterView() {
 
   const renderForm = (
     <Stack spacing={2.5}>
-      {!!errorMsg && <Alert severity="error">{errorMsg}</Alert>}
+      {!!errorMsg && <Alert severity="error"  style={{textTransform:"capitalize"}}>{errorMsg}</Alert>}
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <TextField
