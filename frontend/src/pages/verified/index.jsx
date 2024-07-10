@@ -13,12 +13,13 @@ export default function Verified() {
 
   const verify = useCallback(async () => {
     await handleVerifyEmail(oobCode);
-    navigate('/dashboard');
+    window.location.href='/dashboard'
+    // navigate();
   }, []);
 
   useEffect(() => {
     verify();
   }, []);
 
-  return <>Verified</>;
+  return null;
 }

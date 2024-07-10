@@ -239,6 +239,7 @@ if(found){
         sx={{ width: '50%' }}
         variant="contained"
         color="success"
+        disabled={!name.split("-")[1]}
         onClick={() => {
           let selectedName =name.split(" -")[0];
           Object.keys(selectedVariable).map(

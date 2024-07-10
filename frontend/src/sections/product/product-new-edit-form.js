@@ -46,10 +46,15 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import { useNavigate } from 'react-router';
 
 // ----------------------------------------------------------------------
 
 export default function ProductNewEditForm({ currentProduct }) {
+
+  const navigate = useNavigate()
+  const [productAdded, setProductAdded] = useState(false)
+
   const [savedAttibutes, setSavedAttibutes] = useState([]);
 
   useEffect(() => {
@@ -140,15 +145,18 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const values = watch();
 
+
+  const [products, setProducts] = useState([])
+
   const fetchProduct = useCallback(async () => {
     const {
-      data: {},
+      data
     } = await api.get('/products', {
       params: {
         name: values.name,
       },
     });
-    // setProduct(products);
+    setProducts(data.products);
   }, [values.name]);
 
   useEffect(() => {
@@ -232,7 +240,44 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Details" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
-            <RHFTextField name="name" label="Product Name" />
+            {/* <RHFTextField name="name" label="Product Name" /> */}
+
+            <Autocomplete
+              onChange={(e, value) => {
+                if (value) {
+                  const product = products.find((product) => product.name === value);
+                  setValue('images', product.images);
+                  setValue('name', product.name)
+                } else {
+                  setValue('images', null);
+                }
+              }}
+              name="name"
+              label="Product Name"
+              options={products.map((e) => e.name)}
+              getOptionLabel={(option) => option}
+              isOptionEqualToValue={(option, value) => option === value.value}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Product Name"
+                  value={values.name}
+                  onChange={(e) => setValue('name', e.target.value)}
+                />
+              )}
+              renderOption={(props, option) => (
+                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                  <img
+                    loading="lazy"
+                    width="20"
+                    src={products.find((e) => e.name === option).images[0]}
+                    alt=""
+                  />
+                  {option}
+                </Box>
+              )}
+              freeSolo
+            />
 
             <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} />
 
@@ -601,6 +646,19 @@ export default function ProductNewEditForm({ currentProduct }) {
     </>
   );
 
+  const renderGoToProduct = (
+    <>
+      {/* {mdUp && <Grid md={4} />} */}
+      <Grid xs={12} md={8} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Button variant="contained" size="large" color='success' onClick={()=>{
+            navigate('/dashboard/product')
+        }}>
+            Save Product
+        </Button>
+      </Grid>
+    </>
+  );
+
   const alpha = [
     '',
     'a',
@@ -673,6 +731,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 disabled
                 isSubmitting={isSubmitting}
                 isValid={isValid}
+                setProductAdded={()=>{}}
               />
 
               {Object.keys(variables)
@@ -689,6 +748,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                     disabled={false}
                     isSubmitting={isSubmitting}
                     isValid={isValid}
+                    setProductAdded={setProductAdded}
                   />
                 ))}
             </TableBody>
@@ -712,6 +772,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         {values.type === 'Variable' && productTable}
 
         {values.type === 'Simple' && renderActions}
+        {values.type === 'Variable' && productAdded && renderGoToProduct}
       </Grid>
     </FormProvider>
   );
@@ -727,6 +788,7 @@ function ProductTable({
   disabled,
   isSubmitting,
   isValid,
+  setProductAdded
 }) {
   const { user } = useAuthContext();
   const sku = skuAlpha[counter2] ? `${values.SKU}-${skuAlpha[counter2]}` : values.SKU;
@@ -802,6 +864,7 @@ function ProductTable({
         productGroup: va === 'Parent' ? 'parent' : 'child',
       });
       setStatus('success');
+      setProductAdded(true)
     } catch (error) {
       console.log(`Product Creation failed :${error}`);
       setStatus('failed');

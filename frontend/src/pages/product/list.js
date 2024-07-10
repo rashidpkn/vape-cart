@@ -214,7 +214,7 @@ export default function ShopPage() {
         <Box>
           <Grid container spacing={3} sx={{ padding: '15px', marginTop: '-300px' }}>
             {card.map(c=>
-              producsts.filter(p=>p.tags.find(t=>t===c)).slice(0,4)
+              producsts.reverse().filter(p=>p.tags.find(t=>t===c)).slice(0,4)
             ).map((items, i) => (
               <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
                 <Card style={{ width: '100%', borderRadius: '0px', zIndex: '2' }}>
