@@ -67,7 +67,7 @@ export class Product extends Model {
   @Column({ type: DataType.FLOAT })
   salePrice: number;
 
-  @Column({defaultValue:'parent'})
+  @Column
   productGroup:string
 
   @Column({

@@ -98,7 +98,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Product.prototype, "salePrice", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ defaultValue: 'parent' }),
+    sequelize_typescript_1.Column,
     __metadata("design:type", String)
 ], Product.prototype, "productGroup", void 0);
 __decorate([
