@@ -77,13 +77,21 @@ export default function ProductNewEditForm({ currentProduct }) {
       .required('Short description is required')
       .test(
         'not-four-digits',
-        'Your content contain continues 4 digit number, Please remove',
-        (value) => !/\d{4,}/.test(value)
+        'Your content contain continues 7 digit number, Please remove',
+        (value) => !/\d{7,}/.test(value)
+      ).test(
+        'no-at-symbol',
+        'Your content contains the "@" symbol. Please remove it.',
+        (value) => !/@/.test(value)
       ),
     content: Yup.string().test(
       'not-four-digits',
-      'Your content contain continues 4 digit number, Please remove',
-      (value) => !/\d{4,}/.test(value)
+      'Your content contain continues 7 digit number, Please remove',
+      (value) => !/\d{7,}/.test(value)
+    ).test(
+      'no-at-symbol',
+      'Your content contains the "@" symbol. Please remove it.',
+      (value) => !/@/.test(value)
     ),
     images: Yup.array().min(1, 'Image is required'),
 
@@ -95,10 +103,10 @@ export default function ProductNewEditForm({ currentProduct }) {
 
     attributes: Yup.array(),
 
-    quantity: Yup.number(),
+    quantity: Yup.number().required('Quantity is required'),
 
-    regularPrice: Yup.number(),
-    salePrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
+    regularPrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
+    salePrice: Yup.number(),
   });
 
   const defaultValues = useMemo(
@@ -118,7 +126,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
       attributes: currentProduct?.attributes || [],
 
-      quantity: currentProduct?.quantity || 0,
+      quantity: currentProduct?.quantity || null,
 
       regularPrice: currentProduct?.regularPrice || 0,
       salePrice: currentProduct?.salePrice || 0,
@@ -246,8 +254,13 @@ export default function ProductNewEditForm({ currentProduct }) {
               onChange={(e, value) => {
                 if (value) {
                   const product = products.find((product) => product.name === value);
-                  setValue('images', product.images);
-                  setValue('name', product.name)
+                  if(product){
+                    setValue('images', product.images);
+                    setValue('name', product.name)
+                    setValue('category', product.category)
+                    setValue('brand', product.brand)
+                    setValue('type', product.type)
+                  }
                 } else {
                   setValue('images', null);
                 }
@@ -596,6 +609,15 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Pricing" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
+
+          <RHFTextField
+              name="quantity"
+              label="Quantity"
+              placeholder="0.00"
+              type="number"
+              InputLabelProps={{ shrink: true }}
+            />
+
             <RHFTextField
               name="regularPrice"
               label="Regular Price"
@@ -650,7 +672,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     <>
       {/* {mdUp && <Grid md={4} />} */}
       <Grid xs={12} md={8} sx={{ display: 'flex', alignItems: 'center' }}>
-        <Button variant="contained" size="large" color='success' onClick={()=>{
+        <Button variant="contained" size="large" onClick={()=>{
             navigate('/dashboard/product')
         }}>
             Save Product
@@ -711,7 +733,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 <TableCell>ID</TableCell>
                 <TableCell width={150}>SKU</TableCell>
                 <TableCell width={250}>Attributes</TableCell>
-                <TableCell width={150}>Track Order</TableCell>
+                <TableCell width={150}>Track Stock</TableCell>
                 <TableCell>Stock</TableCell>
                 <TableCell>Regular Price</TableCell>
                 <TableCell>Sales Price</TableCell>
@@ -793,7 +815,10 @@ function ProductTable({
   const { user } = useAuthContext();
   const sku = skuAlpha[counter2] ? `${values.SKU}-${skuAlpha[counter2]}` : values.SKU;
   let name = values.name;
-  if (va !== 'Parent') {
+
+  const parent = va === 'Parent'
+
+  if (!parent) {
     name = `${values.name} - ${va}`;
   }
 
@@ -820,16 +845,36 @@ function ProductTable({
   const _addProduct = async () => {
     const emojiPattern =
       /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2B50}\u{2B55}\u{231A}-\u{231B}\u{23E9}-\u{23EC}\u{23F0}\u{23F3}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}\u{2B1B}-\u{2B1C}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21A9}-\u{21AA}\u{2B06}\u{2B07}\u{2B1B}\u{2B1C}]/u;
-    const threeDigitPattern = /\d{4,}/;
+    const threeDigitPattern = /\d{7,}/;
+    const atSymbol = /@/
 
     if (emojiPattern.test(values.subDescription) || emojiPattern.test(values.content)) {
       alert('Your content contain emojis, Please remove emojis');
       return;
     }
     if (threeDigitPattern.test(values.subDescription) || threeDigitPattern.test(values.content)) {
-      alert('Your content contain continues 4 digit number, Please remove');
+      alert('Your content contain continues 7 digit number, Please remove');
       return;
     }
+    if (atSymbol.test(values.subDescription) || atSymbol.test(values.content)) {
+      alert('Your content contains the "@" symbol. Please remove it.');
+      return;
+    }
+
+    if(!parent){
+
+      if(!images){
+        return alert("Child image is required.")
+      }
+      if(!quantity){
+        return alert("Quantity is required.")
+      }
+      if(!regularPrice){
+        return alert("Regular price is required.")
+      }
+
+    }
+
 
     if (status !== 'pending') {
       return;
@@ -861,7 +906,7 @@ function ProductTable({
         regularPrice,
         salePrice,
 
-        productGroup: va === 'Parent' ? 'parent' : 'child',
+        productGroup: parent? 'parent' : 'child',
       });
       setStatus('success');
       setProductAdded(true)
@@ -875,7 +920,7 @@ function ProductTable({
     <TableRow style={{ backgroundColor: disabled && 'rgba(0,0,0,0.1)' }}>
       <TableCell>{counter}</TableCell>
       <TableCell>{sku}</TableCell>
-      <TableCell>{va === 'Parent' ? name + ' - Parent' : name}</TableCell>
+      <TableCell>{parent ? name + ' - Parent' : name}</TableCell>
       <TableCell>
         <FormControlLabel
           label=""
@@ -935,19 +980,7 @@ function ProductTable({
         <input size="small" label="Image" type="file" onChange={_uploadImage} disabled={disabled} />
       </TableCell>
       <TableCell>
-        {/* {status === 'pending' && !isValid && (
-          <LoadingButton
-            type="submit"
-            variant="contained"
-            size="small"
-            color="success"
-            loading={isSubmitting}
-            onClick={_addProduct}
-          >
-            {' '}
-            Add Product
-          </LoadingButton>
-        )} */}
+        
 
         {status === 'pending' && true && (
           <Button

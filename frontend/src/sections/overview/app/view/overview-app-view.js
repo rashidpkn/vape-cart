@@ -30,6 +30,7 @@ export default function OverviewAppView() {
   const [count, setCount] = useState(0);
   const [orders, setOrders] = useState([]);
   const [invoice, setInvoice] = useState([]);
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,6 +56,7 @@ export default function OverviewAppView() {
         setOrders(filteredOrders);
         setCount(count);
         setInvoice(filteredInvoice);
+        setProducts(products)
       } catch (error) {
         console.error('An error occurred:', error);
       }
@@ -66,7 +68,7 @@ export default function OverviewAppView() {
   return (
     <Box px={5}>
       <Grid container spacing={3} sx={{ position: 'relative' }}>
-        <BlurLayer />
+        <BlurLayer  products={products}/>
         <Grid xs={12} md={12}>
           <AppWelcome
             title={`Welcome back 👋 \n ${user?.displayName}`}

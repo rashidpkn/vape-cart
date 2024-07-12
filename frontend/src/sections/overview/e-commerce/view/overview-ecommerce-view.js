@@ -63,7 +63,7 @@ export default function OverviewEcommerceView() {
       />
 
       <Grid container spacing={3} sx={{ position: 'relative' }}>
-        <BlurLayer />
+        <BlurLayer products={products} />
 
         <Grid xs={12} md={4}>
           <EcommerceWidgetSummary
