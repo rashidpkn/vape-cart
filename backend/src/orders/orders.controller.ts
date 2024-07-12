@@ -30,7 +30,7 @@ export class OrdersController {
         customer,
         shippingAddress,
       }: {
-        items: [{}];
+        items: [{id:number, quantity: number}];
         subTotal: number;
         shipping: number;
         discount: number;

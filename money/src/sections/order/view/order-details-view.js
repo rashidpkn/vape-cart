@@ -14,10 +14,36 @@ import api from 'src/utils/api';
 import OrderDetailsInfo from '../order-details-info';
 import OrderDetailsItems from '../order-details-item';
 import OrderDetailsToolbar from '../order-details-toolbar';
+import { collection, getDocs } from 'firebase/firestore';
+import { DB } from 'src/auth/context/firebase/auth-provider';
 
 // ----------------------------------------------------------------------
 
 export default function OrderDetailsView() {
+
+
+const [store, setStore] = useState([])
+
+
+  const getUsers = async () => {
+    const querySnapshot = await getDocs(collection(DB, 'users'));
+    const users = [];
+
+    querySnapshot.forEach((doc) => {
+      users.push(doc.data());
+    });
+
+    setStore(users);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+
+
+
+
   const params = useParams();
 
   const { id } = params;
@@ -58,6 +84,7 @@ export default function OrderDetailsView() {
         <Grid xs={12} md={8}>
           <Stack spacing={3} direction={{ xs: 'column-reverse', md: 'column' }}>
             <OrderDetailsItems
+            store={store}
               items={currentOrder.items}
               taxes={currentOrder.taxes}
               shipping={currentOrder.shipping}

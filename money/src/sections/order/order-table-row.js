@@ -41,9 +41,6 @@ export default function OrderTableRow({
 
   const popover = usePopover();
 
-  console.log(store);
-  console.log(items[0].userId);
-
   const renderPrimary = (
     <TableRow hover selected={selected}>
       <TableCell padding="checkbox">
@@ -60,7 +57,7 @@ export default function OrderTableRow({
             },
           }}
         >
-          #{id}
+         {`#${id.toString().padStart(3, '0')}`}
         </Box>
       </TableCell>
 
@@ -76,7 +73,9 @@ export default function OrderTableRow({
       </TableCell>
 
       <TableCell width="300px">
-        {store?.find((e) => e.uid === items[0].userId)?.displayName}
+        {items.map(item=> (<p style={{whiteSpace:"nowrap"}}> {store.find(s=>item.userId === s.uid)?.displayName}  </p>))}
+
+        {/* {store?.map((e) => e.uid === items[0].userId)?.map(e=>`${e.displayName}, `)} */}
       </TableCell>
 
       <TableCell>
@@ -171,6 +170,9 @@ export default function OrderTableRow({
                     mt: 0.5,
                   }}
                 />
+        <Box sx={{m:5}}>
+          {store?.find(s=>s.uid === item.userId)?.displayName}
+          </Box>
 
                 <Box>x{item.quantity}</Box>
 

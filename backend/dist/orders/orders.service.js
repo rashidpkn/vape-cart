@@ -10,6 +10,7 @@ exports.OrdersService = void 0;
 const common_1 = require("@nestjs/common");
 const invoice_model_1 = require("../model/invoice.model");
 const orders_model_1 = require("../model/orders.model");
+const product_model_1 = require("../model/product.model");
 let OrdersService = class OrdersService {
     async createOrder(items, subTotal, shipping, discount, totalAmount, totalQuantity, customer, shippingAddress) {
         try {
@@ -23,6 +24,10 @@ let OrdersService = class OrdersService {
                 totalQuantity,
                 customer,
                 shippingAddress,
+            });
+            items.map(async (item) => {
+                const { quantity } = await product_model_1.Product.findOne({ where: { id: item.id } });
+                await product_model_1.Product.update({ quantity: quantity - item.quantity }, { where: { id: item.id } });
             });
             await invoice_model_1.Invoice.create({
                 items,

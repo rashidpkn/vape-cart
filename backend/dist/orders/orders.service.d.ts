@@ -1,6 +1,11 @@
 import { Orders } from 'src/model/orders.model';
 export declare class OrdersService {
-    createOrder(items: [{}], subTotal: number, shipping: number, discount: number, totalAmount: number, totalQuantity: number, customer: {
+    createOrder(items: [
+        {
+            quantity: number;
+            id: number;
+        }
+    ], subTotal: number, shipping: number, discount: number, totalAmount: number, totalQuantity: number, customer: {
         name: string;
         email: string;
     }, shippingAddress: {

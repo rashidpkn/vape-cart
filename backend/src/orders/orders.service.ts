@@ -1,12 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Invoice } from 'src/model/invoice.model';
 import { Orders } from 'src/model/orders.model';
+import { Product } from 'src/model/product.model';
 
 @Injectable()
 export class OrdersService {
   //create - order
   async createOrder(
-    items: [{}],
+    items: [{
+      quantity: number;id:number
+}],
     subTotal: number,
     shipping: number,
     discount: number,
@@ -27,6 +30,14 @@ export class OrdersService {
         customer,
         shippingAddress,
       });
+
+ items.map(async(item)=>{
+  const  {quantity} =  await  Product.findOne({where:{id:item.id}})
+  await Product.update({quantity:quantity-item.quantity},{where:{id:item.id}})
+
+})
+
+
       await Invoice.create({
         items,
         subTotal,

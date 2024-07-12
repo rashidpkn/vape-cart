@@ -14,6 +14,7 @@ import Scrollbar from 'src/components/scrollbar';
 // ----------------------------------------------------------------------
 
 export default function OrderDetailsItems({
+  store,
   items = [],
   shipping,
   discount,
@@ -43,18 +44,7 @@ export default function OrderDetailsItems({
           {shipping ? `- ${fCurrency(shipping)}` : '-'}
         </Box>
       </Stack>
-      {/* 
-      <Stack direction="row">
-        <Box sx={{ color: 'text.secondary' }}>Discount</Box>
-        <Box
-          sx={{
-            width: 160,
-            ...(discount && { color: 'error.main' }),
-          }}
-        >
-          {discount ? `- ${fCurrency(discount)}` : '-'}
-        </Box>
-      </Stack> */}
+    
 
       <Stack direction="row" sx={{ typography: 'subtitle1' }}>
         <Box>Total</Box>
@@ -102,6 +92,9 @@ export default function OrderDetailsItems({
                   mt: 0.5,
                 }}
               />
+
+
+<Box sx={{ typography: 'body2',mx:10 }}>{store?.find(s=>s.uid === item.userId)?.displayName}</Box>
 
               <Box sx={{ typography: 'body2' }}>x{item.quantity}</Box>
 
