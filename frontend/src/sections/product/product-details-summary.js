@@ -316,7 +316,7 @@ if(found){
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        {productGroup !== 'parent' && renderActions}
+        {type==='Simple'  && renderActions}
       </Stack>
     </FormProvider>
   );

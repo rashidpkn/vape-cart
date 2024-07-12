@@ -48,6 +48,7 @@ export default function ShopPage() {
       .get('products', {
         params: {
           perPage: 2000,
+          productGroup:"parent"
         },
       })
       .then((res) => {
@@ -347,10 +348,10 @@ export default function ShopPage() {
           </Slider>
         </Box>
 
-        <Typography variant="h3" sx={{ textAlign: 'center' }} pb={2}>
+        {/* <Typography variant="h3" sx={{ textAlign: 'center' }} pb={2}>
           New Arrivals
-        </Typography>
-        <Box
+        </Typography> */}
+        {/* <Box
           style={{
             paddingLeft: '20px',
             paddingRight: '20px',
@@ -359,7 +360,7 @@ export default function ShopPage() {
           }}
         >
           <Slider {...settings} style={{ marginRight: '10px' }}>
-            {producsts.reverse().map((e) => (
+            {producsts.map((e) => (
               <Link to={`/product/${e.id}`} key={e.id} style={{ textDecoration: 'none' }}>
                 <Card sx={{ width: '100%', height: '100%', borderRadius: '0px' }}>
                   <CardContent>
@@ -387,7 +388,7 @@ export default function ShopPage() {
               </Link>
             ))}
           </Slider>
-        </Box>
+        </Box> */}
       </Container>
     </>
   );
