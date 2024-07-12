@@ -75,8 +75,7 @@ export class ProductService {
         name,
         category,
         inStock,
-        publish,
-        draft,
+        productGroup,
         perPage = 20,
         pageNo = 1,
         sortBy,
@@ -86,12 +85,11 @@ export class ProductService {
 
       if (username) where.username = username;
       if (userId) where.userId = userId;
+      if(productGroup) where.productGroup =productGroup
       if (name) where.name = { [Op.iLike]: `%${name}%` };
 
       if (category) where.category = category;
       if (inStock) where.quantity = { [Op.gt]: 0 };
-      if (publish) where.publish = true;
-      if (draft) where.publish = false;
 
       if (sortBy === 'priceDesc') {
         order = ['salePrice', 'DESC'];
