@@ -2,13 +2,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Invoice } from 'src/model/invoice.model';
 import { Orders } from 'src/model/orders.model';
 import { Product } from 'src/model/product.model';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 @Injectable()
 export class OrdersService {
   //create - order
   async createOrder(
     items: [{
-      quantity: number;id:number
+      quantity: number;id:number,userId:string,name:string
 }],
     subTotal: number,
     shipping: number,
@@ -34,7 +35,10 @@ export class OrdersService {
  items.map(async(item)=>{
   const  {quantity} =  await  Product.findOne({where:{id:item.id}})
   await Product.update({quantity:quantity-item.quantity},{where:{id:item.id}})
+  const {create} = NotificationsService.prototype
 
+  create({userId:item.userId,role:"user",type:"order",title:`New Order`,message:`You've received an order for the ${item.name} from ${customer.name}.`,status:"unread"})
+  create({userId:item.userId,role:"admin",type:"order",title:`New Order`,message:`Received an order for the ${item.name} from ${customer.name}.`,status:"unread"})
 })
 
 
@@ -90,6 +94,8 @@ export class OrdersService {
   // delete orders
   async deleteOrder(id: number) {
     try {
+      
+      const order = await Orders.findOne({where:{id}})
       await Orders.destroy({ where: { id } });
       return { message: 'Order Deleted' };
     } catch (error) {

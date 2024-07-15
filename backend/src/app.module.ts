@@ -11,6 +11,7 @@ import { StoreAnalyticsModule } from './store-analytics/store-analytics.module';
 import { PayoutModule } from './payout/payout.module';
 import { CustomersModule } from './customers/customers.module';
 import { AttributesModule } from './attributes/attributes.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AttributesModule } from './attributes/attributes.module';
     PayoutModule,
     CustomersModule,
     AttributesModule,
+    NotificationsModule,
     ClientModule,
   ],
   controllers: [AppController],

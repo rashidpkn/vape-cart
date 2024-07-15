@@ -16,6 +16,7 @@ import { getFirestore, collection, doc, getDoc, setDoc } from 'firebase/firestor
 import { FIREBASE_API } from 'src/config-global';
 //
 import { AuthContext } from './auth-context';
+import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
@@ -132,6 +133,8 @@ export function AuthProvider({ children }) {
 
       await sendEmailVerification(newUser.user);
 
+      
+
       const userProfile = doc(collection(DB, 'users'), newUser.user?.uid);
 
       await setDoc(userProfile, {
@@ -143,6 +146,16 @@ export function AuthProvider({ children }) {
         contactPersonInTouch,
         tradeLicense,
       });
+
+      await api.post('/notifications',{
+        userId:newUser.user?.uid,
+        role:"admin",
+        type:"user",
+        title:"New user",
+        message:`New user ${firstName} ${lastName} were created`,
+        status:'unread'
+      })
+      
       initialize();
     },
     []

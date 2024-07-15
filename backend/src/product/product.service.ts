@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Op } from 'sequelize';
 import { Product } from 'src/model/product.model';
 import { StoreAnalytics } from 'src/model/storeAnalytics.model';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 @Injectable()
 export class ProductService {
@@ -60,6 +61,12 @@ export class ProductService {
 
         productGroup
       });
+
+      const {create} = NotificationsService.prototype
+
+      create({userId,role:"user",type:"product",title:"New Product added",message:`${name}  where added`,status:"unread"})
+      create({userId,role:"admin",type:"product",title:"New Product added",message:`${name}  where added by ${username}`,status:"unread"})
+
       return { product, message: 'Product is created' };
     } catch (error) {
       console.log(error.message);
@@ -142,6 +149,12 @@ export class ProductService {
       await Product.update(update, {
         where: { id: update.id },
       });
+
+      const {create} = NotificationsService.prototype
+
+      create({userId:found.userId,role:"user",type:"product",title:"Product Updated",message:`${found.name} product where updated`,status:"unread"})
+      create({userId:found.userId,role:"admin",type:"product",title:"Product Updated",message:`${found.name} product where updated by ${found.username}`,status:"unread"})
+
     } catch (error) {
       throw error;
     }
@@ -149,6 +162,9 @@ export class ProductService {
 
   async deleteProducts(ids: number[]) {
     try {
+
+      
+
       await Product.destroy({ where: { id: ids } });
       return { message: 'Products are deleted' };
     } catch (error) {
@@ -157,6 +173,15 @@ export class ProductService {
   }
 
   async deleteProduct(id: number) {
+
+    const found = await Product.findOne({where:{id}})
+
+
+      const {create} = NotificationsService.prototype
+
+      create({userId:found.userId,role:"user",type:"product",title:"Product deleted",message:`${found.name} product where deleted`,status:"unread"})
+      create({userId:found.userId,role:"admin",type:"product",title:"Product Updated",message:`${found.name} product where deleted by ${found.username}`,status:"unread"})
+
     try {
       await Product.destroy({ where: { id } });
       return { message: 'Product is deleted' };
@@ -177,6 +202,12 @@ export class ProductService {
       if (!product) throw new BadRequestException('Product not found');
       const reviews = [...product.reviews, { rating, review, name, email }];
       await Product.update({ reviews }, { where: { id } });
+
+      const {create} = NotificationsService.prototype
+
+      create({userId:product.userId,role:"user",type:"product",title:`Product Review`,message:`${name} has given the ${product.name} a ${rating}-star review.`,status:"unread"})
+      create({userId:product.userId,role:"admin",type:"product",title:`Product Review`,message:`${name} has given the ${product.name} a ${rating}-star review.`,status:"unread"})
+
       return { message: 'Review updated' };
     } catch (error) {
       throw error;

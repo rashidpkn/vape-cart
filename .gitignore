@@ -6,5 +6,5 @@ node_modules
 .pnp.js
 package-lock.json
 yarn.lock
-./backend/uploads
-./backend/dist
+/backend/uploads
+/backend/dist
