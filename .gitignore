@@ -7,7 +7,4 @@ node_modules
 package-lock.json
 yarn.lock
 ./backend/uploads
-
-
-
-`
+./backend/dist
