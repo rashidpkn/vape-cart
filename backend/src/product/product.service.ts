@@ -64,8 +64,8 @@ export class ProductService {
 
       const {create} = NotificationsService.prototype
 
-      create({userId,role:"user",type:"product",title:"New Product added",message:`${name}  where added`,status:"unread"})
-      create({userId,role:"admin",type:"product",title:"New Product added",message:`${name}  where added by ${username}`,status:"unread"})
+      create({userId,role:"user",type:"product",title:"🎉 New Product Created! 🎉",message:`Exciting news! A new product has been created. Product Name: ${name}. 🛒`,status:"unread"})
+      create({userId,role:"admin",type:"product",title:"🎉 New Product Created! 🎉",message:`Exciting news! A new product has been created. Product Name: ${name}. Created by ${username} 🛒`,status:"unread"})
 
       return { product, message: 'Product is created' };
     } catch (error) {
@@ -152,8 +152,8 @@ export class ProductService {
 
       const {create} = NotificationsService.prototype
 
-      create({userId:found.userId,role:"user",type:"product",title:"Product Updated",message:`${found.name} product where updated`,status:"unread"})
-      create({userId:found.userId,role:"admin",type:"product",title:"Product Updated",message:`${found.name} product where updated by ${found.username}`,status:"unread"})
+      create({userId:found.userId,role:"user",type:"product",title:"🔄 Product Updated 🔄",message:`Important update! A product has been updated. Product Name: ${found.name}. 🔧`,status:"unread"})
+      create({userId:found.userId,role:"admin",type:"product",title:"🔄 Product Updated 🔄",message:`Important update! A product has been updated. Product Name: ${found.name}. Updated by: ${found.username}. 🔧`,status:"unread"})
 
     } catch (error) {
       throw error;
@@ -179,8 +179,8 @@ export class ProductService {
 
       const {create} = NotificationsService.prototype
 
-      create({userId:found.userId,role:"user",type:"product",title:"Product deleted",message:`${found.name} product where deleted`,status:"unread"})
-      create({userId:found.userId,role:"admin",type:"product",title:"Product Updated",message:`${found.name} product where deleted by ${found.username}`,status:"unread"})
+      create({userId:found.userId,role:"user",type:"product",title:"🗑️ Product Deleted 🗑️",message:`Attention! A product has been deleted. Product Name: ${found.name}. ⚠️`,status:"unread"})
+      create({userId:found.userId,role:"admin",type:"product",title:"🗑️ Product Deleted 🗑️",message:`Attention! A product has been deleted. Product Name: ${found.name}. Deleted by: ${found.username}. ⚠️`,status:"unread"})
 
     try {
       await Product.destroy({ where: { id } });
@@ -205,8 +205,8 @@ export class ProductService {
 
       const {create} = NotificationsService.prototype
 
-      create({userId:product.userId,role:"user",type:"product",title:`Product Review`,message:`${name} has given the ${product.name} a ${rating}-star review.`,status:"unread"})
-      create({userId:product.userId,role:"admin",type:"product",title:`Product Review`,message:`${name} has given the ${product.name} a ${rating}-star review.`,status:"unread"})
+      create({userId:product.userId,role:"user",type:"product",title:`🌟 New Review Alert! 🌟`,message:`Great news! A new review has been published for ${product.name} by ${name}, awarding it a ${rating}/5 rating. 📝 Take a look!`,status:"unread"})
+      create({userId:product.userId,role:"admin",type:"product",title:`🌟 New Review Alert! 🌟`,message:`Great news! A new review has been published for ${product.name} by ${name}, awarding it a ${rating}/5 rating. 📝 Take a look!`,status:"unread"})
 
       return { message: 'Review updated' };
     } catch (error) {

@@ -26,7 +26,7 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 // ----------------------------------------------------------------------
 
 export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
-  const { id, items, status, createdAt, customer} = row;
+  const { id, items, status, createdAt, customer } = row;
 
   const confirm = useBoolean();
 
@@ -50,7 +50,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
             },
           }}
         >
-          #{id}
+          #{id.toString().padStart(3, '0')}
         </Box>
       </TableCell>
 

@@ -27,7 +27,7 @@ export default function ProductDetailsReview({ reviews = [] }) {
       <Typography variant="subtitle2">Average rating</Typography>
 
       <Typography variant="h2">
-        {reviews?.reduce((a, b) => a + b.rating, 0) / reviews.length}/5
+        {(reviews?.reduce((a, b) => a + b.rating, 0) / reviews.length).toFixed(2)}/5
       </Typography>
 
       <Rating

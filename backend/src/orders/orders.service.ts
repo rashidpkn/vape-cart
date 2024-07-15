@@ -21,7 +21,7 @@ export class OrdersService {
   ) {
     try {
       const dueDate = new Date(new Date().setDate(new Date().getDate() + 5));
-      await Orders.create({
+      const {id} = await Orders.create({
         items,
         subTotal,
         shipping,
@@ -32,15 +32,14 @@ export class OrdersService {
         shippingAddress,
       });
 
+      const {create} = NotificationsService.prototype
  items.map(async(item)=>{
   const  {quantity} =  await  Product.findOne({where:{id:item.id}})
   await Product.update({quantity:quantity-item.quantity},{where:{id:item.id}})
-  const {create} = NotificationsService.prototype
-
-  create({userId:item.userId,role:"user",type:"order",title:`New Order`,message:`You've received an order for the ${item.name} from ${customer.name}.`,status:"unread"})
-  create({userId:item.userId,role:"admin",type:"order",title:`New Order`,message:`Received an order for the ${item.name} from ${customer.name}.`,status:"unread"})
+  create({userId:item.userId,role:"user",type:"order",title:`📦 New Order Received! 📦`,message:`Exciting news! A new order has been placed. Order ID: #${id.toString().padStart(3, '0')}. Please process it promptly.`,status:"unread"})
 })
 
+create({userId:'admin',role:"admin",type:"order",title:`📦 New Order Received! 📦`,message:`Exciting news! A new order has been placed. Order ID: #${id.toString().padStart(3, '0')}. Please process it promptly.`,status:"unread"})
 
       await Invoice.create({
         items,

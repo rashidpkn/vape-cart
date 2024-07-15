@@ -11,6 +11,7 @@ import { OrdersService } from './orders.service';
 import { Request } from 'express';
 import { Orders } from 'src/model/orders.model';
 import { Invoice } from 'src/model/invoice.model';
+import { NotificationsService } from 'src/notifications/notifications.service';
 
 @Controller('orders')
 export class OrdersController {
@@ -113,6 +114,16 @@ export class OrdersController {
     try {
       const { status } = req.body;
       const { id } = req.params;
+
+      const {create} = NotificationsService.prototype
+      const {items} = await Orders.findOne({where:{id}})
+
+      if(status === 'completed'){
+        items.map(async(item)=>{
+          create({userId:item.userId,role:"user",type:"order",title:` ✅ Order Completed! ✅`,message:`Great job! Order ID: #${id.toString().padStart(3, '0')} has been successfully completed. Thank you for your prompt service. 🎉`,status:"unread"})
+          create({userId:item.userId,role:"admin",type:"order",title:` ✅ Order Completed! ✅`,message:`Great job! Order ID: #${id.toString().padStart(3, '0')} has been successfully completed. Thank you for your prompt service. 🎉`,status:"unread"})
+        })  
+      }
       await Orders.update({ status }, { where: { id } });
       await Invoice.update({ status }, { where: { id } });
     } catch (error) {

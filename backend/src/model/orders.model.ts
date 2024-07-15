@@ -4,6 +4,7 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
 export class Orders extends Model {
   @Column({ type: DataType.ARRAY(DataType.JSON) })
   items: {
+    userId: string;
     id: number;
     SKU: string;
     quantity: number;

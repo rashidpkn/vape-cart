@@ -133,7 +133,7 @@ export function AuthProvider({ children }) {
 
       await sendEmailVerification(newUser.user);
 
-      
+
 
       const userProfile = doc(collection(DB, 'users'), newUser.user?.uid);
 
@@ -147,15 +147,15 @@ export function AuthProvider({ children }) {
         tradeLicense,
       });
 
-      await api.post('/notifications',{
-        userId:newUser.user?.uid,
-        role:"admin",
-        type:"user",
-        title:"New user",
-        message:`New user ${firstName} ${lastName} were created`,
-        status:'unread'
+      await api.post('/notifications', {
+        userId: newUser.user?.uid,
+        role: "admin",
+        type: "user",
+        title: "🎉 New Partner Alert! 🎉",
+        message: `Exciting news! A new partner, ${firstName} ${lastName}, has joined our platform. Please review and approve their profile. 🎊`,
+        status: 'unread'
       })
-      
+
       initialize();
     },
     []
