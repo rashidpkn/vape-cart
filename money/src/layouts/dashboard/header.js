@@ -73,7 +73,7 @@ export default function Header({ onOpenNav }) {
         height: HEADER.H_MOBILE,
         zIndex: theme.zIndex.appBar + 1,
         ...bgBlur({
-          color: theme.palette.background.default,
+          color: '#e3e6e6',
         }),
         transition: theme.transitions.create(['height'], {
           duration: theme.transitions.duration.shorter,
@@ -86,7 +86,7 @@ export default function Header({ onOpenNav }) {
           }),
           ...(isNavHorizontal && {
             width: 1,
-            bgcolor: 'background.default',
+            bgcolor: '#e3e6e6',
             height: HEADER.H_DESKTOP_OFFSET,
             borderBottom: `dashed 1px ${theme.palette.divider}`,
           }),

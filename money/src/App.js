@@ -23,6 +23,10 @@ import SnackbarProvider from 'src/components/snackbar/snackbar-provider';
 import { SettingsProvider, SettingsDrawer } from 'src/components/settings';
 import { AuthProvider, AuthConsumer } from 'src/auth/context/firebase';
 
+
+import './css/index.css'
+
+
 // Main App Component
 export default function App() {
   // Custom hook for scrolling to the top
