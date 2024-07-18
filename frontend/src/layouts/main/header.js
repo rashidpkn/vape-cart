@@ -27,6 +27,7 @@ import { allItems } from '../dashboard/config-navigation';
 import BottomHeader from './BottomHeader';
 
 import ShowLogin from './ShowLogin';
+import { paths } from 'src/routes/paths';
 // ----------------------------------------------------------------------
 const style = {
   position: 'absolute',
@@ -420,7 +421,7 @@ export default function Header({ set }) {
           </Box>
 
           <Link
-            to="product/checkout-2"
+            to={paths.product.checkout}
             style={{ color: '#fff', textDecoration: 'none', position: 'relative' }}
           >
             <Box
