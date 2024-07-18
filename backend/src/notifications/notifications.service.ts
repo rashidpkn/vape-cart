@@ -51,7 +51,7 @@ export class NotificationsService {
       status && (where.status = status);
       type && where.type === type;
 
-      const notifications = await Notifications.findAll({ where });
+      const notifications = await Notifications.findAll({ where,order:[['id','DESC']] });
 
       if (!notifications.length) {
         throw new BadRequestException('Notifications not found');
