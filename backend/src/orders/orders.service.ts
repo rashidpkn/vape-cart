@@ -65,12 +65,22 @@ create({userId:'admin',role:"admin",type:"order",title:`📦 New Order Received!
 
   // get all orders
 
-  async getAllOders(query: { email?: string }) {
+  async getAllOders(query: { email?: string,status:string }) {
     try {
-      const orders = await Orders.findAll();
-      if (!!query.email) {
-        return orders.filter((order) => order.customer.email === query.email);
-      }
+      const {email,status} = query
+
+      let  where:any= {}
+
+      
+
+        if(!!email) {
+          where.customer = {}
+          where.customer.email =  email
+        }
+        if(!!status) {where.status = status}
+
+      const orders = await Orders.findAll({where});
+      
       return orders;
     } catch (error) {
       throw error;

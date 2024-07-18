@@ -66,7 +66,7 @@ export class OrdersController {
   @Get()
   async getAllOders(@Req() req: Request) {
     try {
-      const { query } = req;
+      const { query }:any = req;
       return this.ordersService.getAllOders(query);
     } catch (error) {
       throw error;
