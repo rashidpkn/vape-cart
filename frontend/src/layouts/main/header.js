@@ -349,6 +349,7 @@ export default function Header({ set }) {
                 borderTopRightRadius: '6px',
                 borderBottomRightRadius: '6px',
               }}
+              onClick={() => navigate(`/search/${input}`)}
             >
               <Search style={{ cursor: 'pointer', color: '#057aff' }} />
             </span>
