@@ -63,16 +63,16 @@ export default function ProductShopDetailsView() {
   const [currentTab, setCurrentTab] = useState('description');
 
   const [product, setProduct] = useState();
-  const [similarProduct, setSimilarProduct] = useState([]);
+  // const [similarProduct, setSimilarProduct] = useState([]);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const { data } = await api.get(`products/${id}`, { params: { count: 1 } });
         setProduct(data);
-        const word = data.name.split(' ')[0].toLowerCase();
-        const { data: similar } = await api.get(`/products/similar-product/${word}`);
-        setSimilarProduct(similar);
+        // const word = data.name.split(' ')[0].toLowerCase();
+        // const { data: similar } = await api.get(`/products/similar-product/${word}`);
+        // setSimilarProduct(similar);
       } catch (error) {
         alert(error.response.data.message);
         navigate(paths.dashboard.product.root);
@@ -112,7 +112,7 @@ export default function ProductShopDetailsView() {
             onAddCart={onAddCart}
             onGotoStep={onGotoStep}
             setProduct={setProduct}
-            similarProduct={similarProduct}
+          // similarProduct={similarProduct}
           />
         </Grid>
       </Grid>

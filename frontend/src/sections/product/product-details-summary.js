@@ -33,7 +33,7 @@ export default function ProductDetailsSummary({
   onGotoStep,
   disabledActions,
   setProduct,
-  similarProduct = [],
+  // similarProduct = [],
   ...other
 }) {
   const router = useRouter();
@@ -60,9 +60,11 @@ export default function ProductDetailsSummary({
 
   const getAllproducts = async () => {
     if (type === 'Variable' && productGroup === 'parent') {
-      const { data } = await api.get('/products', { params:{
-        perPage: 2000
-      } });
+      const { data } = await api.get('/products', {
+        params: {
+          perPage: 2000
+        }
+      });
       setAllProducts(data.products);
     }
   };
@@ -200,18 +202,18 @@ export default function ProductDetailsSummary({
     const found = allProducts.find((e) =>
       e.name.toLowerCase().includes(selectedName.toLowerCase())
     );
-if(found){
-  setProduct(_=>({
-    ..._,
-    name:found.name,
-    images:found.images,
-    quantity:found.quantity,
-    salePrice:found.salePrice,
-    regularPrice:found.regularPrice
-  }))
-}
+    if (found) {
+      setProduct(_ => ({
+        ..._,
+        name: found.name,
+        images: found.images,
+        quantity: found.quantity,
+        salePrice: found.salePrice,
+        regularPrice: found.regularPrice
+      }))
+    }
 
-    
+
   }, [selectedVariable]);
 
   const renderVariables = type === 'Variable' && productGroup === 'parent' && (
@@ -241,7 +243,7 @@ if(found){
         color="success"
         disabled={!name.split("-")[1]}
         onClick={() => {
-          let selectedName =name.split(" -")[0];
+          let selectedName = name.split(" -")[0];
           Object.keys(selectedVariable).map(
             (e) => (selectedName = selectedName + ' - ' + selectedVariable[e])
           );
@@ -290,7 +292,7 @@ if(found){
 
         {renderQuantity}
 
-        <Box>
+        {/* <Box>
           <h4>Products related to this item</h4>
 
           <Grid container gap={1} justifyContent="center" mt={2}>
@@ -312,11 +314,11 @@ if(found){
               </Grid>
             ))}
           </Grid>
-        </Box>
+        </Box> */}
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        {type==='Simple'  && renderActions}
+        {type === 'Simple' && renderActions}
       </Stack>
     </FormProvider>
   );
