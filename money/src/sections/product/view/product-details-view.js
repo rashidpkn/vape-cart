@@ -192,10 +192,10 @@ export default function ProductDetailsView() {
   );
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+    <Box px={5}>
       {!product && renderSkeleton}
 
       {product && renderProduct}
-    </Container>
+    </Box>
   );
 }

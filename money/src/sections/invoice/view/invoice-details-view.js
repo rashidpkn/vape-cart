@@ -10,6 +10,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 import InvoiceDetails from '../invoice-details';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -25,7 +26,7 @@ export default function InvoiceDetailsView() {
     try {
       const { data } = await api.get(`invoice/${id}`);
       setCurrentInvoice(data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function InvoiceDetailsView() {
   }, []);
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+    <Box px={5}>
       <CustomBreadcrumbs
         heading={currentInvoice?.invoiceNumber}
         links={[
@@ -51,6 +52,6 @@ export default function InvoiceDetailsView() {
       />
 
       <InvoiceDetails invoice={currentInvoice} />
-    </Container>
+    </Box>
   );
 }

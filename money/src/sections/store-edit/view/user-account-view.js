@@ -19,6 +19,7 @@ import AccountNotifications from '../account-notifications';
 import AccountChangePassword from '../account-change-password';
 import GetStore from './getUsers';
 import DeliverySettings from '../DeliverySettings';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -71,7 +72,7 @@ export default function StoreEdit() {
   }, []);
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+    <Box px={5}>
       <CustomBreadcrumbs
         heading="Account"
         links={[{ name: 'Dashboard', href: paths.dashboard.root }]}
@@ -101,6 +102,6 @@ export default function StoreEdit() {
       {currentTab === 'security' && <AccountChangePassword />}
 
       {currentTab === 'deliverySettings' && <DeliverySettings user={user} />}
-    </Container>
+    </Box>
   );
 }

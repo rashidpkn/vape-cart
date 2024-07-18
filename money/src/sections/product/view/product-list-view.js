@@ -36,6 +36,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import api from 'src/utils/api';
 import ProductTableRow from '../product-table-row';
 import ProductTableToolbar from '../product-table-toolbar';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -175,7 +176,7 @@ export default function ProductListView() {
 
   return (
     <>
-      <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+      <Box px={5}>
         <CustomBreadcrumbs
           heading="Products"
           links={[
@@ -292,7 +293,7 @@ export default function ProductListView() {
             onChangeDense={table.onChangeDense}
           />
         </Card>
-      </Container>
+      </Box>
 
       <ConfirmDialog
         open={confirm.value}

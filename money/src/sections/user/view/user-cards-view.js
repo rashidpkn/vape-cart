@@ -11,6 +11,7 @@ import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import UserCardList from '../user-card-list';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -18,7 +19,7 @@ export default function UserCardsView() {
   const settings = useSettingsContext();
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+    <Box px={5}>
       <CustomBreadcrumbs
         heading="Partners"
         links={[
@@ -39,6 +40,6 @@ export default function UserCardsView() {
       />
 
       <UserCardList />
-    </Container>
+    </Box>
   );
 }

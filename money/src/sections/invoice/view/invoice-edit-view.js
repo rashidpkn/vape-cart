@@ -10,6 +10,7 @@ import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import InvoiceNewEditForm from '../invoice-new-edit-form';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -23,7 +24,7 @@ export default function InvoiceEditView() {
   const currentInvoice = _invoices.find((invoice) => invoice.id === id);
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+    <Box px={5}>
       <CustomBreadcrumbs
         heading="Edit"
         links={[
@@ -43,6 +44,6 @@ export default function InvoiceEditView() {
       />
 
       <InvoiceNewEditForm currentInvoice={currentInvoice} />
-    </Container>
+    </Box>
   );
 }

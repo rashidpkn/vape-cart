@@ -18,6 +18,7 @@ import api from 'src/utils/api';
 import EcommerceBestSalesman from '../ecommerce-best-salesman';
 
 import EcommerceWidgetSummary from '../ecommerce-widget-summary';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -54,7 +55,7 @@ export default function OverviewEcommerceView() {
   const settings = useSettingsContext();
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'xl'}>
+    <Box px={5}>
       <Grid container spacing={3}>
         <Grid xs={12} md={4}>
           <EcommerceWidgetSummary
@@ -163,6 +164,6 @@ export default function OverviewEcommerceView() {
           />
         </Grid> */}
       </Grid>
-    </Container>
+    </Box>
   );
 }

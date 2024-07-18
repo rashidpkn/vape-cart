@@ -44,6 +44,7 @@ import InvoiceAnalytic from '../invoice-analytic';
 import InvoiceTableRow from '../invoice-table-row';
 import InvoiceTableToolbar from '../invoice-table-toolbar';
 import InvoiceTableFiltersResult from '../invoice-table-filters-result';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -84,7 +85,7 @@ export default function InvoiceListView() {
       const { data } = await api.get('invoice');
       console.log(data);
       setTableData(data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -185,7 +186,7 @@ export default function InvoiceListView() {
 
   return (
     <>
-      <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+      <Box px={5}>
         <CustomBreadcrumbs
           heading="Invoice"
           links={[
@@ -198,19 +199,19 @@ export default function InvoiceListView() {
               href: paths.dashboard.invoice.root,
             },
           ]}
-          // action={
-          //   <Button
-          //     component={RouterLink}
-          //     href={paths.dashboard.invoice.new}
-          //     variant="contained"
-          //     startIcon={<Iconify icon="mingcute:add-line" />}
-          //   >
-          //     New Invoice
-          //   </Button>
-          // }
-          // sx={{
-          //   mb: { xs: 3, md: 5 },
-          // }}
+        // action={
+        //   <Button
+        //     component={RouterLink}
+        //     href={paths.dashboard.invoice.new}
+        //     variant="contained"
+        //     startIcon={<Iconify icon="mingcute:add-line" />}
+        //   >
+        //     New Invoice
+        //   </Button>
+        // }
+        // sx={{
+        //   mb: { xs: 3, md: 5 },
+        // }}
         />
 
         <Card
@@ -418,7 +419,7 @@ export default function InvoiceListView() {
             onChangeDense={table.onChangeDense}
           />
         </Card>
-      </Container>
+      </Box>
 
       <ConfirmDialog
         open={confirm.value}

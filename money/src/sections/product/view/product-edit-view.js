@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 import { useNavigate } from 'react-router-dom';
 import ProductNewEditForm from '../product-new-edit-form';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -38,7 +39,7 @@ export default function ProductEditView() {
   }, []);
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+    <Box px={5}>
       <CustomBreadcrumbs
         heading="Edit"
         links={[
@@ -55,6 +56,6 @@ export default function ProductEditView() {
       />
 
       <ProductNewEditForm currentProduct={currentProduct} />
-    </Container>
+    </Box>
   );
 }

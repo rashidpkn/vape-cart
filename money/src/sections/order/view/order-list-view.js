@@ -161,7 +161,7 @@ export default function OrderListView() {
 
   return (
     <>
-      <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+      <Box px={5}>
         <CustomBreadcrumbs
           heading="Orders"
           links={[
@@ -325,7 +325,7 @@ export default function OrderListView() {
             onChangeDense={table.onChangeDense}
           />
         </Card>
-      </Container>
+      </Box>
 
       <ConfirmDialog
         open={confirm.value}

@@ -19,6 +19,7 @@ import api from 'src/utils/api';
 import AppWidgetSummary from '../app-widget-summary';
 import AppAreaInstalled from '../app-area-installed';
 import AppTopInstalledCountries from '../app-top-installed-countries';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -50,26 +51,8 @@ export default function OverviewAppView() {
   const settings = useSettingsContext();
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'xl'}>
+    <Box px={5}>
       <Grid container spacing={3}>
-        {/* <Grid xs={12} md={8}>
-          <AppWelcome
-            title={`Welcome back 👋 \n ${user?.displayName}`}
-            description="If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything."
-            img={<SeoIllustration />}
-            action={
-              <Link to="/dashboard/product/new">
-              <Button variant="contained" color="primary">
-                Add Product
-              </Button>
-              </Link>
-            }
-          />
-        </Grid>
-
-        <Grid xs={12} md={4}>
-          <AppFeatured list={_appFeatured} />
-        </Grid> */}
 
         <Grid xs={12} md={4}>
           <AppWidgetSummary
@@ -152,7 +135,7 @@ export default function OverviewAppView() {
                           (orders.reduce(
                             (a, b) =>
                               new Date(b.createdAt).getFullYear() === 2023 &&
-                              new Date(b.createdAt).getMonth() === e
+                                new Date(b.createdAt).getMonth() === e
                                 ? a + b.totalAmount
                                 : a,
                             0
@@ -167,7 +150,7 @@ export default function OverviewAppView() {
                         orders.reduce(
                           (a, b) =>
                             new Date(b.createdAt).getFullYear() === 2023 &&
-                            new Date(b.createdAt).getMonth() === e
+                              new Date(b.createdAt).getMonth() === e
                               ? a + b.totalAmount
                               : a,
                           0
@@ -186,7 +169,7 @@ export default function OverviewAppView() {
                           (orders.reduce(
                             (a, b) =>
                               new Date(b.createdAt).getFullYear() === 2024 &&
-                              new Date(b.createdAt).getMonth() === e
+                                new Date(b.createdAt).getMonth() === e
                                 ? a + b.totalAmount
                                 : a,
                             0
@@ -201,7 +184,7 @@ export default function OverviewAppView() {
                         orders.reduce(
                           (a, b) =>
                             new Date(b.createdAt).getFullYear() === 2024 &&
-                            new Date(b.createdAt).getMonth() === e
+                              new Date(b.createdAt).getMonth() === e
                               ? a + b.totalAmount
                               : a,
                           0
@@ -261,6 +244,6 @@ export default function OverviewAppView() {
           </Stack>
         </Grid> */}
       </Grid>
-    </Container>
+    </Box>
   );
 }

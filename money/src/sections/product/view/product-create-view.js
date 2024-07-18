@@ -7,6 +7,7 @@ import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import ProductNewEditForm from '../product-new-edit-form';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -14,7 +15,7 @@ export default function ProductCreateView() {
   const settings = useSettingsContext();
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+    <Box px={5}>
       <CustomBreadcrumbs
         heading="Create a new product"
         links={[
@@ -34,6 +35,6 @@ export default function ProductCreateView() {
       />
 
       <ProductNewEditForm />
-    </Container>
+    </Box>
   );
 }

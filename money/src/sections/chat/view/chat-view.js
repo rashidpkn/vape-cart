@@ -20,6 +20,7 @@ import ChatMessageList from '../chat-message-list';
 import ChatMessageInput from '../chat-message-input';
 import ChatHeaderDetail from '../chat-header-detail';
 import ChatHeaderCompose from '../chat-header-compose';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -103,7 +104,7 @@ export default function ChatView() {
   );
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'xl'}>
+    <Box px={5}>
       <Typography
         variant="h4"
         sx={{
@@ -140,6 +141,6 @@ export default function ChatView() {
           </Stack>
         </Stack>
       </Stack>
-    </Container>
+    </Box>
   );
 }
