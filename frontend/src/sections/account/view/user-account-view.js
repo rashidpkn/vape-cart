@@ -17,6 +17,7 @@ import AccountBilling from '../account-billing';
 import AccountSocialLinks from '../account-social-links';
 import AccountNotifications from '../account-notifications';
 import AccountChangePassword from '../account-change-password';
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -60,7 +61,7 @@ export default function AccountView() {
   }, []);
 
   return (
-    <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+    <Box px={5}>
       <CustomBreadcrumbs
         heading="Account"
         links={[
@@ -101,6 +102,6 @@ export default function AccountView() {
       {currentTab === 'social' && <AccountSocialLinks socialLinks={_userAbout.socialLinks} />}
 
       {currentTab === 'security' && <AccountChangePassword />}
-    </Container>
+    </Box>
   );
 }
