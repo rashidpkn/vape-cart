@@ -44,7 +44,6 @@ export default function OrderDetailsItems({
           {shipping ? `- ${fCurrency(shipping)}` : '-'}
         </Box>
       </Stack>
-    
 
       <Stack direction="row" sx={{ typography: 'subtitle1' }}>
         <Box>Total</Box>
@@ -55,8 +54,13 @@ export default function OrderDetailsItems({
 
   return (
     <Card>
-      <CardHeader title="Details" />
+      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} sx={{ p: 2 }}>
+        <CardHeader title="Details" sx={{ margin: '0px', p: 0 }} />
 
+
+
+        <p style={{ width: '40%', margin: '0px' }}>Partner</p>
+      </Box>
       <Stack
         sx={{
           px: 3,
@@ -92,14 +96,18 @@ export default function OrderDetailsItems({
                   mt: 0.5,
                 }}
               />
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '40%', flexShrink: 0 }}>
+
+                <p>
+                  {store?.find((s) => s.uid === item.userId)?.displayName}
+                </p>
 
 
-<Box sx={{ typography: 'body2',mx:10 }}>{store?.find(s=>s.uid === item.userId)?.displayName}</Box>
+                <Box sx={{ typography: 'body2' }}>x{item.quantity}</Box>
 
-              <Box sx={{ typography: 'body2' }}>x{item.quantity}</Box>
-
-              <Box sx={{ width: 110, textAlign: 'right', typography: 'subtitle2' }}>
-                {fCurrency(item.price)}
+                <Box sx={{ width: 110, textAlign: 'right', typography: 'subtitle2' }}>
+                  {fCurrency(item.price)}
+                </Box>
               </Box>
             </Stack>
           ))}

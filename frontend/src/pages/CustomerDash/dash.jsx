@@ -14,11 +14,14 @@ export default function Dash({ customer, setLoginStatus }) {
       },
     });
     setOrders(data);
-  }, []);
+  }, [customer]);
 
   useEffect(() => {
-    getOrders();
-  }, []);
+    if(!!customer.email){
+
+      getOrders();
+    }
+  }, [customer]);
 
   return (
     <div>

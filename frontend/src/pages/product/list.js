@@ -25,7 +25,7 @@ import 'aos/dist/aos.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { _tags } from 'src/data/createProducts';
 
-const card = _tags.slice(0,4)
+const card = _tags.slice(0, 4)
 
 export default function ShopPage() {
   AOS.init();
@@ -48,7 +48,7 @@ export default function ShopPage() {
       .get('products', {
         params: {
           perPage: 2000,
-          productGroup:"parent"
+          productGroup: "parent"
         },
       })
       .then((res) => {
@@ -214,8 +214,8 @@ export default function ShopPage() {
 
         <Box>
           <Grid container spacing={3} sx={{ padding: '15px', marginTop: '-300px' }}>
-            {card.map(c=>
-              producsts.reverse().filter(p=>p.tags.find(t=>t===c)).slice(0,4)
+            {card.map(c =>
+              producsts.reverse().filter(p => p.tags.find(t => t === c)).slice(0, 4)
             ).map((items, i) => (
               <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
                 <Card style={{ width: '100%', borderRadius: '0px', zIndex: '2' }}>
@@ -348,47 +348,7 @@ export default function ShopPage() {
           </Slider>
         </Box>
 
-        {/* <Typography variant="h3" sx={{ textAlign: 'center' }} pb={2}>
-          New Arrivals
-        </Typography> */}
-        {/* <Box
-          style={{
-            paddingLeft: '20px',
-            paddingRight: '20px',
-            paddingTop: '0px',
-            paddingBottom: '100px',
-          }}
-        >
-          <Slider {...settings} style={{ marginRight: '10px' }}>
-            {producsts.map((e) => (
-              <Link to={`/product/${e.id}`} key={e.id} style={{ textDecoration: 'none' }}>
-                <Card sx={{ width: '100%', height: '100%', borderRadius: '0px' }}>
-                  <CardContent>
-                    <Box>
-                      <img
-                        src={e.images[0]}
-                        width={150}
-                        height={100}
-                        style={{ width: '100%', height: '300px' }}
-                        alt=""
-                      />
-                    </Box>
-                    <Box>
-                      <Typography variant="h6" sx={{ marginTop: '10px' }}>
-                        {e.name}
-                      </Typography>
 
-                      <Typography variant="p" style={{ color: 'gray', marginTop: '15px' }}>
-                        <del>AED {e.regularPrice}</del>{' '}
-                        <span style={{ fontWeight: '700', color: '#000' }}>AED {e.salePrice}</span>
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </Slider>
-        </Box> */}
       </Container>
     </>
   );

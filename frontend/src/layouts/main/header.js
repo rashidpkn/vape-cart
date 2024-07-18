@@ -1,6 +1,6 @@
 // @mui
 
-import { Link,  useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
 
@@ -53,15 +53,15 @@ export default function Header({ set }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  
+
 
   const [result, setResults] = useState([]);
   const [input, setInput] = useState('');
 
   const fetchProducts = useCallback(async () => {
     const {
-      data: {  products },
-    } = await api.get('/products', { params: { name: input } });
+      data: { products },
+    } = await api.get('/products', { params: { name: input, productGroup: "parent" } });
     setResults(products);
   }, [input]);
 
@@ -383,6 +383,9 @@ export default function Header({ set }) {
           </Box>
 
           <Box
+            onClick={() => {
+              navigate('/customer-dashboard')
+            }}
             className="navborder padding-lg orders"
             style={{
               display: 'flex',
@@ -396,7 +399,11 @@ export default function Header({ set }) {
               cursor: 'pointer',
             }}
           >
+            {/* <Link to={'/customer-dashboard'}> */}
             <Typography
+
+
+
               variant="p"
               style={{ fontSize: '12px', fontWeight: '400', lineHeight: '14px', height: '14px' }}
             >
@@ -408,6 +415,7 @@ export default function Header({ set }) {
             >
               & Orders
             </Typography>
+
           </Box>
 
           <Link

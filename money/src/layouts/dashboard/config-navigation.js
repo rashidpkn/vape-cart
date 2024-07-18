@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 // routes
 import { paths } from 'src/routes/paths';
 // locales
@@ -6,6 +6,8 @@ import { useLocales } from 'src/locales';
 // components
 import Iconify from 'src/components/iconify';
 import SvgColor from 'src/components/svg-color';
+import Label from 'src/components/label';
+import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
@@ -51,6 +53,28 @@ const ICONS = {
 // ----------------------------------------------------------------------
 
 export function useNavData() {
+
+  const [orders, setOrders] = useState([])
+
+
+  const getOrders = useCallback(
+    async () => {
+      const { data } = await api.get('/orders', {
+        params: {
+          status: "Order received"
+        }
+      })
+
+      setOrders(data)
+    },
+    [],
+  )
+
+  useEffect(() => {
+    getOrders()
+  }, [])
+
+
   const { t } = useLocales();
 
   const data = useMemo(
@@ -82,14 +106,13 @@ export function useNavData() {
             ],
           },
 
-          // ORDER
+
           {
             title: t('orders'),
             path: paths.dashboard.order.root,
             icon: ICONS.order,
-            // children: [
-            //   { title: t('orders'), path: paths.dashboard.order.root },
-            // ],
+            info: <Label color="primary" sx={{ color: '#000' }} >{orders.length}</Label>
+
           },
 
           // INVOICE

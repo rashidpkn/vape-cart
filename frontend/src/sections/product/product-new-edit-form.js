@@ -162,6 +162,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     } = await api.get('/products', {
       params: {
         name: values.name,
+        productGroup: "parent"
       },
     });
     setProducts(data.products);
@@ -254,7 +255,7 @@ export default function ProductNewEditForm({ currentProduct }) {
               onChange={(e, value) => {
                 if (value) {
                   const product = products.find((product) => product.name === value);
-                  if(product){
+                  if (product) {
                     setValue('images', product.images);
                     setValue('name', product.name)
                     setValue('category', product.category)
@@ -610,7 +611,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
           <Stack spacing={3} sx={{ p: 3 }}>
 
-          <RHFTextField
+            <RHFTextField
               name="quantity"
               label="Quantity"
               placeholder="0.00"
@@ -672,10 +673,10 @@ export default function ProductNewEditForm({ currentProduct }) {
     <>
       {/* {mdUp && <Grid md={4} />} */}
       <Grid xs={12} md={8} sx={{ display: 'flex', alignItems: 'center' }}>
-        <Button variant="contained" size="large" onClick={()=>{
-            navigate('/dashboard/product')
+        <Button variant="contained" size="large" onClick={() => {
+          navigate('/dashboard/product')
         }}>
-            Save Product
+          Save Product
         </Button>
       </Grid>
     </>
@@ -753,7 +754,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 disabled
                 isSubmitting={isSubmitting}
                 isValid={isValid}
-                setProductAdded={()=>{}}
+                setProductAdded={() => { }}
               />
 
               {Object.keys(variables)
@@ -839,7 +840,7 @@ function ProductTable({
       const { data } = await api.post('upload', formData);
 
       setImages([data[0], ...values.images]);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const _addProduct = async () => {
@@ -861,15 +862,15 @@ function ProductTable({
       return;
     }
 
-    if(!parent){
+    if (!parent) {
 
-      if(!images){
+      if (!images) {
         return alert("Child image is required.")
       }
-      if(!quantity){
+      if (!quantity) {
         return alert("Quantity is required.")
       }
-      if(!regularPrice){
+      if (!regularPrice) {
         return alert("Regular price is required.")
       }
 
@@ -906,7 +907,7 @@ function ProductTable({
         regularPrice,
         salePrice,
 
-        productGroup: parent? 'parent' : 'child',
+        productGroup: parent ? 'parent' : 'child',
       });
       setStatus('success');
       setProductAdded(true)
@@ -980,7 +981,7 @@ function ProductTable({
         <input size="small" label="Image" type="file" onChange={_uploadImage} disabled={disabled} />
       </TableCell>
       <TableCell>
-        
+
 
         {status === 'pending' && true && (
           <Button

@@ -46,11 +46,22 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import { useNavigate } from 'react-router';
 
 // ----------------------------------------------------------------------
 
 export default function ProductNewEditForm({ currentProduct }) {
-  // const [products, setProduct] = useState([]);
+
+  const navigate = useNavigate()
+  const [productAdded, setProductAdded] = useState(false)
+
+  const [savedAttibutes, setSavedAttibutes] = useState([]);
+
+  useEffect(() => {
+    api.get('/attributes').then((res) => {
+      setSavedAttibutes(res.data);
+    });
+  }, []);
 
   const router = useRouter();
 
@@ -62,8 +73,26 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
-    subDescription: Yup.string().required('Short description is required'),
-    content: Yup.string(),
+    subDescription: Yup.string()
+      .required('Short description is required')
+      .test(
+        'not-four-digits',
+        'Your content contain continues 7 digit number, Please remove',
+        (value) => !/\d{7,}/.test(value)
+      ).test(
+        'no-at-symbol',
+        'Your content contains the "@" symbol. Please remove it.',
+        (value) => !/@/.test(value)
+      ),
+    content: Yup.string().test(
+      'not-four-digits',
+      'Your content contain continues 7 digit number, Please remove',
+      (value) => !/\d{7,}/.test(value)
+    ).test(
+      'no-at-symbol',
+      'Your content contains the "@" symbol. Please remove it.',
+      (value) => !/@/.test(value)
+    ),
     images: Yup.array().min(1, 'Image is required'),
 
     type: Yup.string(),
@@ -74,10 +103,10 @@ export default function ProductNewEditForm({ currentProduct }) {
 
     attributes: Yup.array(),
 
-    quantity: Yup.number(),
+    quantity: Yup.number().required('Quantity is required'),
 
-    regularPrice: Yup.number(),
-    salePrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
+    regularPrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
+    salePrice: Yup.number(),
   });
 
   const defaultValues = useMemo(
@@ -97,7 +126,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
       attributes: currentProduct?.attributes || [],
 
-      quantity: currentProduct?.quantity || 0,
+      quantity: currentProduct?.quantity || null,
 
       regularPrice: currentProduct?.regularPrice || 0,
       salePrice: currentProduct?.salePrice || 0,
@@ -119,20 +148,24 @@ export default function ProductNewEditForm({ currentProduct }) {
     watch,
     setValue,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isValid },
   } = methods;
 
   const values = watch();
 
+
+  const [products, setProducts] = useState([])
+
   const fetchProduct = useCallback(async () => {
     const {
-      data: {},
+      data
     } = await api.get('/products', {
       params: {
         name: values.name,
+        productGroup: "parent"
       },
     });
-    // setProduct(products);
+    setProducts(data.products);
   }, [values.name]);
 
   useEffect(() => {
@@ -216,16 +249,20 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Details" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
-            <RHFTextField name="name" label="Product Name" />
+            {/* <RHFTextField name="name" label="Product Name" /> */}
 
-            {/* <Autocomplete
+            <Autocomplete
               onChange={(e, value) => {
                 if (value) {
                   const product = products.find((product) => product.name === value);
-                  setValue('images', product.images);
-                  setValue('name', product.name);
+                  if (product) {
+                    setValue('images', product.images);
+                    setValue('name', product.name)
+                    setValue('category', product.category)
+                    setValue('brand', product.brand)
+                    setValue('type', product.type)
+                  }
                 } else {
-                  // Handle case where user clears the input
                   setValue('images', null);
                 }
               }}
@@ -254,7 +291,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 </Box>
               )}
               freeSolo
-            /> */}
+            />
 
             <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} />
 
@@ -427,6 +464,28 @@ export default function ProductNewEditForm({ currentProduct }) {
       ...prevVariables,
       [attribute]: newValue,
     }));
+
+    const att =
+      (attribute === 'Bottle Size' && _variables.bottleSize) ||
+      (attribute === 'Puffs' && _variables.puffs) ||
+      (attribute === 'Flavour' && _variables.flavour) ||
+      (attribute === 'Nicotine Strength' && _variables.nicotineStrength) ||
+      (attribute === 'Color' && _variables.color) ||
+      (attribute === 'Batteries' && _variables.batteries) ||
+      [];
+
+    const value = newValue[newValue.length - 1];
+
+    if (!value) {
+      return;
+    }
+
+    if (!att.find((at) => at === value)) {
+      console.log('upload');
+      api.post('/attributes', { username: user.displayName, attribute, value }).then((res) => {
+        console.log('updated');
+      });
+    }
   };
 
   const renderAttributes = (
@@ -489,19 +548,18 @@ export default function ProductNewEditForm({ currentProduct }) {
                   <Autocomplete
                     multiple
                     freeSolo
-                    options={
-                      (e === 'Bottle Size' && _variables.bottleSize) ||
-                      (e === 'Puffs' && _variables.puffs) ||
-                      (e === 'Flavour' && _variables.flavour) ||
-                      (e === 'Nicotine Strength' && _variables.nicotineStrength) ||
-                      (e === 'Color' && _variables.color) ||
-                      (e === 'Batteries' && _variables.batteries) ||
-                      []
-                    }
+                    options={[
+                      ...(e === 'Bottle Size' ? _variables.bottleSize : []),
+                      ...(e === 'Puffs' ? _variables.puffs : []),
+                      ...(e === 'Flavour' ? _variables.flavour : []),
+                      ...(e === 'Nicotine Strength' ? _variables.nicotineStrength : []),
+                      ...(e === 'Color' ? _variables.color : []),
+                      ...(e === 'Batteries' ? _variables.batteries : []),
+                      ...savedAttibutes.filter((v) => v.attribute === e).map((e) => e.value),
+                    ]}
                     value={variables[e]}
                     onChange={(event, newValue) => {
                       handleAutocompleteChange(event, newValue, e);
-                      console.log();
                       if (newValue.length >= 2) {
                         if (variation.find((ev) => ev === e)) {
                         } else {
@@ -552,6 +610,15 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Pricing" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
+
+            <RHFTextField
+              name="quantity"
+              label="Quantity"
+              placeholder="0.00"
+              type="number"
+              InputLabelProps={{ shrink: true }}
+            />
+
             <RHFTextField
               name="regularPrice"
               label="Regular Price"
@@ -598,6 +665,19 @@ export default function ProductNewEditForm({ currentProduct }) {
         <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
           {!currentProduct ? 'Create Product' : 'Save Changes'}
         </LoadingButton>
+      </Grid>
+    </>
+  );
+
+  const renderGoToProduct = (
+    <>
+      {/* {mdUp && <Grid md={4} />} */}
+      <Grid xs={12} md={8} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Button variant="contained" size="large" onClick={() => {
+          navigate('/dashboard/product')
+        }}>
+          Save Product
+        </Button>
       </Grid>
     </>
   );
@@ -654,12 +734,12 @@ export default function ProductNewEditForm({ currentProduct }) {
                 <TableCell>ID</TableCell>
                 <TableCell width={150}>SKU</TableCell>
                 <TableCell width={250}>Attributes</TableCell>
-                <TableCell width={150}>Track Order</TableCell>
+                <TableCell width={150}>Track Stock</TableCell>
                 <TableCell>Stock</TableCell>
                 <TableCell>Regular Price</TableCell>
                 <TableCell>Sales Price</TableCell>
                 <TableCell>Image</TableCell>
-                <TableCell width={150}>Add Product</TableCell>
+                <TableCell width={200}>Add Product</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -672,25 +752,10 @@ export default function ProductNewEditForm({ currentProduct }) {
                 key={counter}
                 variables={variables}
                 disabled
+                isSubmitting={isSubmitting}
+                isValid={isValid}
+                setProductAdded={() => { }}
               />
-
-              {/* {
-                Object.keys(variables).map(v=>
-                  variables[v].length >= 2 &&
-                variables[v].map((va) => (
-                  <ProductTable
-                    counter={counter++}
-                    counter2={counter2++}
-                    skuAlpha={skuAlpha}
-                    va={va}
-                    values={values}
-                    key={counter}
-                    variables={variables}
-                    disabled={false}
-                  />
-                ))
-              )
-              } */}
 
               {Object.keys(variables)
                 .reduce((a, k) => a.flatMap((c) => variables[k].map((v) => `${c} - ${v}`)), [''])
@@ -704,6 +769,9 @@ export default function ProductNewEditForm({ currentProduct }) {
                     key={counter}
                     variables={variables}
                     disabled={false}
+                    isSubmitting={isSubmitting}
+                    isValid={isValid}
+                    setProductAdded={setProductAdded}
                   />
                 ))}
             </TableBody>
@@ -727,15 +795,33 @@ export default function ProductNewEditForm({ currentProduct }) {
         {values.type === 'Variable' && productTable}
 
         {values.type === 'Simple' && renderActions}
+        {values.type === 'Variable' && productAdded && renderGoToProduct}
       </Grid>
     </FormProvider>
   );
 }
 
-function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disabled }) {
+function ProductTable({
+  counter,
+  values,
+  skuAlpha,
+  counter2,
+  va,
+  variables,
+  disabled,
+  isSubmitting,
+  isValid,
+  setProductAdded
+}) {
   const { user } = useAuthContext();
   const sku = skuAlpha[counter2] ? `${values.SKU}-${skuAlpha[counter2]}` : values.SKU;
-  const name = `${values.name} - ${va}`;
+  let name = values.name;
+
+  const parent = va === 'Parent'
+
+  if (!parent) {
+    name = `${values.name} - ${va}`;
+  }
 
   const [track, setTrack] = useState(true);
   const [stock, setStock] = useState('instock');
@@ -754,26 +840,42 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
       const { data } = await api.post('upload', formData);
 
       setImages([data[0], ...values.images]);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const _addProduct = async () => {
-    if (disabled) {
-      return;
-    }
-
     const emojiPattern =
       /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2B50}\u{2B55}\u{231A}-\u{231B}\u{23E9}-\u{23EC}\u{23F0}\u{23F3}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}\u{2B1B}-\u{2B1C}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21A9}-\u{21AA}\u{2B06}\u{2B07}\u{2B1B}\u{2B1C}]/u;
-    const threeDigitPattern = /\d{4,}/;
+    const threeDigitPattern = /\d{7,}/;
+    const atSymbol = /@/
 
     if (emojiPattern.test(values.subDescription) || emojiPattern.test(values.content)) {
       alert('Your content contain emojis, Please remove emojis');
       return;
     }
     if (threeDigitPattern.test(values.subDescription) || threeDigitPattern.test(values.content)) {
-      alert('Your content contain continues 4 digit number, Please remove');
+      alert('Your content contain continues 7 digit number, Please remove');
       return;
     }
+    if (atSymbol.test(values.subDescription) || atSymbol.test(values.content)) {
+      alert('Your content contains the "@" symbol. Please remove it.');
+      return;
+    }
+
+    if (!parent) {
+
+      if (!images) {
+        return alert("Child image is required.")
+      }
+      if (!quantity) {
+        return alert("Quantity is required.")
+      }
+      if (!regularPrice) {
+        return alert("Regular price is required.")
+      }
+
+    }
+
 
     if (status !== 'pending') {
       return;
@@ -804,8 +906,11 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
         quantity,
         regularPrice,
         salePrice,
+
+        productGroup: parent ? 'parent' : 'child',
       });
       setStatus('success');
+      setProductAdded(true)
     } catch (error) {
       console.log(`Product Creation failed :${error}`);
       setStatus('failed');
@@ -816,7 +921,7 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
     <TableRow style={{ backgroundColor: disabled && 'rgba(0,0,0,0.1)' }}>
       <TableCell>{counter}</TableCell>
       <TableCell>{sku}</TableCell>
-      <TableCell>{name}</TableCell>
+      <TableCell>{parent ? name + ' - Parent' : name}</TableCell>
       <TableCell>
         <FormControlLabel
           label=""
@@ -876,11 +981,20 @@ function ProductTable({ counter, values, skuAlpha, counter2, va, variables, disa
         <input size="small" label="Image" type="file" onChange={_uploadImage} disabled={disabled} />
       </TableCell>
       <TableCell>
-        {status === 'pending' && (
-          <Button color="success" variant="contained" size="small" onClick={_addProduct}>
+
+
+        {status === 'pending' && true && (
+          <Button
+            color="success"
+            variant="contained"
+            size="small"
+            onClick={_addProduct}
+            type="submit"
+          >
             Add Product
           </Button>
         )}
+
         {status === 'loading' && (
           <Button color="success" variant="contained" size="small">
             Loading
