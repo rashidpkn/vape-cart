@@ -23,12 +23,17 @@ import FormProvider, {
   RHFAutocomplete,
 } from 'src/components/hook-form';
 
-import { doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
+import { deleteUser } from 'firebase/auth';
+import { useNavigate } from 'react-router';
 
 // ----------------------------------------------------------------------
 
 export default function AccountGeneral({ user }) {
+
+  const navigate = useNavigate()
+
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string(),
     email: Yup.string(),
@@ -72,9 +77,6 @@ export default function AccountGeneral({ user }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      // await new Promise((resolve) => setTimeout(resolve, 500));
-      // enqueueSnackbar('Update success!');
-      // console.info('DATA', data);
       const userRef = doc(DB, 'users', user.uid);
       console.log(data);
 
@@ -100,6 +102,26 @@ export default function AccountGeneral({ user }) {
   );
 
   if (!user) return;
+
+
+  const _deleteStore = async () => {
+    try {
+
+      const userRef = doc(DB, 'users', user.uid);
+      deleteDoc(userRef).then(() => {
+        console.log('User document deleted from Firestore');
+        navigate('/dashboard/user/cards')
+      }).catch((error) => {
+        alert('Error deleting user document from Firestore:', error);
+        console.error('Error deleting user document from Firestore:', error);
+      });
+
+
+
+    } catch (error) {
+
+    }
+  }
 
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
@@ -127,7 +149,7 @@ export default function AccountGeneral({ user }) {
               }
             />
 
-            <Button variant="soft" color="error" sx={{ mt: 3 }}>
+            <Button variant="soft" color="error" sx={{ mt: 3 }} onClick={_deleteStore}>
               Delete Store
             </Button>
           </Card>
