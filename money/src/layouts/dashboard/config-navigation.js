@@ -72,7 +72,20 @@ export function useNavData() {
 
   useEffect(() => {
     getOrders()
+
+    const fetchOrders = setInterval(() => {
+      getOrders()
+    }, 10000);
+
+    return () => {
+      clearInterval(fetchOrders)
+    }
+
   }, [])
+
+
+
+
 
 
   const { t } = useLocales();
