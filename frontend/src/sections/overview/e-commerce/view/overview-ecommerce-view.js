@@ -21,7 +21,7 @@ export default function OverviewEcommerceView() {
   const { user } = useAuthContext();
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,10 +40,10 @@ export default function OverviewEcommerceView() {
           order.items.some((item) => products.some((product) => product.id === item.id))
         );
 
-     
+
         setOrders(filteredOrders);
         setProducts(products);
-        
+
       } catch (error) {
         console.error('An error occurred:', error);
       }
@@ -100,7 +100,7 @@ export default function OverviewEcommerceView() {
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
+        <Grid xs={12} md={12} lg={12}>
           <EcommerceYearlySales
             title="Sales By Month"
             // subheader="(+0%) than last year"
@@ -122,7 +122,7 @@ export default function OverviewEcommerceView() {
                         orders.reduce(
                           (a, b) =>
                             new Date(b.createdAt).getMonth() === new Date().getMonth() &&
-                            new Date(b.createdAt).getDate() === date
+                              new Date(b.createdAt).getDate() === date
                               ? a + b.totalAmount
                               : a,
                           0
@@ -140,7 +140,7 @@ export default function OverviewEcommerceView() {
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
+        <Grid xs={12} md={12} lg={12}>
           <EcommerceYearlySales
             title="Yearly Sales"
             // subheader="(+0%) than last year"

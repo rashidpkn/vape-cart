@@ -68,7 +68,7 @@ export default function OverviewAppView() {
   return (
     <Box px={5}>
       <Grid container spacing={3} sx={{ position: 'relative' }}>
-        <BlurLayer  products={products}/>
+        <BlurLayer products={products} />
         <Grid xs={12} md={12}>
           <AppWelcome
             title={`Welcome back 👋 \n ${user?.displayName}`}
@@ -125,7 +125,7 @@ export default function OverviewAppView() {
           />
         </Grid>
 
-        <Grid xs={12} lg={8}>
+        <Grid xs={12} lg={12}>
           <AppNewInvoice
             title="New Invoice"
             tableData={invoice}
