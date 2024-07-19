@@ -934,15 +934,19 @@ function ProductTable({
           }
         />
       </TableCell>
-      <TableCell>
+      <TableCell width={150}>
         {track && (
           <TextField
+            inputProps={{
+              min: 0
+            }}
             disabled={disabled}
             size="small"
             label="Quantity"
             type="number"
             onChange={(e) => setQuantity(+e.target.value || null)}
             value={quantity}
+
           />
         )}
         {!track && (
@@ -957,8 +961,11 @@ function ProductTable({
           </RadioGroup>
         )}
       </TableCell>
-      <TableCell>
+      <TableCell width={150}>
         <TextField
+          inputProps={{
+            min: 0
+          }}
           disabled={disabled}
           size="small"
           label="Price"
@@ -967,8 +974,11 @@ function ProductTable({
           value={regularPrice}
         />
       </TableCell>
-      <TableCell>
+      <TableCell width={150}>
         <TextField
+          inputProps={{
+            min: 0
+          }}
           disabled={disabled}
           size="small"
           label="Price"
@@ -977,8 +987,8 @@ function ProductTable({
           value={salePrice}
         />
       </TableCell>
-      <TableCell>
-        <input size="small" label="Image" type="file" onChange={_uploadImage} disabled={disabled} />
+      <TableCell width={150}>
+        <input size="small" label="Image" type="file" onChange={_uploadImage} disabled={disabled} style={{ width: '150px' }} />
       </TableCell>
       <TableCell>
 
