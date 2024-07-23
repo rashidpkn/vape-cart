@@ -12,6 +12,7 @@ import { PayoutModule } from './payout/payout.module';
 import { CustomersModule } from './customers/customers.module';
 import { AttributesModule } from './attributes/attributes.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     AttributesModule,
     NotificationsModule,
     ClientModule,
+    FirebaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

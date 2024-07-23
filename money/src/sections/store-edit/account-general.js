@@ -27,6 +27,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
 import { deleteUser } from 'firebase/auth';
 import { useNavigate } from 'react-router';
+import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
@@ -106,7 +107,7 @@ export default function AccountGeneral({ user }) {
 
   const _deleteStore = async () => {
     try {
-
+      api.delete(`/firebase/${user.uid}`)
       const userRef = doc(DB, 'users', user.uid);
       deleteDoc(userRef).then(() => {
         console.log('User document deleted from Firestore');
