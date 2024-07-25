@@ -93,3 +93,15 @@
 .search .product .info p del{
     color: #919eab;
 }
+
+.search .no-product{
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.search .no-product{
+    text-align: center;
+}

@@ -37,7 +37,7 @@ const LINKS = [
   },
   {
     headline: 'Contact',
-    children: [{ name: 'info@vape-amazon.com', href: '#' }],
+    children: [{ name: 'info@vape-amazon.com', href: 'mailto:info@vape-amazon.com' }],
   },
 ];
 
@@ -61,7 +61,8 @@ export default function Footer() {
           textAlign: { xs: 'center', md: 'unset' },
         }}
       >
-        <Logo sx={{ mb: 3 }} />
+        {/* <Logo sx={{ mb: 3 }} /> */}
+        <img src='/logo/logo_single.webp' width={150} />
 
         <Grid
           container
@@ -86,7 +87,7 @@ export default function Footer() {
               direction="row"
               justifyContent={{ xs: 'center', md: 'flex-start' }}
               sx={{
-                mt: 3,
+
                 mb: { xs: 5, md: 0 },
               }}
             >
@@ -136,7 +137,7 @@ export default function Footer() {
         </Grid>
 
         <Typography variant="body2" sx={{ mt: 10 }}>
-          {/* © 2021. All rights reserved */}
+          © {new Date().getFullYear()}. All rights reserved
         </Typography>
       </Container>
     </Box>

@@ -40,7 +40,8 @@ export default function FirebaseLoginView() {
   const password = useBoolean();
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().required('Email is required').email('Email must be a valid email address'),
+    email: Yup.string().required('Email is required').email('Email must be a valid email address')
+      .oneOf(['info@vape-dubai.com'], 'Please enter admin email'),
     password: Yup.string().required('Password is required'),
   });
 
@@ -76,13 +77,7 @@ export default function FirebaseLoginView() {
     <Stack spacing={2} sx={{ mb: 5 }}>
       <Typography variant="h4">Sign in to Vape Amazon</Typography>
 
-      <Stack direction="row" spacing={0.5}>
-        <Typography variant="body2">New user?</Typography>
 
-        <Link component={RouterLink} href={paths.auth.firebase.register} variant="subtitle2">
-          Create an account
-        </Link>
-      </Stack>
     </Stack>
   );
 
@@ -107,16 +102,7 @@ export default function FirebaseLoginView() {
         }}
       />
 
-      <Link
-        component={RouterLink}
-        href={paths.auth.firebase.forgotPassword}
-        variant="body2"
-        color="inherit"
-        underline="always"
-        sx={{ alignSelf: 'flex-end' }}
-      >
-        Forgot password?
-      </Link>
+
 
       <LoadingButton
         fullWidth

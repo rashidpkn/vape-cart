@@ -134,9 +134,9 @@ export default function AccountGeneral() {
               sx={{ mt: 5 }}
             />
 
-            <Button variant="soft" color="error" sx={{ mt: 3 }}>
+            {/* <Button variant="soft" color="error" sx={{ mt: 3 }}>
               Delete User
-            </Button>
+            </Button> */}
           </Card>
         </Grid>
 

@@ -100,16 +100,16 @@ export default function EcommerceWidgetSummary({ title, percent, total, chart, s
           {fNumber(total)}
         </Typography>
 
-        {renderTrending}
+        {/* {renderTrending} */}
       </Box>
 
-      <Chart
+      {/* <Chart
         type="line"
         series={[{ data: series }]}
         options={chartOptions}
         width={96}
         height={64}
-      />
+      /> */}
     </Card>
   );
 }

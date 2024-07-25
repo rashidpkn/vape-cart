@@ -15,6 +15,7 @@ import { useAuthContext } from 'src/auth/hooks';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import PayoutTableRow from './Table-Row';
+import { Helmet } from 'react-helmet-async';
 
 export default function Payout() {
   const [payout, setPayout] = useState([]);
@@ -47,6 +48,9 @@ export default function Payout() {
 
   return (
     <Box px={5}>
+      <Helmet>
+        <title>Dashboard: Payout</title>
+      </Helmet>
       <CustomBreadcrumbs heading="Payout" links={[{}]} />
       <Card>
         <Scrollbar>

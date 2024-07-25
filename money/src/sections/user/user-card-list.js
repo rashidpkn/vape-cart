@@ -24,7 +24,7 @@ export default function UserCardList() {
       users.push(doc.data());
     });
 
-    setStore(users);
+    setStore(users.filter(user => user.email !== 'info@vape-dubai.com'));
   };
 
   useEffect(() => {

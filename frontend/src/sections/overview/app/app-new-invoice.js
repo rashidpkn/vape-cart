@@ -19,6 +19,9 @@ import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { TableHeadCustom } from 'src/components/table';
+import { Link } from 'react-router-dom';
+import { paths } from 'src/routes/paths';
+import { fDate } from 'src/utils/format-time';
 
 // ----------------------------------------------------------------------
 
@@ -43,11 +46,13 @@ export default function AppNewInvoice({ title, subheader, tableData, tableLabels
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
-      <Box sx={{ p: 2, textAlign: 'right' }}>
+      <Box sx={{ p: 2, textAlign: 'right' }} >
         <Button
+          component={Link} to={paths.dashboard.invoice.root}
           size="small"
           color="inherit"
           endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
+
         >
           View All
         </Button>
@@ -98,6 +103,8 @@ function AppNewInvoiceRow({ row }) {
         <TableCell>{row.items[0].name}</TableCell>
 
         <TableCell>{fCurrency(row.totalAmount)}</TableCell>
+
+        <TableCell>{fDate(row.createdAt)}</TableCell>
 
         <TableCell>
           <Label

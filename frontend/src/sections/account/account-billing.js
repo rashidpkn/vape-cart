@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 // @mui
 import Grid from '@mui/material/Unstable_Grid2';
 import { Button, Card, TextField } from '@mui/material';
-import { useState , useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
 import { useAuthContext } from 'src/auth/hooks';
@@ -26,7 +26,7 @@ export default function AccountBilling() {
 
   return (
     <Grid container spacing={5} disableEqualOverflow>
-      <Grid xs={12} md={8} spacing={2}>
+      <Grid xs={12} md={12} spacing={2}>
         <Card sx={{ p: 1 }}>
           <TextField
             value={billing?.managementName}

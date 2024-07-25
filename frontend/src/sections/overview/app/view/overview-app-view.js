@@ -43,7 +43,7 @@ export default function OverviewAppView() {
 
         const { products, count } = productsResponse.data;
         const orders = ordersResponse.data;
-        const invoice = invoiceResponse.data;
+        const invoice = invoiceResponse.data.reverse();
 
         const filteredOrders = orders.filter((order) =>
           order.items.some((item) => products.some((product) => product.id === item.id))
@@ -128,12 +128,13 @@ export default function OverviewAppView() {
         <Grid xs={12} lg={12}>
           <AppNewInvoice
             title="New Invoice"
-            tableData={invoice}
+            tableData={invoice.slice(0, 10)}
             tableLabels={[
               { id: 'id', label: 'Invoice ID' },
               { id: 'Customers', label: 'Customers' },
               { id: 'Product', label: 'Product' },
               { id: 'Amount', label: 'Amount' },
+              { id: 'Date', label: 'Date' },
               { id: 'status', label: 'Status' },
               // { id: '' },
             ]}

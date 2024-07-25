@@ -20,6 +20,7 @@ import { useTable, TableNoData, TableHeadCustom, TableSelectedAction } from 'src
 //
 import api from 'src/utils/api';
 import UserTableRow from './user-table-row';
+import { Helmet } from 'react-helmet-async';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name' },
@@ -76,6 +77,9 @@ export default function Customers() {
 
   return (
     <Box px={5}>
+      <Helmet>
+        <title>Dashboard: Customer</title>
+      </Helmet>
       <CustomBreadcrumbs
         heading="Customer"
         links={[

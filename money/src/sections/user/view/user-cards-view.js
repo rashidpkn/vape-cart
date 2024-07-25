@@ -29,7 +29,8 @@ export default function UserCardsView() {
         action={
           <Button
             component={RouterLink}
-            href={paths.dashboard.user.new}
+            href={'https://vape-amazon.com/auth/firebase/register'}
+            target='_blank'
             variant="contained"
             startIcon={<Iconify icon="mingcute:add-line" />}
           >

@@ -106,7 +106,7 @@ export default function ShopPage() {
   return (
     <>
       <Helmet>
-        <title> Product: Shop</title>
+        <title>Home | Vape Amazon | Premium Vape Products</title>
       </Helmet>
 
       {/* <ProductShopView /> */}
