@@ -283,7 +283,7 @@ export default function ShopPage() {
                         <Typography variant="h6" sx={{ marginTop: '10px', textDecoration: 'none' }}>
                           {item.name}
                         </Typography>
-                        <Typography
+                        {/* <Typography
                           variant="p"
                           style={{ color: 'gray', marginTop: '15px', textDecoration: 'none' }}
                         >
@@ -293,7 +293,7 @@ export default function ShopPage() {
                           >
                             AED {item.salePrice}
                           </span>
-                        </Typography>
+                        </Typography> */}
                       </Box>
                     </CardContent>
                   </Card>
@@ -336,10 +336,10 @@ export default function ShopPage() {
                         {e.name}
                       </Typography>
 
-                      <Typography variant="p" style={{ color: 'gray', marginTop: '15px' }}>
+                      {/* <Typography variant="p" style={{ color: 'gray', marginTop: '15px' }}>
                         <del>AED {e.regularPrice}</del>{' '}
                         <span style={{ fontWeight: '700', color: '#000' }}>AED {e.salePrice}</span>
-                      </Typography>
+                      </Typography> */}
                     </Box>
                   </CardContent>
                 </Card>

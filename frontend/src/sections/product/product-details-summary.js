@@ -281,7 +281,7 @@ export default function ProductDetailsSummary({
 
           {renderRating}
 
-          {renderPrice}
+          {salePrice !== null && renderPrice}
 
           {renderSubDescription}
         </Stack>
