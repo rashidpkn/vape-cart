@@ -49,7 +49,7 @@ export class Invoice extends Model {
   @Column
   totalAmount: number;
 
-  @Column({ type: DataType.STRING(20), defaultValue: 'draft' })
+  @Column({ type: DataType.STRING(20), defaultValue: 'Order received' })
   status: string;
 
   @Column({

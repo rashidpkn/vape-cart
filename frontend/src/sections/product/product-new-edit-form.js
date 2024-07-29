@@ -165,7 +165,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         productGroup: "parent"
       },
     });
-    setProducts(data.products);
+    setProducts(data.products.filter(pr => !pr.includes('-')));
   }, [values.name]);
 
   useEffect(() => {
@@ -815,7 +815,7 @@ function ProductTable({
 }) {
   const { user } = useAuthContext();
   const sku = skuAlpha[counter2] ? `${values.SKU}-${skuAlpha[counter2]}` : values.SKU;
-  let {name} = values;
+  let { name } = values;
 
   const parent = va === 'Parent'
 
@@ -921,7 +921,7 @@ function ProductTable({
     <TableRow style={{ backgroundColor: disabled && 'rgba(0,0,0,0.1)' }}>
       <TableCell>{counter}</TableCell>
       <TableCell>{sku}</TableCell>
-      <TableCell>{parent ? `${name  } - Parent` : name}</TableCell>
+      <TableCell>{parent ? `${name} - Parent` : name}</TableCell>
       <TableCell>
         <FormControlLabel
           label=""
