@@ -867,8 +867,9 @@ function ProductTable({
       if (!images) {
         return alert("Child image is required.")
       }
-      if (!quantity) {
-        return alert("Quantity is required.")
+
+      if (!quantity && track) {
+        return alert("Quantity is required.");
       }
       if (!regularPrice) {
         return alert("Regular price is required.")
@@ -880,6 +881,7 @@ function ProductTable({
     if (status !== 'pending') {
       return;
     }
+
     setStatus('loading');
     try {
       await api.post('/products', {
