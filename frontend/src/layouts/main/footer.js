@@ -63,7 +63,7 @@ export default function Footer() {
         }}
       >
         {/* <Logo sx={{ mb: 3 }} /> */}
-        <img src='/logo/logo_single.webp' width={150} />
+        <img src='/logo/logo_single.webp' width={150} alt='Vape Amazon logo' />
 
         <Grid
           container

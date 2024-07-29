@@ -8,6 +8,7 @@ import CompactLayout from 'src/layouts/compact';
 import { SplashScreen } from 'src/components/loading-screen';
 import CustomerDash from 'src/pages/CustomerDash';
 import SearchPage from 'src/pages/search';
+import ShopPage from 'src/pages/shop';
 
 // ----------------------------------------------------------------------
 
@@ -46,6 +47,7 @@ export const mainRoutes = [
     children: [
       { element: <ProductListPage />, index: true },
       { path: "/search/:name", element: <SearchPage /> },
+      { path: "/shop", element: <ShopPage /> },
 
       { path: 'about-us', element: <AboutPage /> },
       { path: 'contact-us', element: <ContactPage /> },

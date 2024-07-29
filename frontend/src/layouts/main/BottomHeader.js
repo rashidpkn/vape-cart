@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { AccountCircle, Close, Menu } from '@mui/icons-material';
-import {  m } from 'framer-motion';
+import { m } from 'framer-motion';
 import { NavbarBottomLinks } from '../dashboard/config-navigation';
 import SideHeader from './SideHeader';
+import { _category } from 'src/data/createProducts';
+import { Link } from 'react-router-dom';
 
 const HeaderBottom = () => {
   const ref = useRef();
@@ -34,10 +36,10 @@ const HeaderBottom = () => {
           display: 'flex',
           alignItems: 'center',
           fontSize: '14px',
-          listStyleType: 'none',
           gap: '10px',
           paddingLeft: '0px',
           cursor: 'pointer',
+          listStyle: 'none'
         }}
       >
         <li
@@ -48,7 +50,22 @@ const HeaderBottom = () => {
           <Menu />
           All
         </li>
-        {NavbarBottomLinks.map((item) => (
+        <li
+          className="navborder"
+          style={{
+            paddingTop: '6px',
+            paddingBottom: '6px',
+            paddingLeft: '6px',
+            paddingRight: '6px',
+            listStyle: 'none'
+          }}
+        >
+          <Link to={`/shop`} style={{ color: 'white' }}>
+            Shop
+          </Link>
+        </li>
+
+        {_category.map((item) => (
           <li
             className="navborder"
             style={{
@@ -56,10 +73,13 @@ const HeaderBottom = () => {
               paddingBottom: '6px',
               paddingLeft: '6px',
               paddingRight: '6px',
+              listStyle: 'none'
             }}
-            key={item._id}
+            key={item}
           >
-            {item.title}
+            <Link to={`/shop/?category=${item}`} style={{ color: 'white' }}>
+              {item}
+            </Link>
           </li>
         ))}
       </ul>
