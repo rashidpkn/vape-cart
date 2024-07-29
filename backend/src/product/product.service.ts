@@ -57,7 +57,7 @@ export class ProductService {
         track,
         quantity,
         regularPrice,
-        salePrice,
+        salePrice : salePrice || regularPrice,
 
         productGroup
       });
