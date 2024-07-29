@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'https://vape-amazon.com/';
+let baseURL = 'https://vape-amazon.com/';
 
 if (import.meta.env.MODE === 'development') {
   // baseURL = 'http://localhost:3000/'

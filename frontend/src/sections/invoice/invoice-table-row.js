@@ -21,6 +21,7 @@ import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
+import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -37,6 +38,8 @@ export default function InvoiceTableRow({
   const confirm = useBoolean();
 
   const popover = usePopover();
+
+  const { user } = useAuthContext();
 
   return (
     <>
@@ -96,7 +99,7 @@ export default function InvoiceTableRow({
           />
         </TableCell>
 
-        <TableCell>{fCurrency(totalAmount)}</TableCell>
+        <TableCell>{fCurrency(row.items.find(it => it.userId === user.id).quantity * row.items.find(it => it.userId === user.id).price)}</TableCell>
 
         <TableCell>
           <Label

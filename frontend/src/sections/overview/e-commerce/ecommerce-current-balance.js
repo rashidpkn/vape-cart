@@ -54,7 +54,7 @@ export default function EcommerceCurrentBalance({
         <Typography variant="h3">
           AED{' '}
           {(
-            orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2 -
+            orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity, 0) * 0.2 -
             payout.reduce((a, b) => a + b.amount, 0) +
             payout.reduce((a, b) => (b.status === 'pending' ? a + b.amount : a), 0)
           ).toFixed(2)}{' '}
@@ -66,7 +66,7 @@ export default function EcommerceCurrentBalance({
           </Typography>
           <Typography variant="body2">
             {' '}
-            {fCurrency(orders.reduce((a, b) => a + b.totalAmount, 0))}
+            {fCurrency(orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity, 0))}
           </Typography>
         </Stack>
 
@@ -75,7 +75,7 @@ export default function EcommerceCurrentBalance({
             Commission (20%)
           </Typography>
           <Typography variant="body2">
-            {fCurrency(orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2)}
+            {fCurrency(orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity, 0) * 0.2)}
           </Typography>
         </Stack>
 
@@ -86,7 +86,7 @@ export default function EcommerceCurrentBalance({
           <Typography variant="body2">
             {' '}
             {fCurrency(
-              orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2 -
+              orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity, 0) * 0.2 -
               payout.reduce((a, b) => a + b.amount, 0)
             )}
           </Typography>
@@ -119,13 +119,13 @@ export default function EcommerceCurrentBalance({
             color="warning"
             onClick={() => {
               if (
-                orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2 -
+                orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity, 0) * 0.2 -
                 payout.reduce((a, b) => a + b.amount, 0) >
                 10
               ) {
                 sessionStorage.setItem(
                   'amount',
-                  orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2
+                  orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity, 0) * 0.2
                 );
                 navigate('/payment');
               } else {

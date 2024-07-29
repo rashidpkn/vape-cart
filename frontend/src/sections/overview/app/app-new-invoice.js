@@ -22,6 +22,7 @@ import { TableHeadCustom } from 'src/components/table';
 import { Link } from 'react-router-dom';
 import { paths } from 'src/routes/paths';
 import { fDate } from 'src/utils/format-time';
+import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -93,6 +94,8 @@ function AppNewInvoiceRow({ row }) {
     console.info('DELETE', row.id);
   };
 
+  const { user } = useAuthContext();
+
   return (
     <>
       <TableRow>
@@ -100,9 +103,10 @@ function AppNewInvoiceRow({ row }) {
 
         <TableCell>{row.invoiceTo.name}</TableCell>
 
-        <TableCell>{row.items[0].name}</TableCell>
+        <TableCell>{row.items.find(it => it.userId === user.id).name}</TableCell>
 
-        <TableCell>{fCurrency(row.totalAmount)}</TableCell>
+
+        <TableCell>{fCurrency(row.items.find(it => it.userId === user.id).price * row.items.find(it => it.userId === user.id).quantity)}</TableCell>
 
         <TableCell>{fDate(row.createdAt)}</TableCell>
 

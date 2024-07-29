@@ -34,6 +34,8 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
 
   const popover = usePopover();
 
+  console.log(items)
+
   const renderPrimary = (
     <TableRow hover selected={selected}>
       <TableCell padding="checkbox">
@@ -78,10 +80,11 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
         />
       </TableCell>
 
-      <TableCell align="center"> {items.length} </TableCell>
+      <TableCell align="center"> {items?.reduce((a, b) => a + b.quantity, 0)} </TableCell>
 
-      <TableCell> {fCurrency(items.reduce((a, b) => a + b.price, 0))} </TableCell>
-      <TableCell> {fCurrency(items.reduce((a, b) => a + b.price, 0) * 0.2)} </TableCell>
+
+      <TableCell> {fCurrency(items?.reduce((a, b) => a + b.quantity * b.price, 0))} </TableCell>
+      <TableCell> {fCurrency(items?.reduce((a, b) => a + b.quantity * b.price, 0) * 0.2)} </TableCell>
 
       <TableCell>
         <Label

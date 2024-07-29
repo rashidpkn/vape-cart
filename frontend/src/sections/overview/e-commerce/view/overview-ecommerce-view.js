@@ -52,6 +52,8 @@ export default function OverviewEcommerceView() {
     fetchData();
   }, [user.id]);
 
+  console.log(orders)
+
   return (
     <Box px={5}>
       <CustomBreadcrumbs
@@ -80,7 +82,7 @@ export default function OverviewEcommerceView() {
           <EcommerceWidgetSummary
             title="Total Balance"
             percent={0}
-            total={orders.reduce((a, b) => a + b.totalAmount, 0)}
+            total={orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity, 0)}
             chart={{
               colors: [theme.palette.info.light, theme.palette.info.main],
               series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -92,7 +94,7 @@ export default function OverviewEcommerceView() {
           <EcommerceWidgetSummary
             title="Sales Profit"
             percent={0}
-            total={orders.reduce((a, b) => a + b.totalAmount, 0) * 0.8}
+            total={orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity, 0) * 0.8}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
               series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -110,26 +112,26 @@ export default function OverviewEcommerceView() {
               ],
 
               series: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(month => ({
-                  year: ['Jan', 'Feb', "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][month],
-                  data: [
-                    {
-                      name: 'Total Income',
-                      data: [
-                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-                        22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
-                      ].map((date) =>
-                        orders.reduce(
-                          (a, b) =>
-                            new Date(b.createdAt).getMonth() === month &&
-                              new Date(b.createdAt).getDate() === date
-                              ? a + b.totalAmount
-                              : a,
-                          0
-                        )
-                      ),
-                    },
-                  ],
-                })
+                year: ['Jan', 'Feb', "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][month],
+                data: [
+                  {
+                    name: 'Total Income',
+                    data: [
+                      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+                      22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+                    ].map((date) =>
+                      orders.reduce(
+                        (a, b) =>
+                          new Date(b.createdAt).getMonth() === month &&
+                            new Date(b.createdAt).getDate() === date
+                            ? a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity
+                            : a,
+                        0
+                      )
+                    ),
+                  },
+                ],
+              })
               )
 
               // [
@@ -190,7 +192,7 @@ export default function OverviewEcommerceView() {
                       data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((month) =>
                         orders.reduce(
                           (a, b) =>
-                            new Date(b.createdAt).getMonth() === month ? a + b.totalAmount : a,
+                            new Date(b.createdAt).getMonth() === month ? a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity : a,
                           0
                         )
                       ),
