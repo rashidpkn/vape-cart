@@ -67,7 +67,7 @@ export default function ProductListView() {
 
   const table = useTable();
 
-  
+
 
   const [tableData, setTableData] = useState([]);
 
@@ -83,11 +83,11 @@ export default function ProductListView() {
     const featchProduct = async () => {
       try {
         const {
-          data: { products: p,  },
+          data: { products: p, },
         } = await api.get('products', { params: { userId: id, perPage: 5000 } });
         setProducts(p);
       } catch (error) {
-        alert('error Occure');
+        console.log('Error : ' + error)
       }
     };
 
@@ -115,7 +115,7 @@ export default function ProductListView() {
 
   const denseHeight = table.dense ? 60 : 80;
 
-  
+
 
   const handleFilters = useCallback(
     (name, value) => {
@@ -131,7 +131,7 @@ export default function ProductListView() {
   const handleDeleteRow = useCallback(
     async (id) => {
       try {
-         await api.delete(`products/${id}`);
+        await api.delete(`products/${id}`);
 
         const deleteRow = tableData.filter((row) => row.id !== id);
         setTableData(deleteRow);
@@ -173,7 +173,7 @@ export default function ProductListView() {
 
   const handleViewRow = useCallback(
     (id) => {
-      router.push(paths.dashboard.product.details(id));
+      router.push(paths.product.details(id));
     },
     [router]
   );

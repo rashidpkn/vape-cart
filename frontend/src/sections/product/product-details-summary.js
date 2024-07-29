@@ -194,9 +194,9 @@ export default function ProductDetailsSummary({
   useEffect(() => {
     setError('');
 
-    let selectedName = name.split(" -")[0];
+    let selectedName = name?.split(" -")[0];
     Object.keys(selectedVariable).map(
-      (e) => (selectedName = `${selectedName  } - ${  selectedVariable[e]}`)
+      (e) => (selectedName = `${selectedName} - ${selectedVariable[e]}`)
     );
 
     const found = allProducts.find((e) =>
@@ -243,9 +243,9 @@ export default function ProductDetailsSummary({
         color="success"
         disabled={!name.split("-")[1]}
         onClick={() => {
-          let selectedName = name.split(" -")[0];
+          let selectedName = name?.split(" -")[0];
           Object.keys(selectedVariable).map(
-            (e) => (selectedName = `${selectedName  } - ${  selectedVariable[e]}`)
+            (e) => (selectedName = `${selectedName} - ${selectedVariable[e]}`)
           );
           const found = allProducts.find((e) =>
             e.name.toLowerCase().includes(selectedName.toLowerCase())
