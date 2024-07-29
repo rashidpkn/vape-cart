@@ -165,7 +165,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         productGroup: "parent"
       },
     });
-    setProducts(data.products.filter(pr => !pr.includes('-')));
+    setProducts(data.products.filter(pr => !pr.name.includes('-')));
   }, [values.name]);
 
   useEffect(() => {
