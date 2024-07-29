@@ -25,7 +25,6 @@ export default function ProductTableToolbar({
   publishOptions,
 }) {
   const popover = usePopover();
-  console.log(filters);
 
   const handleFilterName = useCallback(
     (event) => {

@@ -196,7 +196,7 @@ export default function ProductDetailsSummary({
 
     let selectedName = name.split(" -")[0];
     Object.keys(selectedVariable).map(
-      (e) => (selectedName = selectedName + ' - ' + selectedVariable[e])
+      (e) => (selectedName = `${selectedName  } - ${  selectedVariable[e]}`)
     );
 
     const found = allProducts.find((e) =>
@@ -217,9 +217,9 @@ export default function ProductDetailsSummary({
   }, [selectedVariable]);
 
   const renderVariables = type === 'Variable' && productGroup === 'parent' && (
-    <Box display={'flex'} flexDirection={'column'} gap={'10px'}>
+    <Box display="flex" flexDirection="column" gap="10px">
       {Object.keys(variables).map((v, i) => (
-        <FormControl sx={{ width: '50%' }} size="small">
+        <FormControl key={i} sx={{ width: '50%' }} size="small">
           <InputLabel id="demo-simple-select-label">{v}</InputLabel>
           <Select
             label={v}
@@ -245,7 +245,7 @@ export default function ProductDetailsSummary({
         onClick={() => {
           let selectedName = name.split(" -")[0];
           Object.keys(selectedVariable).map(
-            (e) => (selectedName = selectedName + ' - ' + selectedVariable[e])
+            (e) => (selectedName = `${selectedName  } - ${  selectedVariable[e]}`)
           );
           const found = allProducts.find((e) =>
             e.name.toLowerCase().includes(selectedName.toLowerCase())

@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from 'react';
 // @mui
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 // routes
 import { paths } from 'src/routes/paths';
@@ -12,15 +11,14 @@ import { useMockedUser } from 'src/hooks/use-mocked-user';
 // api
 import { useGetContacts, useGetConversation, useGetConversations } from 'src/api/chat';
 // components
-import { useSettingsContext } from 'src/components/settings';
 //
+import { Box } from '@mui/material';
 import ChatNav from '../chat-nav';
 import ChatRoom from '../chat-room';
 import ChatMessageList from '../chat-message-list';
 import ChatMessageInput from '../chat-message-input';
 import ChatHeaderDetail from '../chat-header-detail';
 import ChatHeaderCompose from '../chat-header-compose';
-import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -29,7 +27,6 @@ export default function ChatView() {
 
   const { user } = useMockedUser();
 
-  const settings = useSettingsContext();
 
   const searchParams = useSearchParams();
 

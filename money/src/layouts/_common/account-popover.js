@@ -22,10 +22,10 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 // ----------------------------------------------------------------------
 
 const OPTIONS = [
-  {
-    label: 'Home',
-    linkTo: '/',
-  },
+  // {
+  //   label: 'Home',
+  //   linkTo: 'https://vape-amazon.com',
+  // },
   {
     label: 'Products',
     linkTo: paths.dashboard.product.root,

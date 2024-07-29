@@ -21,7 +21,7 @@ export default function AccountBilling({ user }) {
 
   return (
     <Grid container spacing={5} disableEqualOverflow>
-      <Grid xs={12} md={8} spacing={2}>
+      <Grid xs={12} md={12} spacing={2}>
         <Card sx={{ p: 1 }}>
           <TextField
             value={billing?.managementName}

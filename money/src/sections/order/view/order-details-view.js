@@ -11,11 +11,11 @@ import { ORDER_STATUS_OPTIONS } from 'src/_mock';
 import { useParams } from 'src/routes/hook';
 //
 import api from 'src/utils/api';
+import { collection, getDocs } from 'firebase/firestore';
+import { DB } from 'src/auth/context/firebase/auth-provider';
 import OrderDetailsInfo from '../order-details-info';
 import OrderDetailsItems from '../order-details-item';
 import OrderDetailsToolbar from '../order-details-toolbar';
-import { collection, getDocs } from 'firebase/firestore';
-import { DB } from 'src/auth/context/firebase/auth-provider';
 
 // ----------------------------------------------------------------------
 

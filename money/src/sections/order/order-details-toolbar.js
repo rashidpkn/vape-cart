@@ -79,7 +79,7 @@ export default function OrderDetailsToolbar({
             {status}
           </Button>
 
-          <Button
+          {/* <Button
             color="inherit"
             variant="outlined"
             startIcon={<Iconify icon="solar:printer-minimalistic-bold" />}
@@ -89,7 +89,7 @@ export default function OrderDetailsToolbar({
 
           <Button color="inherit" variant="contained" startIcon={<Iconify icon="solar:pen-bold" />}>
             Edit
-          </Button>
+          </Button> */}
         </Stack>
       </Stack>
 
@@ -118,7 +118,7 @@ export default function OrderDetailsToolbar({
 
 OrderDetailsToolbar.propTypes = {
   backLink: PropTypes.string,
-  createdAt: PropTypes.instanceOf(Date),
+  createdAt: PropTypes.string,
   onChangeStatus: PropTypes.func,
   orderNumber: PropTypes.string,
   status: PropTypes.string,

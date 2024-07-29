@@ -1,25 +1,18 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
 
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
-// hooks
 
-// _mock
-
-// components
-import { useSettingsContext } from 'src/components/settings';
-// assets
 
 import { collection, getDocs } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 
+import { Box } from '@mui/material';
 import AppWidgetSummary from '../app-widget-summary';
 import AppAreaInstalled from '../app-area-installed';
 import AppTopInstalledCountries from '../app-top-installed-countries';
-import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -35,7 +28,7 @@ export default function OverviewAppView() {
       users.push(doc.data());
     });
 
-    setUsers(users.reverse());
+    setUsers(users.filter(user => user.email !== 'info@vape-dubai.com').reverse());
   };
 
   useEffect(() => {
@@ -48,7 +41,7 @@ export default function OverviewAppView() {
 
   const theme = useTheme();
 
-  const settings = useSettingsContext();
+
 
   return (
     <Box px={5}>

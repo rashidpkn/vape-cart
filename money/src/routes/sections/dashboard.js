@@ -54,7 +54,7 @@ export const dashboardRoutes = [
     ),
     children: [
       { element: <IndexPage />, index: true },
-      { path: 'ecommerce', element: <OverviewEcommercePage /> },
+      { path: 'analytics', element: <OverviewEcommercePage /> },
       { path: 'customer', element: <Customers /> },
       {
         path: 'user',

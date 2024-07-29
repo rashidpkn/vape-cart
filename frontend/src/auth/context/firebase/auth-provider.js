@@ -15,8 +15,8 @@ import { getFirestore, collection, doc, getDoc, setDoc } from 'firebase/firestor
 // config
 import { FIREBASE_API } from 'src/config-global';
 //
-import { AuthContext } from './auth-context';
 import api from 'src/utils/api';
+import { AuthContext } from './auth-context';
 
 // ----------------------------------------------------------------------
 
@@ -174,7 +174,7 @@ export function AuthProvider({ children }) {
   const handleVerifyEmail = useCallback(async (oobCode) => {
     console.log(oobCode);
     const data = await applyActionCode(AUTH, oobCode);
-    console.log(data);
+
     initialize();
   }, []);
 

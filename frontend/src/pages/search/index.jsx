@@ -68,7 +68,7 @@ const navigate = useNavigate()
               <div className="img">
                 <img src={product.images[0]} alt="" />
                 <div className="cart" onClick={()=>{_AddCart(product)}}>
-                  <Icon icon={'eva:shopping-cart-outline'} className="cart-icon" />
+                  <Icon icon="eva:shopping-cart-outline" className="cart-icon" />
                 </div>
               </div>
               <p className="name">{product.name}</p>
@@ -84,7 +84,7 @@ const navigate = useNavigate()
 
         {!products.length &&  dataFetched && <div className='no-product'>
           <h2>Unfortunately, we couldn't find any products with {name} name.</h2>
-          <Link to={'/'}>
+          <Link to="/">
           <Button variant='contained' color='success'>Home Page</Button>
           </Link>
           </div>}

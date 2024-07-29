@@ -8,26 +8,15 @@ import {
   urlencoded,
 } from 'express';
 import { join } from 'path';
+import * as compression from 'compression';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-    // origin: (origin, callback) => {
-    //   if (!origin || [
-    //     'http://monkey.vape-amazon.com',
-    //     'https://monkey.vape-amazon.com',
-    //     'http://vape-amazon.com',
-    //     'https://vape-amazon.com'
-    //   ].includes(origin) || /^http:\/\/localhost(:[0-9]+)?$/.test(origin)) {
-    //     callback(null, true);
-    //   } else {
-    //     callback(new Error('Not allowed by CORS'));
-    //   }
-    // },
-    origin:"*"
-  });
+  app.enableCors({origin:"*"});
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
+
+  app.use(compression());
 
   app.use(
     '/assets',

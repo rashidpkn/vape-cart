@@ -25,7 +25,6 @@ import FormProvider, {
 
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
-import { deleteUser } from 'firebase/auth';
 import { useNavigate } from 'react-router';
 import api from 'src/utils/api';
 
@@ -79,7 +78,7 @@ export default function AccountGeneral({ user }) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const userRef = doc(DB, 'users', user.uid);
-      console.log(data);
+
 
       await updateDoc(userRef, data);
     } catch (error) {

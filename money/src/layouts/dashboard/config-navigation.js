@@ -98,7 +98,7 @@ export function useNavData() {
         subheader: t('overview'),
         items: [
           { title: t('home'), path: paths.dashboard.root, icon: ICONS.store },
-          { title: t('analytics'), path: paths.dashboard.general.ecommerce, icon: ICONS.analytics },
+          { title: t('analytics'), path: paths.dashboard.general.analytics, icon: ICONS.analytics },
           // { title: t('store'), path: paths.dashboard.user.list, icon: ICONS.user },
           { title: t('Partners'), path: paths.dashboard.user.cards, icon: ICONS.user },
           { title: t('customer'), path: '/dashboard/customer', icon: ICONS.customer },

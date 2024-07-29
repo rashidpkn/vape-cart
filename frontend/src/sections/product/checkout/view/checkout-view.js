@@ -24,7 +24,7 @@ function useInitial(cart) {
   const dispatch = useDispatch();
 
   const getCartCallback = useCallback(() => {
-    if (cart.length) {
+    if (cart?.length) {
       dispatch(getCart(cart));
     }
   }, [cart, dispatch]);
@@ -78,7 +78,7 @@ export default function CheckoutView() {
       </Grid>
 
       {completed ? (
-        <CheckoutOrderComplete open={completed} onReset={onResetAll} onDownloadPDF={() => {}} />
+        <CheckoutOrderComplete open={completed} onReset={onResetAll} onDownloadPDF={() => { }} />
       ) : (
         <>
           {activeStep === 0 && (

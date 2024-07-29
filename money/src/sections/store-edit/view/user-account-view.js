@@ -2,24 +2,22 @@ import { useState, useCallback, useEffect } from 'react';
 // @mui
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import Container from '@mui/material/Container';
 // routes
 import { paths } from 'src/routes/paths';
 // _mock
 
 // components
 import Iconify from 'src/components/iconify';
-import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import { useParams } from 'src/routes/hook';
+import { Box } from '@mui/material';
 import AccountGeneral from '../account-general';
 import AccountBilling from '../account-billing';
 import AccountNotifications from '../account-notifications';
 import AccountChangePassword from '../account-change-password';
 import GetStore from './getUsers';
 import DeliverySettings from '../DeliverySettings';
-import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -63,7 +61,6 @@ export default function StoreEdit() {
     getuser();
   }, []);
 
-  const settings = useSettingsContext();
 
   const [currentTab, setCurrentTab] = useState('general');
 

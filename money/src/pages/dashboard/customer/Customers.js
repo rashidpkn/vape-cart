@@ -19,8 +19,8 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import { useTable, TableNoData, TableHeadCustom, TableSelectedAction } from 'src/components/table';
 //
 import api from 'src/utils/api';
-import UserTableRow from './user-table-row';
 import { Helmet } from 'react-helmet-async';
+import UserTableRow from './user-table-row';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name' },
@@ -125,9 +125,12 @@ export default function Customers() {
               <TableHeadCustom headLabel={TABLE_HEAD} />
 
               <TableBody>
-                {customers.map((row) => (
-                  <UserTableRow key={row.id} row={row} orders={orders} />
-                ))}
+                {
+                  customers.map((row, i) => filters.status === 'All' && (
+
+                    <UserTableRow key={i} row={row} orders={orders} />
+
+                  ))}
 
                 <TableNoData notFound={!customers} />
               </TableBody>

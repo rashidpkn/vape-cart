@@ -7,7 +7,6 @@ import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import Container from '@mui/material/Container';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
@@ -25,7 +24,6 @@ import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 import { ConfirmDialog } from 'src/components/custom-dialog';
-import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import {
   useTable,
@@ -101,7 +99,7 @@ export default function OrderListView() {
 
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
-  const settings = useSettingsContext();
+
 
   const router = useRouter();
 
@@ -237,7 +235,7 @@ export default function OrderListView() {
               >
                 <MenuItem value="">Select a partner</MenuItem>
                 {store.map((e) => (
-                  <MenuItem value={e.uid}>{e.displayName}</MenuItem>
+                  <MenuItem value={e.uid} key={e.uid}>{e.displayName}</MenuItem>
                 ))}
               </Select>
             </FormControl>

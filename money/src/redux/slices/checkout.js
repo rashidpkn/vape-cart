@@ -23,7 +23,7 @@ const slice = createSlice({
     getCart(state, action) {
       const cart = action.payload;
 
-      const totalItems = sum(cart.map((product) => product.quantity));
+      const totalItems = sum(cart?.map((product) => product.quantity));
 
       const subTotal = sum(cart.map((product) => product.salePrice * product.quantity));
 

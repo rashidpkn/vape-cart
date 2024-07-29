@@ -1,22 +1,20 @@
 // @mui
-import Container from '@mui/material/Container';
 // routes
 import { paths } from 'src/routes/paths';
 import { useParams } from 'src/routes/hook';
 // components
-import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 import { useNavigate } from 'react-router-dom';
-import ProductNewEditForm from '../product-new-edit-form';
 import { Box } from '@mui/material';
+import ProductNewEditForm from '../product-new-edit-form';
 
 // ----------------------------------------------------------------------
 
 export default function ProductEditView() {
-  const settings = useSettingsContext();
+
 
   const params = useParams();
 

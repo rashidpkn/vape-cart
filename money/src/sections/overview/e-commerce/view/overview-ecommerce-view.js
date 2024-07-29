@@ -1,24 +1,17 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
-// _mock
 
-// components
-import { useSettingsContext } from 'src/components/settings';
-// assets
-
-//
 
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
 import api from 'src/utils/api';
 
+import { Box } from '@mui/material';
 import EcommerceBestSalesman from '../ecommerce-best-salesman';
 
 import EcommerceWidgetSummary from '../ecommerce-widget-summary';
-import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -52,7 +45,7 @@ export default function OverviewEcommerceView() {
     });
   }, []);
 
-  const settings = useSettingsContext();
+
 
   return (
     <Box px={5}>

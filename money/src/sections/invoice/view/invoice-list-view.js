@@ -9,7 +9,6 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Tooltip from '@mui/material/Tooltip';
-import Container from '@mui/material/Container';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
@@ -21,13 +20,11 @@ import { useRouter } from 'src/routes/hook';
 import { useBoolean } from 'src/hooks/use-boolean';
 // utils
 // _mock
-import { INVOICE_SERVICE_OPTIONS } from 'src/_mock';
 // components
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 import { ConfirmDialog } from 'src/components/custom-dialog';
-import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import {
   useTable,
@@ -40,11 +37,10 @@ import {
 } from 'src/components/table';
 //
 import api from 'src/utils/api';
+import { Box } from '@mui/material';
 import InvoiceAnalytic from '../invoice-analytic';
 import InvoiceTableRow from '../invoice-table-row';
-import InvoiceTableToolbar from '../invoice-table-toolbar';
 import InvoiceTableFiltersResult from '../invoice-table-filters-result';
-import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -70,7 +66,7 @@ const defaultFilters = {
 export default function InvoiceListView() {
   const theme = useTheme();
 
-  const settings = useSettingsContext();
+
 
   const router = useRouter();
 
@@ -83,7 +79,7 @@ export default function InvoiceListView() {
   const fetchInvoice = async () => {
     try {
       const { data } = await api.get('invoice');
-      console.log(data);
+
       setTableData(data);
     } catch (error) { }
   };
@@ -94,10 +90,7 @@ export default function InvoiceListView() {
 
   const [filters, setFilters] = useState(defaultFilters);
 
-  const dateError =
-    filters.startDate && filters.endDate
-      ? filters.startDate.getTime() > filters.endDate.getTime()
-      : false;
+
 
   const denseHeight = table.dense ? 56 : 76;
 
@@ -302,13 +295,13 @@ export default function InvoiceListView() {
             ))}
           </Tabs>
 
-          <InvoiceTableToolbar
+          {/* <InvoiceTableToolbar
             filters={filters}
             onFilters={handleFilters}
             //
             dateError={dateError}
             serviceOptions={INVOICE_SERVICE_OPTIONS.map((option) => option.name)}
-          />
+          /> */}
 
           {canReset && (
             <InvoiceTableFiltersResult

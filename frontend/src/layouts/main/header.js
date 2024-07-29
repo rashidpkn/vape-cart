@@ -23,11 +23,11 @@ import Modal from '@mui/material/Modal';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocation } from 'src/redux/slices/util';
+import { paths } from 'src/routes/paths';
 import { allItems } from '../dashboard/config-navigation';
 import BottomHeader from './BottomHeader';
 
 import ShowLogin from './ShowLogin';
-import { paths } from 'src/routes/paths';
 // ----------------------------------------------------------------------
 const style = {
   position: 'absolute',
@@ -99,7 +99,7 @@ export default function Header({ set }) {
             }}
             className="navborder logo_padding"
           >
-            <a href="/">
+            <Link to="/">
               <img
                 src="/assets/images/logo/logo_single.webp"
                 className="logo_img"
@@ -113,7 +113,7 @@ export default function Header({ set }) {
                 }}
                 alt="logo"
               />
-            </a>
+            </Link>
           </Box>
 
           <Box
@@ -177,7 +177,7 @@ export default function Header({ set }) {
                     type="button"
                     style={{ background: '#FFD814', width: '100%', marginTop: '10px' }}
                   >
-                    <a>Sign in to see your address</a>
+                    <span>Sign in to see your address</span>
                   </Button>
                 </Link>
                 <Box
@@ -291,7 +291,7 @@ export default function Header({ set }) {
                   }}
                 >
                   {allItems.map((item) => (
-                    <li style={{ cursor: 'poniter' }}>{item.title}</li>
+                    <li key={item._id} style={{ cursor: 'poniter' }}>{item.title}</li>
                   ))}
                 </ul>
               </Box>
@@ -319,7 +319,8 @@ export default function Header({ set }) {
                 }
               }}
               renderOption={(props, option) => (
-                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                <Box key={option.id} component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+
                   <img loading="lazy" width="20" src={option.images[0]} alt="" />
                   {option.name}
                 </Box>

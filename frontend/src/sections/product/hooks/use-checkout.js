@@ -92,7 +92,7 @@ export default function useCheckout() {
         dispatch(applyDiscount(value));
       }
     },
-    [checkout.cart.length, dispatch]
+    [checkout.cart?.length, dispatch]
   );
 
   const onApplyShipping = useCallback(

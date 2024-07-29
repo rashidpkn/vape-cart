@@ -21,11 +21,11 @@ const slice = createSlice({
   initialState,
   reducers: {
     getCart(state, action) {
-      const cart = action.payload;
+      const cart = action.payload ?? state.cart;
 
-      const totalItems = sum(cart.map((product) => product.quantity));
+      const totalItems = sum(cart?.map((product) => product.quantity));
 
-      const subTotal = sum(cart.map((product) => product.price * product.quantity));
+      const subTotal = sum(cart?.map((product) => product.price * product.quantity));
 
       state.cart = cart;
       state.discount = state.discount || 0;
@@ -39,12 +39,12 @@ const slice = createSlice({
     addToCart(state, action) {
       const newProduct = action.payload;
 
-      const cartEmpty = !state.cart.length;
+      const cartEmpty = !state.cart?.length;
 
       if (cartEmpty) {
-        state.cart = [...state.cart, newProduct];
+        state.cart = [...state?.cart, newProduct];
       } else {
-        state.cart = state.cart.map((product) => {
+        state.cart = state.cart?.map((product) => {
           const existProduct = product.id === newProduct.id;
 
           if (existProduct) {
@@ -63,7 +63,7 @@ const slice = createSlice({
     },
 
     deleteCart(state, action) {
-      const updateCart = state.cart.filter((product) => product.id !== action.payload);
+      const updateCart = state.cart?.filter((product) => product.id !== action.payload);
 
       state.cart = updateCart;
 

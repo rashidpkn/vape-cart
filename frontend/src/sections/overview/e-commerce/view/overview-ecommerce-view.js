@@ -103,15 +103,14 @@ export default function OverviewEcommerceView() {
         <Grid xs={12} md={12} lg={12}>
           <EcommerceYearlySales
             title="Sales By Month"
-            // subheader="(+0%) than last year"
             chart={{
               categories: [
                 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
                 24, 25, 26, 27, 28, 29, 30, 31,
               ],
-              series: [
-                {
-                  year: '2024',
+
+              series: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(month => ({
+                  year: ['Jan', 'Feb', "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][month],
                   data: [
                     {
                       name: 'Total Income',
@@ -121,7 +120,7 @@ export default function OverviewEcommerceView() {
                       ].map((date) =>
                         orders.reduce(
                           (a, b) =>
-                            new Date(b.createdAt).getMonth() === new Date().getMonth() &&
+                            new Date(b.createdAt).getMonth() === month &&
                               new Date(b.createdAt).getDate() === date
                               ? a + b.totalAmount
                               : a,
@@ -129,13 +128,36 @@ export default function OverviewEcommerceView() {
                         )
                       ),
                     },
-                    // {
-                    //   name: 'Total Expenses',
-                    //   data: [0,0,0,0,0,0,0,0,0,0,0,0],
-                    // },
                   ],
-                },
-              ],
+                })
+              )
+
+              // [
+
+              //   {
+              //     year: '2024',
+              // data: [
+              //   {
+              //     name: 'Total Income',
+              //     data: [
+              //       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+              //       22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+              //     ].map((date) =>
+              //       orders.reduce(
+              //         (a, b) =>
+              //           new Date(b.createdAt).getMonth() === new Date().getMonth() &&
+              //             new Date(b.createdAt).getDate() === date
+              //             ? a + b.totalAmount
+              //             : a,
+              //         0
+              //       )
+              //     ),
+              //   },
+              // ],
+              //   },
+
+
+              // ],
             }}
           />
         </Grid>

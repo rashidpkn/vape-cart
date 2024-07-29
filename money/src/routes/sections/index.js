@@ -1,8 +1,9 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 
+import { lazy } from 'react';
 import { authRoutes } from './auth';
 import { dashboardRoutes } from './dashboard';
-import { lazy } from 'react';
+
 const Page404 = lazy(() => import('src/pages/404'));
 
 

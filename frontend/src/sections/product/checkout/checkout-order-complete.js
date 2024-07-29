@@ -62,7 +62,7 @@ export default function CheckoutOrderComplete({ open, onReset, onDownloadPDF }) 
           Continue Shopping
         </Button>
 
-        <Button
+        {/* <Button
           fullWidth
           size="large"
           variant="contained"
@@ -70,7 +70,7 @@ export default function CheckoutOrderComplete({ open, onReset, onDownloadPDF }) 
           onClick={onDownloadPDF}
         >
           Download as PDF
-        </Button>
+        </Button> */}
       </Stack>
     </Stack>
   );

@@ -54,7 +54,7 @@ export default function OrderDetailsItems({
 
   return (
     <Card>
-      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} sx={{ p: 2 }}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ p: 2 }}>
         <CardHeader title="Details" sx={{ margin: '0px', p: 0 }} />
 
 

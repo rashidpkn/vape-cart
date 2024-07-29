@@ -16,12 +16,15 @@ import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 import { varHover } from 'src/components/animate';
 //
-import NotificationItem from './notification-item';
 import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
+import { Box, Button } from '@mui/material';
+import { Icon } from '@iconify/react';
+import NotificationItem from './notification-item';
 
 export default function NotificationsPopover() {
   const [notifications, setNotifications] = useState([]);
+  const [viewAll, setViewAll] = useState(false)
 
   const {
     user: { uid },
@@ -53,6 +56,24 @@ export default function NotificationsPopover() {
   }, []);
 
 
+  const _readAllNotification = useCallback(
+    async () => {
+      try {
+        notifications.map(async (notification) => {
+          await api.patch(`/notifications/${notification.id}`, { status: 'readed' })
+          setNotifications(_ => _.filter(__ => __.id !== notification.id))
+
+        })
+
+      } catch (error) {
+
+      }
+    },
+    [notifications],
+  )
+
+
+
   const drawer = useBoolean();
 
   const smUp = useResponsive('up', 'sm');
@@ -60,10 +81,14 @@ export default function NotificationsPopover() {
   const totalUnRead = notifications.filter((item) => item.status === 'unread').length;
 
   const renderHead = (
-    <Stack direction="row" alignItems="center" sx={{ py: 2, pl: 2.5, pr: 1, minHeight: 68 }}>
+    <Stack direction="row" alignItems="center" sx={{ py: 2, pl: 2.5, pr: 2.5, minHeight: 68 }}>
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
         Notifications
       </Typography>
+
+      <button onClick={_readAllNotification} style={{ backgroundColor: 'none', border: 'none', outline: 'none' }} title='Mark all as read'>
+        <Icon icon="solar:check-read-broken" style={{ color: '#22bd80', height: "24px", width: "24px" }} />
+      </button>
 
       {!smUp && (
         <IconButton onClick={drawer.onFalse}>
@@ -76,7 +101,14 @@ export default function NotificationsPopover() {
   const renderList = (
     <Scrollbar>
       <List disablePadding>
-        {notifications.map((notification) => (
+        {viewAll && notifications.map((notification) => (
+          <NotificationItem
+            key={notification.id}
+            notification={notification}
+            setNotifications={setNotifications}
+          />
+        ))}
+        {!viewAll && notifications.slice(0, 5).map((notification) => (
           <NotificationItem
             key={notification.id}
             notification={notification}
@@ -119,11 +151,11 @@ export default function NotificationsPopover() {
 
         {renderList}
 
-        {/* <Box sx={{ p: 1 }}>
-          <Button fullWidth size="large">
+        <Box sx={{ p: 1 }}>
+          <Button fullWidth size="large" onClick={() => setViewAll(_ => true)}>
             View All
           </Button>
-        </Box> */}
+        </Box>
       </Drawer>
     </>
   );

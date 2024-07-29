@@ -31,7 +31,6 @@ export default function CheckoutDelivery() {
   const { user } = useAuthContext();
 
   useEffect(() => {
-    console.log(user.deliverySettings);
     if (user.deliverySettings) {
       setDeliverySettings(user.deliverySettings);
     }
@@ -56,7 +55,7 @@ export default function CheckoutDelivery() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {deliverySettings.map((e,i) => (
+          {deliverySettings.map((e, i) => (
             <Row key={i} row={e} setDeliverySettings={setDeliverySettings} />
           ))}
           <TableRow>
@@ -82,11 +81,11 @@ const Row = ({ row, setDeliverySettings }) => {
           checked={enable}
           onChange={(e) =>
             setDeliverySettings((prev) => prev.map((item) => {
-                if (item.day === day) {
-                  return { ...item, enable: e.target.checked, open: '', close: '', lastCall: '' };
-                }
-                return item;
-              }))
+              if (item.day === day) {
+                return { ...item, enable: e.target.checked, open: '', close: '', lastCall: '' };
+              }
+              return item;
+            }))
           }
         />
       </TableCell>
@@ -96,16 +95,16 @@ const Row = ({ row, setDeliverySettings }) => {
           disabled={!enable}
           sx={{ width: '200px' }}
           type="time"
-          style={{width:'150px',height:'40px',borderRadius:"4px",background:'none',outline:'none',border:"1px solid black" ,padding:"0 10px"}}
+          style={{ width: '150px', height: '40px', borderRadius: "4px", background: 'none', outline: 'none', border: "1px solid black", padding: "0 10px" }}
           placeholder="Open Time"
           value={open}
           onChange={(e) =>
             setDeliverySettings((prev) => prev.map((item) => {
-                if (item.day === day) {
-                  return { ...item, open: e.target.value };
-                }
-                return item;
-              }))
+              if (item.day === day) {
+                return { ...item, open: e.target.value };
+              }
+              return item;
+            }))
           }
         />
       </TableCell>
@@ -114,16 +113,16 @@ const Row = ({ row, setDeliverySettings }) => {
           disabled={!enable}
           sx={{ width: '200px' }}
           type="time"
-          style={{width:'150px',height:'40px',borderRadius:"4px",background:'none',outline:'none',border:"1px solid black" ,padding:"0 10px"}}
+          style={{ width: '150px', height: '40px', borderRadius: "4px", background: 'none', outline: 'none', border: "1px solid black", padding: "0 10px" }}
           placeholder="Close Time"
           value={close}
           onChange={(e) =>
             setDeliverySettings((prev) => prev.map((item) => {
-                if (item.day === day) {
-                  return { ...item, close: e.target.value };
-                }
-                return item;
-              }))
+              if (item.day === day) {
+                return { ...item, close: e.target.value };
+              }
+              return item;
+            }))
           }
         />
       </TableCell>
@@ -132,16 +131,16 @@ const Row = ({ row, setDeliverySettings }) => {
           disabled={!enable}
           sx={{ width: '200px' }}
           type="time"
-          style={{width:'150px',height:'40px',borderRadius:"4px",background:'none',outline:'none',border:"1px solid black" ,padding:"0 10px"}}
+          style={{ width: '150px', height: '40px', borderRadius: "4px", background: 'none', outline: 'none', border: "1px solid black", padding: "0 10px" }}
           placeholder="Last Call"
           value={lastCall}
           onChange={(e) =>
             setDeliverySettings((prev) => prev.map((item) => {
-                if (item.day === day) {
-                  return { ...item, lastCall: e.target.value };
-                }
-                return item;
-              }))
+              if (item.day === day) {
+                return { ...item, lastCall: e.target.value };
+              }
+              return item;
+            }))
           }
         />
       </TableCell>

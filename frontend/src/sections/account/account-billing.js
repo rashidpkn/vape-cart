@@ -16,7 +16,6 @@ export default function AccountBilling() {
     setBilling(user.billing);
   }, [user]);
 
-  console.log(user);
 
   const onSubmit = async () => {
     const userRef = doc(DB, 'users', user.uid);

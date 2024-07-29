@@ -11,7 +11,7 @@ import { SplashScreen } from 'src/components/loading-screen';
 const FirebaseLoginPage = lazy(() => import('src/pages/auth/firebase/login'));
 
 const authFirebase = {
-  path: 'firebase',
+  path: '',
   element: (
     <GuestGuard>
       <Suspense fallback={<SplashScreen />}>
@@ -21,7 +21,7 @@ const authFirebase = {
   ),
   children: [
     {
-      path: 'login',
+      path: '',
       element: (
         <AuthClassicLayout>
           <FirebaseLoginPage />
@@ -33,7 +33,7 @@ const authFirebase = {
 
 export const authRoutes = [
   {
-    path: 'auth',
+    path: '',
     children: [authFirebase],
   },
 ];

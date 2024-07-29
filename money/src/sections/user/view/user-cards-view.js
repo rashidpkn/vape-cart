@@ -1,22 +1,20 @@
 // @mui
 import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 // routes
 import { paths } from 'src/routes/paths';
 // _mock
 // components
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
-import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
-import UserCardList from '../user-card-list';
 import { Box } from '@mui/material';
+import UserCardList from '../user-card-list';
 
 // ----------------------------------------------------------------------
 
 export default function UserCardsView() {
-  const settings = useSettingsContext();
+
 
   return (
     <Box px={5}>
@@ -29,7 +27,7 @@ export default function UserCardsView() {
         action={
           <Button
             component={RouterLink}
-            href={'https://vape-amazon.com/auth/firebase/register'}
+            href="https://vape-amazon.com/auth/firebase/register"
             target='_blank'
             variant="contained"
             startIcon={<Iconify icon="mingcute:add-line" />}

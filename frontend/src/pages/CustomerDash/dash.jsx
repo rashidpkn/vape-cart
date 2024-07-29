@@ -17,7 +17,7 @@ export default function Dash({ customer, setLoginStatus }) {
   }, [customer]);
 
   useEffect(() => {
-    if(!!customer.email){
+    if(customer.email){
 
       getOrders();
     }

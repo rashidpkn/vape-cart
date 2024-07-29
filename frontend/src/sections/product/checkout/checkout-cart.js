@@ -28,9 +28,9 @@ export default function CheckoutCart({
 }) {
   const { cart, total, discount, subTotal } = checkout;
 
-  const totalItems = sum(cart.map((item) => item.quantity));
+  const totalItems = sum(cart?.map((item) => item.quantity));
 
-  const empty = !cart.length;
+  const empty = !cart?.length;
 
   return (
     <Grid container spacing={3}>
@@ -89,7 +89,7 @@ export default function CheckoutCart({
           size="large"
           type="submit"
           variant="contained"
-          disabled={!cart.length}
+          disabled={!cart?.length}
           onClick={onNextStep}
         >
           Check Out

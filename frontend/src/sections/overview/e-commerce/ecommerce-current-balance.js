@@ -35,7 +35,7 @@ export default function EcommerceCurrentBalance({
     });
 
     setPayout(data);
-    console.log(data);
+
   }, []);
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function EcommerceCurrentBalance({
             {' '}
             {fCurrency(
               orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2 -
-                payout.reduce((a, b) => a + b.amount, 0)
+              payout.reduce((a, b) => a + b.amount, 0)
             )}
           </Typography>
         </Stack>
@@ -120,7 +120,7 @@ export default function EcommerceCurrentBalance({
             onClick={() => {
               if (
                 orders.reduce((a, b) => a + b.totalAmount, 0) * 0.2 -
-                  payout.reduce((a, b) => a + b.amount, 0) >
+                payout.reduce((a, b) => a + b.amount, 0) >
                 10
               ) {
                 sessionStorage.setItem(

@@ -1,21 +1,19 @@
 // @mui
-import Container from '@mui/material/Container';
 // routes
 import { paths } from 'src/routes/paths';
 // components
 import { useParams } from 'src/routes/hook';
-import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
-import InvoiceDetails from '../invoice-details';
 import { Box } from '@mui/material';
+import InvoiceDetails from '../invoice-details';
 
 // ----------------------------------------------------------------------
 
 export default function InvoiceDetailsView() {
-  const settings = useSettingsContext();
+
 
   const params = useParams();
 

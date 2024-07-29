@@ -68,7 +68,7 @@ const defaultFilters = {
 export default function InvoiceListView() {
   const theme = useTheme();
 
-  
+
 
   const router = useRouter();
 
@@ -98,7 +98,7 @@ export default function InvoiceListView() {
     try {
       const { data } = await api.get('invoice');
       setInvoice(data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -324,13 +324,13 @@ export default function InvoiceListView() {
             ))}
           </Tabs>
 
-          <InvoiceTableToolbar
+          {/* <InvoiceTableToolbar
             filters={filters}
             onFilters={handleFilters}
             //
             dateError={dateError}
             serviceOptions={INVOICE_SERVICE_OPTIONS.map((option) => option.name)}
-          />
+          /> */}
 
           {canReset && (
             <InvoiceTableFiltersResult

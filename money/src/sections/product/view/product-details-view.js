@@ -5,7 +5,6 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 // _mock
@@ -17,7 +16,6 @@ import { useParams } from 'src/routes/hook';
 // components
 import Iconify from 'src/components/iconify';
 
-import { useSettingsContext } from 'src/components/settings';
 //
 import api from 'src/utils/api';
 import { useNavigate } from 'react-router-dom';
@@ -74,7 +72,7 @@ export default function ProductDetailsView() {
     fetchProduct();
   }, []);
 
-  const settings = useSettingsContext();
+
 
   const [currentTab, setCurrentTab] = useState('reviews');
 
