@@ -165,7 +165,7 @@ export default function ProductShopDetailsView() {
         </Tabs>
 
         {currentTab === 'description' && (
-          <ProductDetailsDescription description={product?.description} />
+          <ProductDetailsDescription description={product?.subDescription} />
         )}
 
         {currentTab === 'reviews' && (

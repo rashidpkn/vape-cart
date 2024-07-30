@@ -106,7 +106,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     quantity: Yup.number().required('Quantity is required'),
 
     regularPrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
-    salePrice: Yup.number(),
+    salePrice: Yup.number().lessThan(Yup.ref('regularPrice'), 'Sale price must be less than the regular price'),
   });
 
   const defaultValues = useMemo(
@@ -252,6 +252,7 @@ export default function ProductNewEditForm({ currentProduct }) {
             {/* <RHFTextField name="name" label="Product Name" /> */}
 
             <Autocomplete
+              value={values.name}
               onChange={(e, value) => {
                 if (value) {
                   const product = products.find((product) => product.name === value);
@@ -437,13 +438,26 @@ export default function ProductNewEditForm({ currentProduct }) {
                     <Button
                       variant="contained"
                       color="success"
-                      onClick={() => {
-                        if (newBrand.name) {
-                          alert(
-                            'Your request to create a new brand is being processed. Please wait while we verify the brand.'
-                          );
-                        } else {
-                          alert('Please enter brand name');
+                      onClick={async () => {
+                        try {
+
+                          if (newBrand.name) {
+
+                            await api.post('/notifications',
+                              {
+                                userId: user.id,
+                                role: 'admin',
+                                title: '🚀 New Brand Approval Request! 🚀',
+                                message: `Exciting news! A new brand has been submitted for approval. Brand Name: ${newBrand.name}. 🛍️`,
+                                type: "product"
+                              })
+                            alert("Your request to create a new brand is being processed. Please wait while we verify the brand.")
+                          } else {
+                            alert('Please enter brand name');
+                          }
+
+                        } catch (error) {
+                          alert("An error occurred while adding this brand.")
                         }
                       }}
                     >
@@ -864,15 +878,18 @@ function ProductTable({
 
     if (!parent) {
 
-      if (!images) {
-        return alert("Child image is required.")
-      }
-
       if (!quantity && track) {
         return alert("Quantity is required.");
       }
       if (!regularPrice) {
         return alert("Regular price is required.")
+      }
+
+      if (salePrice) {
+        if (regularPrice <= salePrice) {
+          return alert("Sale price must be less than the regular price")
+
+        }
       }
 
     }

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 // @mui
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
@@ -21,6 +20,7 @@ import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
+import { Link } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -33,9 +33,10 @@ export default function ProductTableRow({
   onViewRow,
 }) {
   const {
+    id,
     name,
     salePrice,
-    publish="Publish",
+    publish = "Publish",
     category,
     quantity,
     createdAt,
@@ -67,11 +68,13 @@ export default function ProductTableRow({
             disableTypography
             primary={
               <Link
+                to={`/product/${id}`}
+                target='_blank'
                 noWrap
                 color="inherit"
                 variant="subtitle2"
-                onClick={onViewRow}
-                sx={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', color: 'black' }}
+
               >
                 {name}
               </Link>

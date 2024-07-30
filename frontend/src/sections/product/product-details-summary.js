@@ -48,12 +48,12 @@ export default function ProductDetailsSummary({
     salePrice,
     totalRatings,
     totalReviews,
-    subDescription,
     images,
     userId,
     type,
     productGroup,
     variables,
+    content
   } = product;
 
   const [allProducts, setAllProducts] = useState([]);
@@ -172,7 +172,7 @@ export default function ProductDetailsSummary({
     </Stack>
   );
 
-  const renderSubDescription = !!subDescription && parse(subDescription);
+  const renderSubDescription = !!content && parse(content);
 
   const renderRating = (
     <Stack
