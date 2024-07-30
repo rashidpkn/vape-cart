@@ -137,14 +137,11 @@ export default function ProductTableRow({
         arrow="right-top"
         sx={{ width: 140 }}
       >
-        <MenuItem
-          onClick={() => {
-            onViewRow();
-            popover.onClose();
-          }}
-        >
-          <Iconify icon="solar:eye-bold" />
-          View
+        <MenuItem>
+          <Link to={`/product/${id}`} target='_blank' style={{ color: 'black' }}>
+            <Iconify icon="solar:eye-bold" />
+            View
+          </Link>
         </MenuItem>
 
         <MenuItem

@@ -11,7 +11,7 @@ export default function RHFAutocomplete({
   label,
   placeholder,
   helperText,
-  onChange,
+  onChange = () => { },
   ...other
 }) {
   const { control, setValue } = useFormContext();
@@ -24,8 +24,8 @@ export default function RHFAutocomplete({
         <Autocomplete
           {...field}
           onChange={(event, newValue) => {
-            setValue(name, newValue, { shouldValidate: true });
-            onChange(newValue);
+            setValue(name, newValue.flatMap(item => item.split(',')), { shouldValidate: true });
+            onChange(newValue.flatMap(item => item.split(',')));
           }}
           renderInput={(params) => (
             <TextField
