@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import * as admin from 'firebase-admin';
 
 const firebase:any = {
@@ -31,4 +31,15 @@ export class FirebaseService {
       console.error('Error deleting user:', error);
     }
   }
+
+  async resendVerificationEmail(email:string){
+    try {
+      await admin.auth().generateEmailVerificationLink(email)
+      return {message:'Verification email sent.'}
+    } catch (error) {
+     throw new BadRequestException("Verification email not  sent. : " + error)
+    }
+  }
+
+
 }
