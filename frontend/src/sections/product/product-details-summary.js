@@ -1,29 +1,23 @@
-import PropTypes, { object } from 'prop-types';
-import { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-// @mui
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Rating from '@mui/material/Rating';
-
 import Divider from '@mui/material/Divider';
-
 import Typography from '@mui/material/Typography';
 
 // routes
 import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hook';
 // utils
 import { fShortenNumber, fCurrency } from 'src/utils/format-number';
 // components
 
 import FormProvider from 'src/components/hook-form';
-import { Button, Card, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 import parse from 'html-react-parser';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import api from 'src/utils/api';
 
 export default function ProductDetailsSummary({
@@ -33,10 +27,12 @@ export default function ProductDetailsSummary({
   onGotoStep,
   disabledActions,
   setProduct,
-  // similarProduct = [],
   ...other
 }) {
-  const router = useRouter();
+
+
+  const [quantityToPurchase, setQuantityToPurchase] = useState(1)
+
 
   const navigate = useNavigate();
 
@@ -53,7 +49,7 @@ export default function ProductDetailsSummary({
     type,
     productGroup,
     variables,
-    content
+    subDescription,
   } = product;
 
   const [allProducts, setAllProducts] = useState([]);
@@ -62,7 +58,8 @@ export default function ProductDetailsSummary({
     if (type === 'Variable' && productGroup === 'parent') {
       const { data } = await api.get('/products', {
         params: {
-          perPage: 2000
+          perPage: 2000,
+          name
         }
       });
       setAllProducts(data.products);
@@ -73,66 +70,16 @@ export default function ProductDetailsSummary({
     getAllproducts();
   }, []);
 
-  const existProduct = cart?.map((item) => item.id)?.includes(id);
-
-  const defaultValues = {
-    id,
-    name,
-    quantity: 1,
-    price: salePrice,
-    images,
-  };
-
-  const methods = useForm({
-    defaultValues,
-  });
-
-  const { reset, watch, handleSubmit } = methods;
-
-  const values = watch();
-
-  useEffect(() => {
-    if (product) {
-      reset(defaultValues);
-    }
-  }, [product]);
-
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      if (!existProduct) {
-        onAddCart({
-          ...data,
-          colors: [values.colors],
-          subTotal: data.price * data.quantity,
-          userId,
-        });
-      }
-      onGotoStep(0);
-      router.push(paths.product.checkout);
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  const handleAddCart = useCallback(() => {
-    try {
-      onAddCart({ ...values, subTotal: values.price, userId });
-      console.log(values);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [onAddCart, values]);
-
   const renderPrice = (
     <Box sx={{ typography: 'h5' }}>
-      {salePrice && (
-        <Box
-          component="span"
-          sx={{ color: 'text.disabled', textDecoration: 'line-through', mr: 0.5 }}
-        >
-          {fCurrency(regularPrice)}
-        </Box>
-      )}
+
+      <Box
+        component="span"
+        sx={{ color: 'text.disabled', textDecoration: 'line-through', mr: 0.5 }}
+      >
+        {fCurrency(regularPrice)}
+      </Box>
+
 
       {fCurrency(salePrice)}
     </Box>
@@ -146,7 +93,7 @@ export default function ProductDetailsSummary({
 
       <Stack spacing={1}>
         <Typography variant="caption" component="div" sx={{ textAlign: 'right' }}>
-          Available: {quantity}
+          Available: {quantity || 100}
         </Typography>
       </Stack>
     </Stack>
@@ -154,25 +101,58 @@ export default function ProductDetailsSummary({
 
   const renderActions = (
     <Stack direction="row" spacing={2}>
+      <TextField
+        sx={{ width: { sm: '100%', "md": '50%' } }}
+        label='Quantity'
+        type='number'
+        inputProps={{ min: 1, max: quantity ?? 100 }}
+        onChange={e => {
+          setQuantityToPurchase(_ => {
+            const { value } = e.target
+            if (value <= 0) {
+              return 1;
+            }
+
+            if (!!quantity) {
+              return Math.min(quantity, value);
+            }
+
+            return Math.min(value, 100);
+          }
+
+          )
+        }}
+        value={quantityToPurchase}
+      />
+
       <Button
         fullWidth
         size="large"
         color="warning"
         variant="contained"
         startIcon={<Iconify icon="solar:cart-plus-bold" width={24} />}
-        onClick={handleAddCart}
+        onClick={() => {
+          onAddCart({
+            id,
+            name,
+            price: salePrice,
+            images,
+            subTotal: salePrice,
+            userId,
+            quantity: quantityToPurchase,
+            available: quantity
+          });
+          navigate(paths.product.checkout);
+        }}
         sx={{ whiteSpace: 'nowrap' }}
       >
         Add to Cart
       </Button>
 
-      <Button fullWidth size="large" type="submit" variant="contained" disabled={disabledActions}>
-        Buy Now
-      </Button>
     </Stack>
   );
 
-  const renderSubDescription = !!content && parse(content);
+  const renderSubDescription = !!subDescription && parse(subDescription);
 
   const renderRating = (
     <Stack
@@ -216,15 +196,19 @@ export default function ProductDetailsSummary({
 
   }, [selectedVariable]);
 
-  const renderVariables = type === 'Variable' && productGroup === 'parent' && (
+
+
+
+  const renderVariables = (
     <Box display="flex" flexDirection="column" gap="10px">
       {Object.keys(variables).map((v, i) => (
-        <FormControl key={i} sx={{ width: '50%' }} size="small">
+        <FormControl key={i}
+          sx={{ width: { sm: '100%', "md": '50%' } }}
+          size="small">
           <InputLabel id="demo-simple-select-label">{v}</InputLabel>
-          <Select
-            label={v}
-            key={i}
+          <Select label={v} key={i}
             onChange={(e) => {
+              setQuantityToPurchase(1)
               setSelectedVariable((_) => ({ ..._, [v]: e.target.value }));
             }}
           >
@@ -237,8 +221,31 @@ export default function ProductDetailsSummary({
         </FormControl>
       ))}
 
+      <TextField
+        sx={{ width: { sm: '100%', "md": '50%' } }}
+        label='Quantity'
+        type='number'
+        inputProps={{ min: 1, max: quantity ?? 100 }}
+        onChange={e => {
+          setQuantityToPurchase(_ => {
+            const { value } = e.target
+            if (value <= 0) {
+              return 1;
+            }
+
+            if (quantity) {
+              return Math.min(quantity, value);
+            }
+
+            return Math.min(value, 100);
+          }
+
+          )
+        }}
+        value={quantityToPurchase}
+      />
       <Button
-        sx={{ width: '50%' }}
+        sx={{ width: { sm: '100%', "md": '50%' } }}
         variant="contained"
         color="success"
         disabled={!name.split("-")[1]}
@@ -259,7 +266,8 @@ export default function ProductDetailsSummary({
               images,
               subTotal: salePrice,
               userId,
-              quantity: 1,
+              quantity: quantityToPurchase,
+              available: quantity
             });
             navigate(paths.product.checkout);
           } else {
@@ -269,12 +277,13 @@ export default function ProductDetailsSummary({
       >
         Buy
       </Button>
+
       {!!error && <p style={{ color: '#F00A' }}>{error}</p>}
     </Box>
   );
 
   return (
-    <FormProvider methods={methods} onSubmit={onSubmit}>
+    <FormProvider >
       <Stack spacing={3} sx={{ pt: 3 }} {...other}>
         <Stack spacing={2} alignItems="flex-start">
           <Typography variant="h5">{name}</Typography>
@@ -286,39 +295,14 @@ export default function ProductDetailsSummary({
           {renderSubDescription}
         </Stack>
 
-        {renderVariables}
-
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         {renderQuantity}
 
-        {/* <Box>
-          <h4>Products related to this item</h4>
-
-          <Grid container gap={1} justifyContent="center" mt={2}>
-            {similarProduct.map((row) => (
-              <Grid key={row.id} item xs={5.5} component={Link} to={`/product/${row.id}`}>
-                <Card>
-                  <img src={row.images[0]} width="100%" />
-                  <Stack
-                    direction="row"
-                    sx={{ fontSize: '16px' }}
-                    justifyContent="space-between"
-                    alignItems="center"
-                    px={0.5}
-                  >
-                    <p>{row.name}</p>
-                    <p>AED {row.salePrice}</p>
-                  </Stack>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box> */}
-
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        {type === 'Simple' && renderActions}
+        {type === 'Variable' && productGroup === 'parent' ? renderVariables : renderActions}
+
       </Stack>
     </FormProvider>
   );

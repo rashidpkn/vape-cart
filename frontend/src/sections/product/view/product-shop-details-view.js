@@ -30,24 +30,6 @@ import ProductDetailsDescription from '../product-details-description';
 
 // ----------------------------------------------------------------------
 
-const SUMMARY = [
-  {
-    title: '100% Original',
-    description: 'Chocolate bar candy canes ice cream toffee cookie halvah.',
-    icon: 'solar:verified-check-bold',
-  },
-  {
-    title: '10 Day Replacement',
-    description: 'Marshmallow biscuit donut dragée fruitcake wafer.',
-    icon: 'solar:clock-circle-bold',
-  },
-  {
-    title: 'Year Warranty',
-    description: 'Cotton candy gingerbread cake I love sugar sweet.',
-    icon: 'solar:shield-check-bold',
-  },
-];
-
 // ----------------------------------------------------------------------
 
 export default function ProductShopDetailsView() {
@@ -63,16 +45,12 @@ export default function ProductShopDetailsView() {
   const [currentTab, setCurrentTab] = useState('description');
 
   const [product, setProduct] = useState();
-  // const [similarProduct, setSimilarProduct] = useState([]);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const { data } = await api.get(`products/${id}`, { params: { count: 1 } });
         setProduct(data);
-        // const word = data.name.split(' ')[0].toLowerCase();
-        // const { data: similar } = await api.get(`/products/similar-product/${word}`);
-        // setSimilarProduct(similar);
       } catch (error) {
         alert(error.response.data.message);
         navigate(paths.dashboard.product.root);
@@ -112,34 +90,11 @@ export default function ProductShopDetailsView() {
             onAddCart={onAddCart}
             onGotoStep={onGotoStep}
             setProduct={setProduct}
-          // similarProduct={similarProduct}
           />
         </Grid>
       </Grid>
 
-      <Box
-        gap={5}
-        display="grid"
-        gridTemplateColumns={{
-          xs: 'repeat(1, 1fr)',
-          md: 'repeat(3, 1fr)',
-        }}
-        sx={{ my: 10 }}
-      >
-        {SUMMARY.map((item) => (
-          <Box key={item.title} sx={{ textAlign: 'center', px: 5 }}>
-            <Iconify icon={item.icon} width={32} sx={{ color: 'primary.main' }} />
 
-            <Typography variant="subtitle1" sx={{ mb: 1, mt: 2 }}>
-              {item.title}
-            </Typography>
-
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {item.description}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
 
       <Card>
         <Tabs
@@ -165,7 +120,7 @@ export default function ProductShopDetailsView() {
         </Tabs>
 
         {currentTab === 'description' && (
-          <ProductDetailsDescription description={product?.subDescription} />
+          <ProductDetailsDescription description={product?.content} />
         )}
 
         {currentTab === 'reviews' && (
@@ -190,7 +145,6 @@ export default function ProductShopDetailsView() {
     >
       <CartIcon totalItems={checkout.totalItems} />
 
-      {/* {productLoading && renderSkeleton} */}
 
       {product && renderProduct}
     </Container>

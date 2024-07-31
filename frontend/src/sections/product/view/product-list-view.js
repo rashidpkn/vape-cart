@@ -46,7 +46,8 @@ const TABLE_HEAD = [
   { id: 'inventoryType', label: 'Stock', width: 160 },
   { id: 'price', label: 'Price', width: 140 },
   { id: 'sales Price', label: 'Sales Price', width: 140 },
-  { id: 'publish', label: 'Publish', width: 110 },
+  { id: 'status', label: 'Status', width: 110 },
+  { id: 'quickEdit', label: 'Quick Edit', width: 110 },
   { id: '', width: 88 },
 ];
 
@@ -79,19 +80,21 @@ export default function ProductListView() {
   const {
     user: { id },
   } = useAuthContext();
-  useEffect(() => {
-    const featchProduct = async () => {
-      try {
-        const {
-          data: { products: p, },
-        } = await api.get('products', { params: { userId: id, perPage: 5000 } });
-        setProducts(p);
-      } catch (error) {
-        console.log('Error : ' + error)
-      }
-    };
 
-    featchProduct();
+  const fetchProduct = async () => {
+    try {
+      const {
+        data: { products: p, },
+      } = await api.get('products', { params: { userId: id, perPage: 5000 } });
+      setProducts(p);
+    } catch (error) {
+      console.log('Error : ' + error)
+    }
+  };
+
+  useEffect(() => {
+
+    fetchProduct();
   }, []);
 
   const confirm = useBoolean();
@@ -213,17 +216,6 @@ export default function ProductListView() {
             publishOptions={PUBLISH_OPTIONS}
           />
 
-          {/* {canReset && (
-            <ProductTableFiltersResult
-              filters={filters}
-              onFilters={handleFilters}
-              //
-              onResetFilters={handleResetFilters}
-              //
-              results={dataFiltered.length}
-              sx={{ p: 2.5, pt: 0 }}
-            />
-          )} */}
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
@@ -277,7 +269,8 @@ export default function ProductListView() {
                           onSelectRow={() => table.onSelectRow(row.id)}
                           onDeleteRow={() => handleDeleteRow(row.id)}
                           onEditRow={() => handleEditRow(row.id)}
-                          onViewRow={() => handleViewRow(row.id)}
+
+                          fetchProduct={fetchProduct}
                         />
                       ))}
                     </>

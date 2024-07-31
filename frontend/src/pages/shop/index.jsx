@@ -73,7 +73,9 @@ const navigate = useNavigate()
                   <Icon icon="eva:shopping-cart-outline" className="cart-icon" />
                 </div>
               </div>
+              <Link to={`/product/${product.id}`}>
               <p className="name">{product.name}</p>
+              </Link>
               <div className="info">
                 <p className="category">{product.category}</p>
                 <p>

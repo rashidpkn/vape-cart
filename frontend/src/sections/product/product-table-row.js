@@ -21,6 +21,10 @@ import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { Link } from 'react-router-dom';
+import { Icon } from '@iconify/react';
+import { useState } from 'react';
+import { FormControl, FormControlLabel, FormLabel, InputLabel, Modal, Radio, RadioGroup, Select, TextField, Typography } from '@mui/material';
+import api from 'src/utils/api';
 
 // ----------------------------------------------------------------------
 
@@ -30,20 +34,44 @@ export default function ProductTableRow({
   onSelectRow,
   onDeleteRow,
   onEditRow,
-  onViewRow,
+  fetchProduct,
 }) {
   const {
     id,
     name,
     salePrice,
-    publish = "Publish",
     category,
     quantity,
     createdAt,
     inventoryType,
     images,
     regularPrice,
+    status,
+    track,
   } = row;
+
+  const [quickEdit, setQuickEdit] = useState(false);
+
+  const [quickEditData, setQuickEditData] = useState({
+    name,
+    salePrice,
+    quantity,
+    regularPrice,
+    status,
+    track,
+  });
+
+  const _quickEdit = async () => {
+    try {
+      if (quickEditData.salePrice >= quickEditData.regularPrice) {
+        return alert('Sale price must be less than the regular price');
+      }
+      const editPRoduct = await api.post(`/products/quick_edit/${id}`, quickEditData);
+      alert('Product Updated');
+      fetchProduct();
+      setQuickEdit(false);
+    } catch (error) { }
+  };
 
   const confirm = useBoolean();
 
@@ -68,13 +96,11 @@ export default function ProductTableRow({
             disableTypography
             primary={
               <Link
-                to={`/product/${id}`}
-                target='_blank'
+                to={`/dashboard/product/${id}/edit`}
                 noWrap
                 color="inherit"
                 variant="subtitle2"
                 style={{ cursor: 'pointer', color: 'black' }}
-
               >
                 {name}
               </Link>
@@ -119,9 +145,19 @@ export default function ProductTableRow({
         <TableCell>{fCurrency(salePrice)}</TableCell>
 
         <TableCell>
-          <Label variant="soft" color={(publish && 'info') || 'default'}>
-            {publish ? 'Publish' : 'Draft'}
+          <Label variant="soft" color={(status === 'Published' && 'info') || 'default'}>
+            {status}
           </Label>
+        </TableCell>
+
+        <TableCell align="center">
+          <Icon
+            icon={'mdi:magic'}
+            cursor={'pointer'}
+            width={25}
+            color="#086c9c"
+            onClick={() => setQuickEdit((_) => true)}
+          />
         </TableCell>
 
         <TableCell align="right">
@@ -138,7 +174,7 @@ export default function ProductTableRow({
         sx={{ width: 140 }}
       >
         <MenuItem>
-          <Link to={`/product/${id}`} target='_blank' style={{ color: 'black' }}>
+          <Link to={`/product/${id}`} target="_blank" style={{ color: 'black' }}>
             <Iconify icon="solar:eye-bold" />
             View
           </Link>
@@ -177,6 +213,104 @@ export default function ProductTableRow({
           </Button>
         }
       />
+
+      <Modal
+        open={quickEdit}
+        onClose={() => setQuickEdit((_) => false)}
+        aria-labelledby="quickedit-model"
+        aria-describedby="quickedit-model-description"
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 650,
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            borderRadius: 2,
+            p: 4,
+          }}
+        >
+          <Typography id="quickedit-model" variant="h6" component="h2">
+            Quick Edit - {name}
+          </Typography>
+          <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }} mt={5} gap={5}>
+
+
+            <TextField
+              label="Name"
+              value={quickEditData.name}
+              onChange={(e) => setQuickEditData((_) => ({ ..._, name: e.target.value }))}
+            />
+            <TextField
+              type="number"
+              label="Regular Price"
+              value={quickEditData.regularPrice}
+              onChange={(e) => setQuickEditData((_) => ({ ..._, regularPrice: e.target.value }))}
+            />
+            <TextField
+              type="number"
+              label="Sale Price"
+              value={quickEditData.salePrice}
+              onChange={(e) => setQuickEditData((_) => ({ ..._, salePrice: e.target.value }))}
+            />
+            <FormControlLabel
+              label="Track Stock"
+              control={<Checkbox checked={quickEditData.track} onChange={e => {
+                setQuickEditData(_ => ({ ..._, track: e.target.checked }));
+                if (!e.target.checked) {
+                  setQuickEditData(_ => ({ ..._, quantity: 100 }))
+                } else {
+                  setQuickEditData(_ => ({ ..._, quantity: quantity }))
+                }
+              }
+
+              } />}
+            />
+
+            {quickEditData.track ? <TextField
+              type="number"
+              label="Quantity"
+              value={quickEditData.quantity}
+              onChange={(e) => setQuickEditData((_) => ({ ..._, quantity: e.target.value }))}
+            /> :
+              <FormControl>
+                <RadioGroup defaultValue="Instock" row>
+                  <FormControlLabel d value="Instock" control={<Radio defaultChecked />} label="Instock" />
+                  <FormControlLabel value="Outstock" control={<Radio />} label="Outstock" />
+                </RadioGroup>
+              </FormControl>
+            }
+            <FormControl fullWidth>
+              <InputLabel>Status</InputLabel>
+              <Select
+                label="Status"
+                value={quickEditData.status}
+                onChange={(e) => setQuickEditData((_) => ({ ..._, status: e.target.value }))}
+              >
+                <MenuItem value="Published">Published</MenuItem>
+                <MenuItem value="Draft">Draft</MenuItem>
+                <MenuItem value="In Revision">In Revision</MenuItem>
+                <MenuItem value="Hidden">Hidden</MenuItem>
+                <MenuItem value="Rejected">Rejected</MenuItem>
+              </Select>
+            </FormControl>
+
+            <Button variant="contained" color="success" onClick={_quickEdit}>
+              <Icon
+                icon={'mdi:magic'}
+                cursor={'pointer'}
+                width={18}
+                color="#fff"
+                style={{ margin: '0 12px' }}
+              />
+              Quick Edit
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </>
   );
 }

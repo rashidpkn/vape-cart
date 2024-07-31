@@ -30,6 +30,7 @@ import FormProvider, {
   RHFUpload,
   RHFTextField,
   RHFAutocomplete,
+  RHFCheckbox,
 } from 'src/components/hook-form';
 import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
@@ -37,6 +38,7 @@ import { _attributes, _brands, _category, _tags, _type, _variables } from 'src/d
 import {
   Button,
   Checkbox,
+  FormControl,
   FormControlLabel,
   Radio,
   RadioGroup,
@@ -102,8 +104,8 @@ export default function ProductNewEditForm({ currentProduct }) {
     brand: Yup.string().required('brand is required'),
 
     attributes: Yup.array(),
-
-    quantity: Yup.number().required('Quantity is required'),
+    track: Yup.boolean(),
+    quantity: Yup.number(),
 
     regularPrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
     salePrice: Yup.number().lessThan(Yup.ref('regularPrice'), 'Sale price must be less than the regular price'),
@@ -125,8 +127,8 @@ export default function ProductNewEditForm({ currentProduct }) {
       brand: currentProduct?.brand || 'SMOK',
 
       attributes: currentProduct?.attributes || [],
-
-      quantity: currentProduct?.quantity || null,
+      track: currentProduct?.track || true,
+      quantity: currentProduct?.quantity || 0,
 
       regularPrice: currentProduct?.regularPrice || 0,
       salePrice: currentProduct?.salePrice || 0,
@@ -625,13 +627,22 @@ export default function ProductNewEditForm({ currentProduct }) {
 
           <Stack spacing={3} sx={{ p: 3 }}>
 
-            <RHFTextField
+            <RHFCheckbox name={'track'} label='Track' />
+
+            {values.track && <RHFTextField
               name="quantity"
               label="Quantity"
               placeholder="0.00"
               type="number"
               InputLabelProps={{ shrink: true }}
-            />
+            />}
+
+            {!values.track && <FormControl>
+              <RadioGroup defaultValue="Instock" row>
+                <FormControlLabel d value="Instock" control={<Radio defaultChecked />} label="Instock" />
+                <FormControlLabel value="Outstock" control={<Radio />} label="Outstock" />
+              </RadioGroup>
+            </FormControl>}
 
             <RHFTextField
               name="regularPrice"
