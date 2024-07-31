@@ -48,6 +48,7 @@ export default function ProductTableRow({
     regularPrice,
     status,
     track,
+    type
   } = row;
 
   const [quickEdit, setQuickEdit] = useState(false);
@@ -125,6 +126,8 @@ export default function ProductTableRow({
             }}
           />
         </TableCell>
+
+        <TableCell>{type}</TableCell>
 
         <TableCell sx={{ typography: 'caption', color: 'text.secondary' }}>
           <LinearProgress
@@ -299,14 +302,14 @@ export default function ProductTableRow({
             </FormControl>
 
             <Button variant="contained" color="success" onClick={_quickEdit}>
-              <Icon
+              {/* <Icon
                 icon={'mdi:magic'}
                 cursor={'pointer'}
                 width={18}
                 color="#fff"
                 style={{ margin: '0 12px' }}
-              />
-              Quick Edit
+              /> */}
+              Save Changes
             </Button>
           </Box>
         </Box>
