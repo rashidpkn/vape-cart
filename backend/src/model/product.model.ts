@@ -55,10 +55,10 @@ export class Product extends Model {
   @Column
   SKU: string;
 
-  @Column
+  @Column({defaultValue:true})
   track: boolean;
 
-  @Column({ defaultValue: 20 })
+  @Column({ defaultValue: 100 })
   quantity: number;
 
   @Column({ type: DataType.FLOAT })
@@ -80,4 +80,7 @@ export class Product extends Model {
     name: string;
     email: string;
   }[];
+
+  @Column({defaultValue:'Published'})
+  status:string
 }

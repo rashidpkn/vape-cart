@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   Delete,
   Get,
@@ -82,7 +83,7 @@ export class ProductController {
 
         SKU,
         track,
-        quantity,
+        quantity ,
         regularPrice,
         salePrice,
 
@@ -224,4 +225,19 @@ export class ProductController {
       throw error;
     }
   }
+
+  @Post('/quick_edit/:id')
+  async _quickEdit(
+    @Param('id') id:number,
+    @Body() body:{}
+  ){
+    try {
+      const editProduct = await Product.update(body,{where:{id}})
+      return {message : "Updated"}
+  } catch (error) {
+      throw error
+    }
+
+  }
+
 }

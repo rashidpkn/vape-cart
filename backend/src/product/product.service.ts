@@ -55,7 +55,7 @@ export class ProductService {
 
         SKU,
         track,
-        quantity,
+        quantity:track ? quantity:100,
         regularPrice,
         salePrice : salePrice || regularPrice,
 

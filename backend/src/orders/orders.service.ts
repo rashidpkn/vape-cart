@@ -34,8 +34,10 @@ export class OrdersService {
 
       const {create} = NotificationsService.prototype
  items.map(async(item)=>{
-  const  {quantity} =  await  Product.findOne({where:{id:item.id}})
-  await Product.update({quantity:quantity-item.quantity},{where:{id:item.id}})
+  const  {quantity,track} =  await  Product.findOne({where:{id:item.id}})
+  if(track){
+    await Product.update({quantity:quantity-item.quantity},{where:{id:item.id}})
+  }
   create({userId:item.userId,role:"user",type:"order",title:`📦 New Order Received! 📦`,message:`Exciting news! A new order has been placed. Order ID: #${id.toString().padStart(3, '0')}. Please process it promptly.`,status:"unread"})
 })
 
