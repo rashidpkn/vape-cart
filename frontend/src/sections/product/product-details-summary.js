@@ -101,29 +101,53 @@ export default function ProductDetailsSummary({
 
   const renderActions = (
     <Stack direction="row" spacing={2}>
-      <TextField
-        sx={{ width: { sm: '100%', "md": '50%' } }}
-        label='Quantity'
-        type='number'
-        inputProps={{ min: 1, max: quantity ?? 100 }}
-        onChange={e => {
+      <Box sx={{ width: { sm: '100%', "md": '60%' } }} display={'flex'} justifyItems={'center'} alignItems={'center'} gap={1} >
+
+        <Button variant='outlined' color='primary'
+          onClick={() => {
+            setQuantityToPurchase(_ => {
+              if (_ <= 1) {
+                return 1
+              }
+              return _ - 1
+
+            })
+          }}
+        >-</Button>
+        <TextField
+          fullWidth
+          label='Quantity'
+          type='number'
+          inputProps={{ min: 1, max: quantity ?? 100 }}
+          onChange={e => {
+            setQuantityToPurchase(_ => {
+              const { value } = e.target
+              if (value <= 0) {
+                return 1;
+              }
+
+              if (!!quantity) {
+                return Math.min(quantity, value);
+              }
+
+              return Math.min(value, 100);
+            }
+
+            )
+          }}
+          value={quantityToPurchase}
+        />
+        <Button variant='outlined' color='primary' onClick={() => {
           setQuantityToPurchase(_ => {
-            const { value } = e.target
-            if (value <= 0) {
-              return 1;
+            if (_ < quantity) {
+              return _ + 1
+            } else {
+              return _
             }
+          })
+        }}>+</Button>
+      </Box>
 
-            if (!!quantity) {
-              return Math.min(quantity, value);
-            }
-
-            return Math.min(value, 100);
-          }
-
-          )
-        }}
-        value={quantityToPurchase}
-      />
 
       <Button
         fullWidth
@@ -144,7 +168,7 @@ export default function ProductDetailsSummary({
           });
           navigate(paths.product.checkout);
         }}
-        sx={{ whiteSpace: 'nowrap' }}
+        sx={{ width: { sm: '100%', "md": '40%' } }}
       >
         Add to Cart
       </Button>
@@ -221,29 +245,52 @@ export default function ProductDetailsSummary({
         </FormControl>
       ))}
 
-      <TextField
-        sx={{ width: { sm: '100%', "md": '50%' } }}
-        label='Quantity'
-        type='number'
-        inputProps={{ min: 1, max: quantity ?? 100 }}
-        onChange={e => {
+      <Box sx={{ width: { sm: '100%', "md": '50%' } }} display={'flex'} justifyItems={'center'} alignItems={'center'} gap={1} >
+
+        <Button variant='outlined' color='primary'
+          onClick={() => {
+            setQuantityToPurchase(_ => {
+              if (_ <= 1) {
+                return 1
+              }
+              return _ - 1
+
+            })
+          }}
+        >-</Button>
+        <TextField
+          fullWidth
+          label='Quantity'
+          type='number'
+          inputProps={{ min: 1, max: quantity ?? 100 }}
+          onChange={e => {
+            setQuantityToPurchase(_ => {
+              const { value } = e.target
+              if (value <= 0) {
+                return 1;
+              }
+
+              if (!!quantity) {
+                return Math.min(quantity, value);
+              }
+
+              return Math.min(value, 100);
+            }
+
+            )
+          }}
+          value={quantityToPurchase}
+        />
+        <Button variant='outlined' color='primary' onClick={() => {
           setQuantityToPurchase(_ => {
-            const { value } = e.target
-            if (value <= 0) {
-              return 1;
+            if (_ < quantity) {
+              return _ + 1
+            } else {
+              return _
             }
-
-            if (quantity) {
-              return Math.min(quantity, value);
-            }
-
-            return Math.min(value, 100);
-          }
-
-          )
-        }}
-        value={quantityToPurchase}
-      />
+          })
+        }}>+</Button>
+      </Box>
       <Button
         sx={{ width: { sm: '100%', "md": '50%' } }}
         variant="contained"
