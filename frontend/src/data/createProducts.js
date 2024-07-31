@@ -75,7 +75,7 @@ const _brands = [
   'Hugo Vapor',
 ];
 
-const _attributes = ['Bottle Size', 'Puffs', 'Flavour', 'Nicotine Strength', 'Color', 'Batteries'];
+const _attributes = ['Bottle Size', 'Puffs', 'Flavour', 'Nicotine Strength', 'Color', 'Batteries', 'Option'];
 
 const _variables = {
   bottleSize: [10, 15, 30, 50, 60, 100, 120].map((e) => `${e} ml`),

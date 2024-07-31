@@ -475,32 +475,43 @@ export default function ProductNewEditForm({ currentProduct }) {
     </>
   );
 
+
   const handleAutocompleteChange = (e, newValue, attribute) => {
-    setVariables((prevVariables) => ({
-      ...prevVariables,
-      [attribute]: newValue,
-    }));
+    if (values.type === 'Variable' || (values.type === 'Simple' && attribute === 'Flavour')) {
+      setVariables((prevVariables) => ({
+        ...prevVariables,
+        [attribute]: newValue,
+      }));
 
-    const att =
-      (attribute === 'Bottle Size' && _variables.bottleSize) ||
-      (attribute === 'Puffs' && _variables.puffs) ||
-      (attribute === 'Flavour' && _variables.flavour) ||
-      (attribute === 'Nicotine Strength' && _variables.nicotineStrength) ||
-      (attribute === 'Color' && _variables.color) ||
-      (attribute === 'Batteries' && _variables.batteries) ||
-      [];
+      const att =
+        (attribute === 'Bottle Size' && _variables.bottleSize) ||
+        (attribute === 'Puffs' && _variables.puffs) ||
+        (attribute === 'Flavour' && _variables.flavour) ||
+        (attribute === 'Nicotine Strength' && _variables.nicotineStrength) ||
+        (attribute === 'Color' && _variables.color) ||
+        (attribute === 'Batteries' && _variables.batteries) ||
+        [];
 
-    const value = newValue[newValue.length - 1];
+      const value = newValue[newValue.length - 1];
 
-    if (!value) {
-      return;
-    }
+      if (!value) {
+        return;
+      }
 
-    if (!att.find((at) => at === value)) {
-      console.log('upload');
-      api.post('/attributes', { username: user.displayName, attribute, value }).then((res) => {
-        console.log('updated');
-      });
+      if (!att.find((at) => at === value)) {
+        console.log('upload');
+        api.post('/attributes', { username: user.displayName, attribute, value }).then((res) => {
+          console.log('updated');
+        });
+      }
+
+    } else {
+      const value = newValue[newValue.length - 1];
+      console.log({ ...variables, [attribute]: [value] });
+      setVariables((prevVariables) => ({
+        ...prevVariables,
+        [attribute]: [value],
+      }));
     }
   };
 
@@ -559,6 +570,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 />
               </Box>
 
+
               {values.attributes.map((e) => (
                 <Box sx={{ gridColumn: 'span 1 ' }} key={e}>
                   <Autocomplete
@@ -573,16 +585,20 @@ export default function ProductNewEditForm({ currentProduct }) {
                       ...(e === 'Batteries' ? _variables.batteries : []),
                       ...savedAttibutes.filter((v) => v.attribute === e).map((e) => e.value),
                     ]}
-                    value={variables[e]}
+                    value={variables[e] || []}
                     onChange={(event, newValue) => {
                       handleAutocompleteChange(event, newValue, e);
-                      if (newValue.length >= 2) {
-                        if (variation.find((ev) => ev === e)) {
+
+                      if (values.type === 'Variable' || (values.type === 'Simple' && e === 'Flavour')) {
+                        if (newValue.length >= 2) {
+                          if (!variation.find((ev) => ev === e)) {
+                            setVariation((prev) => [...prev, e]);
+                          }
                         } else {
-                          setVariation((prev) => [...prev, e]);
+                          setVariation((prev) => prev.filter((ev) => ev !== e));
                         }
                       } else {
-                        setVariation((prev) => prev.filter((ev) => ev !== e));
+                        setVariation([e]);
                       }
                     }}
                     renderInput={(params) => <TextField {...params} label={e} placeholder={e} />}
@@ -601,6 +617,8 @@ export default function ProductNewEditForm({ currentProduct }) {
                   />
                 </Box>
               ))}
+
+
             </Box>
           </Stack>
         </Card>
@@ -813,7 +831,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
         {renderProperties}
 
-        {values.type === 'Variable' && renderAttributes}
+        {renderAttributes}
 
         {values.type === 'Simple' && renderPricing}
 
