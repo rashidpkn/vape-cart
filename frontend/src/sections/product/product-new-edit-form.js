@@ -34,7 +34,7 @@ import FormProvider, {
 } from 'src/components/hook-form';
 import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
-import { _attributes, _brands, _category, _tags, _type, _variables } from 'src/data/createProducts';
+import { _attributes, _brands, _category, _status, _tags, _type, _variables } from 'src/data/createProducts';
 import {
   Button,
   Checkbox,
@@ -102,6 +102,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     tags: Yup.array(),
     SKU: Yup.string().required('SKU is required'),
     brand: Yup.string().required('brand is required'),
+    status: Yup.string().required('brand is required'),
 
     attributes: Yup.array(),
     track: Yup.boolean(),
@@ -125,6 +126,7 @@ export default function ProductNewEditForm({ currentProduct }) {
       tags: currentProduct?.tags || [],
       SKU: currentProduct?.SKU || '',
       brand: currentProduct?.brand || 'SMOK',
+      status: currentProduct?.status || 'Published',
 
       attributes: currentProduct?.attributes || [],
       track: currentProduct?.track || true,
@@ -468,6 +470,15 @@ export default function ProductNewEditForm({ currentProduct }) {
                   </>
                 )}
               </Box>
+
+              <RHFSelect native name="status" label="status" InputLabelProps={{ shrink: true }}>
+                {_status.map((classify) => (
+                  <option key={classify} value={classify}>
+                    {classify}
+                  </option>
+                ))}
+              </RHFSelect>
+
             </Box>
           </Stack>
         </Card>
@@ -945,6 +956,7 @@ function ProductTable({
         tags: values.tags,
         parentSku: values.SKU,
         brand: values.brand,
+        status: values.status,
 
         attributes: values.attributes,
         variables,
@@ -1041,7 +1053,7 @@ function ProductTable({
       <TableCell>
 
 
-        {status === 'pending' && true && (
+        {status === 'pending' && (
           <Button
             color="success"
             variant="contained"

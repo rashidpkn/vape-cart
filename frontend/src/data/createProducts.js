@@ -75,6 +75,8 @@ const _brands = [
   'Hugo Vapor',
 ];
 
+const _status = ['Published', 'Draft']
+
 const _attributes = ['Bottle Size', 'Puffs', 'Flavour', 'Nicotine Strength', 'Color', 'Batteries', 'Option'];
 
 const _variables = {
@@ -193,4 +195,4 @@ const _variables = {
   batteries: ['Single', 'Dual', 'Built-in', 'Triple', 'Quad'],
 };
 
-export { _type, _category, _tags, _brands, _attributes, _variables };
+export { _type, _category, _tags, _brands, _attributes, _status, _variables };

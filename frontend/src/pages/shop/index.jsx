@@ -25,12 +25,11 @@ const navigate = useNavigate()
       const { data } = await api.get('/products', {
         params: {
           perPage: 2000,
+          productGroup: "parent",
           category
         },
       });
-      setProducts(
-        data.products.filter((pr) => !(pr.productGroup === 'parent' && pr.type === 'Variable'))
-      );
+      setProducts( data.products);
       setDataFetched(true)
     } catch (error) {}
   }, [category]);
@@ -69,9 +68,9 @@ const navigate = useNavigate()
             <div className="product" key={product.id}>
               <div className="img">
                 <img src={product.images[0]} alt="" />
-                <div className="cart" onClick={()=>{_AddCart(product)}}>
+               {product.type === 'Simple' && <div className="cart" onClick={()=>{_AddCart(product)}}>
                   <Icon icon="eva:shopping-cart-outline" className="cart-icon" />
-                </div>
+                </div>}
               </div>
               <Link to={`/product/${product.id}`}>
               <p className="name">{product.name}</p>

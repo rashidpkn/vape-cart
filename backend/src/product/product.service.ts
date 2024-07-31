@@ -21,6 +21,7 @@ export class ProductService {
     tags: [string],
     parentSku: string,
     brand: string,
+    status:string,
 
     attributes: [string],
     variables: [],
@@ -49,6 +50,7 @@ export class ProductService {
         tags,
         parentSku,
         brand,
+        status:status || 'Published',
 
         attributes,
         variables,

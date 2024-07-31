@@ -45,6 +45,7 @@ export class ProductController {
         tags,
         parentSku,
         brand,
+        status,
 
         attributes,
         variables,
@@ -77,6 +78,7 @@ export class ProductController {
         tags,
         parentSku,
         brand,
+        status,
 
         attributes,
         variables,
