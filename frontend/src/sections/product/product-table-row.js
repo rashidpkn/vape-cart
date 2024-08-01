@@ -25,6 +25,7 @@ import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { FormControl, FormControlLabel, FormLabel, InputLabel, Modal, Radio, RadioGroup, Select, TextField, Typography } from '@mui/material';
 import api from 'src/utils/api';
+import { _status } from 'src/data/createProducts';
 
 // ----------------------------------------------------------------------
 
@@ -159,7 +160,13 @@ export default function ProductTableRow({
             cursor={'pointer'}
             width={25}
             color="#086c9c"
-            onClick={() => setQuickEdit((_) => true)}
+            onClick={() => {
+              if (status === 'In Revision') {
+                alert("You cannot edit this product while it is under review. Once the admin has completed the review, you will be able to make edits.")
+                return
+              }
+              setQuickEdit((_) => true)
+            }}
           />}
         </TableCell>
 
@@ -185,8 +192,12 @@ export default function ProductTableRow({
 
         <MenuItem
           onClick={() => {
+            if (status === 'In Revision') {
+              alert("You cannot edit this product while it is under review. Once the admin has completed the review, you will be able to make edits.")
+              popover.onClose();
+              return
+            }
             onEditRow();
-            popover.onClose();
           }}
         >
           <Iconify icon="solar:pen-bold" />
@@ -293,11 +304,8 @@ export default function ProductTableRow({
                 value={quickEditData.status}
                 onChange={(e) => setQuickEditData((_) => ({ ..._, status: e.target.value }))}
               >
-                <MenuItem value="Published">Published</MenuItem>
-                <MenuItem value="Draft">Draft</MenuItem>
-                <MenuItem value="In Revision">In Revision</MenuItem>
-                <MenuItem value="Hidden">Hidden</MenuItem>
-                <MenuItem value="Rejected">Rejected</MenuItem>
+                {_status.map(status => <MenuItem value={status}>{status}</MenuItem>)}
+
               </Select>
             </FormControl>
 

@@ -75,7 +75,9 @@ const _brands = [
   'Hugo Vapor',
 ];
 
-const _status = ['Published', 'Draft']
+const _allStatus = ['Published', 'Draft', 'Hidden', 'In Revision', 'Rejected']
+
+const _status = ['Published', 'Draft', 'Hidden']
 
 const _attributes = ['Bottle Size', 'Puffs', 'Flavour', 'Nicotine Strength', 'Color', 'Batteries', 'Option'];
 

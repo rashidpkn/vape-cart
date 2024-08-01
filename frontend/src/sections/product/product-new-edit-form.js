@@ -142,6 +142,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const [variation, setVariation] = useState([]);
 
+
   const methods = useForm({
     resolver: yupResolver(NewProductSchema),
     defaultValues,
@@ -341,6 +342,8 @@ export default function ProductNewEditForm({ currentProduct }) {
     show: false,
   });
 
+  const [autoGenerateSku, setAutoGenerateSku] = useState(false)
+
   const renderProperties = (
     <>
       {mdUp && (
@@ -410,8 +413,31 @@ export default function ProductNewEditForm({ currentProduct }) {
                   ))
                 }
               />
-
-              <RHFTextField name="SKU" label="Product SKU" />
+              <Box>
+                <RHFTextField name="SKU" label="Product SKU" />
+                <FormControlLabel
+                  label="Automatically generate SKUs"
+                  control={
+                    <Checkbox
+                      checked={autoGenerateSku}
+                      onChange={e => {
+                        if (e.target.checked) {
+                          if (values.name.replaceAll(' ', '').trim().length >= 8) {
+                            setValue("SKU", values.name.replaceAll(' ', '').trim().slice(0, 8) + '-1')
+                            setAutoGenerateSku(true)
+                          } else {
+                            setAutoGenerateSku(false)
+                            alert("To automatically generate SKUs, ensure that the product name has at least 8 characters.")
+                          }
+                        } else {
+                          setValue("SKU", '')
+                          setAutoGenerateSku(false)
+                        }
+                      }}
+                    />
+                  }
+                />
+              </Box>
 
               <RHFSelect native name="brand" label="Brand" InputLabelProps={{ shrink: true }}>
                 {_brands.map((classify) => (
@@ -735,9 +761,14 @@ export default function ProductNewEditForm({ currentProduct }) {
   const renderActions = (
     <>
       {/* {mdUp && <Grid md={4} />} */}
-      <Grid xs={12} md={8} sx={{ display: 'flex', alignItems: 'center' }}>
+      <Grid xs={12} md={8} sx={{ display: 'flex', alignItems: 'center' }} gap={2.5}>
         <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
           {!currentProduct ? 'Create Product' : 'Save Changes'}
+        </LoadingButton>
+        <LoadingButton onClick={() => {
+          setValue("status", "Draft")
+        }} type="submit" variant="contained" size="large" loading={isSubmitting}>
+          Save as Draft
         </LoadingButton>
       </Grid>
     </>
