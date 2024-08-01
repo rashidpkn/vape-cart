@@ -113,7 +113,8 @@ export class ProductService {
         where,
         limit: perPage,
         offset: perPage * (pageNo - 1),
-        ...(order.length && { order: [order] }),
+        // ...(order.length && { order: [order] }),
+        order: [['id', 'DESC']],
       });
 
       return { products, count };
