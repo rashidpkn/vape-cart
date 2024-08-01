@@ -154,13 +154,13 @@ export default function ProductTableRow({
         </TableCell>
 
         <TableCell align="center">
-          <Icon
+          {type === "Simple" && <Icon
             icon={'mdi:magic'}
             cursor={'pointer'}
             width={25}
             color="#086c9c"
             onClick={() => setQuickEdit((_) => true)}
-          />
+          />}
         </TableCell>
 
         <TableCell align="right">
