@@ -82,7 +82,7 @@ export default function OverviewEcommerceView() {
           <EcommerceWidgetSummary
             title="Total Balance"
             percent={0}
-            total={orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity, 0)}
+            total={orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id)?.price * b.items.find(it => it.userId === user.id)?.quantity, 0)}
             chart={{
               colors: [theme.palette.info.light, theme.palette.info.main],
               series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -94,7 +94,7 @@ export default function OverviewEcommerceView() {
           <EcommerceWidgetSummary
             title="Sales Profit"
             percent={0}
-            total={orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity, 0) * 0.8}
+            total={orders.reduce((a, b) => a + b.items.find(it => it.userId === user.id)?.price * b.items.find(it => it.userId === user.id)?.quantity, 0) * 0.8}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
               series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -124,7 +124,7 @@ export default function OverviewEcommerceView() {
                         (a, b) =>
                           new Date(b.createdAt).getMonth() === month &&
                             new Date(b.createdAt).getDate() === date
-                            ? a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity
+                            ? a + b.items.find(it => it.userId === user.id)?.price * b.items.find(it => it.userId === user.id)?.quantity
                             : a,
                         0
                       )
@@ -192,7 +192,7 @@ export default function OverviewEcommerceView() {
                       data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((month) =>
                         orders.reduce(
                           (a, b) =>
-                            new Date(b.createdAt).getMonth() === month ? a + b.items.find(it => it.userId === user.id).price * b.items.find(it => it.userId === user.id).quantity : a,
+                            new Date(b.createdAt).getMonth() === month ? a + b.items.find(it => it.userId === user.id)?.price * b.items.find(it => it.userId === user.id)?.quantity : a,
                           0
                         )
                       ),

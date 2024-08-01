@@ -103,10 +103,10 @@ function AppNewInvoiceRow({ row }) {
 
         <TableCell>{row.invoiceTo.name}</TableCell>
 
-        <TableCell>{row.items.find(it => it.userId === user.id).name}</TableCell>
+        <TableCell>{row.items.find(it => it.userId === user.id)?.name}</TableCell>
 
 
-        <TableCell>{fCurrency(row.items.find(it => it.userId === user.id).price * row.items.find(it => it.userId === user.id).quantity)}</TableCell>
+        <TableCell>{fCurrency(row.items.find(it => it.userId === user.id)?.price * row.items.find(it => it.userId === user.id)?.quantity)}</TableCell>
 
         <TableCell>{fDate(row.createdAt)}</TableCell>
 

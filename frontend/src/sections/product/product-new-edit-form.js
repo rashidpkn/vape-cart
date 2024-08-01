@@ -526,6 +526,9 @@ export default function ProductNewEditForm({ currentProduct }) {
     }
   };
 
+  console.log(variables)
+  console.log(variation)
+
   const renderAttributes = (
     <>
       {mdUp && (
@@ -599,17 +602,19 @@ export default function ProductNewEditForm({ currentProduct }) {
                     value={variables[e] || []}
                     onChange={(event, newValue) => {
                       handleAutocompleteChange(event, newValue, e);
+                      if (values.type === 'Simple') {
 
-                      if (values.type === 'Variable' || (values.type === 'Simple' && e === 'Flavour')) {
-                        if (newValue.length >= 2) {
-                          if (!variation.find((ev) => ev === e)) {
-                            setVariation((prev) => [...prev, e]);
+                        if (e === 'Flavour') {
+                          if (newValue.length >= 2) {
+                            if (!variation.find((ev) => ev === e)) {
+                              setVariation((prev) => [...prev, e]);
+                            }
+                          } else {
+                            setVariation((prev) => prev.filter((ev) => ev !== e));
                           }
                         } else {
-                          setVariation((prev) => prev.filter((ev) => ev !== e));
+                          setVariation([e]);
                         }
-                      } else {
-                        setVariation([e]);
                       }
                     }}
                     renderInput={(params) => <TextField {...params} label={e} placeholder={e} />}
@@ -626,6 +631,21 @@ export default function ProductNewEditForm({ currentProduct }) {
                       ))
                     }
                   />
+                  {values.type === 'Variable' && <FormControlLabel
+                    label="Use this attribute to create Variations"
+                    control={
+                      <Checkbox
+                        onChange={ch => {
+                          if (ch.target.checked) {
+                            setVariation((prev) => [...new Set([...prev, e])]);
+                          } else {
+                            setVariation((prev) => [...new Set(prev.filter((ev) => ev !== e))]);
+                          }
+                        }}
+
+                      />
+                    }
+                  />}
                 </Box>
               ))}
 
@@ -811,7 +831,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 setProductAdded={() => { }}
               />
 
-              {Object.keys(variables)
+              {variation
                 .reduce((a, k) => a.flatMap((c) => variables[k].map((v) => `${c} - ${v}`)), [''])
                 .map((c) => (
                   <ProductTable
