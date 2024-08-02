@@ -75,6 +75,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
+
     subDescription: Yup.string()
       .required('Short description is required')
       .test(
@@ -86,6 +87,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         'Your content contains the "@" symbol. Please remove it.',
         (value) => !/@/.test(value)
       ),
+
     content: Yup.string().test(
       'not-four-digits',
       'Your content contain continues 7 digit number, Please remove',
@@ -110,6 +112,8 @@ export default function ProductNewEditForm({ currentProduct }) {
 
     regularPrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
     salePrice: Yup.number().lessThan(Yup.ref('regularPrice'), 'Sale price must be less than the regular price'),
+
+
   });
 
   const defaultValues = useMemo(
@@ -141,6 +145,8 @@ export default function ProductNewEditForm({ currentProduct }) {
   const [variables, setVariables] = useState({});
 
   const [variation, setVariation] = useState([]);
+
+  console.log(variables, variation)
 
 
   const methods = useForm({
@@ -254,7 +260,6 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Details" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
-            {/* <RHFTextField name="name" label="Product Name" /> */}
 
             <Autocomplete
               value={values.name}
@@ -892,17 +897,15 @@ export default function ProductNewEditForm({ currentProduct }) {
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Grid container spacing={3}>
         {renderDetails}
-
         {renderProperties}
 
         {renderAttributes}
 
         {values.type === 'Simple' && renderPricing}
-
         {values.type === 'Variable' && productTable}
-
         {values.type === 'Simple' && renderActions}
         {values.type === 'Variable' && productAdded && renderGoToProduct}
+
       </Grid>
     </FormProvider>
   );

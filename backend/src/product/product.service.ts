@@ -19,20 +19,18 @@ export class ProductService {
     type: string,
     category: string,
     tags: [string],
-    parentSku: string,
+    SKU: string,
     brand: string,
     status:string,
 
-    attributes: [string],
-    variables: [],
-
-    SKU: string,
+    attributes: {},
+    
     track: boolean,
     quantity: number,
     regularPrice: number,
     salePrice: number,
-
-    productGroup:string
+    
+    variations: [],
   ) {
     try {
       const product = await Product.create({
@@ -48,20 +46,17 @@ export class ProductService {
         type,
         category,
         tags,
-        parentSku,
+        SKU,
         brand,
         status:status || 'Published',
 
         attributes,
-        variables,
+        variations,
 
-        SKU,
         track,
         quantity:track ? quantity:100,
         regularPrice,
         salePrice : salePrice || regularPrice,
-
-        productGroup
       });
 
       const {create} = NotificationsService.prototype
