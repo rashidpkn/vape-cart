@@ -88,6 +88,7 @@ export class ProductService {
         perPage = 20,
         pageNo = 1,
         sortBy,
+        status
       } = query;
       const where: any = {};
       let order: any = [];
@@ -96,6 +97,8 @@ export class ProductService {
       if (userId) where.userId = userId;
       if(productGroup) where.productGroup =productGroup
       if (name) where.name = { [Op.iLike]: `%${name}%` };
+
+      if(status) where.status = status
 
       if (category) where.category = category;
       if (inStock) where.quantity = { [Op.gt]: 0 };
