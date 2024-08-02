@@ -860,6 +860,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 isSubmitting={isSubmitting}
                 isValid={isValid}
                 setProductAdded={() => { }}
+                currentProduct={currentProduct}
               />
 
               {variation
@@ -877,6 +878,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                     isSubmitting={isSubmitting}
                     isValid={isValid}
                     setProductAdded={setProductAdded}
+                    currentProduct={currentProduct}
                   />
                 ))}
             </TableBody>
@@ -914,9 +916,8 @@ function ProductTable({
   va,
   variables,
   disabled,
-  isSubmitting,
-  isValid,
-  setProductAdded
+  setProductAdded,
+  currentProduct
 }) {
   const { user } = useAuthContext();
   const sku = skuAlpha[counter2] ? `${values.SKU}-${skuAlpha[counter2]}` : values.SKU;
@@ -1112,7 +1113,7 @@ function ProductTable({
             onClick={_addProduct}
             type="submit"
           >
-            Add Product
+            {currentProduct ? "Save Changes " : " Add Product"}
           </Button>
         )}
 
