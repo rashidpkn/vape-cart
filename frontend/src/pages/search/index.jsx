@@ -23,6 +23,7 @@ const navigate = useNavigate()
         params: {
           name,
           perPage: 2000,
+          status:"Published"
         },
       });
       setProducts(

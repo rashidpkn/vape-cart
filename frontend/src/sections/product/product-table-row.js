@@ -144,9 +144,9 @@ export default function ProductTableRow({
           {!!quantity && quantity} {inventoryType}
         </TableCell>
 
-        <TableCell>{fCurrency(regularPrice)}</TableCell>
+        <TableCell>{type === 'Simple' && fCurrency(regularPrice)}</TableCell>
 
-        <TableCell>{fCurrency(salePrice)}</TableCell>
+        <TableCell>{type === 'Simple' && fCurrency(salePrice)}</TableCell>
 
         <TableCell>
           <Label variant="soft" color={(status === 'Published' && 'info') || 'default'}>

@@ -26,7 +26,8 @@ const navigate = useNavigate()
         params: {
           perPage: 2000,
           productGroup: "parent",
-          category
+          category,
+          status:"Published"
         },
       });
       setProducts( data.products);
