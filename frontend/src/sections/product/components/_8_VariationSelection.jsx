@@ -3,19 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { _variables } from 'src/data/createProducts';
 import api from 'src/utils/api';
 
-export default function VariationSelection({ values, setValue, setVariation, e, savedAttibutes }) {
+export default function VariationSelection({ values, setValue, setVariation, e, savedAttibutes,variation=[] }) {
   return (
     <Box sx={{ gridColumn: 'span 1 ' }} key={e}>
       <Autocomplete
         multiple
         freeSolo
         options={[
-          ...(e === 'Bottle Size' ? _variables.bottleSize : []),
-          ...(e === 'Puffs' ? _variables.puffs : []),
-          ...(e === 'Flavour' ? _variables.flavour : []),
-          ...(e === 'Nicotine Strength' ? _variables.nicotineStrength : []),
-          ...(e === 'Color' ? _variables.color : []),
-          ...(e === 'Batteries' ? _variables.batteries : []),
+          ...(e === 'bottleSize' ? _variables.bottleSize : []),
+          ...(e === 'puffs' ? _variables.puffs : []),
+          ...(e === 'flavour' ? _variables.flavour : []),
+          ...(e === 'nicotineStrength' ? _variables.nicotineStrength : []),
+          ...(e === 'color' ? _variables.color : []),
+          ...(e === 'batteries' ? _variables.batteries : []),
           ...savedAttibutes.filter((v) => v.attribute === e).map((e) => e.value),
         ]}
         value={values.attributes[e] || []}
@@ -23,7 +23,7 @@ export default function VariationSelection({ values, setValue, setVariation, e, 
           let updatedAttributes = {
             ...values.attributes,
           };
-          if (values.type === 'Simple' && e !== 'Flavour') {
+          if (values.type === 'Simple' && e !== 'flavour') {
             if (newValue.length > 1) {
               const value = [newValue[newValue.length - 1]];
               updatedAttributes = {
@@ -72,6 +72,7 @@ export default function VariationSelection({ values, setValue, setVariation, e, 
           label="Use this attribute to create Variations"
           control={
             <Checkbox
+            defaultChecked={variation.find(v=>v===e)}
               onChange={(ch) => {
                 if (ch.target.checked) {
                   setVariation((prev) => [...new Set([...prev, e])]);

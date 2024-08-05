@@ -95,11 +95,10 @@ export default function ProductNewEditForm({ currentProduct }) {
 
     track: Yup.boolean(),
     quantity: Yup.number(),
-    regularPrice: Yup.number().moreThan(0, 'Price should not be AED 0.00'),
-    salePrice: Yup.number().lessThan(
-      Yup.ref('regularPrice'),
-      'Sale price must be less than the regular price'
-    ),
+    regularPrice: Yup.number()
+      .moreThan(-1, 'Price should not be AED 0.00'),
+    salePrice: Yup.number()
+      .lessThan(Yup.ref('regularPrice'), 'Sale price must be less than the regular price'),
     variations: Yup.array(),
   });
 
@@ -118,15 +117,19 @@ export default function ProductNewEditForm({ currentProduct }) {
       SKU: currentProduct?.SKU || '',
       brand: currentProduct?.brand || 'SMOK',
       status: currentProduct?.status || 'Published',
+
       attributes: currentProduct?.attributes || {},
+
       track: currentProduct?.track || true,
       quantity: currentProduct?.quantity || 0,
-      regularPrice: currentProduct?.regularPrice || 0,
+      regularPrice: currentProduct?.regularPrice || 100,
       salePrice: currentProduct?.salePrice || 0,
       variations: currentProduct?.variations || [],
     }),
     [currentProduct]
   );
+
+
 
   const methods = useForm({
     resolver: yupResolver(NewProductSchema),
@@ -142,6 +145,9 @@ export default function ProductNewEditForm({ currentProduct }) {
   } = methods;
 
   const values = watch();
+
+
+
 
   const [savedAttibutes, setSavedAttibutes] = useState([]);
 
@@ -175,6 +181,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      console.log('DATA : ' + data);
       if (currentProduct) {
         await api.patch('products', {
           ...data,
@@ -239,16 +246,20 @@ export default function ProductNewEditForm({ currentProduct }) {
   const [variation, setVariation] = useState([]);
 
   useEffect(() => {
-    if (currentProduct && currentProduct.attributes) {
-      setSelectedAttributes(Object.keys(currentProduct.attributes));
+    if (currentProduct) {
+
+      const { attributes, variations } = currentProduct
+      if (attributes) {
+        setSelectedAttributes(Object.keys(attributes));
+      }
+      if (!!variations?.length) {
+
+        setVariation(Object.keys(currentProduct?.variations[0]?.attributes))
+      }
     }
   }, [currentProduct]);
 
-  useEffect(() => {
-    setValue('attributes', {});
-    setVariation([]);
-    setValue('variations', []);
-  }, [values.type]);
+
 
   const renderAttributes = (
     <>
@@ -289,6 +300,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                 <VariationSelection
                   setValue={setValue}
                   setVariation={setVariation}
+                  variation={variation}
                   values={values}
                   e={e}
                   key={e}
@@ -327,6 +339,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   let counter = 1;
 
+
   const productTable = (
     <>
       {mdUp && (
@@ -342,22 +355,21 @@ export default function ProductNewEditForm({ currentProduct }) {
           <Table>
             <TableHeading />
             <TableBody>
-              {variation
-                .reduce(
-                  (a, k) => a.flatMap((c) => values.attributes[k].map((v) => `${c} - ${v}`)),
-                  ['']
-                )
-                .map((c) => (
-                  <ProductTable
-                    counter={counter++}
-                    skuAlpha={skuAlpha}
-                    va={c.slice(3)}
-                    values={values}
-                    key={counter}
-                    setProductAdded={setProductAdded}
-                    currentProduct={currentProduct}
-                  />
-                ))}
+              {variation.reduce((acc, key) =>
+                acc.flatMap(prev => values.attributes[key].map(value => ({ ...prev, [key]: value }))),
+                [{}]
+              ).map((attributes) => (
+                <ProductTable
+                  counter={counter++}
+                  skuAlpha={skuAlpha}
+                  attributes={attributes}
+                  values={values}
+                  key={counter}
+                  setProductAdded={setProductAdded}
+                  currentProduct={currentProduct}
+                  setValue={setValue}
+                />
+              ))}
             </TableBody>
           </Table>
         </Card>

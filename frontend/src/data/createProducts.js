@@ -80,12 +80,12 @@ const _allStatus = ['Published', 'Draft', 'Hidden', 'In Revision', 'Rejected'];
 const _status = ['Published', 'Draft', 'Hidden'];
 
 const _attributes = [
-  'Bottle Size',
-  'Puffs',
-  'Flavour',
-  'Nicotine Strength',
-  'Color',
-  'Batteries',
+  'bottleSize',
+  'puffs',
+  'flavour',
+  'nicotineStrength',
+  'color',
+  'batteries',
   'Option',
 ];
 

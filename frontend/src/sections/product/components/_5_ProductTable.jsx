@@ -8,19 +8,22 @@ import {
   TableRow,
   TextField,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 
 export function ProductTable({
   counter,
   skuAlpha,
-  va,
+  attributes,
   values,
   setProductAdded,
   currentProduct,
+  setValue
 }) {
   const sku = skuAlpha[counter] ? `${values.SKU}-${skuAlpha[counter]}` : values.SKU;
-  const name = `${va}`;
+  const name = Object.keys(attributes).map(e=>attributes[e] + ' - ');
+
+  
 
   const [productDetails, setProductDetails] = useState({
     track: true,
@@ -28,7 +31,16 @@ export function ProductTable({
     regularPrice: null,
     salePrice: null,
     image: null,
+    attributes:{}
   });
+
+  useEffect(() => {  
+    const data = values.variations.find(e=> JSON.stringify(e.attributes) === JSON.stringify(attributes))
+  setProductDetails(_=>({..._,...data}))
+
+  }, [attributes])
+  
+
 
   const [stock, setStock] = useState('instock');
   const [status, setStatus] = useState('pending');
@@ -69,9 +81,13 @@ export function ProductTable({
     }
     setStatus('loading');
     try {
-      // Add product API call here
+      
+      setValue("variations",[...values.variations,productDetails])
+
       setStatus('success');
+
       setProductAdded(true);
+      
     } catch (error) {
       console.error("Product creation failed:", error);
       setStatus('failed');
