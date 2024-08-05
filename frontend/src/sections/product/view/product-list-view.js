@@ -16,13 +16,11 @@ import { RouterLink } from 'src/routes/components';
 import { useBoolean } from 'src/hooks/use-boolean';
 // _mock
 import { PRODUCT_STOCK_OPTIONS } from 'src/_mock';
-// api
-import { useGetProducts } from 'src/api/product';
+
 // components
 import {
   useTable,
   getComparator,
-  TableSkeleton,
   TableHeadCustom,
   TableSelectedAction,
   TablePaginationCustom,
@@ -36,7 +34,6 @@ import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
 import ProductTableRow from '../product-table-row';
 import ProductTableToolbar from '../product-table-toolbar';
-
 
 // ----------------------------------------------------------------------
 
@@ -69,15 +66,10 @@ export default function ProductListView() {
 
   const table = useTable();
 
-
-
   const [tableData, setTableData] = useState([]);
 
   const [filters, setFilters] = useState(defaultFilters);
 
-  const { productsLoading } = useGetProducts();
-
-  const [products, setProducts] = useState([]);
   const {
     user: { id },
   } = useAuthContext();
@@ -85,26 +77,21 @@ export default function ProductListView() {
   const fetchProduct = async () => {
     try {
       const {
-        data: { products: p, },
-      } = await api.get('products', { params: { userId: id, perPage: 5000, productGroup: 'parent' } });
-      setProducts(p);
+        data: { products: p },
+      } = await api.get('products', { params: { userId: id, perPage: 5000 } });
+      if (p?.length) {
+        setTableData(p);
+      }
     } catch (error) {
-      console.log('Error : ' + error)
+      console.log(`Error : ${error}`);
     }
   };
 
   useEffect(() => {
-
     fetchProduct();
   }, []);
 
   const confirm = useBoolean();
-
-  useEffect(() => {
-    if (products.length) {
-      setTableData(products);
-    }
-  }, [products]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -118,8 +105,6 @@ export default function ProductListView() {
   );
 
   const denseHeight = table.dense ? 60 : 80;
-
-
 
   const handleFilters = useCallback(
     (name, value) => {
@@ -182,7 +167,6 @@ export default function ProductListView() {
     [router]
   );
 
-
   return (
     <>
       <Box px={5}>
@@ -216,7 +200,6 @@ export default function ProductListView() {
             stockOptions={PRODUCT_STOCK_OPTIONS}
             publishOptions={PUBLISH_OPTIONS}
           />
-
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
@@ -256,26 +239,19 @@ export default function ProductListView() {
                 />
 
                 <TableBody>
-                  {productsLoading ? (
-                    [...Array(table.rowsPerPage)].map((i, index) => (
-                      <TableSkeleton key={index} sx={{ height: denseHeight }} />
-                    ))
-                  ) : (
-                    <>
-                      {dataFiltered.map((row) => (
-                        <ProductTableRow
-                          key={row.id}
-                          row={row}
-                          selected={table.selected.includes(row.id)}
-                          onSelectRow={() => table.onSelectRow(row.id)}
-                          onDeleteRow={() => handleDeleteRow(row.id)}
-                          onEditRow={() => handleEditRow(row.id)}
-
-                          fetchProduct={fetchProduct}
-                        />
-                      ))}
-                    </>
-                  )}
+                  <>
+                    {dataFiltered.map((row) => (
+                      <ProductTableRow
+                        key={row.id}
+                        row={row}
+                        selected={table.selected.includes(row.id)}
+                        onSelectRow={() => table.onSelectRow(row.id)}
+                        onDeleteRow={() => handleDeleteRow(row.id)}
+                        onEditRow={() => handleEditRow(row.id)}
+                        fetchProduct={fetchProduct}
+                      />
+                    ))}
+                  </>
                 </TableBody>
               </Table>
             </Scrollbar>
@@ -323,7 +299,7 @@ export default function ProductListView() {
 // ----------------------------------------------------------------------
 
 function applyFilter({ inputData, comparator, filters }) {
-  const { name, stock, } = filters;
+  const { name, stock } = filters;
 
   const stabilizedThis = inputData.map((el, index) => [el, index]);
 

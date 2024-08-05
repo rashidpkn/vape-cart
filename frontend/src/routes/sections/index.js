@@ -15,7 +15,6 @@ import { mainRoutes } from './main';
 
 const FirebaseVerifyPage = lazy(() => import('src/pages/auth/firebase/verify'));
 
-
 // ----------------------------------------------------------------------
 
 export default function Router() {

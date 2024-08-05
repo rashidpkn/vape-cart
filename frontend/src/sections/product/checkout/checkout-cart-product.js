@@ -20,7 +20,7 @@ import IncrementerButton from '../common/incrementer-button';
 // ----------------------------------------------------------------------
 
 export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncrease }) {
-  const { name, price,  images = [], quantity, available, id } = row;
+  const { name, price, images = [], quantity, available, id } = row;
   const dispatch = useDispatch();
 
   return (

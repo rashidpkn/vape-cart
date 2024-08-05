@@ -75,11 +75,19 @@ const _brands = [
   'Hugo Vapor',
 ];
 
-const _allStatus = ['Published', 'Draft', 'Hidden', 'In Revision', 'Rejected']
+const _allStatus = ['Published', 'Draft', 'Hidden', 'In Revision', 'Rejected'];
 
-const _status = ['Published', 'Draft', 'Hidden']
+const _status = ['Published', 'Draft', 'Hidden'];
 
-const _attributes = ['Bottle Size', 'Puffs', 'Flavour', 'Nicotine Strength', 'Color', 'Batteries', 'Option'];
+const _attributes = [
+  'Bottle Size',
+  'Puffs',
+  'Flavour',
+  'Nicotine Strength',
+  'Color',
+  'Batteries',
+  'Option',
+];
 
 const _variables = {
   bottleSize: [10, 15, 30, 50, 60, 100, 120].map((e) => `${e} ml`),
@@ -197,4 +205,34 @@ const _variables = {
   batteries: ['Single', 'Dual', 'Built-in', 'Triple', 'Quad'],
 };
 
-export { _type, _category, _tags, _brands, _attributes, _status, _variables };
+const alpha = [
+  '',
+  'a',
+  'b',
+  'c',
+  'd',
+  'e',
+  'f',
+  'g',
+  'h',
+  'i',
+  'j',
+  'k',
+  'l',
+  'm',
+  'n',
+  'o',
+  'p',
+  'q',
+  'r',
+  's',
+  't',
+  'u',
+  'v',
+  'w',
+  'x',
+  'y',
+  'z',
+];
+
+export { _type, _category, _tags, _brands, _attributes, _status, _variables, alpha };

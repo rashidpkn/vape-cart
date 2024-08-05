@@ -57,7 +57,7 @@ export class Product extends Model {
     quantity: number;
     regularPrice: number;
     salePrice: number;
-    singleImage: string;
+    image: string;
   }[];
 
 

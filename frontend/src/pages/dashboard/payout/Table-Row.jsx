@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 
 import Button from '@mui/material/Button';
@@ -9,7 +9,6 @@ import { fCurrency } from 'src/utils/format-number';
 import Label from 'src/components/label';
 import Avatar from '@mui/material/Avatar';
 import Collapse from '@mui/material/Collapse';
-
 
 export default function PayoutTableRow({ item, fetchPayout }) {
   const [viewTranaction, setViewTranaction] = useState(false);

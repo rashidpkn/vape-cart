@@ -29,8 +29,6 @@ const ProductListPage = lazy(() => import('src/pages/product/list'));
 const ProductDetailsPage = lazy(() => import('src/pages/product/details'));
 const ProductCheckoutPage = lazy(() => import('src/pages/product/checkout'));
 
-
-
 export const mainRoutes = [
   {
     path: '/customer-dashboard',
@@ -46,8 +44,8 @@ export const mainRoutes = [
     ),
     children: [
       { element: <ProductListPage />, index: true },
-      { path: "/search/:name", element: <SearchPage /> },
-      { path: "/shop", element: <ShopPage /> },
+      { path: '/search/:name', element: <SearchPage /> },
+      { path: '/shop', element: <ShopPage /> },
 
       { path: 'about-us', element: <AboutPage /> },
       { path: 'contact-us', element: <ContactPage /> },

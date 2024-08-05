@@ -72,7 +72,7 @@ export default function ProductListView() {
   const [filters, setFilters] = useState(defaultFilters);
 
   const { productsLoading } = useGetProducts();
-  const [products, setProducts] = useState([]);
+
 
   useEffect(() => {
     const featchProduct = async () => {
@@ -80,7 +80,8 @@ export default function ProductListView() {
         const {
           data: { products: p },
         } = await api.get('products', { params: { perPage: 10000 } });
-        setProducts(p);
+
+        setTableData(p)
       } catch (error) {
         alert('error Occure');
       }
@@ -91,11 +92,11 @@ export default function ProductListView() {
 
   const confirm = useBoolean();
 
-  useEffect(() => {
-    if (products.length) {
-      setTableData(products);
-    }
-  }, [products]);
+  // useEffect(() => {
+  //   if (products?.length) {
+  //     setTableData(products);
+  //   }
+  // }, [products]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,

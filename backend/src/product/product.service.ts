@@ -79,10 +79,8 @@ export class ProductService {
         name,
         category,
         inStock,
-        productGroup,
         perPage = 20,
         pageNo = 1,
-        sortBy,
         status
       } = query;
       const where: any = {};
@@ -90,7 +88,6 @@ export class ProductService {
 
       if (username) where.username = username;
       if (userId) where.userId = userId;
-      if(productGroup) where.productGroup =productGroup
       if (name) where.name = { [Op.iLike]: `%${name}%` };
 
       if(status) where.status = status
@@ -98,12 +95,7 @@ export class ProductService {
       if (category) where.category = category;
       if (inStock) where.quantity = { [Op.gt]: 0 };
 
-      if (sortBy === 'priceDesc') {
-        order = ['salePrice', 'DESC'];
-      }
-      if (sortBy === 'priceAsc') {
-        order = ['salePrice', 'ASC'];
-      }
+     
 
       const count = await Product.count({ where });
 
@@ -111,12 +103,12 @@ export class ProductService {
         where,
         limit: perPage,
         offset: perPage * (pageNo - 1),
-        // ...(order.length && { order: [order] }),
         order: [['id', 'DESC']],
       });
 
       return { products, count };
     } catch (error) {
+      console.log(error);
       return error;
     }
   }

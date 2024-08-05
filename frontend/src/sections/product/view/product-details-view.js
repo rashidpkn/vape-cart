@@ -28,8 +28,6 @@ import ProductDetailsSummary from '../product-details-summary';
 import ProductDetailsToolbar from '../product-details-toolbar';
 import ProductDetailsCarousel from '../product-details-carousel';
 
-
-
 // ----------------------------------------------------------------------
 
 export default function ProductDetailsView() {
@@ -108,8 +106,6 @@ export default function ProductDetailsView() {
           )}
         </Grid>
       </Grid>
-
-
 
       <Card>
         <Tabs

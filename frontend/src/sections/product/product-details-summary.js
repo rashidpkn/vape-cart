@@ -29,10 +29,7 @@ export default function ProductDetailsSummary({
   setProduct,
   ...other
 }) {
-
-
-  const [quantityToPurchase, setQuantityToPurchase] = useState(1)
-
+  const [quantityToPurchase, setQuantityToPurchase] = useState(1);
 
   const navigate = useNavigate();
 
@@ -59,8 +56,8 @@ export default function ProductDetailsSummary({
       const { data } = await api.get('/products', {
         params: {
           perPage: 2000,
-          name
-        }
+          name,
+        },
       });
       setAllProducts(data.products);
     }
@@ -72,14 +69,12 @@ export default function ProductDetailsSummary({
 
   const renderPrice = (
     <Box sx={{ typography: 'h5' }}>
-
       <Box
         component="span"
         sx={{ color: 'text.disabled', textDecoration: 'line-through', mr: 0.5 }}
       >
         {fCurrency(regularPrice)}
       </Box>
-
 
       {fCurrency(salePrice)}
     </Box>
@@ -101,53 +96,63 @@ export default function ProductDetailsSummary({
 
   const renderActions = (
     <Stack direction="row" spacing={2}>
-      <Box sx={{ width: { sm: '100%', "md": '60%' } }} display={'flex'} justifyItems={'center'} alignItems={'center'} gap={1} >
-
-        <Button variant='outlined' color='primary'
+      <Box
+        sx={{ width: { sm: '100%', md: '60%' } }}
+        display="flex"
+        justifyItems="center"
+        alignItems="center"
+        gap={1}
+      >
+        <Button
+          variant="outlined"
+          color="primary"
           onClick={() => {
-            setQuantityToPurchase(_ => {
+            setQuantityToPurchase((_) => {
               if (_ <= 1) {
-                return 1
+                return 1;
               }
-              return _ - 1
-
-            })
+              return _ - 1;
+            });
           }}
-        >-</Button>
+        >
+          -
+        </Button>
         <TextField
           fullWidth
-          label='Quantity'
-          type='number'
+          label="Quantity"
+          type="number"
           inputProps={{ min: 1, max: quantity ?? 100 }}
-          onChange={e => {
-            setQuantityToPurchase(_ => {
-              const { value } = e.target
+          onChange={(e) => {
+            setQuantityToPurchase((_) => {
+              const { value } = e.target;
               if (value <= 0) {
                 return 1;
               }
 
-              if (!!quantity) {
+              if (quantity) {
                 return Math.min(quantity, value);
               }
 
               return Math.min(value, 100);
-            }
-
-            )
+            });
           }}
           value={quantityToPurchase}
         />
-        <Button variant='outlined' color='primary' onClick={() => {
-          setQuantityToPurchase(_ => {
-            if (_ < quantity) {
-              return _ + 1
-            } else {
-              return _
-            }
-          })
-        }}>+</Button>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            setQuantityToPurchase((_) => {
+              if (_ < quantity) {
+                return _ + 1;
+              }
+              return _;
+            });
+          }}
+        >
+          +
+        </Button>
       </Box>
-
 
       <Button
         fullWidth
@@ -164,15 +169,14 @@ export default function ProductDetailsSummary({
             subTotal: salePrice,
             userId,
             quantity: quantityToPurchase,
-            available: quantity
+            available: quantity,
           });
           navigate(paths.product.checkout);
         }}
-        sx={{ width: { sm: '100%', "md": '40%' } }}
+        sx={{ width: { sm: '100%', md: '40%' } }}
       >
         Add to Cart
       </Button>
-
     </Stack>
   );
 
@@ -198,7 +202,7 @@ export default function ProductDetailsSummary({
   useEffect(() => {
     setError('');
 
-    let selectedName = name?.split(" -")[0];
+    let selectedName = name?.split(' -')[0];
     Object.keys(selectedVariable).map(
       (e) => (selectedName = `${selectedName} - ${selectedVariable[e]}`)
     );
@@ -207,32 +211,27 @@ export default function ProductDetailsSummary({
       e.name.toLowerCase().includes(selectedName.toLowerCase())
     );
     if (found) {
-      setProduct(_ => ({
+      setProduct((_) => ({
         ..._,
         name: found.name,
         images: found.images,
         quantity: found.quantity,
         salePrice: found.salePrice,
-        regularPrice: found.regularPrice
-      }))
+        regularPrice: found.regularPrice,
+      }));
     }
-
-
   }, [selectedVariable]);
-
-
-
 
   const renderVariables = (
     <Box display="flex" flexDirection="column" gap="10px">
       {Object.keys(variables).map((v, i) => (
-        <FormControl key={i}
-          sx={{ width: { sm: '100%', "md": '50%' } }}
-          size="small">
+        <FormControl key={i} sx={{ width: { sm: '100%', md: '50%' } }} size="small">
           <InputLabel id="demo-simple-select-label">{v}</InputLabel>
-          <Select label={v} key={i}
+          <Select
+            label={v}
+            key={i}
             onChange={(e) => {
-              setQuantityToPurchase(1)
+              setQuantityToPurchase(1);
               setSelectedVariable((_) => ({ ..._, [v]: e.target.value }));
             }}
           >
@@ -245,59 +244,70 @@ export default function ProductDetailsSummary({
         </FormControl>
       ))}
 
-      <Box sx={{ width: { sm: '100%', "md": '50%' } }} display={'flex'} justifyItems={'center'} alignItems={'center'} gap={1} >
-
-        <Button variant='outlined' color='primary'
+      <Box
+        sx={{ width: { sm: '100%', md: '50%' } }}
+        display="flex"
+        justifyItems="center"
+        alignItems="center"
+        gap={1}
+      >
+        <Button
+          variant="outlined"
+          color="primary"
           onClick={() => {
-            setQuantityToPurchase(_ => {
+            setQuantityToPurchase((_) => {
               if (_ <= 1) {
-                return 1
+                return 1;
               }
-              return _ - 1
-
-            })
+              return _ - 1;
+            });
           }}
-        >-</Button>
+        >
+          -
+        </Button>
         <TextField
           fullWidth
-          label='Quantity'
-          type='number'
+          label="Quantity"
+          type="number"
           inputProps={{ min: 1, max: quantity ?? 100 }}
-          onChange={e => {
-            setQuantityToPurchase(_ => {
-              const { value } = e.target
+          onChange={(e) => {
+            setQuantityToPurchase((_) => {
+              const { value } = e.target;
               if (value <= 0) {
                 return 1;
               }
 
-              if (!!quantity) {
+              if (quantity) {
                 return Math.min(quantity, value);
               }
 
               return Math.min(value, 100);
-            }
-
-            )
+            });
           }}
           value={quantityToPurchase}
         />
-        <Button variant='outlined' color='primary' onClick={() => {
-          setQuantityToPurchase(_ => {
-            if (_ < quantity) {
-              return _ + 1
-            } else {
-              return _
-            }
-          })
-        }}>+</Button>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            setQuantityToPurchase((_) => {
+              if (_ < quantity) {
+                return _ + 1;
+              }
+              return _;
+            });
+          }}
+        >
+          +
+        </Button>
       </Box>
       <Button
-        sx={{ width: { sm: '100%', "md": '50%' } }}
+        sx={{ width: { sm: '100%', md: '50%' } }}
         variant="contained"
         color="success"
-        disabled={!name.split("-")[1]}
+        disabled={!name.split('-')[1]}
         onClick={() => {
-          let selectedName = name?.split(" -")[0];
+          let selectedName = name?.split(' -')[0];
           Object.keys(selectedVariable).map(
             (e) => (selectedName = `${selectedName} - ${selectedVariable[e]}`)
           );
@@ -314,7 +324,7 @@ export default function ProductDetailsSummary({
               subTotal: salePrice,
               userId,
               quantity: quantityToPurchase,
-              available: quantity
+              available: quantity,
             });
             navigate(paths.product.checkout);
           } else {
@@ -330,7 +340,7 @@ export default function ProductDetailsSummary({
   );
 
   return (
-    <FormProvider >
+    <FormProvider>
       <Stack spacing={3} sx={{ pt: 3 }} {...other}>
         <Stack spacing={2} alignItems="flex-start">
           <Typography variant="h5">{name}</Typography>
@@ -349,7 +359,6 @@ export default function ProductDetailsSummary({
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         {type === 'Variable' && productGroup === 'parent' ? renderVariables : renderActions}
-
       </Stack>
     </FormProvider>
   );

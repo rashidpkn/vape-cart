@@ -41,7 +41,7 @@ export const databaseProviders = [
         console.log('Unable to connect to the database: ', error.message);
         throw new Error('Error on database');
       }
-      await sequelize.sync({ force: true });
+      await sequelize.sync({ alter: true });
       return sequelize;
     },
   },

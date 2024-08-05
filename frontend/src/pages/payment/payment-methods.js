@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
-import {  useCallback } from 'react';
+import { useCallback } from 'react';
 // @mui
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-
 
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
@@ -14,7 +13,6 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import Iconify from 'src/components/iconify';
 //
 import { Icon } from '@iconify/react';
-
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +30,6 @@ const PAYMENT_OPTIONS = [
     label: 'Cash',
   },
 ];
-
 
 export default function PaymentMethods({ setMethod, method, setCurrency }) {
   const newCard = useBoolean();

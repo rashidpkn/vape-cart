@@ -6,7 +6,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 // hooks
 
-
 // assets
 import { SeoIllustration } from 'src/assets/illustrations';
 //
@@ -30,7 +29,7 @@ export default function OverviewAppView() {
   const [count, setCount] = useState(0);
   const [orders, setOrders] = useState([]);
   const [invoice, setInvoice] = useState([]);
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +55,7 @@ export default function OverviewAppView() {
         setOrders(filteredOrders);
         setCount(count);
         setInvoice(filteredInvoice);
-        setProducts(products)
+        setProducts(products);
       } catch (error) {
         console.error('An error occurred:', error);
       }

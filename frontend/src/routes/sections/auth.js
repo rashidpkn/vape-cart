@@ -12,7 +12,6 @@ import { SplashScreen } from 'src/components/loading-screen';
 const FirebaseLoginPage = lazy(() => import('src/pages/auth/firebase/login'));
 const FirebaseRegisterPage = lazy(() => import('src/pages/auth/firebase/register'));
 
-
 const authFirebase = {
   path: 'firebase',
   element: (

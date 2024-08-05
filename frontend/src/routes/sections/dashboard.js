@@ -30,7 +30,6 @@ const InvoiceDetailsPage = lazy(() => import('src/pages/dashboard/invoice/detail
 // USER
 const UserAccountPage = lazy(() => import('src/pages/dashboard/user/account'));
 
-
 // APP
 const ChatPage = lazy(() => import('src/pages/dashboard/chat'));
 // BLANK PAGE
@@ -55,9 +54,7 @@ export const dashboardRoutes = [
       { path: 'analytics', element: <OverviewEcommercePage /> },
       {
         path: 'user',
-        children: [
-          { path: 'account', element: <UserAccountPage /> },
-        ],
+        children: [{ path: 'account', element: <UserAccountPage /> }],
       },
       {
         path: 'product',

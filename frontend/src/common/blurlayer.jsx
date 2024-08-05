@@ -6,8 +6,7 @@ import './blur.css';
 
 import { Link } from 'react-router-dom';
 
-export default function BlurLayer({ children,products=[] }) {
-  
+export default function BlurLayer({ children, products = [] }) {
   if (products.length) {
     return null;
   }

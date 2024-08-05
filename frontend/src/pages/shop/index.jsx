@@ -11,27 +11,25 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export default function ShopPage() {
-
   const category = new URLSearchParams(useLocation().search).get('category');
 
-
   const { onAddCart } = useCheckout();
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [dataFetched, setDataFetched] = useState(false)
+  const [dataFetched, setDataFetched] = useState(false);
 
   const _getProduct = useCallback(async () => {
     try {
       const { data } = await api.get('/products', {
         params: {
           perPage: 2000,
-          productGroup: "parent",
+          productGroup: 'parent',
           category,
-          status:"Published"
+          status: 'Published',
         },
       });
-      setProducts( data.products);
-      setDataFetched(true)
+      setProducts(data.products);
+      setDataFetched(true);
     } catch (error) {}
   }, [category]);
 
@@ -48,7 +46,7 @@ const navigate = useNavigate()
       });
       navigate(paths.product.checkout);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -58,40 +56,53 @@ const navigate = useNavigate()
 
   return (
     <>
-    <Helmet>
-      <title>Shop Page </title>
-    </Helmet>
+      <Helmet>
+        <title>Shop Page </title>
+      </Helmet>
       <main className="search">
         <h1>Shop</h1>
 
-        {!!products.length &&<div className="products">
-          {products.map((product) => (
-            <div className="product" key={product.id}>
-              <div className="img">
-                <img src={product.images[0]} alt="" />
-               {product.type === 'Simple' && <div className="cart" onClick={()=>{_AddCart(product)}}>
-                  <Icon icon="eva:shopping-cart-outline" className="cart-icon" />
-                </div>}
+        {!!products.length && (
+          <div className="products">
+            {products.map((product) => (
+              <div className="product" key={product.id}>
+                <div className="img">
+                  <img src={product.images[0]} alt="" />
+                  {product.type === 'Simple' && (
+                    <div
+                      className="cart"
+                      onClick={() => {
+                        _AddCart(product);
+                      }}
+                    >
+                      <Icon icon="eva:shopping-cart-outline" className="cart-icon" />
+                    </div>
+                  )}
+                </div>
+                <Link to={`/product/${product.id}`}>
+                  <p className="name">{product.name}</p>
+                </Link>
+                <div className="info">
+                  <p className="category">{product.category}</p>
+                  <p>
+                    <del> AED ${product.regularPrice}</del> AED ${product.salePrice}
+                  </p>
+                </div>
               </div>
-              <Link to={`/product/${product.id}`}>
-              <p className="name">{product.name}</p>
-              </Link>
-              <div className="info">
-                <p className="category">{product.category}</p>
-                <p>
-                  <del> AED ${product.regularPrice}</del> AED ${product.salePrice}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>}
+            ))}
+          </div>
+        )}
 
-        {!products.length &&  dataFetched && <div className='no-product'>
-          <h2>Unfortunately, we couldn't find any products with {name} name.</h2>
-          <Link to="/">
-          <Button variant='contained' color='success'>Home Page</Button>
-          </Link>
-          </div>}
+        {!products.length && dataFetched && (
+          <div className="no-product">
+            <h2>Unfortunately, we couldn't find any products with {name} name.</h2>
+            <Link to="/">
+              <Button variant="contained" color="success">
+                Home Page
+              </Button>
+            </Link>
+          </div>
+        )}
       </main>
     </>
   );

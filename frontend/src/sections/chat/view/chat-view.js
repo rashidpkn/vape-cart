@@ -27,7 +27,6 @@ export default function ChatView() {
 
   const { user } = useMockedUser();
 
-
   const searchParams = useSearchParams();
 
   const selectedConversationId = searchParams.get('id') || '';

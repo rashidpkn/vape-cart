@@ -23,7 +23,18 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
-import { FormControl, FormControlLabel, FormLabel, InputLabel, Modal, Radio, RadioGroup, Select, TextField, Typography } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  InputLabel,
+  Modal,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
 import api from 'src/utils/api';
 import { _status } from 'src/data/createProducts';
 
@@ -49,7 +60,7 @@ export default function ProductTableRow({
     regularPrice,
     status,
     track,
-    type
+    type,
   } = row;
 
   const [quickEdit, setQuickEdit] = useState(false);
@@ -72,7 +83,7 @@ export default function ProductTableRow({
       alert('Product Updated');
       fetchProduct();
       setQuickEdit(false);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const confirm = useBoolean();
@@ -155,19 +166,23 @@ export default function ProductTableRow({
         </TableCell>
 
         <TableCell align="center">
-          {type === "Simple" && <Icon
-            icon={'mdi:magic'}
-            cursor={'pointer'}
-            width={25}
-            color="#086c9c"
-            onClick={() => {
-              if (status === 'In Revision') {
-                alert("You cannot edit this product while it is under review. Once the admin has completed the review, you will be able to make edits.")
-                return
-              }
-              setQuickEdit((_) => true)
-            }}
-          />}
+          {type === 'Simple' && (
+            <Icon
+              icon="mdi:magic"
+              cursor="pointer"
+              width={25}
+              color="#086c9c"
+              onClick={() => {
+                if (status === 'In Revision') {
+                  alert(
+                    'You cannot edit this product while it is under review. Once the admin has completed the review, you will be able to make edits.'
+                  );
+                  return;
+                }
+                setQuickEdit((_) => true);
+              }}
+            />
+          )}
         </TableCell>
 
         <TableCell align="right">
@@ -193,9 +208,11 @@ export default function ProductTableRow({
         <MenuItem
           onClick={() => {
             if (status === 'In Revision') {
-              alert("You cannot edit this product while it is under review. Once the admin has completed the review, you will be able to make edits.")
+              alert(
+                'You cannot edit this product while it is under review. Once the admin has completed the review, you will be able to make edits.'
+              );
               popover.onClose();
-              return
+              return;
             }
             onEditRow();
           }}
@@ -251,8 +268,6 @@ export default function ProductTableRow({
             Quick Edit - {name}
           </Typography>
           <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }} mt={5} gap={5}>
-
-
             <TextField
               label="Name"
               value={quickEditData.name}
@@ -272,31 +287,41 @@ export default function ProductTableRow({
             />
             <FormControlLabel
               label="Track Stock"
-              control={<Checkbox checked={quickEditData.track} onChange={e => {
-                setQuickEditData(_ => ({ ..._, track: e.target.checked }));
-                if (!e.target.checked) {
-                  setQuickEditData(_ => ({ ..._, quantity: 100 }))
-                } else {
-                  setQuickEditData(_ => ({ ..._, quantity: quantity }))
-                }
+              control={
+                <Checkbox
+                  checked={quickEditData.track}
+                  onChange={(e) => {
+                    setQuickEditData((_) => ({ ..._, track: e.target.checked }));
+                    if (!e.target.checked) {
+                      setQuickEditData((_) => ({ ..._, quantity: 100 }));
+                    } else {
+                      setQuickEditData((_) => ({ ..._, quantity }));
+                    }
+                  }}
+                />
               }
-
-              } />}
             />
 
-            {quickEditData.track ? <TextField
-              type="number"
-              label="Quantity"
-              value={quickEditData.quantity}
-              onChange={(e) => setQuickEditData((_) => ({ ..._, quantity: e.target.value }))}
-            /> :
+            {quickEditData.track ? (
+              <TextField
+                type="number"
+                label="Quantity"
+                value={quickEditData.quantity}
+                onChange={(e) => setQuickEditData((_) => ({ ..._, quantity: e.target.value }))}
+              />
+            ) : (
               <FormControl>
                 <RadioGroup defaultValue="Instock" row>
-                  <FormControlLabel d value="Instock" control={<Radio defaultChecked />} label="Instock" />
+                  <FormControlLabel
+                    d
+                    value="Instock"
+                    control={<Radio defaultChecked />}
+                    label="Instock"
+                  />
                   <FormControlLabel value="Outstock" control={<Radio />} label="Outstock" />
                 </RadioGroup>
               </FormControl>
-            }
+            )}
             <FormControl fullWidth>
               <InputLabel>Status</InputLabel>
               <Select
@@ -304,8 +329,9 @@ export default function ProductTableRow({
                 value={quickEditData.status}
                 onChange={(e) => setQuickEditData((_) => ({ ..._, status: e.target.value }))}
               >
-                {_status.map(status => <MenuItem value={status}>{status}</MenuItem>)}
-
+                {_status.map((status) => (
+                  <MenuItem value={status}>{status}</MenuItem>
+                ))}
               </Select>
             </FormControl>
 

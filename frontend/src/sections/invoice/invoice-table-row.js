@@ -99,7 +99,12 @@ export default function InvoiceTableRow({
           />
         </TableCell>
 
-        <TableCell>{fCurrency(row.items.find(it => it.userId === user.id)?.quantity * row.items.find(it => it.userId === user.id)?.price)}</TableCell>
+        <TableCell>
+          {fCurrency(
+            row.items.find((it) => it.userId === user.id)?.quantity *
+              row.items.find((it) => it.userId === user.id)?.price
+          )}
+        </TableCell>
 
         <TableCell>
           <Label

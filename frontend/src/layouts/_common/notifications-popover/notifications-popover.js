@@ -24,7 +24,7 @@ import NotificationItem from './notification-item';
 
 export default function NotificationsPopover() {
   const [notifications, setNotifications] = useState([]);
-  const [viewAll, setViewAll] = useState(false)
+  const [viewAll, setViewAll] = useState(false);
 
   const {
     user: { uid },
@@ -41,7 +41,7 @@ export default function NotificationsPopover() {
       });
 
       setNotifications(data);
-    } catch (error) { }
+    } catch (error) {}
   }, []);
 
   useEffect(() => {
@@ -51,28 +51,18 @@ export default function NotificationsPopover() {
     }, 10000);
 
     return () => {
-      clearInterval(_fetch)
+      clearInterval(_fetch);
     };
   }, []);
 
-
-  const _readAllNotification = useCallback(
-    async () => {
-      try {
-        notifications.map(async (notification) => {
-          await api.patch(`/notifications/${notification.id}`, { status: 'readed' })
-          setNotifications(_ => _.filter(__ => __.id !== notification.id))
-
-        })
-
-      } catch (error) {
-
-      }
-    },
-    [notifications],
-  )
-
-
+  const _readAllNotification = useCallback(async () => {
+    try {
+      notifications.map(async (notification) => {
+        await api.patch(`/notifications/${notification.id}`, { status: 'readed' });
+        setNotifications((_) => _.filter((__) => __.id !== notification.id));
+      });
+    } catch (error) {}
+  }, [notifications]);
 
   const drawer = useBoolean();
 
@@ -86,8 +76,15 @@ export default function NotificationsPopover() {
         Notifications
       </Typography>
 
-      <button onClick={_readAllNotification} style={{ backgroundColor: 'none', border: 'none', outline: 'none' }} title='Mark all as read'>
-        <Icon icon="solar:check-read-broken" style={{ color: '#22bd80', height: "24px", width: "24px" }} />
+      <button
+        onClick={_readAllNotification}
+        style={{ backgroundColor: 'none', border: 'none', outline: 'none' }}
+        title="Mark all as read"
+      >
+        <Icon
+          icon="solar:check-read-broken"
+          style={{ color: '#22bd80', height: '24px', width: '24px' }}
+        />
       </button>
 
       {!smUp && (
@@ -101,20 +98,24 @@ export default function NotificationsPopover() {
   const renderList = (
     <Scrollbar>
       <List disablePadding>
-        {viewAll && notifications.map((notification) => (
-          <NotificationItem
-            key={notification.id}
-            notification={notification}
-            setNotifications={setNotifications}
-          />
-        ))}
-        {!viewAll && notifications.slice(0, 5).map((notification) => (
-          <NotificationItem
-            key={notification.id}
-            notification={notification}
-            setNotifications={setNotifications}
-          />
-        ))}
+        {viewAll &&
+          notifications.map((notification) => (
+            <NotificationItem
+              key={notification.id}
+              notification={notification}
+              setNotifications={setNotifications}
+            />
+          ))}
+        {!viewAll &&
+          notifications
+            .slice(0, 5)
+            .map((notification) => (
+              <NotificationItem
+                key={notification.id}
+                notification={notification}
+                setNotifications={setNotifications}
+              />
+            ))}
       </List>
     </Scrollbar>
   );
@@ -152,7 +153,7 @@ export default function NotificationsPopover() {
         {renderList}
 
         <Box sx={{ p: 1 }}>
-          <Button fullWidth size="large" onClick={() => setViewAll(_ => true)}>
+          <Button fullWidth size="large" onClick={() => setViewAll((_) => true)}>
             View All
           </Button>
         </Box>

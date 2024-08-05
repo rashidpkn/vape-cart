@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function ShowLogin() {
   const [loginStatus] = useState(localStorage.loginStatus || false);
-  
 
   useEffect(() => {
     localStorage.setItem('loginStatus', loginStatus);

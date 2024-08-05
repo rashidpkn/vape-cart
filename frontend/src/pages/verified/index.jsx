@@ -13,7 +13,7 @@ export default function Verified() {
 
   const verify = useCallback(async () => {
     await handleVerifyEmail(oobCode);
-    window.location.href='/dashboard'
+    window.location.href = '/dashboard';
     // navigate();
   }, []);
 

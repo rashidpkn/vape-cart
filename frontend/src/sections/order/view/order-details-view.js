@@ -18,8 +18,6 @@ import OrderDetailsToolbar from '../order-details-toolbar';
 // ----------------------------------------------------------------------
 
 export default function OrderDetailsView() {
-  
-
   const params = useParams();
 
   const { id } = params;

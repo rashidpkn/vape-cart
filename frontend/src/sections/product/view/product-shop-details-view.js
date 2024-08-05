@@ -33,7 +33,7 @@ import ProductDetailsDescription from '../product-details-description';
 // ----------------------------------------------------------------------
 
 export default function ProductShopDetailsView() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const params = useParams();
 
   const { id } = params;
@@ -94,8 +94,6 @@ export default function ProductShopDetailsView() {
         </Grid>
       </Grid>
 
-
-
       <Card>
         <Tabs
           value={currentTab}
@@ -144,7 +142,6 @@ export default function ProductShopDetailsView() {
       }}
     >
       <CartIcon totalItems={checkout.totalItems} />
-
 
       {product && renderProduct}
     </Container>

@@ -25,7 +25,7 @@ import 'aos/dist/aos.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { _tags } from 'src/data/createProducts';
 
-const card = _tags.slice(0, 4)
+const card = _tags.slice(0, 4);
 
 export default function ShopPage() {
   AOS.init();
@@ -48,7 +48,7 @@ export default function ShopPage() {
       .get('products', {
         params: {
           perPage: 2000,
-          productGroup: "parent"
+          productGroup: 'parent',
         },
       })
       .then((res) => {
@@ -214,51 +214,56 @@ export default function ShopPage() {
 
         <Box>
           <Grid container spacing={3} sx={{ padding: '15px', marginTop: '-300px' }}>
-            {card.map(c =>
-              producsts.reverse().filter(p => p.tags.find(t => t === c)).slice(0, 4)
-            ).map((items, i) => (
-              <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
-                <Card style={{ width: '100%', borderRadius: '0px', zIndex: '2' }}>
-                  <Typography variant="h5" pl={2} py={1}>
-                    {card[i]}
-                  </Typography>
-                  <Grid container spacing={2} px={2} pb={2}>
-                    {items.map((item) => (
-                      <Grid
-                        item
-                        xs={6}
-                        component={Link}
-                        to={`/product/${item.id}`}
-                        key={item.id}
-                        sx={{ width: '50%' }}
-                      >
-                        <Box style={{ width: '100%', cursor: 'pointer' }}>
-                          <img
-                            src={item.images[0]}
-                            width="100%"
-                            height={150}
-                            style={{
-                              width: '100%',
-                              border: '1px solid #ccc',
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
-                            }}
-                            alt=""
-                          />
-                          <Typography
-                            variant="p"
-                            className="product-name"
-                            style={{ color: 'black', textDecoration: 'none' }}
-                          >
-                            {item.name.substring(0, 20)}
-                          </Typography>
-                        </Box>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Card>
-              </Grid>
-            ))}
+            {card
+              .map((c) =>
+                producsts
+                  .reverse()
+                  .filter((p) => p.tags.find((t) => t === c))
+                  .slice(0, 4)
+              )
+              .map((items, i) => (
+                <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
+                  <Card style={{ width: '100%', borderRadius: '0px', zIndex: '2' }}>
+                    <Typography variant="h5" pl={2} py={1}>
+                      {card[i]}
+                    </Typography>
+                    <Grid container spacing={2} px={2} pb={2}>
+                      {items.map((item) => (
+                        <Grid
+                          item
+                          xs={6}
+                          component={Link}
+                          to={`/product/${item.id}`}
+                          key={item.id}
+                          sx={{ width: '50%' }}
+                        >
+                          <Box style={{ width: '100%', cursor: 'pointer' }}>
+                            <img
+                              src={item.images[0]}
+                              width="100%"
+                              height={150}
+                              style={{
+                                width: '100%',
+                                border: '1px solid #ccc',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                              }}
+                              alt=""
+                            />
+                            <Typography
+                              variant="p"
+                              className="product-name"
+                              style={{ color: 'black', textDecoration: 'none' }}
+                            >
+                              {item.name.substring(0, 20)}
+                            </Typography>
+                          </Box>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Card>
+                </Grid>
+              ))}
           </Grid>
 
           <Grid container spacing={3} style={{ padding: '20px', marginTop: '' }}>
@@ -347,8 +352,6 @@ export default function ShopPage() {
             ))}
           </Slider>
         </Box>
-
-
       </Container>
     </>
   );
