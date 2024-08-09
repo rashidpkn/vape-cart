@@ -52,12 +52,13 @@ export class Product extends Model {
 
   @Column({ type: DataType.ARRAY(DataType.JSON),defaultValue: [],})
   variations: {
-    attributes: { bottleSize?: string; puffs?: string; flavour?: string; nicotineStrength?: string; color?: string; batteries?: string;};
+    attributes: { bottleSize?: string; puffs?: string; flavour?: string; nicotineStrength?: string; color?: string; batteries?: string;sku:string;};
     track: boolean;
     quantity: number;
     regularPrice: number;
     salePrice: number;
     image: string;
+    sku:string
   }[];
 
 

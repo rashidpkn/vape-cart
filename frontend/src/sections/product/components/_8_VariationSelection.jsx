@@ -20,6 +20,7 @@ export default function VariationSelection({ values, setValue, setVariation, e, 
         ]}
         value={values.attributes[e] || []}
         onChange={(event, newValue) => {
+
           let updatedAttributes = {
             ...values.attributes,
           };
@@ -42,6 +43,12 @@ export default function VariationSelection({ values, setValue, setVariation, e, 
             }
             setValue('attributes', updatedAttributes);
           } else {
+
+            if (variation.find(v=>v===e)){
+              if(newValue.length === 1){
+                return alert(`Please uncheck "Use this attribute to create Variations" before deleting this attribute.`)
+              }
+            }
             const updatedAttributes = {
               ...values.attributes,
               [e]: newValue,

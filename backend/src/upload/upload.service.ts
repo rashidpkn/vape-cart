@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { promises as fsPromises } from 'fs';
+import { DOMAIN } from 'global/config';
 import { join } from 'path';
 import * as sharp from 'sharp';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,7 +20,7 @@ export class UploadService {
         );
         await fsPromises.unlink(file.path);
         // result.push(`http://localhost:3000/uploads/${fileName}`);
-        result.push(`https://vape-amazon.com/uploads/${fileName}`);
+        result.push(`${DOMAIN}/uploads/${fileName}`);
       }
       return result;
     } catch (error) {

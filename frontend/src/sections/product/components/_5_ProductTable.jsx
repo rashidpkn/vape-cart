@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 
 export function ProductTable({
+  selectedAttributes=[],
   counter,
   skuAlpha,
   attributes,
@@ -31,15 +32,26 @@ export function ProductTable({
     regularPrice: null,
     salePrice: null,
     image: null,
-    attributes:{}
+    // sku,
+    attributes:{},
   });
 
   useEffect(() => {  
-    const data = values.variations.find(e=> JSON.stringify(e.attributes) === JSON.stringify(attributes))
-  setProductDetails(_=>({..._,...data}))
 
+      const existingIndex = values.variations.findIndex(variation => {
+        return Object.keys(attributes).every(key => 
+            attributes[key] === variation.attributes[key]
+        );
+    });
+    
+    if(Object.keys(productDetails.attributes).length < selectedAttributes.length ){
+      const data = values.variations[existingIndex]
+      setProductDetails(_=>({..._,...data,attributes}))
+      
+    }
+
+    
   }, [attributes])
-  
 
 
   const [stock, setStock] = useState('instock');
@@ -73,16 +85,56 @@ export function ProductTable({
     if (!regularPrice) {
       return alert('Regular price is required.');
     }
-    if (salePrice && regularPrice <= salePrice) {
-      return alert('Sale price must be less than the regular price');
-    }
+
+    if (salePrice) {
+      const regularPriceNumber = parseFloat(regularPrice);
+      const salePriceNumber = parseFloat(salePrice);
+  
+      if (regularPriceNumber <= salePriceNumber) {
+          return alert('Sale price must be less than the regular price');
+      }
+  }
+  
+
     if (status !== 'pending') {
       return;
     }
     setStatus('loading');
     try {
       
-      setValue("variations",[...values.variations,productDetails])
+      if (!currentProduct) {
+        setValue("variations", [...values.variations, productDetails]);
+    } else {
+      const { attributes } = productDetails;
+
+      
+     const existing =  values.variations.some(variation => {
+        return Object.keys(attributes).every(key => {
+            return variation.attributes[key] === attributes[key];
+        });
+    });
+
+  
+      if (existing) {
+          const updatedVariations = [...values.variations];
+          
+          const existingIndex = values.variations.findIndex(variation => {
+            return Object.keys(attributes).every(key => 
+                attributes[key] === variation.attributes[key]
+            );
+        });
+        
+          
+          updatedVariations[existingIndex] = {
+              ...updatedVariations[existingIndex],
+              ...productDetails
+          };
+          setValue("variations", updatedVariations);
+      } else {
+          
+          setValue("variations", [...values.variations, productDetails]);
+      }
+    }
 
       setStatus('success');
 
@@ -99,7 +151,12 @@ export function ProductTable({
       case 'loading':
         return <Button color="success" variant="contained" size="small">Loading</Button>;
       case 'success':
-        return <Button color="success" variant="contained" size="small">Product Created</Button>;
+        if(currentProduct){
+
+          return <Button color="success" variant="contained" size="small">Product Updated</Button>;
+        }else{
+          return <Button color="success" variant="contained" size="small">Product Created</Button>;
+        }
       case 'failed':
         return <Button color="error" variant="contained" size="small">Product creation failed</Button>;
       default:

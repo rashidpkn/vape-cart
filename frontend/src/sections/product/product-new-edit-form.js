@@ -95,10 +95,10 @@ export default function ProductNewEditForm({ currentProduct }) {
 
     track: Yup.boolean(),
     quantity: Yup.number(),
-    regularPrice: Yup.number()
-      .moreThan(-1, 'Price should not be AED 0.00'),
-    salePrice: Yup.number()
-      .lessThan(Yup.ref('regularPrice'), 'Sale price must be less than the regular price'),
+    regularPrice: Yup.number(),
+
+    salePrice: Yup.number(),
+
     variations: Yup.array(),
   });
 
@@ -147,7 +147,7 @@ export default function ProductNewEditForm({ currentProduct }) {
   const values = watch();
 
 
-
+  console.log(values);
 
   const [savedAttibutes, setSavedAttibutes] = useState([]);
 
@@ -248,13 +248,14 @@ export default function ProductNewEditForm({ currentProduct }) {
   useEffect(() => {
     if (currentProduct) {
 
-      const { attributes, variations } = currentProduct
+      const { attributes, variations, type } = currentProduct
+
       if (attributes) {
         setSelectedAttributes(Object.keys(attributes));
       }
-      if (!!variations?.length) {
 
-        setVariation(Object.keys(currentProduct?.variations[0]?.attributes))
+      if (type === 'Variable') {
+        setVariation(Object.keys(variations[0]?.attributes))
       }
     }
   }, [currentProduct]);
@@ -355,11 +356,12 @@ export default function ProductNewEditForm({ currentProduct }) {
           <Table>
             <TableHeading />
             <TableBody>
-              {variation.reduce((acc, key) =>
-                acc.flatMap(prev => values.attributes[key].map(value => ({ ...prev, [key]: value }))),
+              {variation?.reduce((acc, key) =>
+                acc.flatMap(prev => values.attributes[key]?.map(value => ({ ...prev, [key]: value }))),
                 [{}]
               ).map((attributes) => (
                 <ProductTable
+                  selectedAttributes={selectedAttributes}
                   counter={counter++}
                   skuAlpha={skuAlpha}
                   attributes={attributes}
