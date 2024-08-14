@@ -17,20 +17,7 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true, limit: '50mb' }));
 
   app.use(compression());
-
-  app.use(
-    '/assets',
-    (req: Request, res: Response, next: Function) => {
-      res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year
-      next();
-    },
-    static_(join(__dirname, '..', '..', 'frontend', 'dist', 'assets')),
-  );
-
-  app.use(static_(join(__dirname, '..', '..', 'frontend', 'dist')));
-
-  // console.log(join(__dirname, '..','..','frontend','dist'));
-
+ 
   await app.listen(3000);
 }
 bootstrap();
