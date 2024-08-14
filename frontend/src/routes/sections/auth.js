@@ -38,17 +38,7 @@ const authFirebase = {
         </AuthClassicLayout>
       ),
     },
-    // {
-    //   element: (
-    //     <CompactLayout>
-    //       <Outlet />
-    //     </CompactLayout>
-    //   ),
-    //   children: [
-    //     { path: 'verify', element: <FirebaseVerifyPage /> },
-    //     { path: 'forgot-password', element: <FirebaseForgotPasswordPage /> },
-    //   ],
-    // },
+
   ],
 };
 
