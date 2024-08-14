@@ -43,26 +43,22 @@ export class ProductController {
         type,
         category,
         tags,
-        parentSku,
+        SKU,
         brand,
         status,
-
+        
         attributes,
-        variables,
-
-        SKU,
+      
         track,
         quantity = 1,
         regularPrice,
         salePrice,
 
-        productGroup
+        variations,
+
       } = req.body;
-      if (!name || !username || !storeName || !SKU || !category) {
-        throw new BadRequestException(
-          'Name ,Username,SKU and category are mandatory',
-        );
-      }
+      
+
       return this.productService.createProduct(
         username,
         storeName,
@@ -76,21 +72,22 @@ export class ProductController {
         type,
         category,
         tags,
-        parentSku,
+        SKU,
         brand,
         status,
 
         attributes,
-        variables,
-
-        SKU,
+        
         track,
         quantity ,
         regularPrice,
         salePrice,
 
-        productGroup
+        variations,
+        
       );
+
+      
     } catch (error) {
       console.log(error.message);
       throw error;

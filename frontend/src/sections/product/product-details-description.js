@@ -7,10 +7,7 @@ import { Box } from '@mui/material';
 
 export default function ProductDetailsDescription({ description }) {
   return (
-    <Box p={5}>
-
-      {parse(description)}
-    </Box>
+    <Box p={5}>{!!description && parse(description)}</Box>
     // <Markdown
     //   children={description}
     //   sx={{

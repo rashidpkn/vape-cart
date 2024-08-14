@@ -10,46 +10,37 @@ import { fToNow } from 'src/utils/format-time';
 import { useCallback } from 'react';
 import api from 'src/utils/api';
 
-
 // ----------------------------------------------------------------------
 
-export default function NotificationItem({ notification,setNotifications }) {
-
-  const readNotification = useCallback(
-    async () => {
-     await api.patch(`/notifications/${notification.id}`,{status:'readed'}) 
-     setNotifications(_=> _.filter(__=>__.id !== notification.id))
-    },
-    [],
-  )
-  
-
+export default function NotificationItem({ notification, setNotifications }) {
+  const readNotification = useCallback(async () => {
+    await api.patch(`/notifications/${notification.id}`, { status: 'readed' });
+    setNotifications((_) => _.filter((__) => __.id !== notification.id));
+  }, []);
 
   const renderAvatar = (
     <ListItemAvatar>
-   
-        <Stack
-          alignItems="center"
-          justifyContent="center"
-          sx={{
-            width: 40,
-            height: 40,
-            borderRadius: '50%',
-            bgcolor: 'background.neutral',
-          }}
-        >
-          <Box
-            component="img"
-            src={`/assets/icons/notification/${
-              (notification.type === 'product' && 'ic_order') ||
-              (notification.type === 'order' && 'ic_delivery') ||
-              (notification.type === 'chat' && 'ic_chat') ||
-              (notification.type === 'mail' && 'ic_mail') 
-            }.svg`}
-            sx={{ width: 24, height: 24 }}
-          />
-        </Stack>
-    
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        sx={{
+          width: 40,
+          height: 40,
+          borderRadius: '50%',
+          bgcolor: 'background.neutral',
+        }}
+      >
+        <Box
+          component="img"
+          src={`/assets/icons/notification/${
+            (notification.type === 'product' && 'ic_order') ||
+            (notification.type === 'order' && 'ic_delivery') ||
+            (notification.type === 'chat' && 'ic_chat') ||
+            (notification.type === 'mail' && 'ic_mail')
+          }.svg`}
+          sx={{ width: 24, height: 24 }}
+        />
+      </Stack>
     </ListItemAvatar>
   );
 
@@ -58,11 +49,12 @@ export default function NotificationItem({ notification,setNotifications }) {
       disableTypography
       primary={reader(notification.title)}
       secondary={
-        <Box
-          sx={{ typography: 'caption', color: 'text.disabled' }}
-        >
-          <p style={{margin:0,padding:0,fontSize:'12px'}}> {notification.message}</p>
-          <p style={{margin:0,padding:0,fontSize:'10px'}}> {fToNow(notification.createdAt)}</p>
+        <Box sx={{ typography: 'caption', color: 'text.disabled' }}>
+          <p style={{ margin: 0, padding: 0, fontSize: '12px' }}> {notification.message}</p>
+          <p style={{ margin: 0, padding: 0, fontSize: '10px' }}>
+            {' '}
+            {fToNow(notification.createdAt)}
+          </p>
         </Box>
       }
     />
@@ -82,10 +74,9 @@ export default function NotificationItem({ notification,setNotifications }) {
     />
   );
 
-
   return (
     <ListItemButton
-    onClick={readNotification}
+      onClick={readNotification}
       disableRipple
       sx={{
         p: 2.5,
@@ -97,9 +88,7 @@ export default function NotificationItem({ notification,setNotifications }) {
 
       {renderAvatar}
 
-      <Stack sx={{ flexGrow: 1 }}>
-        {renderText}
-      </Stack>
+      <Stack sx={{ flexGrow: 1 }}>{renderText}</Stack>
     </ListItemButton>
   );
 }
@@ -107,7 +96,6 @@ export default function NotificationItem({ notification,setNotifications }) {
 NotificationItem.propTypes = {
   notification: PropTypes.object,
 };
-
 
 function reader(data) {
   return (

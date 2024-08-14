@@ -78,7 +78,7 @@ export default function CheckoutView() {
       </Grid>
 
       {completed ? (
-        <CheckoutOrderComplete open={completed} onReset={onResetAll} onDownloadPDF={() => { }} />
+        <CheckoutOrderComplete open={completed} onReset={onResetAll} onDownloadPDF={() => {}} />
       ) : (
         <>
           {activeStep === 0 && (

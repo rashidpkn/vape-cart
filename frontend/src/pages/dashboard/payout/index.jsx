@@ -6,9 +6,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/custom-breadcru
 import Scrollbar from 'src/components/scrollbar';
 import Table from '@mui/material/Table';
 
-
-
-import { TableHeadCustom, TableNoData} from 'src/components/table';
+import { TableHeadCustom, TableNoData } from 'src/components/table';
 import api from 'src/utils/api';
 
 import { useAuthContext } from 'src/auth/hooks';

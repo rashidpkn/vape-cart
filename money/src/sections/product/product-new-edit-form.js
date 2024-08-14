@@ -162,7 +162,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     } = await api.get('/products', {
       params: {
         name: values.name,
-        productGroup: "parent"
+
       },
     });
     setProducts(data.products);
@@ -815,7 +815,7 @@ function ProductTable({
 }) {
   const { user } = useAuthContext();
   const sku = skuAlpha[counter2] ? `${values.SKU}-${skuAlpha[counter2]}` : values.SKU;
-  let {name} = values;
+  let { name } = values;
 
   const parent = va === 'Parent'
 
@@ -907,7 +907,6 @@ function ProductTable({
         regularPrice,
         salePrice,
 
-        productGroup: parent ? 'parent' : 'child',
       });
       setStatus('success');
       setProductAdded(true)
@@ -921,7 +920,7 @@ function ProductTable({
     <TableRow style={{ backgroundColor: disabled && 'rgba(0,0,0,0.1)' }}>
       <TableCell>{counter}</TableCell>
       <TableCell>{sku}</TableCell>
-      <TableCell>{parent ? `${name  } - Parent` : name}</TableCell>
+      <TableCell>{parent ? `${name} - Parent` : name}</TableCell>
       <TableCell>
         <FormControlLabel
           label=""

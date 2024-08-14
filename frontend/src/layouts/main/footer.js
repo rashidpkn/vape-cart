@@ -63,7 +63,7 @@ export default function Footer() {
         }}
       >
         {/* <Logo sx={{ mb: 3 }} /> */}
-        <img src='/logo/logo_single.webp' width={150} alt='Vape Amazon logo' />
+        <img src="/logo/logo_single.webp" width={150} alt="Vape Amazon logo" />
 
         <Grid
           container
@@ -88,7 +88,6 @@ export default function Footer() {
               direction="row"
               justifyContent={{ xs: 'center', md: 'flex-start' }}
               sx={{
-
                 mb: { xs: 5, md: 0 },
               }}
             >

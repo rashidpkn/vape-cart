@@ -1,4 +1,4 @@
-import React, { useEffect , useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Auth from './Auth';
 import Dash from './dash';
 
@@ -19,7 +19,6 @@ export default function CustomerDash() {
 
   if (JSON.parse(loginStatus) === true) {
     return <Dash customer={customer} setLoginStatus={setLoginStatus} />;
-  } 
-    return <Auth setCustomer={setCustomer} customer={customer} setLoginStatus={setLoginStatus} />;
-  
+  }
+  return <Auth setCustomer={setCustomer} customer={customer} setLoginStatus={setLoginStatus} />;
 }

@@ -18,7 +18,13 @@ export default function EcommerceYearlySales({ title, subheader, chart, ...other
 
   const popover = usePopover();
 
-  const [seriesData, setSeriesData] = useState(title === 'Sales By Month' ? ['Jan', 'Feb', "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][new Date().getMonth()] : '2024');
+  const [seriesData, setSeriesData] = useState(
+    title === 'Sales By Month'
+      ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][
+          new Date().getMonth()
+        ]
+      : '2024'
+  );
 
   const chartOptions = useChart({
     colors,

@@ -10,8 +10,6 @@ import ProductNewEditForm from '../product-new-edit-form';
 // ----------------------------------------------------------------------
 
 export default function ProductCreateView() {
-
-
   return (
     <Box px={5}>
       <CustomBreadcrumbs

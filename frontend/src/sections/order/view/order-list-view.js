@@ -122,7 +122,7 @@ export default function OrderListView() {
 
   const confirm = useBoolean();
 
-  const filters=defaultFilters;
+  const filters = defaultFilters;
 
   const dateError =
     filters.startDate && filters.endDate

@@ -51,7 +51,7 @@ export default function ProductReviewNewForm({ onClose, ...other }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-       await api.post('products/review', { ...data, id });
+      await api.post('products/review', { ...data, id });
 
       reset();
       onClose();

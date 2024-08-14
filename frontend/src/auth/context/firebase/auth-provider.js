@@ -133,8 +133,6 @@ export function AuthProvider({ children }) {
 
       await sendEmailVerification(newUser.user);
 
-
-
       const userProfile = doc(collection(DB, 'users'), newUser.user?.uid);
 
       await setDoc(userProfile, {
@@ -149,12 +147,12 @@ export function AuthProvider({ children }) {
 
       await api.post('/notifications', {
         userId: newUser.user?.uid,
-        role: "admin",
-        type: "user",
-        title: "🎉 New Partner Alert! 🎉",
+        role: 'admin',
+        type: 'user',
+        title: '🎉 New Partner Alert! 🎉',
         message: `Exciting news! A new partner, ${firstName} ${lastName}, has joined our platform. Please review and approve their profile. 🎊`,
-        status: 'unread'
-      })
+        status: 'unread',
+      });
 
       initialize();
     },

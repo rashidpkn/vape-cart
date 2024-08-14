@@ -68,8 +68,6 @@ const defaultFilters = {
 export default function InvoiceListView() {
   const theme = useTheme();
 
-
-
   const router = useRouter();
 
   const table = useTable({ defaultOrderBy: 'createDate' });
@@ -98,7 +96,7 @@ export default function InvoiceListView() {
     try {
       const { data } = await api.get('invoice');
       setInvoice(data);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {

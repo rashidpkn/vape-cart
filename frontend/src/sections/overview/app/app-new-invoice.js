@@ -47,13 +47,13 @@ export default function AppNewInvoice({ title, subheader, tableData, tableLabels
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
-      <Box sx={{ p: 2, textAlign: 'right' }} >
+      <Box sx={{ p: 2, textAlign: 'right' }}>
         <Button
-          component={Link} to={paths.dashboard.invoice.root}
+          component={Link}
+          to={paths.dashboard.invoice.root}
           size="small"
           color="inherit"
           endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
-
         >
           View All
         </Button>
@@ -103,10 +103,14 @@ function AppNewInvoiceRow({ row }) {
 
         <TableCell>{row.invoiceTo.name}</TableCell>
 
-        <TableCell>{row.items.find(it => it.userId === user.id)?.name}</TableCell>
+        <TableCell>{row.items.find((it) => it.userId === user.id)?.name}</TableCell>
 
-
-        <TableCell>{fCurrency(row.items.find(it => it.userId === user.id)?.price * row.items.find(it => it.userId === user.id)?.quantity)}</TableCell>
+        <TableCell>
+          {fCurrency(
+            row.items.find((it) => it.userId === user.id)?.price *
+              row.items.find((it) => it.userId === user.id)?.quantity
+          )}
+        </TableCell>
 
         <TableCell>{fDate(row.createdAt)}</TableCell>
 

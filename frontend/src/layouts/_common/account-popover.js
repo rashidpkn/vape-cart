@@ -84,7 +84,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={`	https://api-prod-minimal-v510.vercel.app/assets/images/avatar/avatar_25.jpg`}
+
           alt={user?.displayName}
           sx={{
             width: 36,

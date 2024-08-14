@@ -1,0 +1,248 @@
+{
+    "products": [
+        {
+            "id": 5,
+            "username": "Vape Amazon",
+            "storeName": "Vape Amzon",
+            "userId": "LcF7SchAkTZrN1DvbVZtvBQU34U2",
+            "name": "Variable Product - 15 ml - 500 puffs",
+            "subDescription": "Variable Product",
+            "content": "<p>Variable Product</p>",
+            "images": [
+                "https://vape-amazon.com/uploads/4606b60b-4c49-474e-97ff-7acb71017932.webp",
+                "https://vape-amazon.com/uploads/c0e1918e-d694-456c-8ecd-5f2845cf8416.webp"
+            ],
+            "type": "Variable",
+            "category": "Disposables",
+            "tags": [
+                "New Collection"
+            ],
+            "parentSku": "96385274101",
+            "brand": "SMOK",
+            "attributes": [
+                "Bottle Size",
+                "Puffs",
+                "Flavour"
+            ],
+            "variables": {
+                "Bottle Size": [
+                    "10 ml",
+                    "15 ml"
+                ],
+                "Puffs": [
+                    "500 puffs",
+                    "1000 puffs"
+                ],
+                "Flavour": [
+                    "Strawberry",
+                    "Blueberry"
+                ]
+            },
+            "SKU": "96385274101-c",
+            "track": true,
+            "quantity": 42,
+            "regularPrice": 38,
+            "salePrice": 35,
+            "productGroup": "child",
+            "reviews": [],
+            "status": "Published",
+            "createdAt": "2024-08-13T04:24:41.727Z",
+            "updatedAt": "2024-08-13T04:24:41.727Z"
+        },
+        {
+            "id": 4,
+            "username": "Vape Amazon",
+            "storeName": "Vape Amzon",
+            "userId": "LcF7SchAkTZrN1DvbVZtvBQU34U2",
+            "name": "Variable Product - 10 ml - 1000 puffs",
+            "subDescription": "Variable Product",
+            "content": "<p>Variable Product</p>",
+            "images": [
+                "https://vape-amazon.com/uploads/9e0beacc-1c88-4226-874b-59f775acefcb.webp",
+                "https://vape-amazon.com/uploads/c0e1918e-d694-456c-8ecd-5f2845cf8416.webp"
+            ],
+            "type": "Variable",
+            "category": "Disposables",
+            "tags": [
+                "New Collection"
+            ],
+            "parentSku": "96385274101",
+            "brand": "SMOK",
+            "attributes": [
+                "Bottle Size",
+                "Puffs",
+                "Flavour"
+            ],
+            "variables": {
+                "Bottle Size": [
+                    "10 ml",
+                    "15 ml"
+                ],
+                "Puffs": [
+                    "500 puffs",
+                    "1000 puffs"
+                ],
+                "Flavour": [
+                    "Strawberry",
+                    "Blueberry"
+                ]
+            },
+            "SKU": "96385274101-b",
+            "track": true,
+            "quantity": 45,
+            "regularPrice": 35,
+            "salePrice": 32,
+            "productGroup": "child",
+            "reviews": [],
+            "status": "Published",
+            "createdAt": "2024-08-13T04:24:40.423Z",
+            "updatedAt": "2024-08-13T04:24:40.423Z"
+        },
+        {
+            "id": 3,
+            "username": "Vape Amazon",
+            "storeName": "Vape Amzon",
+            "userId": "LcF7SchAkTZrN1DvbVZtvBQU34U2",
+            "name": "Variable Product - 10 ml - 500 puffs",
+            "subDescription": "Variable Product",
+            "content": "<p>Variable Product</p>",
+            "images": [
+                "https://vape-amazon.com/uploads/6f3189a1-cf66-4691-bdd6-b651d97aeb98.webp",
+                "https://vape-amazon.com/uploads/c0e1918e-d694-456c-8ecd-5f2845cf8416.webp"
+            ],
+            "type": "Variable",
+            "category": "Disposables",
+            "tags": [
+                "New Collection"
+            ],
+            "parentSku": "96385274101",
+            "brand": "SMOK",
+            "attributes": [
+                "Bottle Size",
+                "Puffs",
+                "Flavour"
+            ],
+            "variables": {
+                "Bottle Size": [
+                    "10 ml",
+                    "15 ml"
+                ],
+                "Puffs": [
+                    "500 puffs",
+                    "1000 puffs"
+                ],
+                "Flavour": [
+                    "Strawberry",
+                    "Blueberry"
+                ]
+            },
+            "SKU": "96385274101-a",
+            "track": true,
+            "quantity": 40,
+            "regularPrice": 32,
+            "salePrice": 30,
+            "productGroup": "child",
+            "reviews": [],
+            "status": "Published",
+            "createdAt": "2024-08-13T04:24:39.653Z",
+            "updatedAt": "2024-08-13T04:24:39.653Z"
+        },
+        {
+            "id": 2,
+            "username": "Vape Amazon",
+            "storeName": "Vape Amzon",
+            "userId": "LcF7SchAkTZrN1DvbVZtvBQU34U2",
+            "name": "Variable Product",
+            "subDescription": "Variable Product",
+            "content": "<p>Variable Product</p>",
+            "images": [
+                "https://vape-amazon.com/uploads/c0e1918e-d694-456c-8ecd-5f2845cf8416.webp"
+            ],
+            "type": "Variable",
+            "category": "Disposables",
+            "tags": [
+                "New Collection"
+            ],
+            "parentSku": "96385274101",
+            "brand": "SMOK",
+            "attributes": [
+                "Bottle Size",
+                "Puffs",
+                "Flavour"
+            ],
+            "variables": {
+                "Bottle Size": [
+                    "10 ml",
+                    "15 ml"
+                ],
+                "Puffs": [
+                    "500 puffs",
+                    "1000 puffs"
+                ],
+                "Flavour": [
+                    "Strawberry",
+                    "Blueberry"
+                ]
+            },
+            "SKU": "96385274101",
+            "track": true,
+            "quantity": null,
+            "regularPrice": null,
+            "salePrice": null,
+            "productGroup": "parent",
+            "reviews": [],
+            "status": "Published",
+            "createdAt": "2024-08-13T04:24:38.723Z",
+            "updatedAt": "2024-08-13T04:24:38.723Z"
+        },
+        {
+            "id": 1,
+            "username": "Vape Amazon",
+            "storeName": "Vape Amzon",
+            "userId": "LcF7SchAkTZrN1DvbVZtvBQU34U2",
+            "name": "Variable Product - 15 ml - 1000 puffs",
+            "subDescription": "Variable Product",
+            "content": "<p>Variable Product</p>",
+            "images": [
+                "https://vape-amazon.com/uploads/c0e1918e-d694-456c-8ecd-5f2845cf8416.webp"
+            ],
+            "type": "Variable",
+            "category": "Disposables",
+            "tags": [
+                "New Collection"
+            ],
+            "parentSku": "96385274101",
+            "brand": "SMOK",
+            "attributes": [
+                "Bottle Size",
+                "Puffs",
+                "Flavour"
+            ],
+            "variables": {
+                "Bottle Size": [
+                    "10 ml",
+                    "15 ml"
+                ],
+                "Puffs": [
+                    "500 puffs",
+                    "1000 puffs"
+                ],
+                "Flavour": [
+                    "Strawberry",
+                    "Blueberry"
+                ]
+            },
+            "SKU": "96385274101-d",
+            "track": true,
+            "quantity": 38,
+            "regularPrice": 30,
+            "salePrice": 28,
+            "productGroup": "child",
+            "reviews": [],
+            "status": "Published",
+            "createdAt": "2024-08-13T04:24:30.585Z",
+            "updatedAt": "2024-08-13T04:24:30.585Z"
+        }
+    ],
+    "count": 5
+}

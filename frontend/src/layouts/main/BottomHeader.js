@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { AccountCircle, Close, Menu } from '@mui/icons-material';
 import { m } from 'framer-motion';
-import { NavbarBottomLinks } from '../dashboard/config-navigation';
-import SideHeader from './SideHeader';
 import { _category } from 'src/data/createProducts';
 import { Link } from 'react-router-dom';
+import { NavbarBottomLinks } from '../dashboard/config-navigation';
+import SideHeader from './SideHeader';
 
 const HeaderBottom = () => {
   const ref = useRef();
@@ -39,7 +39,7 @@ const HeaderBottom = () => {
           gap: '10px',
           paddingLeft: '0px',
           cursor: 'pointer',
-          listStyle: 'none'
+          listStyle: 'none',
         }}
       >
         <li
@@ -57,10 +57,10 @@ const HeaderBottom = () => {
             paddingBottom: '6px',
             paddingLeft: '6px',
             paddingRight: '6px',
-            listStyle: 'none'
+            listStyle: 'none',
           }}
         >
-          <Link to={`/shop`} style={{ color: 'white' }}>
+          <Link to="/shop" style={{ color: 'white' }}>
             Shop
           </Link>
         </li>
@@ -73,7 +73,7 @@ const HeaderBottom = () => {
               paddingBottom: '6px',
               paddingLeft: '6px',
               paddingRight: '6px',
-              listStyle: 'none'
+              listStyle: 'none',
             }}
             key={item}
           >

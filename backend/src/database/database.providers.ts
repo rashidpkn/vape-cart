@@ -1,3 +1,4 @@
+import { DATABASE } from 'global/config';
 import { Sequelize } from 'sequelize-typescript';
 import { Attributes } from 'src/model/attributes.model';
 import { Customers } from 'src/model/customers.model';
@@ -12,18 +13,7 @@ export const databaseProviders = [
   {
     provide: 'SEQUELIZE',
     useFactory: async () => {
-      const sequelize = new Sequelize({
-        dialect: 'postgres',
-        host: 'localhost',
-        port: 5432,
-        username: 'postgres',
-        password: '12345',
-        database: 'vapecart',
-        define: {
-          timestamps: true,
-        },
-        logging: false,
-      });
+      const sequelize = new Sequelize(DATABASE);
       sequelize.addModels([
         Product,
         Orders,

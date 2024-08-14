@@ -73,12 +73,9 @@ export default function AccountGeneral() {
     async (acceptedFiles) => {
       const file = acceptedFiles[0];
 
-
-
       const form = new FormData();
       form.append('images', file);
       const { data } = await api.post('/upload', form);
-
 
       if (data.length) {
         setValue('tradeLicense', data[0], { shouldValidate: true });

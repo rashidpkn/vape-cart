@@ -14,7 +14,6 @@ import { useAuthContext } from 'src/auth/hooks';
 import api from 'src/utils/api';
 // components
 
-
 // ----------------------------------------------------------------------
 
 export default function FirebaseVerifyView() {
@@ -25,13 +24,13 @@ export default function FirebaseVerifyView() {
   const _resendVerificationlink = async () => {
     try {
       if (email) {
-        const { data } = await api.post('/firebase/resend_verification_email', { email })
-        alert(data.message)
+        const { data } = await api.post('/firebase/resend_verification_email', { email });
+        alert(data.message);
       }
     } catch (error) {
-      alert("There was an error sending the verification email.")
+      alert('There was an error sending the verification email.');
     }
-  }
+  };
 
   const renderHead = (
     <>
@@ -48,9 +47,13 @@ export default function FirebaseVerifyView() {
         </Box>
         <Box component="div">Please check your inbox/spam.</Box>
       </Stack>
-      <Box display={'flex'} justifyContent={'center'} alignItems={'center'} gap={2}>
-        <Button variant='contained' color='success' onClick={_resendVerificationlink}>Resend verification link, please</Button>
-        <Button variant='contained' color='success'>Do you have questions about signing up?</Button>
+      <Box display="flex" justifyContent="center" alignItems="center" gap={2}>
+        <Button variant="contained" color="success" onClick={_resendVerificationlink}>
+          Resend verification link, please
+        </Button>
+        <Button variant="contained" color="success">
+          Do you have questions about signing up?
+        </Button>
       </Box>
     </>
   );

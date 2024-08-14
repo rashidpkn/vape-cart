@@ -4,14 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
 
-
-
 import './header.css';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-
-
 
 import api from 'src/utils/api';
 // var data =require('/src/map/PRODUCT_MAP.json')
@@ -54,15 +50,13 @@ export default function Header({ set }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
-
   const [result, setResults] = useState([]);
   const [input, setInput] = useState('');
 
   const fetchProducts = useCallback(async () => {
     const {
       data: { products },
-    } = await api.get('/products', { params: { name: input, productGroup: "parent" } });
+    } = await api.get('/products', { params: { name: input, } });
     setResults(products);
   }, [input]);
 
@@ -291,7 +285,9 @@ export default function Header({ set }) {
                   }}
                 >
                   {allItems.map((item) => (
-                    <li key={item._id} style={{ cursor: 'poniter' }}>{item.title}</li>
+                    <li key={item._id} style={{ cursor: 'poniter' }}>
+                      {item.title}
+                    </li>
                   ))}
                 </ul>
               </Box>
@@ -319,8 +315,12 @@ export default function Header({ set }) {
                 }
               }}
               renderOption={(props, option) => (
-                <Box key={option.id} component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-
+                <Box
+                  key={option.id}
+                  component="li"
+                  sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                  {...props}
+                >
                   <img loading="lazy" width="20" src={option.images[0]} alt="" />
                   {option.name}
                 </Box>
@@ -387,7 +387,7 @@ export default function Header({ set }) {
 
           <Box
             onClick={() => {
-              navigate('/customer-dashboard')
+              navigate('/customer-dashboard');
             }}
             className="navborder padding-lg orders"
             style={{
@@ -404,9 +404,6 @@ export default function Header({ set }) {
           >
             {/* <Link to={'/customer-dashboard'}> */}
             <Typography
-
-
-
               variant="p"
               style={{ fontSize: '12px', fontWeight: '400', lineHeight: '14px', height: '14px' }}
             >
@@ -418,7 +415,6 @@ export default function Header({ set }) {
             >
               & Orders
             </Typography>
-
           </Box>
 
           <Link

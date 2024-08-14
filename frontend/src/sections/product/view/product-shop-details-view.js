@@ -33,7 +33,7 @@ import ProductDetailsDescription from '../product-details-description';
 // ----------------------------------------------------------------------
 
 export default function ProductShopDetailsView() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const params = useParams();
 
   const { id } = params;
@@ -44,13 +44,15 @@ export default function ProductShopDetailsView() {
 
   const [currentTab, setCurrentTab] = useState('description');
 
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState({});
+  const [parentProduct, setParentProduct] = useState({})
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const { data } = await api.get(`products/${id}`, { params: { count: 1 } });
         setProduct(data);
+        setParentProduct(data)
       } catch (error) {
         alert(error.response.data.message);
         navigate(paths.dashboard.product.root);
@@ -90,11 +92,10 @@ export default function ProductShopDetailsView() {
             onAddCart={onAddCart}
             onGotoStep={onGotoStep}
             setProduct={setProduct}
+            parentProduct={parentProduct}
           />
         </Grid>
       </Grid>
-
-
 
       <Card>
         <Tabs
@@ -144,7 +145,6 @@ export default function ProductShopDetailsView() {
       }}
     >
       <CartIcon totalItems={checkout.totalItems} />
-
 
       {product && renderProduct}
     </Container>
