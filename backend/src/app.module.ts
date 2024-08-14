@@ -13,6 +13,8 @@ import { CustomersModule } from './customers/customers.module';
 import { AttributesModule } from './attributes/attributes.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { FirebaseModule } from './firebase/firebase.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -26,10 +28,17 @@ import { FirebaseModule } from './firebase/firebase.module';
     CustomersModule,
     AttributesModule,
     NotificationsModule,
-    ClientModule,
+    // ClientModule,
     FirebaseModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname,'..','..','..','frontend','dist'),
+    })
   ],
   controllers: [AppController],
   providers: [AppService],
 })
+
 export class AppModule {}
+
+console.log('Serving static files from:', join(__dirname, '..', '..', '..', 'frontend', 'dist'));
+
