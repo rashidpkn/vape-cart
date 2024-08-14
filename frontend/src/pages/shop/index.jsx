@@ -81,11 +81,10 @@ export default function ShopPage() {
             {products.map((product) => (
               <div className="product" key={product.id}>
                 <div className="img">
-                  <img src={product.images} alt="" />
+                  <img src={product.images[0]} alt="" />
                   <div
                     className="cart"
                     onClick={() => {
-                      console.log(product);
                       setSelectedProduct(product);
                       if (product.type === 'Simple') {
                         _AddCart(product);
@@ -137,7 +136,7 @@ export default function ShopPage() {
 const DisplayVariations = ({
   openVariations,
   setOpenVariations,
-  selectedProduct,
+  selectedProduct={images:[]},
   setSelectedProduct,
   _AddCart
 }) => {
@@ -172,8 +171,8 @@ const DisplayVariations = ({
           alignItems={'center'}
         >
          
-              <img
-                src={selectedProduct?.images}
+            <img
+                src={selectedProduct?.images?.[0]}
                 height={400}
                 alt=""
                 style={{ height: '400px', borderRadius: '8px' }}

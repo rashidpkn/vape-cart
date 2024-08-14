@@ -27,7 +27,7 @@ import { _tags } from 'src/data/createProducts';
 
 const card = _tags.slice(0, 4);
 
-export default function ShopPage() {
+export default function HomePage() {
   AOS.init();
 
   const [producsts, setProducsts] = useState([]);
