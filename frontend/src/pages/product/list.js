@@ -48,7 +48,6 @@ export default function ShopPage() {
       .get('products', {
         params: {
           perPage: 2000,
-          productGroup: 'parent',
         },
       })
       .then((res) => {

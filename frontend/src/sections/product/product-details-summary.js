@@ -18,7 +18,6 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 import parse from 'html-react-parser';
 import { useNavigate } from 'react-router-dom';
-import api from 'src/utils/api';
 
 export default function ProductDetailsSummary({
   cart,
@@ -27,6 +26,7 @@ export default function ProductDetailsSummary({
   onGotoStep,
   disabledActions,
   setProduct,
+  parentProduct = {},
   ...other
 }) {
   const [quantityToPurchase, setQuantityToPurchase] = useState(1);
@@ -44,28 +44,10 @@ export default function ProductDetailsSummary({
     images,
     userId,
     type,
-    productGroup,
-    variables,
     subDescription,
+    variations
   } = product;
 
-  const [allProducts, setAllProducts] = useState([]);
-
-  const getAllproducts = async () => {
-    if (type === 'Variable' && productGroup === 'parent') {
-      const { data } = await api.get('/products', {
-        params: {
-          perPage: 2000,
-          name,
-        },
-      });
-      setAllProducts(data.products);
-    }
-  };
-
-  useEffect(() => {
-    getAllproducts();
-  }, []);
 
   const renderPrice = (
     <Box sx={{ typography: 'h5' }}>
@@ -161,6 +143,10 @@ export default function ProductDetailsSummary({
         variant="contained"
         startIcon={<Iconify icon="solar:cart-plus-bold" width={24} />}
         onClick={() => {
+          if (type === 'Variable' && !selectedVariation) {
+            alert("Please choose a variable from the list.")
+            return
+          }
           onAddCart({
             id,
             name,
@@ -196,146 +182,36 @@ export default function ProductDetailsSummary({
     </Stack>
   );
 
-  const [selectedVariable, setSelectedVariable] = useState({});
-  const [error, setError] = useState('');
 
-  useEffect(() => {
-    setError('');
-
-    let selectedName = name?.split(' -')[0];
-    Object.keys(selectedVariable).map(
-      (e) => (selectedName = `${selectedName} - ${selectedVariable[e]}`)
-    );
-
-    const found = allProducts.find((e) =>
-      e.name.toLowerCase().includes(selectedName.toLowerCase())
-    );
-    if (found) {
-      setProduct((_) => ({
-        ..._,
-        name: found.name,
-        images: found.images,
-        quantity: found.quantity,
-        salePrice: found.salePrice,
-        regularPrice: found.regularPrice,
-      }));
-    }
-  }, [selectedVariable]);
+  const [selectedVariation, setSelectedVariation] = useState('')
 
   const renderVariables = (
     <Box display="flex" flexDirection="column" gap="10px">
-      {Object.keys(variables).map((v, i) => (
-        <FormControl key={i} sx={{ width: { sm: '100%', md: '50%' } }} size="small">
-          <InputLabel id="demo-simple-select-label">{v}</InputLabel>
-          <Select
-            label={v}
-            key={i}
-            onChange={(e) => {
-              setQuantityToPurchase(1);
-              setSelectedVariable((_) => ({ ..._, [v]: e.target.value }));
-            }}
-          >
-            {variables[v].map((va, j) => (
-              <MenuItem key={j} value={va}>
-                {va}
-              </MenuItem>
-            ))}
+
+      <Box>
+        <FormControl fullWidth>
+          <InputLabel id="variations">Select Variations</InputLabel>
+          <Select labelId='variations' label="Select Variations" value={selectedVariation} onChange={e => {
+            setSelectedVariation(e.target.value)
+            const { track, quantity, regularPrice, salePrice, image } = product.variations.find(v => JSON.stringify(v.attributes) === JSON.stringify(e.target.value))
+
+            let name = parentProduct.name + '-' + Object.keys(e.target.value).map(a => e.target.value[a]).join('-')
+            let images = parentProduct.images
+            if (image) {
+              images = image
+            }
+
+            setProduct(_ => ({ ..._, track, quantity, regularPrice, salePrice, name, images }))
+          }
+          }>
+            {variations?.map((variation, i) =>
+              <MenuItem key={i} value={variation.attributes}>{Object.keys(variation.attributes).map(e => e.replace(/([A-Z])/, ' $1').replace(/^./, str => str.toUpperCase()) + ' : ' + variation.attributes[e]).join(', ')} </MenuItem>
+            )}
           </Select>
         </FormControl>
-      ))}
-
-      <Box
-        sx={{ width: { sm: '100%', md: '50%' } }}
-        display="flex"
-        justifyItems="center"
-        alignItems="center"
-        gap={1}
-      >
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => {
-            setQuantityToPurchase((_) => {
-              if (_ <= 1) {
-                return 1;
-              }
-              return _ - 1;
-            });
-          }}
-        >
-          -
-        </Button>
-        <TextField
-          fullWidth
-          label="Quantity"
-          type="number"
-          inputProps={{ min: 1, max: quantity ?? 100 }}
-          onChange={(e) => {
-            setQuantityToPurchase((_) => {
-              const { value } = e.target;
-              if (value <= 0) {
-                return 1;
-              }
-
-              if (quantity) {
-                return Math.min(quantity, value);
-              }
-
-              return Math.min(value, 100);
-            });
-          }}
-          value={quantityToPurchase}
-        />
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => {
-            setQuantityToPurchase((_) => {
-              if (_ < quantity) {
-                return _ + 1;
-              }
-              return _;
-            });
-          }}
-        >
-          +
-        </Button>
       </Box>
-      <Button
-        sx={{ width: { sm: '100%', md: '50%' } }}
-        variant="contained"
-        color="success"
-        disabled={!name.split('-')[1]}
-        onClick={() => {
-          let selectedName = name?.split(' -')[0];
-          Object.keys(selectedVariable).map(
-            (e) => (selectedName = `${selectedName} - ${selectedVariable[e]}`)
-          );
-          const found = allProducts.find((e) =>
-            e.name.toLowerCase().includes(selectedName.toLowerCase())
-          );
-          if (found) {
-            const { id, name, salePrice, images } = found;
-            onAddCart({
-              id,
-              name,
-              price: salePrice,
-              images,
-              subTotal: salePrice,
-              userId,
-              quantity: quantityToPurchase,
-              available: quantity,
-            });
-            navigate(paths.product.checkout);
-          } else {
-            setError('Out of stock');
-          }
-        }}
-      >
-        Buy
-      </Button>
 
-      {!!error && <p style={{ color: '#F00A' }}>{error}</p>}
+      {/* {!!error && <p style={{ color: '#F00A' }}>{error}</p>} */}
     </Box>
   );
 
@@ -347,9 +223,10 @@ export default function ProductDetailsSummary({
 
           {renderRating}
 
-          {salePrice !== null && renderPrice}
+          {type === 'Variable' && !!selectedVariation && salePrice !== null && renderPrice}
 
           {renderSubDescription}
+
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
@@ -358,7 +235,8 @@ export default function ProductDetailsSummary({
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        {type === 'Variable' && productGroup === 'parent' ? renderVariables : renderActions}
+        {type === 'Variable' && renderVariables}
+        {renderActions}
       </Stack>
     </FormProvider>
   );

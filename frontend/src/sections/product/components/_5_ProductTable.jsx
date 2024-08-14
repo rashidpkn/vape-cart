@@ -22,7 +22,7 @@ export function ProductTable({
   setValue
 }) {
   const sku = skuAlpha[counter] ? `${values.SKU}-${skuAlpha[counter]}` : values.SKU;
-  const name = Object.keys(attributes).map(e=>attributes[e] + ' - ');
+  const name = Object.keys(attributes).map(e=>attributes[e] ).join('-');
 
   
 

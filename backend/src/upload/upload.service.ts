@@ -14,8 +14,10 @@ export class UploadService {
         const imageBuffer = await fsPromises.readFile(file.path);
         const webpBuffer = await sharp(imageBuffer).webp().toBuffer();
         const fileName = `${uuidv4()}.webp`;
+        console.log(join(__dirname, `../../../uploads/`));
         await fsPromises.writeFile(
-          join(__dirname, `../../uploads/${fileName}`),
+          join(__dirname, `../../../uploads/${fileName}`),
+          
           webpBuffer,
         );
         await fsPromises.unlink(file.path);

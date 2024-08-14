@@ -9,7 +9,7 @@ export class AppController {
   @Get('/uploads/:file')
   servePublicFile(@Param('file') file: string, @Res() res: any) {
     try {
-      const filePath = join(__dirname, '..', 'uploads', file);
+      const filePath = join(__dirname, '..','..', 'uploads', file);
       return res.sendFile(filePath);
     } catch (error) {}
   }

@@ -14,6 +14,7 @@ import {
   Button,
   Table,
   TableBody,
+  Alert,
 } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
@@ -163,7 +164,6 @@ export default function ProductNewEditForm({ currentProduct }) {
     const { data } = await api.get('/products', {
       params: {
         name: values.name,
-        productGroup: 'parent',
       },
     });
     setProducts(data.products.filter((pr) => !pr.name.includes('-')));
@@ -223,7 +223,11 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Details" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
+
+
             <ProductName products={products} setValue={setValue} values={values} />
+
+            <Alert severity="info" >Please do not include emails, phone numbers, or emojis in the sub-description and content. Products containing these will not be accepted.</Alert>
 
             <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} />
 
@@ -232,6 +236,7 @@ export default function ProductNewEditForm({ currentProduct }) {
               <RHFEditor simple name="content" />
             </Stack>
 
+            <Alert severity="info" >Uploading at least one image is required.</Alert>
             <Stack spacing={1.5}>
               <Typography variant="subtitle2">Images</Typography>
               <ImageUpload values={values} setValue={setValue} />
@@ -254,7 +259,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         setSelectedAttributes(Object.keys(attributes));
       }
 
-      if (type === 'Variable') {
+      if (type === 'Variable' && variations.length) {
         setVariation(Object.keys(variations[0]?.attributes))
       }
     }
@@ -289,6 +294,10 @@ export default function ProductNewEditForm({ currentProduct }) {
                 md: 'repeat(2, 1fr)',
               }}
             >
+
+              <Box sx={{ gridColumn: 'span 2 ' }}>
+                {values.type === "Variable" && <Alert severity="info" >Please choose at least one attribute.</Alert>}
+              </Box>
               <Box sx={{ gridColumn: 'span 2 ' }}>
                 <Attributes
                   selectedAttributes={selectedAttributes}
@@ -297,8 +306,14 @@ export default function ProductNewEditForm({ currentProduct }) {
                   values={values}
                 />
               </Box>
+
+              {values.type === "Variable" && !!selectedAttributes.length && <Box sx={{ gridColumn: 'span 2 ' }}>
+                <Alert severity="info" >Please select at least two variations from the list below to enable the 'Create Variations' option.</Alert>
+              </Box>}
+
               {selectedAttributes.map((e) => (
                 <VariationSelection
+                  currentProduct={currentProduct}
                   setValue={setValue}
                   setVariation={setVariation}
                   variation={variation}

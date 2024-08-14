@@ -56,7 +56,7 @@ export default function Header({ set }) {
   const fetchProducts = useCallback(async () => {
     const {
       data: { products },
-    } = await api.get('/products', { params: { name: input, productGroup: 'parent' } });
+    } = await api.get('/products', { params: { name: input, } });
     setResults(products);
   }, [input]);
 

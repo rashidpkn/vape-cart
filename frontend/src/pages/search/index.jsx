@@ -27,7 +27,7 @@ export default function SearchPage() {
         },
       });
       setProducts(
-        data.products.filter((pr) => !(pr.productGroup === 'parent' && pr.type === 'Variable'))
+        data.products
       );
       setDataFetched(true);
     } catch (error) {}

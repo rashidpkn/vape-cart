@@ -45,7 +45,7 @@ const slice = createSlice({
         state.cart = [...state?.cart, newProduct];
       } else {
         state.cart = state.cart?.map((product) => {
-          const existProduct = product.id === newProduct.id;
+          const existProduct = product.name === newProduct.name;
 
           if (existProduct) {
             return {
@@ -58,7 +58,7 @@ const slice = createSlice({
         });
       }
 
-      state.cart = uniqBy([...state.cart, newProduct], 'id');
+      state.cart = uniqBy([...state.cart, newProduct], 'name');
       state.totalItems = sum(state.cart.map((product) => product.quantity));
     },
 

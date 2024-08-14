@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { _variables } from 'src/data/createProducts';
 import api from 'src/utils/api';
 
-export default function VariationSelection({ values, setValue, setVariation, e, savedAttibutes,variation=[] }) {
+export default function VariationSelection({ currentProduct,values, setValue, setVariation, e, savedAttibutes,variation=[] }) {
   return (
     <Box sx={{ gridColumn: 'span 1 ' }} key={e}>
       <Autocomplete
@@ -20,6 +20,8 @@ export default function VariationSelection({ values, setValue, setVariation, e, 
         ]}
         value={values.attributes[e] || []}
         onChange={(event, newValue) => {
+          
+          
 
           let updatedAttributes = {
             ...values.attributes,
@@ -81,6 +83,14 @@ export default function VariationSelection({ values, setValue, setVariation, e, 
             <Checkbox
             defaultChecked={variation.find(v=>v===e)}
               onChange={(ch) => {
+                if(currentProduct){
+                  const con = confirm("Changing the variation of this product will reset all current variations, and you'll have to start over from the beginning. Do you wish to proceed?")
+                  if(con){
+                    setValue("variations",[])
+                  }else{
+                    return
+                  }
+                }
                 if (ch.target.checked) {
                   setVariation((prev) => [...new Set([...prev, e])]);
                 } else {
