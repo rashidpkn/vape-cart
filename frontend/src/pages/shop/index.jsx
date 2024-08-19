@@ -204,6 +204,7 @@ const DisplayVariations = ({
               label="Select Variations"
               value={selectedVariation}
               onChange={(e) => {
+                console.log(e.target.value);
                 setSelectedVariation(e.target.value);
                 const { track, quantity, regularPrice, salePrice, image } = selectedProduct.variations.find(
                   (v) => JSON.stringify(v.attributes) === JSON.stringify(e.target.value)

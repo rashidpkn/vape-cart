@@ -44,7 +44,6 @@ export default function ProductShopDetailsView() {
 
   const [currentTab, setCurrentTab] = useState('description');
 
-  const [product, setProduct] = useState({});
   const [parentProduct, setParentProduct] = useState({})
 
   useEffect(() => {
@@ -65,6 +64,7 @@ export default function ProductShopDetailsView() {
   const handleChangeTab = useCallback((event, newValue) => {
     setCurrentTab(newValue);
   }, []);
+  const [product, setProduct] = useState({});
 
   const renderProduct = product && (
     <>

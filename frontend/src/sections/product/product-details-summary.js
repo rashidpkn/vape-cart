@@ -201,7 +201,15 @@ export default function ProductDetailsSummary({
               images = image
             }
 
-            setProduct(_ => ({ ..._, track, quantity, regularPrice, salePrice, name, images }))
+            setProduct((prevProduct) => ({
+              ...prevProduct, // Spread the existing product state
+              track,
+              quantity,
+              regularPrice,
+              salePrice,
+              name,
+              images,
+            }));
           }
           }>
             {variations?.map((variation, i) =>

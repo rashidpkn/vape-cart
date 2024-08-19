@@ -1,1 +1,0 @@
-import{j as s,c as o,W as r}from"./index-6b2a15ec.js";import{C as t}from"./custom-breadcrumbs-c17d7e8b.js";function i(){return s.jsxs(o,{px:5,children:[s.jsx(r,{children:s.jsx("title",{children:"Dashboard: Boost"})}),s.jsx(t,{heading:"Boost",links:[{}],sx:{mb:{xs:3,md:5}}})]})}export{i as default};
