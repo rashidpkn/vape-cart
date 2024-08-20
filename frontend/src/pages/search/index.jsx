@@ -26,9 +26,7 @@ export default function SearchPage() {
           status: 'Published',
         },
       });
-      setProducts(
-        data.products
-      );
+      setProducts(data.products);
       setDataFetched(true);
     } catch (error) {}
   }, [name]);

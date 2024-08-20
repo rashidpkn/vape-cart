@@ -12,19 +12,21 @@ import { useEffect, useState } from 'react';
 import api from 'src/utils/api';
 
 export function ProductTable({
-  selectedAttributes=[],
+  selectedAttributes = [],
   counter,
   skuAlpha,
   attributes,
   values,
   setProductAdded,
   currentProduct,
-  setValue
+  setValue,
 }) {
   const sku = skuAlpha[counter] ? `${values.SKU}-${skuAlpha[counter]}` : values.SKU;
-  const name = Object.keys(attributes).map(e=>attributes[e] ).join('-');
-
-  
+  const name =
+    !!attributes &&
+    Object.keys(attributes)
+      .map((e) => attributes[e])
+      .join('-');
 
   const [productDetails, setProductDetails] = useState({
     track: true,
@@ -33,26 +35,20 @@ export function ProductTable({
     salePrice: null,
     image: null,
     // sku,
-    attributes:{},
+    attributes: {},
   });
 
-  useEffect(() => {  
+  useEffect(() => {
+    const existingIndex = values.variations.findIndex((variation) => (
+        !!attributes &&
+        Object.keys(attributes).every((key) => attributes[key] === variation.attributes[key])
+      ));
 
-      const existingIndex = values.variations.findIndex(variation => {
-        return Object.keys(attributes).every(key => 
-            attributes[key] === variation.attributes[key]
-        );
-    });
-    
-    if(Object.keys(productDetails.attributes).length < selectedAttributes.length ){
-      const data = values.variations[existingIndex]
-      setProductDetails(_=>({..._,...data,attributes}))
-      
+    if (Object.keys(productDetails.attributes).length < selectedAttributes.length) {
+      const data = values.variations[existingIndex];
+      setProductDetails((_) => ({ ..._, ...data, attributes }));
     }
-
-    
-  }, [attributes])
-
+  }, [attributes]);
 
   const [stock, setStock] = useState('instock');
   const [status, setStatus] = useState('pending');
@@ -72,7 +68,7 @@ export function ProductTable({
         image: [data[0], ...values.images],
       }));
     } catch (error) {
-      console.error("Image upload failed:", error);
+      console.error('Image upload failed:', error);
     }
   };
 
@@ -89,59 +85,46 @@ export function ProductTable({
     if (salePrice) {
       const regularPriceNumber = parseFloat(regularPrice);
       const salePriceNumber = parseFloat(salePrice);
-  
+
       if (regularPriceNumber <= salePriceNumber) {
-          return alert('Sale price must be less than the regular price');
+        return alert('Sale price must be less than the regular price');
       }
-  }
-  
+    }
 
     if (status !== 'pending') {
       return;
     }
     setStatus('loading');
     try {
-      
       if (!currentProduct) {
-        setValue("variations", [...values.variations, productDetails]);
-    } else {
-      const { attributes } = productDetails;
-
-      
-     const existing =  values.variations.some(variation => {
-        return Object.keys(attributes).every(key => {
-            return variation.attributes[key] === attributes[key];
-        });
-    });
-
-  
-      if (existing) {
-          const updatedVariations = [...values.variations];
-          
-          const existingIndex = values.variations.findIndex(variation => {
-            return Object.keys(attributes).every(key => 
-                attributes[key] === variation.attributes[key]
-            );
-        });
-        
-          
-          updatedVariations[existingIndex] = {
-              ...updatedVariations[existingIndex],
-              ...productDetails
-          };
-          setValue("variations", updatedVariations);
+        setValue('variations', [...values.variations, productDetails]);
       } else {
-          
-          setValue("variations", [...values.variations, productDetails]);
+        const { attributes } = productDetails;
+
+        const existing = values.variations.some((variation) => Object.keys(attributes).every((key) => variation.attributes[key] === attributes[key]));
+
+        if (existing) {
+          const updatedVariations = [...values.variations];
+
+          const existingIndex = values.variations.findIndex((variation) => Object.keys(attributes).every(
+              (key) => attributes[key] === variation.attributes[key]
+            ));
+
+          updatedVariations[existingIndex] = {
+            ...updatedVariations[existingIndex],
+            ...productDetails,
+          };
+          setValue('variations', updatedVariations);
+        } else {
+          setValue('variations', [...values.variations, productDetails]);
+        }
       }
-    }
 
       setStatus('success');
 
       setProductAdded(true);
-      
     } catch (error) {
-      console.error("Product creation failed:", error);
+      console.error('Product creation failed:', error);
       setStatus('failed');
     }
   };
@@ -149,24 +132,34 @@ export function ProductTable({
   const renderActionButton = () => {
     switch (status) {
       case 'loading':
-        return <Button color="success" variant="contained" size="small">Loading</Button>;
+        return (
+          <Button color="success" variant="contained" size="small">
+            Loading
+          </Button>
+        );
       case 'success':
-        if(currentProduct){
-
-          return <Button color="success" variant="contained" size="small">Product Updated</Button>;
-        }else{
-          return <Button color="success" variant="contained" size="small">Product Created</Button>;
-        }
+        if (currentProduct) {
+          return (
+            <Button color="success" variant="contained" size="small">
+              Product Updated
+            </Button>
+          );
+        } 
+          return (
+            <Button color="success" variant="contained" size="small">
+              Product Created
+            </Button>
+          );
+        
       case 'failed':
-        return <Button color="error" variant="contained" size="small">Product creation failed</Button>;
+        return (
+          <Button color="error" variant="contained" size="small">
+            Product creation failed
+          </Button>
+        );
       default:
         return (
-          <Button
-            color="success"
-            variant="contained"
-            size="small"
-            onClick={handleAddProduct}
-          >
+          <Button color="success" variant="contained" size="small" onClick={handleAddProduct}>
             {currentProduct ? 'Save Changes' : 'Add Product'}
           </Button>
         );
@@ -228,11 +221,7 @@ export function ProductTable({
         />
       </TableCell>
       <TableCell width={150}>
-        <input
-          type="file"
-          onChange={handleUploadImage}
-          style={{ width: '150px' }}
-        />
+        <input type="file" onChange={handleUploadImage} style={{ width: '150px' }} />
       </TableCell>
       <TableCell>{renderActionButton()}</TableCell>
     </TableRow>

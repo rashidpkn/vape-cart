@@ -26,7 +26,6 @@ import { useState } from 'react';
 import {
   FormControl,
   FormControlLabel,
-  FormLabel,
   InputLabel,
   Modal,
   Radio,
@@ -83,7 +82,7 @@ export default function ProductTableRow({
       alert('Product Updated');
       fetchProduct();
       setQuickEdit(false);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const confirm = useBoolean();

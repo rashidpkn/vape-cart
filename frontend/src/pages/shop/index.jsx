@@ -54,7 +54,7 @@ export default function ShopPage() {
         quantity: 1,
       });
       // navigate(paths.product.checkout);
-      toast.success(`${product.name} is now in your cart at a price of AED${product.salePrice}.`)
+      toast.success(`${product.name} is now in your cart at a price of AED${product.salePrice}.`);
     } catch (error) {
       console.log(error);
     }
@@ -69,7 +69,7 @@ export default function ShopPage() {
 
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer />
       <Helmet>
         <title>Shop Page </title>
       </Helmet>
@@ -101,9 +101,11 @@ export default function ShopPage() {
                 </Link>
                 <div className="info">
                   <p className="category">{product.category}</p>
-               {product.type === 'Simple' &&   <p>
-                    <del> AED ${product.regularPrice}</del> AED ${product.salePrice}
-                  </p>}
+                  {product.type === 'Simple' && (
+                    <p>
+                      <del> AED ${product.regularPrice}</del> AED ${product.salePrice}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
@@ -136,12 +138,11 @@ export default function ShopPage() {
 const DisplayVariations = ({
   openVariations,
   setOpenVariations,
-  selectedProduct={images:[]},
+  selectedProduct = { images: [] },
   setSelectedProduct,
-  _AddCart
+  _AddCart,
 }) => {
-
-  const [selectedVariation, setSelectedVariation] = useState('')
+  const [selectedVariation, setSelectedVariation] = useState('');
   return (
     <Modal
       open={openVariations}
@@ -165,39 +166,53 @@ const DisplayVariations = ({
         }}
       >
         <Box
-          display={'flex'}
-          justifyContent={'center'}
-          flexDirection={'column'}
-          alignItems={'center'}
+          display="flex"
+          justifyContent="center"
+          flexDirection="column"
+          alignItems="center"
         >
-         
-            <img
-                src={selectedProduct?.images?.[0]}
-                height={400}
-                alt=""
-                style={{ height: '400px', borderRadius: '8px' }}
-              />
-         <Box sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}} width={400}>
+          <img
+            src={selectedProduct?.images?.[0]}
+            height={400}
+            alt=""
+            style={{ height: '400px', borderRadius: '8px' }}
+          />
+          <Box
+            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            width={400}
+          >
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              textAlign="center"
+              mt={3}
+            >
+              {selectedProduct.name}
+            </Typography>
 
-         <Typography id="modal-modal-title" variant="h6" component="h2" textAlign={'center'} mt={3}>
-          {selectedProduct.name}
-        </Typography>
-        
-        <Typography id="modal-modal-title" variant="h6" component="h2" textAlign={'center'} mt={3}>
-          {!!selectedVariation &&<>
-          <del> AED {selectedProduct.regularPrice}</del> AED {selectedProduct.salePrice}
-          </>}
-        </Typography>
-        
-        
-         </Box>
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              textAlign="center"
+              mt={3}
+            >
+              {!!selectedVariation && (
+                <>
+                  <del> AED {selectedProduct.regularPrice}</del> AED {selectedProduct.salePrice}
+                </>
+              )}
+            </Typography>
+          </Box>
 
-         {!!selectedVariation &&<Box sx={{display:'flex',justifyContent:'flex-end'}} width={400}>          
-          <p style={{fontSize:'12px'}}>Available : {selectedProduct.quantity}</p>
-         </Box>}
+          {!!selectedVariation && (
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }} width={400}>
+              <p style={{ fontSize: '12px' }}>Available : {selectedProduct.quantity}</p>
+            </Box>
+          )}
 
-
-          <FormControl sx={{width:"400px",mt:3}} >
+          <FormControl sx={{ width: '400px', mt: 3 }}>
             <InputLabel id="variations">Select Variations</InputLabel>
             <Select
               labelId="variations"
@@ -206,16 +221,15 @@ const DisplayVariations = ({
               onChange={(e) => {
                 console.log(e.target.value);
                 setSelectedVariation(e.target.value);
-                const { track, quantity, regularPrice, salePrice, image } = selectedProduct.variations.find(
-                  (v) => JSON.stringify(v.attributes) === JSON.stringify(e.target.value)
-                );
+                const { track, quantity, regularPrice, salePrice, image } =
+                  selectedProduct.variations.find(
+                    (v) => JSON.stringify(v.attributes) === JSON.stringify(e.target.value)
+                  );
 
-              //   let images = selectedProduct.images
-              //  if(image){
-              //     images = image
-              //  }
-
-                
+                //   let images = selectedProduct.images
+                //  if(image){
+                //     images = image
+                //  }
 
                 setSelectedProduct((_) => ({
                   ..._,
@@ -232,9 +246,9 @@ const DisplayVariations = ({
                   {Object.keys(variation.attributes)
                     .map(
                       (e) =>
-                        e.replace(/([A-Z])/, ' $1').replace(/^./, (str) => str.toUpperCase()) +
-                        ' : ' +
-                        variation.attributes[e]
+                        `${e.replace(/([A-Z])/, ' $1').replace(/^./, (str) => str.toUpperCase()) 
+                        } : ${ 
+                        variation.attributes[e]}`
                     )
                     .join(', ')}{' '}
                 </MenuItem>
@@ -242,15 +256,27 @@ const DisplayVariations = ({
             </Select>
           </FormControl>
 
-          <Button variant='contained' color='warning' sx={{width:'400px',mt:3}} size='large'  onClick={()=>{
-             let name = selectedProduct.name + '-' + Object.keys(selectedVariation) .map((a) => selectedVariation[a]).join('-');
-             
-             let product = {...selectedProduct,name}
-             console.log(product);
-             _AddCart(product)
-             setOpenVariations(false)
+          <Button
+            variant="contained"
+            color="warning"
+            sx={{ width: '400px', mt: 3 }}
+            size="large"
+            onClick={() => {
+              const name =
+                `${selectedProduct.name 
+                }-${ 
+                Object.keys(selectedVariation)
+                  .map((a) => selectedVariation[a])
+                  .join('-')}`;
 
-          }}>Add to Cart</Button>
+              const product = { ...selectedProduct, name };
+              console.log(product);
+              _AddCart(product);
+              setOpenVariations(false);
+            }}
+          >
+            Add to Cart
+          </Button>
         </Box>
       </Box>
     </Modal>

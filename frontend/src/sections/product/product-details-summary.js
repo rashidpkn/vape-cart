@@ -45,9 +45,8 @@ export default function ProductDetailsSummary({
     userId,
     type,
     subDescription,
-    variations
+    variations,
   } = product;
-
 
   const renderPrice = (
     <Box sx={{ typography: 'h5' }}>
@@ -144,8 +143,8 @@ export default function ProductDetailsSummary({
         startIcon={<Iconify icon="solar:cart-plus-bold" width={24} />}
         onClick={() => {
           if (type === 'Variable' && !selectedVariation) {
-            alert("Please choose a variable from the list.")
-            return
+            alert('Please choose a variable from the list.');
+            return;
           }
           onAddCart({
             id,
@@ -182,39 +181,57 @@ export default function ProductDetailsSummary({
     </Stack>
   );
 
-
-  const [selectedVariation, setSelectedVariation] = useState('')
+  const [selectedVariation, setSelectedVariation] = useState('');
 
   const renderVariables = (
     <Box display="flex" flexDirection="column" gap="10px">
-
       <Box>
         <FormControl fullWidth>
           <InputLabel id="variations">Select Variations</InputLabel>
-          <Select labelId='variations' label="Select Variations" value={selectedVariation} onChange={e => {
-            setSelectedVariation(e.target.value)
-            const { track, quantity, regularPrice, salePrice, image } = product.variations.find(v => JSON.stringify(v.attributes) === JSON.stringify(e.target.value))
+          <Select
+            labelId="variations"
+            label="Select Variations"
+            value={selectedVariation}
+            onChange={(e) => {
+              setSelectedVariation(e.target.value);
+              const { track, quantity, regularPrice, salePrice, image } = product.variations.find(
+                (v) => JSON.stringify(v.attributes) === JSON.stringify(e.target.value)
+              );
 
-            let name = parentProduct.name + '-' + Object.keys(e.target.value).map(a => e.target.value[a]).join('-')
-            let images = parentProduct.images
-            if (image) {
-              images = image
-            }
+              const name =
+                `${parentProduct.name 
+                }-${ 
+                Object.keys(e.target.value)
+                  .map((a) => e.target.value[a])
+                  .join('-')}`;
+              let {images} = parentProduct;
+              if (image) {
+                images = image;
+              }
 
-            setProduct((prevProduct) => ({
-              ...prevProduct, // Spread the existing product state
-              track,
-              quantity,
-              regularPrice,
-              salePrice,
-              name,
-              images,
-            }));
-          }
-          }>
-            {variations?.map((variation, i) =>
-              <MenuItem key={i} value={variation.attributes}>{Object.keys(variation.attributes).map(e => e.replace(/([A-Z])/, ' $1').replace(/^./, str => str.toUpperCase()) + ' : ' + variation.attributes[e]).join(', ')} </MenuItem>
-            )}
+              setProduct((prevProduct) => ({
+                ...prevProduct, // Spread the existing product state
+                track,
+                quantity,
+                regularPrice,
+                salePrice,
+                name,
+                images,
+              }));
+            }}
+          >
+            {variations?.map((variation, i) => (
+              <MenuItem key={i} value={variation.attributes}>
+                {Object.keys(variation.attributes)
+                  .map(
+                    (e) =>
+                      `${e.replace(/([A-Z])/, ' $1').replace(/^./, (str) => str.toUpperCase()) 
+                      } : ${ 
+                      variation.attributes[e]}`
+                  )
+                  .join(', ')}{' '}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
@@ -234,7 +251,6 @@ export default function ProductDetailsSummary({
           {type === 'Variable' && !!selectedVariation && salePrice !== null && renderPrice}
 
           {renderSubDescription}
-
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />

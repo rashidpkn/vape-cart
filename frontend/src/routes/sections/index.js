@@ -1,4 +1,4 @@
-import { Navigate, useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes, Outlet } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 // Layouts
 import CompactLayout from 'src/layouts/compact/layout';
@@ -8,7 +8,7 @@ import MainLayout from 'src/layouts/main';
 // Components
 import { SplashScreen, LoadingScreen } from 'src/components/loading-screen';
 import { GuestGuard, AuthGuard } from 'src/auth/guard';
-import { Outlet } from 'react-router-dom';
+import ProductShopDetailsView from 'src/sections/product/view/product-details-view';
 
 // import HomePage from 'src/pages/product/list';
 
@@ -23,14 +23,12 @@ const ShopPage = lazy(() => import('src/pages/shop'));
 const PaymentView = lazy(() => import('src/pages/payment/view/payment-view'));
 const HomePage = lazy(() => import('src/pages/product/list'));
 
-
 // Lazy loaded pages
 const FirebaseVerifyPage = lazy(() => import('src/pages/auth/firebase/verify'));
 const FirebaseLoginPage = lazy(() => import('src/pages/auth/firebase/login'));
 const FirebaseRegisterPage = lazy(() => import('src/pages/auth/firebase/register'));
 const IndexPage = lazy(() => import('src/pages/dashboard/app'));
 const OverviewEcommercePage = lazy(() => import('src/pages/dashboard/ecommerce'));
-const ProductDetailsPage = lazy(() => import('src/pages/dashboard/product/details'));
 const ProductListPage = lazy(() => import('src/pages/dashboard/product/list'));
 const ProductCreatePage = lazy(() => import('src/pages/dashboard/product/new'));
 const ProductEditPage = lazy(() => import('src/pages/dashboard/product/edit'));
@@ -46,7 +44,6 @@ const FaqsPage = lazy(() => import('src/pages/faqs'));
 const AboutPage = lazy(() => import('src/pages/about-us'));
 const ContactPage = lazy(() => import('src/pages/contact-us'));
 const ProductCheckoutPage = lazy(() => import('src/pages/product/checkout'));
-
 
 export default function Router() {
   return useRoutes([
@@ -88,9 +85,7 @@ export default function Router() {
         {
           path: 'product',
           children: [
-            { element: <ProductListPage />, index: true },
-            { path: 'list', element: <ProductListPage /> },
-            { path: ':id', element: <ProductDetailsPage /> },
+            { path: ':id', element: <ProductShopDetailsView /> },
             { path: 'checkout-2', element: <ProductCheckoutPage /> },
           ],
         },
@@ -104,9 +99,7 @@ export default function Router() {
           </Suspense>
         </CompactLayout>
       ),
-      children: [
-        { path: '404', element: <Page404 /> },
-      ],
+      children: [{ path: '404', element: <Page404 /> }],
     },
     {
       path: '/auth',
@@ -164,7 +157,7 @@ export default function Router() {
           children: [
             { element: <ProductListPage />, index: true },
             { path: 'list', element: <ProductListPage /> },
-            { path: ':id', element: <ProductDetailsPage /> },
+            // { path: ':id', element: <ProductDetailsPage /> },
             { path: 'new', element: <ProductCreatePage /> },
             { path: ':id/edit', element: <ProductEditPage /> },
           ],

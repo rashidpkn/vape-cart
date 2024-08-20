@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // @mui
 import { alpha, useTheme, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -64,9 +64,19 @@ const StyledThumbnailsContainer = styled('div')(({ length, theme }) => ({
 export default function ProductDetailsCarousel({ product = {} }) {
   const theme = useTheme();
 
-  const slides = product?.images?.map((img) => ({
-    src: img,
-  }));
+  const [slides, setSlides] = useState(
+    product?.images?.map((img) => ({
+      src: img,
+    })) || []
+  );
+
+  useEffect(() => {
+    setSlides(
+      product?.images?.map((img) => ({
+        src: img,
+      }))
+    );
+  }, [product.images]);
 
   const lightbox = useLightBox(slides);
 
@@ -117,7 +127,6 @@ export default function ProductDetailsCarousel({ product = {} }) {
             alt={slide.src}
             src={slide.src}
             ratio="1/1"
-            onClick={() => lightbox.onOpen(slide.src)}
             sx={{ cursor: 'zoom-in' }}
           />
         ))}
@@ -174,14 +183,6 @@ export default function ProductDetailsCarousel({ product = {} }) {
       {renderLargeImg}
 
       {renderThumbnails}
-
-      <Lightbox
-        index={lightbox.selected}
-        slides={slides}
-        open={lightbox.open}
-        close={lightbox.onClose}
-        onGetCurrentIndex={(index) => lightbox.setSelected(index)}
-      />
     </Box>
   );
 }

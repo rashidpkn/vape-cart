@@ -2,18 +2,17 @@ import { useCallback, useEffect, useState } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+
 import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
-import Typography from '@mui/material/Typography';
+
 // routes
 import { paths } from 'src/routes/paths';
 import { useParams } from 'src/routes/hook';
 
 // components
-import Iconify from 'src/components/iconify';
 
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
@@ -44,14 +43,14 @@ export default function ProductShopDetailsView() {
 
   const [currentTab, setCurrentTab] = useState('description');
 
-  const [parentProduct, setParentProduct] = useState({})
+  const [parentProduct, setParentProduct] = useState({});
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const { data } = await api.get(`products/${id}`, { params: { count: 1 } });
         setProduct(data);
-        setParentProduct(data)
+        setParentProduct(data);
       } catch (error) {
         alert(error.response.data.message);
         navigate(paths.dashboard.product.root);

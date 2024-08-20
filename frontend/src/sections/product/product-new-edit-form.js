@@ -11,7 +11,6 @@ import {
   Grid,
   CardHeader,
   Typography,
-  Button,
   Table,
   TableBody,
   Alert,
@@ -27,7 +26,6 @@ import FormProvider, { RHFEditor, RHFTextField } from 'src/components/hook-form'
 import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
 import { alpha } from 'src/data/createProducts';
-import { useNavigate } from 'react-router';
 import ProductName from './components/_1_ProductName';
 import ImageUpload from './components/_2_ImageUpload';
 import KeyProperties from './components/_3_KeyProperties';
@@ -38,7 +36,6 @@ import Attributes from './components/_7_Attributes';
 import VariationSelection from './components/_8_VariationSelection';
 
 export default function ProductNewEditForm({ currentProduct }) {
-  const navigate = useNavigate();
   const [productAdded, setProductAdded] = useState(false);
 
   const router = useRouter();
@@ -130,8 +127,6 @@ export default function ProductNewEditForm({ currentProduct }) {
     [currentProduct]
   );
 
-
-
   const methods = useForm({
     resolver: yupResolver(NewProductSchema),
     defaultValues,
@@ -147,8 +142,6 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const values = watch();
 
-
-  console.log(values);
 
   const [savedAttibutes, setSavedAttibutes] = useState([]);
 
@@ -181,7 +174,7 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      console.log('DATA : ' + data);
+      console.log(`DATA : ${data}`);
       if (currentProduct) {
         await api.patch('products', {
           ...data,
@@ -223,11 +216,12 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Details" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
-
-
             <ProductName products={products} setValue={setValue} values={values} />
 
-            <Alert severity="info" >Please do not include emails, phone numbers, or emojis in the sub-description and content. Products containing these will not be accepted.</Alert>
+            <Alert severity="info">
+              Please do not include emails, phone numbers, or emojis in the sub-description and
+              content. Products containing these will not be accepted.
+            </Alert>
 
             <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} />
 
@@ -236,7 +230,7 @@ export default function ProductNewEditForm({ currentProduct }) {
               <RHFEditor simple name="content" />
             </Stack>
 
-            <Alert severity="info" >Uploading at least one image is required.</Alert>
+            <Alert severity="info">Uploading at least one image is required.</Alert>
             <Stack spacing={1.5}>
               <Typography variant="subtitle2">Images</Typography>
               <ImageUpload values={values} setValue={setValue} />
@@ -252,20 +246,17 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   useEffect(() => {
     if (currentProduct) {
-
-      const { attributes, variations, type } = currentProduct
+      const { attributes, variations, type } = currentProduct;
 
       if (attributes) {
         setSelectedAttributes(Object.keys(attributes));
       }
 
       if (type === 'Variable' && variations.length) {
-        setVariation(Object.keys(variations[0]?.attributes))
+        setVariation(Object.keys(variations[0]?.attributes));
       }
     }
   }, [currentProduct]);
-
-
 
   const renderAttributes = (
     <>
@@ -294,9 +285,10 @@ export default function ProductNewEditForm({ currentProduct }) {
                 md: 'repeat(2, 1fr)',
               }}
             >
-
               <Box sx={{ gridColumn: 'span 2 ' }}>
-                {values.type === "Variable" && <Alert severity="info" >Please choose at least one attribute.</Alert>}
+                {values.type === 'Variable' && (
+                  <Alert severity="info">Please choose at least one attribute.</Alert>
+                )}
               </Box>
               <Box sx={{ gridColumn: 'span 2 ' }}>
                 <Attributes
@@ -307,9 +299,14 @@ export default function ProductNewEditForm({ currentProduct }) {
                 />
               </Box>
 
-              {values.type === "Variable" && !!selectedAttributes.length && <Box sx={{ gridColumn: 'span 2 ' }}>
-                <Alert severity="info" >Please select at least two variations from the list below to enable the 'Create Variations' option.</Alert>
-              </Box>}
+              {values.type === 'Variable' && !!selectedAttributes.length && (
+                <Box sx={{ gridColumn: 'span 2 ' }}>
+                  <Alert severity="info">
+                    Please select at least two variations from the list below to enable the 'Create
+                    Variations' option.
+                  </Alert>
+                </Box>
+              )}
 
               {selectedAttributes.map((e) => (
                 <VariationSelection
@@ -349,12 +346,9 @@ export default function ProductNewEditForm({ currentProduct }) {
     </Grid>
   );
 
-
-
   const skuAlpha = [...alpha, ...alpha.slice(1).flatMap((i) => alpha.slice(1).map((j) => i + j))];
 
   let counter = 1;
-
 
   const productTable = (
     <>
@@ -371,22 +365,27 @@ export default function ProductNewEditForm({ currentProduct }) {
           <Table>
             <TableHeading />
             <TableBody>
-              {variation?.reduce((acc, key) =>
-                acc.flatMap(prev => values.attributes[key]?.map(value => ({ ...prev, [key]: value }))),
-                [{}]
-              ).map((attributes) => (
-                <ProductTable
-                  selectedAttributes={selectedAttributes}
-                  counter={counter++}
-                  skuAlpha={skuAlpha}
-                  attributes={attributes}
-                  values={values}
-                  key={counter}
-                  setProductAdded={setProductAdded}
-                  currentProduct={currentProduct}
-                  setValue={setValue}
-                />
-              ))}
+              {variation
+                ?.reduce(
+                  (acc, key) =>
+                    acc.flatMap((prev) =>
+                      values.attributes[key]?.map((value) => ({ ...prev, [key]: value }))
+                    ),
+                  [{}]
+                )
+                .map((attributes) => (
+                  <ProductTable
+                    selectedAttributes={selectedAttributes}
+                    counter={counter++}
+                    skuAlpha={skuAlpha}
+                    attributes={attributes}
+                    values={values}
+                    key={counter}
+                    setProductAdded={setProductAdded}
+                    currentProduct={currentProduct}
+                    setValue={setValue}
+                  />
+                ))}
             </TableBody>
           </Table>
         </Card>

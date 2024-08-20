@@ -104,7 +104,6 @@ export default function ProductListView() {
     table.page * table.rowsPerPage + table.rowsPerPage
   );
 
-  const denseHeight = table.dense ? 60 : 80;
 
   const handleFilters = useCallback(
     (name, value) => {
@@ -160,12 +159,7 @@ export default function ProductListView() {
     [router]
   );
 
-  const handleViewRow = useCallback(
-    (id) => {
-      router.push(paths.product.details(id));
-    },
-    [router]
-  );
+
 
   return (
     <>

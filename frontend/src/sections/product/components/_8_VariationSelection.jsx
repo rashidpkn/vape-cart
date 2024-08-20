@@ -3,7 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { _variables } from 'src/data/createProducts';
 import api from 'src/utils/api';
 
-export default function VariationSelection({ currentProduct,values, setValue, setVariation, e, savedAttibutes,variation=[] }) {
+export default function VariationSelection({
+  currentProduct,
+  values,
+  setValue,
+  setVariation,
+  e,
+  savedAttibutes,
+  variation = [],
+}) {
   return (
     <Box sx={{ gridColumn: 'span 1 ' }} key={e}>
       <Autocomplete
@@ -20,9 +28,6 @@ export default function VariationSelection({ currentProduct,values, setValue, se
         ]}
         value={values.attributes[e] || []}
         onChange={(event, newValue) => {
-          
-          
-
           let updatedAttributes = {
             ...values.attributes,
           };
@@ -45,10 +50,11 @@ export default function VariationSelection({ currentProduct,values, setValue, se
             }
             setValue('attributes', updatedAttributes);
           } else {
-
-            if (variation.find(v=>v===e)){
-              if(newValue.length === 1){
-                return alert(`Please uncheck "Use this attribute to create Variations" before deleting this attribute.`)
+            if (variation.find((v) => v === e)) {
+              if (newValue.length === 1) {
+                return alert(
+                  `Please uncheck "Use this attribute to create Variations" before deleting this attribute.`
+                );
               }
             }
             const updatedAttributes = {
@@ -81,14 +87,16 @@ export default function VariationSelection({ currentProduct,values, setValue, se
           label="Use this attribute to create Variations"
           control={
             <Checkbox
-            defaultChecked={variation.find(v=>v===e)}
+              defaultChecked={variation.find((v) => v === e)}
               onChange={(ch) => {
-                if(currentProduct){
-                  const con = confirm("Changing the variation of this product will reset all current variations, and you'll have to start over from the beginning. Do you wish to proceed?")
-                  if(con){
-                    setValue("variations",[])
-                  }else{
-                    return
+                if (currentProduct) {
+                  const con = confirm(
+                    "Changing the variation of this product will reset all current variations, and you'll have to start over from the beginning. Do you wish to proceed?"
+                  );
+                  if (con) {
+                    setValue('variations', []);
+                  } else {
+                    return;
                   }
                 }
                 if (ch.target.checked) {
