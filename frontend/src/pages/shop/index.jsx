@@ -81,7 +81,9 @@ export default function ShopPage() {
             {products.map((product) => (
               <div className="product" key={product.id}>
                 <div className="img">
+                  <Link to={`/product/${product.id}`}>
                   <img src={product.images[0]} alt="" />
+                  </Link>
                   <div
                     className="cart"
                     onClick={() => {
@@ -103,7 +105,7 @@ export default function ShopPage() {
                   <p className="category">{product.category}</p>
                   {product.type === 'Simple' && (
                     <p>
-                      <del> AED ${product.regularPrice}</del> AED ${product.salePrice}
+                      <del> AED {product.regularPrice}</del> AED {product.salePrice}
                     </p>
                   )}
                 </div>

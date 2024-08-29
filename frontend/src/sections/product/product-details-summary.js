@@ -199,12 +199,11 @@ export default function ProductDetailsSummary({
               );
 
               const name =
-                `${parentProduct.name 
-                }-${ 
-                Object.keys(e.target.value)
+                `${parentProduct.name
+                }-${Object.keys(e.target.value)
                   .map((a) => e.target.value[a])
                   .join('-')}`;
-              let {images} = parentProduct;
+              let { images } = parentProduct;
               if (image) {
                 images = image;
               }
@@ -225,9 +224,8 @@ export default function ProductDetailsSummary({
                 {Object.keys(variation.attributes)
                   .map(
                     (e) =>
-                      `${e.replace(/([A-Z])/, ' $1').replace(/^./, (str) => str.toUpperCase()) 
-                      } : ${ 
-                      variation.attributes[e]}`
+                      `${e.replace(/([A-Z])/, ' $1').replace(/^./, (str) => str.toUpperCase())
+                      } : ${variation.attributes[e]}`
                   )
                   .join(', ')}{' '}
               </MenuItem>
@@ -249,6 +247,7 @@ export default function ProductDetailsSummary({
           {renderRating}
 
           {type === 'Variable' && !!selectedVariation && salePrice !== null && renderPrice}
+          {type !== 'Variable' && renderPrice}
 
           {renderSubDescription}
         </Stack>

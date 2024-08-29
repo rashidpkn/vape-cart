@@ -11,12 +11,16 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
+import { useAuthContext } from 'src/auth/hooks';
 import { RHFAutocomplete, RHFSelect, RHFTextField } from 'src/components/hook-form';
 import { _brands, _category, _status, _tags, _type } from 'src/data/createProducts';
 import { useResponsive } from 'src/hooks/use-responsive';
 import api from 'src/utils/api';
 
 export default function KeyProperties({ values, setValue }) {
+
+  const { user } = useAuthContext();
+
   const [newBrand, setNewBrand] = useState({ name: '', show: false });
   const [autoGenerateSku, setAutoGenerateSku] = useState(false);
   return (
@@ -161,6 +165,7 @@ export default function KeyProperties({ values, setValue }) {
                             alert('Please enter brand name');
                           }
                         } catch (error) {
+                          console.log(error);
                           alert('An error occurred while adding this brand.');
                         }
                       }}

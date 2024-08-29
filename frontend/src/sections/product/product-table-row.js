@@ -75,14 +75,24 @@ export default function ProductTableRow({
 
   const _quickEdit = async () => {
     try {
-      if (quickEditData.salePrice >= quickEditData.regularPrice) {
-        return alert('Sale price must be less than the regular price');
+      if (quickEditData.salePrice) {
+        const regularPriceNumber = parseFloat(quickEditData.regularPrice);
+        const salePriceNumber = parseFloat(quickEditData.salePrice);
+
+        if (regularPriceNumber < salePriceNumber) {
+          return alert('Sale price must be less than the regular price');
+        }
       }
-      const editPRoduct = await api.post(`/products/quick_edit/${id}`, quickEditData);
+
+      let salePrice = parseFloat(quickEditData.salePrice) ? parseFloat(quickEditData.salePrice) : parseFloat(quickEditData.regularPrice)
+
+      const editPRoduct = await api.post(`/products/quick_edit/${id}`, { ...quickEditData, salePrice });
       alert('Product Updated');
       fetchProduct();
       setQuickEdit(false);
-    } catch (error) { }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const confirm = useBoolean();
