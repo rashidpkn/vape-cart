@@ -117,7 +117,7 @@ export default function ShopPage() {
                   {
                     product.type  === 'Variable' && (
                       <p style={{fontSize:'14px',fontWeight:'700'}}>
-                       Starting from  {Math.min(...product.variations.map(variation => parseFloat(variation.salePrice)))
+                       Starting from  AED {Math.min(...product.variations.map(variation => parseFloat(variation.salePrice)))
                        } 
                     </p>
                     )
