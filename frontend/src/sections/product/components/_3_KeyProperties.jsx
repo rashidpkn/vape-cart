@@ -119,13 +119,13 @@ export default function KeyProperties({ values, setValue }) {
                 />
               </Box>
 
-              <RHFSelect native name="brand" label="Brand" InputLabelProps={{ shrink: true }}>
+             {!newBrand.show && <RHFSelect native name="brand" label="Brand" InputLabelProps={{ shrink: true }}>
                 {_brands.map((classify) => (
                   <option key={classify} value={classify}>
                     {classify}
                   </option>
                 ))}
-              </RHFSelect>
+              </RHFSelect>}
               <Box display="flex" alignItems="center" gap={1}>
                 <FormControlLabel
                   sx={{ width: 190 }}
@@ -158,8 +158,10 @@ export default function KeyProperties({ values, setValue }) {
                               message: `Exciting news! A new brand has been submitted for approval. Brand Name: ${newBrand.name}. 🛍️`,
                               type: 'product',
                             });
+                            setValue('brand',newBrand.name)
+                            setValue('status',"In Revision")
                             alert(
-                              'Your request to create a new brand is being processed. Please wait while we verify the brand.'
+                              `Your request to create a new brand is being processed. Please wait while we verify the brand. You can add products, but their status will be 'In Revision.' After reviewing, the products will go live.`
                             );
                           } else {
                             alert('Please enter brand name');
@@ -176,13 +178,13 @@ export default function KeyProperties({ values, setValue }) {
                 )}
               </Box>
 
-              <RHFSelect native name="status" label="status" InputLabelProps={{ shrink: true }}>
+             {values.status !=='In Revision' && <RHFSelect native name="status" label="status" InputLabelProps={{ shrink: true }}>
                 {_status.map((classify) => (
                   <option key={classify} value={classify}>
                     {classify}
                   </option>
                 ))}
-              </RHFSelect>
+              </RHFSelect>}
             </Box>
           </Stack>
         </Card>

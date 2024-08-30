@@ -332,7 +332,7 @@ export default function ProductNewEditForm({ currentProduct }) {
       <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
         {!currentProduct ? 'Create Product' : 'Save Changes'}
       </LoadingButton>
-      <LoadingButton
+      {values.status !== 'In Revision' && <LoadingButton
         onClick={() => {
           setValue('status', 'Draft');
         }}
@@ -342,7 +342,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         loading={isSubmitting}
       >
         Save as Draft
-      </LoadingButton>
+      </LoadingButton>}
     </Grid>
   );
 

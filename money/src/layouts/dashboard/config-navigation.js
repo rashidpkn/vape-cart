@@ -115,7 +115,8 @@ export function useNavData() {
             icon: ICONS.product,
             children: [
               { title: t('products'), path: paths.dashboard.product.root },
-              { title: t('create new product'), path: paths.dashboard.product.new },
+              { title: t('in revision'), path: '/dashboard/product/in-revision' },
+              // { title: t('create new product'), path: paths.dashboard.product.new },
             ],
           },
 

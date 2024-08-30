@@ -1,1 +1,0 @@
-const a=[{value:"in stock",label:"In stock"},{value:"out of stock",label:"Out of stock"}],l=[{value:"published",label:"Published"},{value:"draft",label:"Draft"}],s=["Cart","Billing & address","Payment"];export{s as P,l as a,a as b};

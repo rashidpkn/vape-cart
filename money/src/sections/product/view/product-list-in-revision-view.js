@@ -61,7 +61,7 @@ const defaultFilters = {
 
 // ----------------------------------------------------------------------
 
-export default function ProductListView() {
+export default function ProductListInRevisonView() {
   const router = useRouter();
 
   const table = useTable();
@@ -79,7 +79,7 @@ export default function ProductListView() {
       try {
         const {
           data: { products: p },
-        } = await api.get('products', { params: { perPage: 10000 } });
+        } = await api.get('products', { params: { perPage: 10000, status: 'In Revision' } });
 
         setTableData(p)
       } catch (error) {
@@ -176,24 +176,15 @@ export default function ProductListView() {
     <>
       <Box px={5}>
         <CustomBreadcrumbs
-          heading="Products"
+          heading="Products In Revision"
           links={[
             { name: 'Dashboard', href: paths.dashboard.root },
             {
-              name: 'Products',
+              name: 'Products In Revision',
               href: paths.dashboard.product.root,
             },
           ]}
-          // action={
-          //   <Button
-          //     component={RouterLink}
-          //     href={paths.dashboard.product.new}
-          //     variant="contained"
-          //     startIcon={<Iconify icon="mingcute:add-line" />}
-          //   >
-          //     New Product
-          //   </Button>
-          // }
+
           sx={{ mb: { xs: 3, md: 5 } }}
         />
 

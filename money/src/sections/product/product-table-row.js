@@ -35,7 +35,7 @@ export default function ProductTableRow({
   const {
     name,
     salePrice,
-    publish="Publish",
+    status,
     category,
     quantity,
     createdAt,
@@ -116,8 +116,8 @@ export default function ProductTableRow({
         <TableCell>{fCurrency(salePrice)}</TableCell>
 
         <TableCell>
-          <Label variant="soft" color={(publish && 'info') || 'default'}>
-            {publish ? 'Publish' : 'Draft'}
+          <Label variant="soft" color={(status === "Published" && 'info') || 'default'}>
+            {status}
           </Label>
         </TableCell>
 
@@ -134,7 +134,7 @@ export default function ProductTableRow({
         arrow="right-top"
         sx={{ width: 140 }}
       >
-        <MenuItem
+        {/* <MenuItem
           onClick={() => {
             onViewRow();
             popover.onClose();
@@ -163,7 +163,7 @@ export default function ProductTableRow({
         >
           <Iconify icon="solar:trash-bin-trash-bold" />
           Delete
-        </MenuItem>
+        </MenuItem> */}
       </CustomPopover>
 
       <ConfirmDialog

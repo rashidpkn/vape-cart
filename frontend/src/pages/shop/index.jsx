@@ -67,6 +67,8 @@ export default function ShopPage() {
   const [openVariations, setOpenVariations] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({});
 
+
+
   return (
     <>
       <ToastContainer />
@@ -101,13 +103,25 @@ export default function ShopPage() {
                 <Link to={`/product/${product.id}`}>
                   <p className="name">{product.name}</p>
                 </Link>
-                <div className="info">
                   <p className="category">{product.category}</p>
+                <div className="info" style={{alignItems:'center'}}>
                   {product.type === 'Simple' && (
-                    <p>
-                      <del> AED {product.regularPrice}</del> AED {product.salePrice}
+                    <>
+                    <p style={{fontSize:'14px',fontWeight:'700'}}>
+                      <del style={{fontSize:'13px',fontWeight:'500'}}>Was  AED {product.regularPrice}</del> Now AED {product.salePrice} 
                     </p>
+                    <span style={{fontSize:'12px'}}> { (((product.regularPrice - product.salePrice) / product.regularPrice) * 100).toFixed(0)}% off </span>
+                    </>
+
                   )}
+                  {
+                    product.type  === 'Variable' && (
+                      <p style={{fontSize:'14px',fontWeight:'700'}}>
+                       Starting from  {Math.min(...product.variations.map(variation => parseFloat(variation.salePrice)))
+                       } 
+                    </p>
+                    )
+                  }
                 </div>
               </div>
             ))}

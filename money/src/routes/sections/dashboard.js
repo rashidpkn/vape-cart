@@ -10,6 +10,7 @@ import Delivery from 'src/pages/dashboard/delivery';
 import { StoreEdit } from 'src/sections/store-edit/view';
 import Payout from 'src/pages/dashboard/payout';
 import Boost from '../../pages/dashboard/boost';
+import ProductListInRevisionPage from 'src/pages/dashboard/product/inRevision';
 
 // ----------------------------------------------------------------------
 
@@ -73,6 +74,8 @@ export const dashboardRoutes = [
         children: [
           { element: <ProductListPage />, index: true },
           { path: 'list', element: <ProductListPage /> },
+          { path: 'in-revision', element: <ProductListInRevisionPage /> },
+
           { path: ':id', element: <ProductDetailsPage /> },
           { path: 'new', element: <ProductCreatePage /> },
           { path: ':id/edit', element: <ProductEditPage /> },
