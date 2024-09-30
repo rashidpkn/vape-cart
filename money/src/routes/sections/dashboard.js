@@ -11,6 +11,7 @@ import { StoreEdit } from 'src/sections/store-edit/view';
 import Payout from 'src/pages/dashboard/payout';
 import Boost from '../../pages/dashboard/boost';
 import ProductListInRevisionPage from 'src/pages/dashboard/product/inRevision';
+import OrderEditPage from 'src/pages/dashboard/order/edit';
 
 // ----------------------------------------------------------------------
 
@@ -87,6 +88,7 @@ export const dashboardRoutes = [
           { element: <OrderListPage />, index: true },
           { path: 'list', element: <OrderListPage /> },
           { path: ':id', element: <OrderDetailsPage /> },
+          { path: ':id/edit', element: <OrderEditPage /> },
         ],
       },
       {

@@ -23,6 +23,8 @@ import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { FormControl, InputLabel, Select } from '@mui/material';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -35,7 +37,7 @@ export default function OrderTableRow({
   onDeleteRow,
 }) {
   const { id, items, status, createdAt, customer, totalQuantity, subTotal } = row;
-
+  const navigate = useNavigate()
   const confirm = useBoolean();
 
   const collapse = useBoolean();
@@ -114,17 +116,19 @@ export default function OrderTableRow({
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
 
 
-        {status === 'pending' && <IconButton
-          color={collapse.value ? 'inherit' : 'default'}
-
-          sx={{
-            ...(collapse.value && {
-              bgcolor: 'action.hover',
-            }),
-          }}
-        >
-          <Iconify icon="material-symbols:edit-outline" />
-        </IconButton>
+        {status === 'pending' &&
+          <Link to={`/dashboard/order/${id}/edit`}>
+            <IconButton
+              color={collapse.value ? 'inherit' : 'default'}
+              sx={{
+                ...(collapse.value && {
+                  bgcolor: 'action.hover',
+                }),
+              }}
+            >
+              <Iconify icon="material-symbols:edit-outline" />
+            </IconButton>
+          </Link>
         }
 
         <IconButton
