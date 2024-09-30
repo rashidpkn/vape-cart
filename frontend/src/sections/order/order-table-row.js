@@ -22,6 +22,8 @@ import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
+import api from 'src/utils/api';
+import { FormControl, InputLabel, Select } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -85,8 +87,10 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
       <TableCell> {fCurrency(items?.reduce((a, b) => a + b.quantity * b.price, 0))} </TableCell>
       <TableCell>
         {' '}
-        {fCurrency(items?.reduce((a, b) => a + b.quantity * b.price, 0) * 0.2)}{' '}
+        {fCurrency(items?.reduce((a, b) => a + b.quantity * b.price, 0) * 0.3)}{' '}
       </TableCell>
+
+      <TableCell>{fCurrency(items?.reduce((a, b) => a + b.quantity * b.price, 0) * 0.7)}</TableCell>
 
       <TableCell>
         <Label
@@ -115,7 +119,9 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
           <Iconify icon="eva:arrow-ios-downward-fill" />
         </IconButton>
 
-        <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+        <IconButton color={popover.open ? 'inherit' : 'default'}
+        // onClick={popover.onOpen}
+        >
           <Iconify icon="eva:more-vertical-fill" />
         </IconButton>
       </TableCell>
@@ -124,7 +130,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
 
   const renderSecondary = (
     <TableRow>
-      <TableCell sx={{ p: 0, border: 'none' }} colSpan={8}>
+      <TableCell sx={{ p: 0, border: 'none' }} colSpan={10}>
         <Collapse
           in={collapse.value}
           timeout="auto"
@@ -161,16 +167,63 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
                     color: 'text.disabled',
                     mt: 0.5,
                   }}
+                  sx={{ width: "50%" }}
                 />
 
                 <Box>x{item.quantity}</Box>
 
                 <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(item.price)}</Box>
+
+                <Button variant='contained' color='success' sx={{ mx: 5 }} onClick={async () => {
+                  try {
+                    await api.patch(`/orders/change-item-status/${id}`, {
+                      itemId: item.id,
+                      status: 'Product Is ready'
+                    })
+                    await api.post('/notifications', {
+                      userId: item.userId,
+                      role: 'admin',
+                      title: `🚀 ${item.name} Product Is ready 🚀`,
+                      message: `${item.name} is ready for shipping`,
+                      type: 'product',
+                    });
+
+                    alert('Product Status is update to admin,they will pick the order');
+                  } catch (error) {
+                    console.log();
+                  }
+                }}>Product is Ready</Button>
+                <Button variant='contained' color='warning' sx={{ mx: 5 }} onClick={async () => {
+                  try {
+                    const message = window.prompt("Issues?")
+                    await api.patch(`/orders/change-item-status/${id}`, {
+                      itemId: item.id,
+                      status: 'Product has some issue'
+                    })
+                    await api.post('/notifications', {
+                      userId: item.userId,
+                      role: 'admin',
+                      title: `🚀 ${item.name} Product has some issue 🚀`,
+                      message: message,
+                      type: 'product',
+                    });
+
+                    alert('Product Status is update to admin,they will resolve the issue');
+                  } catch (error) {
+
+                  }
+                }}>Product has some issue</Button>
+
+
+
+
+
               </Stack>
             ))}
           </Stack>
         </Collapse>
       </TableCell>
+
     </TableRow>
   );
 

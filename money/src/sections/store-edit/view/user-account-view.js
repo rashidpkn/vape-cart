@@ -18,6 +18,7 @@ import AccountNotifications from '../account-notifications';
 import AccountChangePassword from '../account-change-password';
 import GetStore from './getUsers';
 import DeliverySettings from '../DeliverySettings';
+import AccountCommission from '../account-commission';
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +42,11 @@ const TABS = [
     value: 'notifications',
     label: 'Notifications',
     icon: <Iconify icon="solar:bell-bing-bold" width={24} />,
+  },
+  {
+    value: 'commission',
+    label: 'Commission',
+    icon: <Iconify icon="solar:bill-list-bold" width={24} />,
   },
 ];
 
@@ -99,6 +105,7 @@ export default function StoreEdit() {
       {currentTab === 'security' && <AccountChangePassword />}
 
       {currentTab === 'deliverySettings' && <DeliverySettings user={user} />}
+      {currentTab === 'commission' && <AccountCommission user={user} />}
     </Box>
   );
 }

@@ -18,7 +18,6 @@ const Delivery = lazy(() => import('src/pages/dashboard/delivery'));
 const Payout = lazy(() => import('src/pages/dashboard/payout'));
 const Boost = lazy(() => import('src/pages/dashboard/boost'));
 const CustomerDash = lazy(() => import('src/pages/CustomerDash'));
-const SearchPage = lazy(() => import('src/pages/search'));
 const ShopPage = lazy(() => import('src/pages/shop'));
 const PaymentView = lazy(() => import('src/pages/payment/view/payment-view'));
 const HomePage = lazy(() => import('src/pages/product/list'));
@@ -77,7 +76,6 @@ export default function Router() {
       ),
       children: [
         { element: <HomePage />, index: true },
-        { path: '/search/:name', element: <SearchPage /> },
         { path: '/shop', element: <ShopPage /> },
         { path: 'about-us', element: <AboutPage /> },
         { path: 'contact-us', element: <ContactPage /> },
@@ -157,7 +155,6 @@ export default function Router() {
           children: [
             { element: <ProductListPage />, index: true },
             { path: 'list', element: <ProductListPage /> },
-            // { path: ':id', element: <ProductDetailsPage /> },
             { path: 'new', element: <ProductCreatePage /> },
             { path: ':id/edit', element: <ProductEditPage /> },
           ],

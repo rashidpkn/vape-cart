@@ -30,7 +30,7 @@ export class ProductController {
   @Post()
   async createProduct(@Req() req: Request) {
     try {
-      const {
+      let {
         username,
         storeName,
         userId,
@@ -50,6 +50,7 @@ export class ProductController {
         attributes,
       
         track,
+        availability,
         quantity = 1,
         regularPrice,
         salePrice,
@@ -57,6 +58,13 @@ export class ProductController {
         variations,
 
       } = req.body;
+
+      if(availability === 'Out Stock'){
+        quantity = 0
+      }
+      if(quantity === 0){
+        availability = 'Out Stock'
+      }
       
 
       return this.productService.createProduct(
@@ -79,6 +87,7 @@ export class ProductController {
         attributes,
         
         track,
+        availability,
         quantity ,
         regularPrice,
         salePrice,
@@ -228,9 +237,16 @@ export class ProductController {
   @Post('/quick_edit/:id')
   async _quickEdit(
     @Param('id') id:number,
-    @Body() body:{}
+    @Body() body:any
   ){
     try {
+      if(body.availability === 'Out Stock'){
+        body.quantity = 0
+      }
+      if(body.quantity === 0){
+        body.availability = 'Out Stock'
+      }
+      
       const editProduct = await Product.update(body,{where:{id}})
       return {message : "Updated"}
   } catch (error) {

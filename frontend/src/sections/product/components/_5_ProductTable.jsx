@@ -17,7 +17,6 @@ export function ProductTable({
   skuAlpha,
   attributes,
   values,
-  setProductAdded,
   currentProduct,
   setValue,
 }) {
@@ -30,19 +29,21 @@ export function ProductTable({
 
   const [productDetails, setProductDetails] = useState({
     track: true,
+
+    availability: 'In Stock',
     quantity: null,
     regularPrice: null,
     salePrice: null,
     image: null,
-    // sku,
     attributes: {},
   });
 
   useEffect(() => {
-    const existingIndex = values.variations.findIndex((variation) => (
+    const existingIndex = values.variations.findIndex(
+      (variation) =>
         !!attributes &&
         Object.keys(attributes).every((key) => attributes[key] === variation.attributes[key])
-      ));
+    );
 
     if (Object.keys(productDetails.attributes).length < selectedAttributes.length) {
       const data = values.variations[existingIndex];
@@ -101,14 +102,16 @@ export function ProductTable({
       } else {
         const { attributes } = productDetails;
 
-        const existing = values.variations.some((variation) => Object.keys(attributes).every((key) => variation.attributes[key] === attributes[key]));
+        const existing = values.variations.some((variation) =>
+          Object.keys(attributes).every((key) => variation.attributes[key] === attributes[key])
+        );
 
         if (existing) {
           const updatedVariations = [...values.variations];
 
-          const existingIndex = values.variations.findIndex((variation) => Object.keys(attributes).every(
-              (key) => attributes[key] === variation.attributes[key]
-            ));
+          const existingIndex = values.variations.findIndex((variation) =>
+            Object.keys(attributes).every((key) => attributes[key] === variation.attributes[key])
+          );
 
           updatedVariations[existingIndex] = {
             ...updatedVariations[existingIndex],
@@ -122,7 +125,6 @@ export function ProductTable({
 
       setStatus('success');
 
-      setProductAdded(true);
     } catch (error) {
       console.error('Product creation failed:', error);
       setStatus('failed');
@@ -144,13 +146,13 @@ export function ProductTable({
               Product Updated
             </Button>
           );
-        } 
-          return (
-            <Button color="success" variant="contained" size="small">
-              Product Created
-            </Button>
-          );
-        
+        }
+        return (
+          <Button color="success" variant="contained" size="small">
+            Product Created
+          </Button>
+        );
+
       case 'failed':
         return (
           <Button color="error" variant="contained" size="small">
@@ -192,11 +194,11 @@ export function ProductTable({
           <RadioGroup
             aria-label="Stock"
             name="Stock"
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
+            value={productDetails.availability}
+            onChange={(e) => setProductDetails(_=>({..._,availability:e.target.value}))}
           >
-            <FormControlLabel value="instock" control={<Radio />} label="Instock" />
-            <FormControlLabel value="outstock" control={<Radio />} label="Outstock" />
+            <FormControlLabel value="In Stock" control={<Radio />} label="In Stock" />
+            <FormControlLabel value="Out Stock" control={<Radio />} label="Out Stock" />
           </RadioGroup>
         )}
       </TableCell>

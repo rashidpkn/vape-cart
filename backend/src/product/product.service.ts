@@ -26,6 +26,7 @@ export class ProductService {
     attributes: {},
     
     track: boolean,
+    availability:string,
     quantity: number,
     regularPrice: number,
     salePrice: number,
@@ -54,7 +55,8 @@ export class ProductService {
         variations,
 
         track,
-        quantity:track ? quantity:100,
+        availability,
+        quantity:(track ? quantity:(availability === 'In Stock' ? 100 : 0)),
         regularPrice,
         salePrice : salePrice || regularPrice,
       });
@@ -133,12 +135,24 @@ export class ProductService {
     }
   }
 
-  async updateProduct(update: { id: number }) {
+  async updateProduct(update: { id: number,availability:string,quantity:number,status:string }) {
     try {
       const found = await Product.findOne({ where: { id: update.id } });
       if (!found) {
         throw new BadRequestException('Product not found');
       }
+
+      if(update.availability === 'Out Stock'){
+        update.quantity = 0
+      }
+      if(update.quantity === 0){
+        update.availability = 'Out Stock'
+      }
+      if(found.status === 'Adjustment'){
+        console.log(found.status);
+        update.status  = "In Revision"
+      }
+      console.log(update);
       await Product.update(update, {
         where: { id: update.id },
       });

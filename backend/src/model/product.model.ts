@@ -42,6 +42,8 @@ export class Product extends Model {
 
   @Column({ defaultValue: true })
   track: boolean;
+  @Column({ defaultValue: 'In Stock' })
+  availability: string;
   @Column({ defaultValue: 100 })
   quantity: number;
   @Column({ type: DataType.FLOAT })
@@ -54,6 +56,7 @@ export class Product extends Model {
   variations: {
     attributes: { bottleSize?: string; puffs?: string; flavour?: string; nicotineStrength?: string; color?: string; batteries?: string;sku:string;};
     track: boolean;
+    availability:string
     quantity: number;
     regularPrice: number;
     salePrice: number;

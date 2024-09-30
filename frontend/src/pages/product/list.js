@@ -287,17 +287,7 @@ export default function HomePage() {
                         <Typography variant="h6" sx={{ marginTop: '10px', textDecoration: 'none' }}>
                           {item.name}
                         </Typography>
-                        {/* <Typography
-                          variant="p"
-                          style={{ color: 'gray', marginTop: '15px', textDecoration: 'none' }}
-                        >
-                          <del>AED {item.regularPrice}</del>{' '}
-                          <span
-                            style={{ fontWeight: '700', color: '#000', textDecoration: 'none' }}
-                          >
-                            AED {item.salePrice}
-                          </span>
-                        </Typography> */}
+
                       </Box>
                     </CardContent>
                   </Card>

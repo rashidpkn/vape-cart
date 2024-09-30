@@ -100,7 +100,7 @@ export function useNavData() {
           },
 
           {
-            title: t('Delivery Settings'),
+            title: t('Pick Up Details'),
             path: paths.dashboard.delivery,
             icon: ICONS.delivery,
           },

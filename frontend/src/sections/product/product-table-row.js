@@ -60,6 +60,7 @@ export default function ProductTableRow({
     status,
     track,
     type,
+    availability
   } = row;
 
   const [quickEdit, setQuickEdit] = useState(false);
@@ -70,6 +71,7 @@ export default function ProductTableRow({
     quantity,
     regularPrice,
     status,
+    availability,
     track,
   });
 
@@ -79,7 +81,7 @@ export default function ProductTableRow({
         const regularPriceNumber = parseFloat(quickEditData.regularPrice);
         const salePriceNumber = parseFloat(quickEditData.salePrice);
 
-        if (regularPriceNumber < salePriceNumber) {
+        if (regularPriceNumber <= salePriceNumber) {
           return alert('Sale price must be less than the regular price');
         }
       }
@@ -166,7 +168,7 @@ export default function ProductTableRow({
 
         <TableCell>{type === 'Simple' && fCurrency(regularPrice)}</TableCell>
 
-        <TableCell>{type === 'Simple' && fCurrency(salePrice)}</TableCell>
+        <TableCell>{regularPrice > salePrice && type === 'Simple' && fCurrency(salePrice)}</TableCell>
 
         <TableCell>
           <Label variant="soft" color={(status === 'Published' && 'info') || 'default'}>
@@ -175,7 +177,7 @@ export default function ProductTableRow({
         </TableCell>
 
         <TableCell align="center">
-          {type === 'Simple' && (
+          {type === 'Simple' && status !== 'Adjustment' && (
             <Icon
               icon="mdi:magic"
               cursor="pointer"
@@ -320,14 +322,14 @@ export default function ProductTableRow({
               />
             ) : (
               <FormControl>
-                <RadioGroup defaultValue="Instock" row>
+                <RadioGroup onChange={e => setQuickEditData(_ => ({ ..._, availability: e.target.value }))}
+                  defaultValue="In Stock" value={quickEditData.availability} row>
                   <FormControlLabel
-                    d
-                    value="Instock"
+                    value="In Stock"
                     control={<Radio defaultChecked />}
-                    label="Instock"
+                    label="In Stock"
                   />
-                  <FormControlLabel value="Outstock" control={<Radio />} label="Outstock" />
+                  <FormControlLabel value="Out Stock" control={<Radio />} label="Out Stock" />
                 </RadioGroup>
               </FormControl>
             )}

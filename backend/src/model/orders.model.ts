@@ -11,6 +11,7 @@ export class Orders extends Model {
     name: string;
     images: string[];
     price: number;
+    status:string
   }[];
 
   @Column
@@ -49,6 +50,6 @@ export class Orders extends Model {
   @Column({ type: DataType.STRING(20), defaultValue: 'Cash' })
   paymentType: string;
 
-  @Column({ type: DataType.STRING(20), defaultValue: 'Order received' })
+  @Column({ type: DataType.STRING(20), defaultValue: 'processing' })
   status: string;
 }

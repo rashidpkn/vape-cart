@@ -1,6 +1,7 @@
 import {
   Box,
   Card,
+  Checkbox,
   FormControl,
   FormControlLabel,
   Grid,
@@ -8,12 +9,13 @@ import {
   Radio,
   RadioGroup,
   Stack,
+  TextField,
   Typography,
 } from '@mui/material';
 import React from 'react';
 import { RHFCheckbox, RHFTextField } from 'src/components/hook-form';
 
-export default function RenderPricing({ values }) {
+export default function RenderPricing({ values,setValue }) {
   return (
     <>
       <Grid md={4} width="100%" item>
@@ -28,28 +30,41 @@ export default function RenderPricing({ values }) {
       <Grid xs={12} md={12} width="100%" item>
         <Card>
           <Stack spacing={3} sx={{ p: 3 }}>
-            <RHFCheckbox name="track" label="Track" />
+          <FormControlLabel
+              label="Track Stock"
+              control={
+                <Checkbox
+                  checked={values.track}
+                  onChange={(e) => {
+                    setValue('track',e.target.checked)
+                  }}
+                />
+              }
+            />
 
             {values.track && (
-              <RHFTextField
-                name="quantity"
-                label="Quantity"
-                placeholder="0.00"
-                type="number"
-                InputLabelProps={{ shrink: true }}
-              />
+              <TextField value={values.quantity}  onChange={e=>{
+                const value = Math.max(0, Number(e.target.value));
+                setValue('quantity', value);  
+              }} label="Quantity" placeholder='0.00' type='number' inputProps={{min:0}}/>
+              // <RHFTextField
+              //   name="quantity"
+              //   label="Quantity"
+              //   placeholder="0.00"
+              //   type="number"
+              //   InputLabelProps={{ shrink: true }}
+              // />
             )}
 
             {!values.track && (
               <FormControl>
-                <RadioGroup defaultValue="Instock" row>
+                <RadioGroup defaultValue={values.availability || "In Stock"} row onChange={e=>setValue('availability',e.target.value)}>
                   <FormControlLabel
-                    d
-                    value="Instock"
+                    value="In Stock"
                     control={<Radio defaultChecked />}
-                    label="Instock"
+                    label="In Stock"
                   />
-                  <FormControlLabel value="Outstock" control={<Radio />} label="Outstock" />
+                  <FormControlLabel value="Out Stock" control={<Radio />} label="Out Stock" />
                 </RadioGroup>
               </FormControl>
             )}

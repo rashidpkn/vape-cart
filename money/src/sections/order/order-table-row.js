@@ -22,6 +22,7 @@ import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
+import { FormControl, InputLabel, Select } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -94,7 +95,7 @@ export default function OrderTableRow({
       <TableCell align="center"> {totalQuantity} </TableCell>
 
       <TableCell> {fCurrency(subTotal)} </TableCell>
-      <TableCell> {fCurrency(subTotal * 0.2)} </TableCell>
+      <TableCell> {fCurrency(subTotal * 0.3)} </TableCell>
 
       <TableCell>
         <Label
@@ -111,6 +112,21 @@ export default function OrderTableRow({
       </TableCell>
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+
+
+        {status === 'pending' && <IconButton
+          color={collapse.value ? 'inherit' : 'default'}
+
+          sx={{
+            ...(collapse.value && {
+              bgcolor: 'action.hover',
+            }),
+          }}
+        >
+          <Iconify icon="material-symbols:edit-outline" />
+        </IconButton>
+        }
+
         <IconButton
           color={collapse.value ? 'inherit' : 'default'}
           onClick={collapse.onToggle}
@@ -132,7 +148,7 @@ export default function OrderTableRow({
 
   const renderSecondary = (
     <TableRow>
-      <TableCell sx={{ p: 0, border: 'none' }} colSpan={8}>
+      <TableCell sx={{ p: 0, border: 'none' }} colSpan={10}>
         <Collapse
           in={collapse.value}
           timeout="auto"
@@ -177,6 +193,17 @@ export default function OrderTableRow({
                 <Box>x{item.quantity}</Box>
 
                 <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(item.price)}</Box>
+
+
+
+                <Box sx={{ mx: 3 }}>
+
+                  <Button variant="contained" color={'info'} >
+                    {item?.status}
+                  </Button>
+                </Box>
+
+
               </Stack>
             ))}
           </Stack>

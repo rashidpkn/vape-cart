@@ -36,7 +36,6 @@ import Attributes from './components/_7_Attributes';
 import VariationSelection from './components/_8_VariationSelection';
 
 export default function ProductNewEditForm({ currentProduct }) {
-  const [productAdded, setProductAdded] = useState(false);
 
   const router = useRouter();
 
@@ -92,6 +91,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     }),
 
     track: Yup.boolean(),
+    availability: Yup.string(),
     quantity: Yup.number(),
     regularPrice: Yup.number(),
 
@@ -119,6 +119,7 @@ export default function ProductNewEditForm({ currentProduct }) {
       attributes: currentProduct?.attributes || {},
 
       track: currentProduct?.track || true,
+      availability: currentProduct?.availability || 'In Stock',
       quantity: currentProduct?.quantity || 0,
       regularPrice: currentProduct?.regularPrice || 100,
       salePrice: currentProduct?.salePrice || 0,
@@ -381,7 +382,6 @@ export default function ProductNewEditForm({ currentProduct }) {
                     attributes={attributes}
                     values={values}
                     key={counter}
-                    setProductAdded={setProductAdded}
                     currentProduct={currentProduct}
                     setValue={setValue}
                   />
@@ -393,13 +393,15 @@ export default function ProductNewEditForm({ currentProduct }) {
     </>
   );
 
+  console.log(values);
+
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Grid container spacing={3}>
         {renderDetails}
         <KeyProperties values={values} setValue={setValue} />
         {renderAttributes}
-        {values.type === 'Simple' && <RenderPricing values={values} />}
+        {values.type === 'Simple' && <RenderPricing values={values} setValue={setValue} />}
         {values.type === 'Variable' && productTable}
         {renderActions}
       </Grid>

@@ -31,9 +31,9 @@ export default function AccountGeneral() {
     contactPersonInTouch: Yup.string().required('Contact person in touch is required'),
     tradeLicense: Yup.mixed().nullable().required('Trade License is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
-    address: Yup.string().required('Pick up Address is required'),
-    workingTime: Yup.string().required('working Time is required'),
-    workingDate: Yup.string().required('working Date is required'),
+    address: Yup.string().required('Company Address is required'),
+    workingTime: Yup.string().required('Company Operating Time is required'),
+    workingDate: Yup.string().required('Company working Days is required'),
   });
 
   const defaultValues = {
@@ -128,9 +128,9 @@ export default function AccountGeneral() {
               <RHFTextField name="storeName" label="Store Name" />
               <RHFTextField name="contactPersonInTouch" label="Contact person in touch" />
               <RHFTextField name="phoneNumber" label="Phone Number" />
-              <RHFTextField name="address" label="Pick up address" />
-              <RHFTextField name="workingTime" label="Working Time" />
-              <RHFTextField name="workingDate" label="Working Date" />
+              <RHFTextField name="address" label="Company address" />
+              <RHFTextField name="workingTime" label="Company Operating Time" />
+              <RHFTextField name="workingDate" label="Company Working Days" />
             </Box>
 
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>

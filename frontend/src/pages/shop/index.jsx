@@ -22,6 +22,7 @@ import { Link } from 'react-router-dom';
 
 export default function ShopPage() {
   const category = new URLSearchParams(useLocation().search).get('category');
+  const name = new URLSearchParams(useLocation().search).get('name');
 
   const { onAddCart } = useCheckout();
   const navigate = useNavigate();
@@ -35,12 +36,13 @@ export default function ShopPage() {
           perPage: 2000,
           category,
           status: 'Published',
+          name
         },
       });
       setProducts(data.products);
       setDataFetched(true);
     } catch (error) {}
-  }, [category]);
+  }, [category,name]);
 
   const _AddCart = async (product) => {
     try {
@@ -62,7 +64,7 @@ export default function ShopPage() {
 
   useEffect(() => {
     _getProduct();
-  }, [category]);
+  }, [category,name]);
 
   const [openVariations, setOpenVariations] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({});
@@ -107,10 +109,10 @@ export default function ShopPage() {
                 <div className="info" style={{alignItems:'center'}}>
                   {product.type === 'Simple' && (
                     <>
-                    <p style={{fontSize:'14px',fontWeight:'700'}}>
+                    {product.regularPrice > product.salePrice  ? <p style={{fontSize:'14px',fontWeight:'700'}}>
                       <del style={{fontSize:'13px',fontWeight:'500'}}>Was  AED {product.regularPrice}</del> Now AED {product.salePrice} 
-                    </p>
-                    <span style={{fontSize:'12px'}}> { (((product.regularPrice - product.salePrice) / product.regularPrice) * 100).toFixed(0)}% off </span>
+                    </p> : <p style={{fontSize:'14px',fontWeight:'700'}}>AED {product.regularPrice}</p>}
+                    {product.regularPrice > product.salePrice &&  <span style={{fontSize:'12px'}}> { (((product.regularPrice - product.salePrice) / product.regularPrice) * 100).toFixed(0)}% off </span>}
                     </>
 
                   )}

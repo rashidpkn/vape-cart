@@ -7,7 +7,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
 import { useAuthContext } from 'src/auth/hooks';
 
-export default function AccountBilling() {
+export default function AccountFinancials() {
   const { user } = useAuthContext();
 
   const [billing, setBilling] = useState(user.billing);
@@ -30,77 +30,61 @@ export default function AccountBilling() {
             value={billing?.managementName}
             onChange={(e) => setBilling((prev) => ({ ...prev, managementName: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
-            label="Management Name"
+            label="Account Name"
           />
           <TextField
             value={billing?.managementContact}
             onChange={(e) => setBilling((prev) => ({ ...prev, managementContact: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
-            label="Management Contact"
+            label="Account Number"
           />
           <TextField
             value={billing?.managementEmail}
             onChange={(e) => setBilling((prev) => ({ ...prev, managementEmail: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
-            label="Management Email"
+            label="Account Currency"
           />
 
           <TextField
             value={billing?.financeName}
             onChange={(e) => setBilling((prev) => ({ ...prev, financeName: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
-            label="Finance Name"
+            label="IBAN"
           />
           <TextField
             value={billing?.financeContact}
             onChange={(e) => setBilling((prev) => ({ ...prev, financeContact: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
-            label="Finance Contact"
+            label="Bank Name"
           />
           <TextField
             value={billing?.financeEmail}
             onChange={(e) => setBilling((prev) => ({ ...prev, financeEmail: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
-            label="Finance Email"
+            label="Bank Branch"
           />
 
           <TextField
             value={billing?.customerService}
             onChange={(e) => setBilling((prev) => ({ ...prev, customerService: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
-            label="Customer Service"
+            label="Swift Code"
           />
           <TextField
             value={billing?.customerServiceContact}
             onChange={(e) => setBilling((prev) => ({ ...prev, customerServiceContact: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
-            label="Customer Service Contact"
+            label="Tax Registration Number"
           />
           <TextField
             value={billing?.customerServiceEmail}
             onChange={(e) => setBilling((prev) => ({ ...prev, customerServiceEmail: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
-            label="Customer Service Email"
+            label="TRN Certificate Upload"
+            type='file'
           />
 
-          <TextField
-            value={billing?.orderProcessing}
-            onChange={(e) => setBilling((prev) => ({ ...prev, orderProcessing: e.target.value }))}
-            sx={{ m: 1, width: '30%' }}
-            label="Order Processing"
-          />
-          <TextField
-            value={billing?.orderProcessingContact}
-            onChange={(e) => setBilling((prev) => ({ ...prev, orderProcessingContact: e.target.value }))}
-            sx={{ m: 1, width: '30%' }}
-            label="Order Processing Contact"
-          />
-          <TextField
-            value={billing?.orderProcessingEmail}
-            onChange={(e) => setBilling((prev) => ({ ...prev, orderProcessingEmail: e.target.value }))}
-            sx={{ m: 1, width: '30%' }}
-            label="Order Processing Email"
-          />
+
 
           <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end' }}>
             <Button variant="contained" color="success" onClick={() => onSubmit()}>
@@ -113,9 +97,3 @@ export default function AccountBilling() {
   );
 }
 
-AccountBilling.propTypes = {
-  addressBook: PropTypes.array,
-  cards: PropTypes.array,
-  invoices: PropTypes.array,
-  plans: PropTypes.array,
-};

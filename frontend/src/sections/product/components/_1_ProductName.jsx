@@ -15,9 +15,10 @@ export default function ProductName({ values, products, setValue }) {
             setValue('brand', product.brand);
             setValue('type', product.type);
           }
-        } else {
-          setValue('images', null);
-        }
+        } 
+        // else {
+        //   setValue('images', null);
+        // }
       }}
       name="name"
       label="Product Name"

@@ -16,13 +16,14 @@ import { DB } from 'src/auth/context/firebase/auth-provider';
 import OrderDetailsInfo from '../order-details-info';
 import OrderDetailsItems from '../order-details-item';
 import OrderDetailsToolbar from '../order-details-toolbar';
+import { Card, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
 export default function OrderDetailsView() {
 
 
-const [store, setStore] = useState([])
+  const [store, setStore] = useState([])
 
 
   const getUsers = async () => {
@@ -56,7 +57,7 @@ const [store, setStore] = useState([])
       const { data } = await api.get(`orders/${id}`);
       setCurrentOrder(data);
       setStatus(data.status);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     fetchOrder();
@@ -83,17 +84,84 @@ const [store, setStore] = useState([])
       <Grid container spacing={3}>
         <Grid xs={12} md={8}>
           <Stack spacing={3} direction={{ xs: 'column-reverse', md: 'column' }}>
-            <OrderDetailsItems
-            store={store}
+            {/* <OrderDetailsItems
+              store={store}
               items={currentOrder.items}
               taxes={currentOrder.taxes}
               shipping={currentOrder.shipping}
               discount={currentOrder.discount}
               subTotal={currentOrder.subTotal}
               totalAmount={currentOrder.totalAmount}
-            />
+            /> */}
 
-            {/* <OrderDetailsHistory history={currentOrder.history} /> */}
+            <Card>
+              <Table>
+                <TableHead>
+                  <TableRow>
+
+                    <TableCell>Product Details</TableCell>
+                    <TableCell>Partner</TableCell>
+                    <TableCell>Quantity</TableCell>
+                    <TableCell>Unit Price</TableCell>
+                    <TableCell>Total Value</TableCell>
+                    <TableCell>Commission</TableCell>
+                    <TableCell>Net</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {currentOrder?.items?.map(item => (
+                    <TableRow>
+                      <TableCell>{item.name}</TableCell>
+                      <TableCell>   {store?.find((s) => s.uid === item.userId)?.displayName}</TableCell>
+                      <TableCell>x{item.quantity}</TableCell>
+                      <TableCell>AED {item.price}</TableCell>
+                      <TableCell>AED {item.price * item.quantity}</TableCell>
+                      <TableCell>AED {(item.price * item.quantity * 0.3).toFixed(2)}</TableCell>
+                      <TableCell>AED {(item.price * item.quantity * 0.7).toFixed(2)}</TableCell>
+                    </TableRow>
+                  ))}
+
+
+                  <TableRow>
+                    <TableCell colSpan={3}></TableCell>
+                    <TableCell>Subtotal</TableCell>
+                    <TableCell>AED {currentOrder?.subTotal}</TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell colSpan={3}></TableCell>
+                    <TableCell>Discount</TableCell>
+                    <TableCell>AED {currentOrder?.discount}</TableCell>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableCell colSpan={3}></TableCell>
+                    <TableCell>Total</TableCell>
+                    <TableCell>AED {currentOrder?.totalAmount}</TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell colSpan={3}></TableCell>
+                    <TableCell>VAT 5%</TableCell>
+                    <TableCell>AED {(currentOrder?.totalAmount * 0.05).toFixed(2)}</TableCell>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableCell colSpan={3}></TableCell>
+                    <TableCell>Shipping</TableCell>
+                    <TableCell>AED {currentOrder?.shipping}</TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell colSpan={3}></TableCell>
+                    <TableCell>Grand Total</TableCell>
+                    <TableCell>AED {((currentOrder.totalAmount * 1.05) + currentOrder?.shipping).toFixed(2)}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </Card>
           </Stack>
         </Grid>
 

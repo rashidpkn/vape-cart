@@ -1,8 +1,11 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   Delete,
   Get,
+  NotFoundException,
+  Param,
   Patch,
   Post,
   Req,
@@ -130,4 +133,45 @@ export class OrdersController {
       throw error;
     }
   }
+
+  
+  @Patch('/change-item-status/:orderId')
+async changeItemStatus(@Body() body, @Param('orderId') orderId) {
+  const { itemId, status } = body;
+
+  const order = await Orders.findByPk(orderId);
+
+  if (!order) {
+    throw new NotFoundException('Order not found');
+  }
+
+  const itemIndex = order.items.findIndex(item => item.id === itemId);
+  if (itemIndex === -1) {
+    throw new NotFoundException('Item not found in the order');
+  }
+
+  // Create a new items array with the updated status
+  const updatedItems = [...order.items];
+  updatedItems[itemIndex] = {
+    ...updatedItems[itemIndex],
+    status: status
+  };
+
+  // Use Order.update to update the order
+  await Orders.update(
+    { items: updatedItems },
+    { 
+      where: { id: orderId },
+      individualHooks: true // This ensures that any model hooks are run
+    }
+  );
+
+  return {
+    message: "Item status updated successfully",
+    updatedItem: updatedItems[itemIndex]
+  };
+}
+
+
+
 }

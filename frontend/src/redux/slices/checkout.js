@@ -27,7 +27,7 @@ const slice = createSlice({
 
       const subTotal = sum(cart?.map((product) => product.price * product.quantity));
 
-      state.cart = cart;
+      state.cart = cart
       state.discount = state.discount || 0;
       state.shipping = state.shipping || 0;
       state.billing = state.billing || null;
@@ -37,7 +37,7 @@ const slice = createSlice({
     },
 
     addToCart(state, action) {
-      const newProduct = action.payload;
+      const newProduct = { ...action.payload, status: 'pending' };
 
       const cartEmpty = !state.cart?.length;
 
@@ -149,7 +149,7 @@ const slice = createSlice({
       const shipping = action.payload;
 
       state.shipping = shipping;
-      state.total = state.subTotal - state.discount + shipping;
+      // state.total = state.subTotal - state.discount + shipping;
     },
   },
 });

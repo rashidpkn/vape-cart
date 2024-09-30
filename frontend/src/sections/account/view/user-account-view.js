@@ -18,6 +18,8 @@ import AccountBilling from '../account-billing';
 import AccountSocialLinks from '../account-social-links';
 import AccountNotifications from '../account-notifications';
 import AccountChangePassword from '../account-change-password';
+import AccountFinancials from '../account-financial';
+import AccountComission from '../account-comission';
 
 // ----------------------------------------------------------------------
 
@@ -29,7 +31,12 @@ const TABS = [
   },
   {
     value: 'billing',
-    label: 'Billing',
+    label: 'Contact',
+    icon: <Iconify icon="solar:bill-list-bold" width={24} />,
+  },
+  {
+    value: 'financials',
+    label: 'Financials',
     icon: <Iconify icon="solar:bill-list-bold" width={24} />,
   },
   // {
@@ -42,6 +49,11 @@ const TABS = [
   //   label: 'Social links',
   //   icon: <Iconify icon="solar:share-bold" width={24} />,
   // },
+  {
+    value: 'commission',
+    label: 'Commission',
+    icon: <Iconify icon="solar:bill-list-bold" width={24} />,
+  },
   {
     value: 'security',
     label: 'Security',
@@ -97,11 +109,12 @@ export default function AccountView() {
         />
       )}
 
-      {currentTab === 'notifications' && <AccountNotifications />}
+      {currentTab === 'financials' && <AccountFinancials />}
 
       {currentTab === 'social' && <AccountSocialLinks socialLinks={_userAbout.socialLinks} />}
 
       {currentTab === 'security' && <AccountChangePassword />}
+      {currentTab === 'commission' && <AccountComission />}
     </Box>
   );
 }

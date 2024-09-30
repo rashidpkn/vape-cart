@@ -1,5 +1,5 @@
-const DOMAIN =  "https://vape-amazon.com"
-// const DOMAIN =  "http://localhost:3000"
+// const DOMAIN =  "https://vape-amazon.com"
+const DOMAIN =  "http://localhost:3000"
 
 const DATABASE:{} = {
     dialect: 'postgres',

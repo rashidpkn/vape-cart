@@ -50,8 +50,9 @@ const TABLE_HEAD = [
   { id: 'name', label: 'Customer' },
   { id: 'createdAt', label: 'Date', width: 140 },
   { id: 'totalQuantity', label: 'Items', width: 120, align: 'center' },
-  { id: 'totalAmount', label: 'Price', width: 140 },
+  { id: 'totalAmount', label: 'Total Value', width: 140 },
   { id: 'commission', label: 'Commission', width: 140 },
+  { id: 'Net', label: 'Net', width: 140 },
   { id: 'status', label: 'Status', width: 110 },
   { id: '', width: 88 },
 ];
@@ -222,23 +223,31 @@ export default function OrderListView() {
                       'soft'
                     }
                     color={
+                      (tabs.value === 'processing' && 'info') ||
                       (tabs.value === 'completed' && 'success') ||
+                      (tabs.value === 'In Transit' && 'info') ||
                       (tabs.value === 'pending' && 'warning') ||
                       (tabs.value === 'cancelled' && 'error') ||
+
                       'default'
                     }
                   >
                     {tabs.value === 'all' && tableData.length}
+                    {tabs.value === 'processing' &&
+                      tableData.filter((e) => e.status === 'processing').length}
                     {tabs.value === 'pending' &&
                       tableData.filter(
                         (e) => e.status === 'Order received' || e.status === 'pending'
                       ).length}
+
                     {tabs.value === 'completed' &&
                       tableData.filter((e) => e.status === 'completed').length}
                     {tabs.value === 'cancelled' &&
                       tableData.filter((e) => e.status === 'cancelled').length}
                     {tabs.value === 'refunded' &&
                       tableData.filter((e) => e.status === 'refunded').length}
+                    {tabs.value === 'In Transit' &&
+                      tableData.filter((e) => e.status === 'In Transit').length}
                   </Label>
                 }
               />
@@ -287,11 +296,13 @@ export default function OrderListView() {
                     .filter(
                       (e) =>
                         tab === 'all' ||
+                        (tab === 'processing' && e.status === 'processing') ||
                         (tab === 'pending' &&
                           (e.status === 'pending' || e.status === 'Order received')) ||
                         (tab === 'completed' && e.status === 'completed') ||
                         (tab === 'cancelled' && e.status === 'cancelled') ||
-                        (tab === 'refunded' && e.status === 'refunded')
+                        (tab === 'refunded' && e.status === 'refunded') ||
+                        (tab === 'In Transit' && e.status === 'In Transit')
                     )
                     .map((row) => (
                       <OrderTableRow
@@ -300,7 +311,9 @@ export default function OrderListView() {
                         selected={table.selected.includes(row.id)}
                         onSelectRow={() => table.onSelectRow(row.id)}
                         onDeleteRow={() => handleDeleteRow(row.id)}
-                        onViewRow={() => handleViewRow(row.id)}
+                        onViewRow={() => {
+                          // handleViewRow(row.id)
+                        }}
                       />
                     ))}
 

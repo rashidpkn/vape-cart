@@ -46,20 +46,31 @@ export default function ProductDetailsSummary({
     type,
     subDescription,
     variations,
+    availability,
   } = product;
 
-  const renderPrice = (
-    <Box sx={{ typography: 'h5' }}>
-      <Box
-        component="span"
-        sx={{ color: 'text.disabled', textDecoration: 'line-through', mr: 0.5 }}
-      >
-        {fCurrency(regularPrice)}
+  const renderPrice =
+    regularPrice > salePrice ? (
+      <Box sx={{ typography: 'h5' }}>
+        <Box
+          component="span"
+          sx={{ color: 'text.disabled', textDecoration: 'line-through', mr: 0.5 }}
+        >
+          Was {fCurrency(regularPrice)}
+        </Box>
+        Now {fCurrency(salePrice)}
+        {'  '}
+        <p style={{ fontSize: '16px', display: 'inline-block' }}>
+          ( {(((regularPrice - salePrice) / regularPrice) * 100).toFixed(0)}% off)
+        </p>
       </Box>
+    ) : (
+      <Box sx={{ typography: 'h5' }}>
 
-      {fCurrency(salePrice)}
-    </Box>
-  );
+        {fCurrency(salePrice)}
+
+      </Box>
+    );
 
   const renderQuantity = (
     <Stack direction="row">
@@ -69,7 +80,7 @@ export default function ProductDetailsSummary({
 
       <Stack spacing={1}>
         <Typography variant="caption" component="div" sx={{ textAlign: 'right' }}>
-          Available: {quantity || 100}
+          Available: {availability === 'Out Stock' ? 0 : quantity || 100}
         </Typography>
       </Stack>
     </Stack>
@@ -137,6 +148,7 @@ export default function ProductDetailsSummary({
 
       <Button
         fullWidth
+        disabled={availability === 'Out Stock' || quantity === 0}
         size="large"
         color="warning"
         variant="contained"
@@ -194,15 +206,14 @@ export default function ProductDetailsSummary({
             value={selectedVariation}
             onChange={(e) => {
               setSelectedVariation(e.target.value);
-              const { track, quantity, regularPrice, salePrice, image } = product.variations.find(
-                (v) => JSON.stringify(v.attributes) === JSON.stringify(e.target.value)
-              );
+              const { track, quantity, regularPrice, salePrice, image, availability } =
+                product.variations.find(
+                  (v) => JSON.stringify(v.attributes) === JSON.stringify(e.target.value)
+                );
 
-              const name =
-                `${parentProduct.name
-                }-${Object.keys(e.target.value)
-                  .map((a) => e.target.value[a])
-                  .join('-')}`;
+              const name = `${parentProduct.name}-${Object.keys(e.target.value)
+                .map((a) => e.target.value[a])
+                .join('-')}`;
               let { images } = parentProduct;
               if (image) {
                 images = image;
@@ -216,6 +227,7 @@ export default function ProductDetailsSummary({
                 salePrice,
                 name,
                 images,
+                availability,
               }));
             }}
           >
@@ -224,8 +236,8 @@ export default function ProductDetailsSummary({
                 {Object.keys(variation.attributes)
                   .map(
                     (e) =>
-                      `${e.replace(/([A-Z])/, ' $1').replace(/^./, (str) => str.toUpperCase())
-                      } : ${variation.attributes[e]}`
+                      `${e.replace(/([A-Z])/, ' $1').replace(/^./, (str) => str.toUpperCase())} : ${variation.attributes[e]
+                      }`
                   )
                   .join(', ')}{' '}
               </MenuItem>

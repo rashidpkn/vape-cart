@@ -35,6 +35,7 @@ import api from 'src/utils/api';
 import { Box } from '@mui/material';
 import ProductTableRow from '../product-table-row';
 import ProductTableToolbar from '../product-table-toolbar';
+import ProductTableInRevisionRow from '../product-table-in-revision-row';
 
 // ----------------------------------------------------------------------
 
@@ -45,7 +46,7 @@ const TABLE_HEAD = [
   { id: 'price', label: 'Price', width: 140 },
   { id: 'sales Price', label: 'Sales Price', width: 140 },
   { id: 'publish', label: 'Publish', width: 110 },
-  { id: '', width: 88 },
+  { id: 'action', label: 'Actions', align: 'center' },
 ];
 
 const PUBLISH_OPTIONS = [
@@ -74,29 +75,23 @@ export default function ProductListInRevisonView() {
   const { productsLoading } = useGetProducts();
 
 
+  const fetchProduct = async () => {
+    try {
+      const {
+        data: { products: p },
+      } = await api.get('products', { params: { perPage: 10000, status: 'In Revision' } });
+
+      setTableData(p)
+    } catch (error) {
+      alert('error Occure');
+    }
+  };
   useEffect(() => {
-    const featchProduct = async () => {
-      try {
-        const {
-          data: { products: p },
-        } = await api.get('products', { params: { perPage: 10000, status: 'In Revision' } });
 
-        setTableData(p)
-      } catch (error) {
-        alert('error Occure');
-      }
-    };
-
-    featchProduct();
+    fetchProduct();
   }, []);
 
   const confirm = useBoolean();
-
-  // useEffect(() => {
-  //   if (products?.length) {
-  //     setTableData(products);
-  //   }
-  // }, [products]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -197,17 +192,6 @@ export default function ProductListInRevisonView() {
             publishOptions={PUBLISH_OPTIONS}
           />
 
-          {/* {canReset && (
-            <ProductTableFiltersResult
-              filters={filters}
-              onFilters={handleFilters}
-              //
-              onResetFilters={handleResetFilters}
-              //
-              results={dataFiltered.length}
-              sx={{ p: 2.5, pt: 0 }}
-            />
-          )} */}
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
@@ -254,7 +238,7 @@ export default function ProductListInRevisonView() {
                   ) : (
                     <>
                       {dataFiltered.map((row) => (
-                        <ProductTableRow
+                        <ProductTableInRevisionRow
                           key={row.id}
                           row={row}
                           selected={table.selected.includes(row.id)}
@@ -262,6 +246,7 @@ export default function ProductListInRevisonView() {
                           onDeleteRow={() => handleDeleteRow(row.id)}
                           onEditRow={() => handleEditRow(row.id)}
                           onViewRow={() => handleViewRow(row.id)}
+                          fetchProduct={fetchProduct}
                         />
                       ))}
                     </>
