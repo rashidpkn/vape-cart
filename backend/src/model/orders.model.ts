@@ -31,8 +31,14 @@ export class Orders extends Model {
 
   @Column({ type: DataType.JSON })
   customer: {
-    name: string;
-    email: string;
+    first_name: string,
+    last_name: string,
+    phone_number: string,
+    email: string,
+    address_line_1: string,
+    address_line_2: string,
+    city: string,
+    country: string
   };
 
   @Column({ type: DataType.JSON })
@@ -41,11 +47,7 @@ export class Orders extends Model {
     speedy: string;
     trackingNumber: string;
   };
-  @Column({ type: DataType.JSON })
-  shippingAddress: {
-    fullAddress: string;
-    phoneNumber: string;
-  };
+
 
   @Column({ type: DataType.STRING(20), defaultValue: 'Cash' })
   paymentType: string;

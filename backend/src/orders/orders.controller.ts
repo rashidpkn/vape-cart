@@ -32,7 +32,6 @@ export class OrdersController {
         totalAmount,
         totalQuantity,
         customer,
-        shippingAddress,
       }: {
         items: [{id:number, quantity: number,userId:string,name:string}];
         subTotal: number;
@@ -40,13 +39,19 @@ export class OrdersController {
         discount: number;
         totalAmount: number;
         totalQuantity: number;
-        customer: { name: string; email: string };
-        shippingAddress: { fullAddress: string; phoneNumber: string };
+        customer: {   first_name: string,
+          last_name: string,
+          phone_number: string,
+          email: string,
+          address_line_1: string,
+          address_line_2: string,
+          city: string,
+          country: string};
       } = req.body;
 
-      if (!items.length || !customer || !shippingAddress) {
+      if (!items.length || !customer) {
         throw new BadRequestException(
-          'iteams , customer,shippindAddress are mandatory',
+          'iteams , customer are mandatory',
         );
       }
 
@@ -57,8 +62,7 @@ export class OrdersController {
         discount,
         totalAmount,
         totalQuantity,
-        customer,
-        shippingAddress,
+        customer
       );
     } catch (error) {
       throw error;
@@ -102,10 +106,10 @@ export class OrdersController {
   }
 
   // updateOrder
-  @Patch()
-  async updateOrders(@Req() req: Request) {
+  @Patch(':id')
+  async updateOrders(@Param('id') id:number,@Body() body:any) {
     try {
-      return this.ordersService.updateOrders();
+      return this.ordersService.updateOrders(+id,body);
     } catch (error) {
       throw error;
     }

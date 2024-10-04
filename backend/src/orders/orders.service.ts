@@ -16,8 +16,16 @@ export class OrdersService {
     discount: number,
     totalAmount: number,
     totalQuantity: number,
-    customer: { name: string; email: string },
-    shippingAddress: { fullAddress: string; phoneNumber: string },
+    customer: { 
+  first_name: string,
+  last_name: string,
+  phone_number: string,
+  email: string,
+  address_line_1: string,
+  address_line_2: string,
+  city: string,
+  country: string
+ },
   ) {
     try {
       const dueDate = new Date(new Date().setDate(new Date().getDate() + 5));
@@ -29,7 +37,6 @@ export class OrdersService {
         totalAmount,
         totalQuantity,
         customer,
-        shippingAddress,
       });
 
       const {create} = NotificationsService.prototype
@@ -42,22 +49,6 @@ export class OrdersService {
 })
 
 create({userId:'admin',role:"admin",type:"order",title:`📦 New Order Received! 📦`,message:`Exciting news! A new order has been placed. Order ID: #${id.toString().padStart(3, '0')}. Please process it promptly.`,status:"unread"})
-
-      await Invoice.create({
-        items,
-        subTotal,
-        shipping,
-        discount,
-        totalAmount,
-        totalQuantity,
-        invoiceTo: {
-          email: customer.email,
-          fullAddress: shippingAddress.fullAddress,
-          name: customer.name,
-          phoneNumber: shippingAddress.phoneNumber,
-        },
-        dueDate,
-      });
 
       return { message: 'Order is successfully placed' };
     } catch (error) {
@@ -115,8 +106,12 @@ create({userId:'admin',role:"admin",type:"order",title:`📦 New Order Received!
   }
 
   // updateOrder
-  async updateOrders() {
+  async updateOrders(id:number,body:{}) {
     try {
+      const order = await Orders.update(body,{where:{id}})
+      return {
+        message:'Order Updated'
+      }
     } catch (error) {
       throw error;
     }
