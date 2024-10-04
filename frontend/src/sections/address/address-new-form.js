@@ -28,32 +28,27 @@ import FormProvider, {
 
 export default function AddressNewForm({ open, onClose, onCreate }) {
   const NewAddressSchema = Yup.object().shape({
-    name: Yup.string().required('Fullname is required'),
-    phoneNumber: Yup.string().required('Phone number is required'),
-    apartment: Yup.string().required('Apartment is required'),
-    address: Yup.string().required('Address is required'),
+
+    first_name: Yup.string().required('First name is required'),
+    last_name: Yup.string().required('Last name is required'),
+    phone_number: Yup.string().required('Phone Number is required'),
+    email: Yup.string().required('Email is required'),
+    address_line_1: Yup.string().required('Address line 1 is required'),
+    address_line_2: Yup.string().required('Address line 2 is required'),
     city: Yup.string().required('City is required'),
-    state: Yup.string().required('State is required'),
     country: Yup.string().required('Country is required'),
-    // zipCode: Yup.string().required('Zip code is required'),
-    email: Yup.string().email().required('Email is required'),
-    // not required
-    addressType: Yup.string(),
-    primary: Yup.boolean(),
+
   });
 
   const defaultValues = {
-    name: '',
-    city: '',
-    state: '',
-    address: '',
-    // zipCode: '',
-    primary: true,
-    phoneNumber: '',
-    apartment: '',
-    addressType: 'Home',
-    country: 'United Arab Emirates',
+    first_name: '',
+    last_name: '',
+    phone_number: '',
     email: '',
+    address_line_1: '',
+    address_line_2: '',
+    city: '',
+    country: 'United Arab Emirates'
   };
 
   const methods = useForm({
@@ -68,14 +63,7 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      onCreate({
-        name: data.name,
-        phoneNumber: data.phoneNumber,
-        fullAddress: `${data.apartment} ,${data.address}, ${data.city}, ${data.state}, ${data.country}`,
-        addressType: data.addressType,
-        primary: data.primary,
-        email: data.email,
-      });
+      onCreate(data);
       onClose();
     } catch (error) {
       console.error(error);
@@ -89,14 +77,6 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
 
         <DialogContent dividers>
           <Stack spacing={3}>
-            <RHFRadioGroup
-              row
-              name="addressType"
-              options={[
-                { label: 'Home', value: 'Home' },
-                { label: 'Office', value: 'Office' },
-              ]}
-            />
 
             <Box
               rowGap={3}
@@ -107,71 +87,19 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
                 sm: 'repeat(2, 1fr)',
               }}
             >
-              <RHFTextField name="name" label="Full Name" />
+              <RHFTextField name="first_name" label="First Name" />
+              <RHFTextField name="last_name" label="Last Name" />
 
-              <RHFTextField name="phoneNumber" label="Phone Number" />
+              <RHFTextField name="phone_number" label="Phone Number" />
+              <RHFTextField name="email" label="Email" />
             </Box>
+            <RHFTextField name="address_line_1" label="Address Line 1" />
+            <RHFTextField name="address_line_2" label="Address Line 2" />
 
-            <RHFTextField name="apartment" label="Apartment ,suite,unit etc" />
-            <RHFTextField name="address" label="Street Address" />
+            <RHFTextField name="city" label="City" />
+            <RHFTextField name="country" label="Country" />
 
-            <Box
-              rowGap={3}
-              columnGap={2}
-              display="grid"
-              gridTemplateColumns={{
-                xs: 'repeat(1, 1fr)',
-                sm: 'repeat(2, 1fr)',
-              }}
-            >
-              <RHFTextField name="city" label="City" />
 
-              {/* <RHFTextField name="state" label="State" /> */}
-              <RHFSelect name="state" label="Emirate / Province">
-                <MenuItem value="">Select an Emirate</MenuItem>
-                <MenuItem value="Abu Dhabi">Abu Dhabi</MenuItem>
-                <MenuItem value="Ajman">Ajman</MenuItem>
-                <MenuItem value="Dubai">Dubai</MenuItem>
-                <MenuItem value="Fujairah">Fujairah</MenuItem>
-                <MenuItem value="Ras Al Khaimah">Ras Al Khaimah</MenuItem>
-                <MenuItem value="Sharjah">Sharjah</MenuItem>
-                <MenuItem value="Umm Al Quwain">Umm Al Quwain</MenuItem>
-              </RHFSelect>
-
-              {/* <RHFTextField name="zipCode" label="Zip/Code" /> */}
-            </Box>
-
-            <RHFTextField name="email" label="E-mail" />
-
-            <RHFAutocomplete
-              name="country"
-              label="Country"
-              options={countries.map((country) => country.label)}
-              getOptionLabel={(option) => option}
-              renderOption={(props, option) => {
-                const { code, label, phone } = countries.filter(
-                  (country) => country.label === option
-                )[0];
-
-                if (!label) {
-                  return null;
-                }
-
-                return (
-                  <li {...props} key={label}>
-                    <Iconify
-                      key={label}
-                      icon={`circle-flags:${code.toLowerCase()}`}
-                      width={28}
-                      sx={{ mr: 1 }}
-                    />
-                    {label} ({code}) +{phone}
-                  </li>
-                );
-              }}
-            />
-
-            <RHFCheckbox name="primary" label="Use this address as default." />
           </Stack>
         </DialogContent>
 
@@ -179,7 +107,6 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
           <Button color="inherit" variant="outlined" onClick={onClose}>
             Cancel
           </Button>
-
           <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
             Deliver to this Address
           </LoadingButton>

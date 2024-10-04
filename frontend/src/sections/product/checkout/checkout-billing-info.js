@@ -7,10 +7,13 @@ import Button from '@mui/material/Button';
 import CardHeader from '@mui/material/CardHeader';
 // components
 import Iconify from 'src/components/iconify';
+import { useSelector } from 'react-redux';
 
 // ----------------------------------------------------------------------
 
-export default function CheckoutBillingInfo({ billing, onBackStep }) {
+export default function CheckoutBillingInfo({ onBackStep }) {
+  const billing = useSelector(state => state.checkout.billing)
+
   return (
     <Card sx={{ mb: 3 }}>
       <CardHeader
@@ -22,16 +25,15 @@ export default function CheckoutBillingInfo({ billing, onBackStep }) {
         }
       />
       <Stack spacing={1} sx={{ p: 3 }}>
-        <Box sx={{ typography: 'subtitle2' }}>
-          {`${billing?.name} `}
-          <Box component="span" sx={{ color: 'text.secondary', typography: 'body2' }}>
-            ({billing?.addressType})
-          </Box>
-        </Box>
+        {billing.first_name} {billing.last_name} <br />
+        {billing.phone_number} <br />
+        {billing.email} <br />
+        {billing.address_line_1} <br />
+        {billing.address_line_2} <br />
+        {billing.city} <br />
+        {billing.country} <br />
 
-        <Box sx={{ color: 'text.secondary', typography: 'body2' }}>{billing?.fullAddress}</Box>
 
-        <Box sx={{ color: 'text.secondary', typography: 'body2' }}>{billing?.phoneNumber}</Box>
       </Stack>
     </Card>
   );

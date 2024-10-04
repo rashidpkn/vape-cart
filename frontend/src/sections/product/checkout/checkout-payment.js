@@ -95,14 +95,7 @@ export default function CheckoutPayment({
         discount,
         totalAmount: total,
         totalQuantity: totalItems,
-        customer: {
-          name: billing.name,
-          email: billing.email,
-        },
-        shippingAddress: {
-          fullAddress: billing.fullAddress,
-          phoneNumber: billing.phoneNumber,
-        },
+        customer: billing,
       });
       onNextStep();
       onReset();

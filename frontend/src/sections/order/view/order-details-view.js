@@ -36,7 +36,7 @@ export default function OrderDetailsView() {
 
       setCurrentOrder(data);
       setStatus(data.status);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     fetchOrder();
@@ -71,18 +71,11 @@ export default function OrderDetailsView() {
               totalAmount={currentOrder.totalAmount}
             />
 
-            {/* <OrderDetailsHistory history={currentOrder.history} /> */}
+
           </Stack>
         </Grid>
 
-        {/* <Grid xs={12} md={4}>
-          <OrderDetailsInfo
-            customer={currentOrder.customer}
-            delivery={currentOrder.delivery}
-            payment={currentOrder.payment}
-            shippingAddress={currentOrder.shippingAddress}
-          />
-        </Grid> */}
+
       </Grid>
     </Box>
   );
