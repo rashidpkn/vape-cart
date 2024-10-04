@@ -1,0 +1,1 @@
+import{j as r,W as e}from"./index-ad831b55.js";import{O as s}from"./order-details-toolbar-e26d69b5.js";function a(){return r.jsxs(r.Fragment,{children:[r.jsx(e,{children:r.jsx("title",{children:" Dashboard: Order List"})}),r.jsx(s,{})]})}export{a as default};

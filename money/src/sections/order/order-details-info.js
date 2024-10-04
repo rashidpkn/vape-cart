@@ -34,7 +34,7 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
         />
 
         <Stack spacing={0.5} alignItems="flex-start" sx={{ typography: 'body2' }}>
-          <Typography variant="subtitle2">{customer?.name}</Typography>
+          <Typography variant="subtitle2">{customer?.first_name} {customer?.last_name}</Typography>
 
           <Box sx={{ color: 'text.secondary' }}>{customer?.email}</Box>
 
@@ -97,38 +97,49 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
         }
       />
       <Stack spacing={1.5} sx={{ p: 3, typography: 'body2' }}>
+
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
-            Suite
+            Name
           </Box>
-          {shippingAddress?.fullAddress.split(',')[0]}
+          {customer?.first_name} {customer?.last_name}
         </Stack>
+
+
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
-            Street Address
+            Address Line 1
           </Box>
-          {shippingAddress?.fullAddress.split(',')[1]}
+          {customer?.address_line_1}
+        </Stack>
+
+
+        <Stack direction="row" alignItems="center">
+          <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
+            Address Line 2
+          </Box>
+          {customer?.address_line_2}
         </Stack>
 
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
             City
           </Box>
-          {shippingAddress?.fullAddress.split(',')[2]}
+          {customer?.city}
         </Stack>
-
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
             Country
           </Box>
-          {shippingAddress?.fullAddress.split(',')[4]}
+          {customer?.country}
         </Stack>
+
 
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
-            Phone number
+            Phone Number
           </Box>
-          {shippingAddress?.phoneNumber}
+          {customer?.phone_number}
         </Stack>
       </Stack>
     </>

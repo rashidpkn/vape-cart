@@ -171,6 +171,7 @@ export default function OrderDetailsView() {
             delivery={currentOrder.delivery}
             payment={currentOrder.payment}
             shippingAddress={currentOrder.shippingAddress}
+
           />
         </Grid>
       </Grid>
