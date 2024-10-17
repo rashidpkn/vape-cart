@@ -44,26 +44,24 @@ export default function EcommerceCurrentBalance({
   return (
     <Card sx={{ p: 3, ...sx }} {...other}>
       <Typography variant="subtitle2" gutterBottom>
-        {title}
+        Avalable Balance for requesting
       </Typography>
 
       {!!error && <Alert severity="error">{error}</Alert>}
 
       <Stack spacing={2}>
         <Typography variant="h3">
-          AED{' '}
-          {(
+          {fCurrency(
             orders.reduce(
               (a, b) =>
                 a +
                 b.items.find((it) => it.userId === user.id)?.price *
-                  b.items.find((it) => it.userId === user.id)?.quantity,
+                b.items.find((it) => it.userId === user.id)?.quantity,
               0
             ) *
-              0.2 -
-            payout.reduce((a, b) => a + b.amount, 0) +
-            payout.reduce((a, b) => (b.status === 'pending' ? a + b.amount : a), 0)
-          ).toFixed(2)}{' '}
+            0.7 -
+            payout.reduce((a, b) => a + b.amount, 0)
+          )}
         </Typography>
 
         <Stack direction="row" justifyContent="space-between">
@@ -77,7 +75,7 @@ export default function EcommerceCurrentBalance({
                 (a, b) =>
                   a +
                   b.items.find((it) => it.userId === user.id)?.price *
-                    b.items.find((it) => it.userId === user.id)?.quantity,
+                  b.items.find((it) => it.userId === user.id)?.quantity,
                 0
               )
             )}
@@ -86,7 +84,7 @@ export default function EcommerceCurrentBalance({
 
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Commission (20%)
+            Commission
           </Typography>
           <Typography variant="body2">
             {fCurrency(
@@ -94,9 +92,9 @@ export default function EcommerceCurrentBalance({
                 (a, b) =>
                   a +
                   b.items.find((it) => it.userId === user.id)?.price *
-                    b.items.find((it) => it.userId === user.id)?.quantity,
+                  b.items.find((it) => it.userId === user.id)?.quantity,
                 0
-              ) * 0.2
+              ) * 0.3
             )}
           </Typography>
         </Stack>
@@ -112,11 +110,11 @@ export default function EcommerceCurrentBalance({
                 (a, b) =>
                   a +
                   b.items.find((it) => it.userId === user.id)?.price *
-                    b.items.find((it) => it.userId === user.id)?.quantity,
+                  b.items.find((it) => it.userId === user.id)?.quantity,
                 0
               ) *
-                0.2 -
-                payout.reduce((a, b) => a + b.amount, 0)
+              0.7 -
+              payout.reduce((a, b) => a + b.amount, 0)
             )}
           </Typography>
         </Stack>
@@ -152,11 +150,11 @@ export default function EcommerceCurrentBalance({
                   (a, b) =>
                     a +
                     b.items.find((it) => it.userId === user.id)?.price *
-                      b.items.find((it) => it.userId === user.id)?.quantity,
+                    b.items.find((it) => it.userId === user.id)?.quantity,
                   0
                 ) *
-                  0.2 -
-                  payout.reduce((a, b) => a + b.amount, 0) >
+                0.7 -
+                payout.reduce((a, b) => a + b.amount, 0) >
                 10
               ) {
                 sessionStorage.setItem(
@@ -165,9 +163,9 @@ export default function EcommerceCurrentBalance({
                     (a, b) =>
                       a +
                       b.items.find((it) => it.userId === user.id)?.price *
-                        b.items.find((it) => it.userId === user.id)?.quantity,
+                      b.items.find((it) => it.userId === user.id)?.quantity,
                     0
-                  ) * 0.2
+                  ) * 0.7
                 );
                 navigate('/payment');
               } else {

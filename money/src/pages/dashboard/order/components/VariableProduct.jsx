@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
 import React, { useState } from 'react';
 
-export default function VariableProduct({ state, setState }) {
+export default function VariableProduct({ state, setState,disabled }) {
   const [variations, setVariations] = useState([]);
   const [selectedVariations, setSelectedVariations] = useState({})
 
@@ -11,6 +11,7 @@ export default function VariableProduct({ state, setState }) {
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Variable Products</InputLabel>
           <Select
+          disabled={disabled}
             labelId="demo-simple-select-label"
             value={state.selectedProduct}
             label="Variable Products"
@@ -63,10 +64,11 @@ export default function VariableProduct({ state, setState }) {
 
 
 
-            console.log();
+            
 
             let price = selectedProduct.variations.find(e=>e.attributes===selectedVariations).salePrice
 
+            console.log(selectedVariations);
             let name =  `${selectedProduct.name}-${Object.keys(selectedVariations)
                 .map((a) => selectedVariations[a])
                 .join('-')}`
@@ -84,6 +86,7 @@ export default function VariableProduct({ state, setState }) {
               userId: selectedProduct.userId,
               quantity: 1,
               status: 'processing',
+              variation:selectedVariations
             };
             if (state.order.items.find((item) => item.name === name)) {
               alert('Product already exist');

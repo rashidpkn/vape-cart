@@ -1,11 +1,12 @@
 import { Grid, TextField } from '@mui/material'
 import React from 'react'
 
-export default function Customer({state,setState}) {
+export default function Customer({state,setState,disabled}) {
   return (
     <>
     <Grid item xs={12} md={6}>
         <TextField
+        disabled={disabled}
             fullWidth
             label="Customer First Name"
             value={state.order.customer.first_name}
@@ -23,6 +24,7 @@ export default function Customer({state,setState}) {
 
     <Grid item xs={12} md={6}>
         <TextField
+        disabled={disabled}
             fullWidth
             label="Customer Last Name"
             value={state.order.customer.last_name}
@@ -40,6 +42,7 @@ export default function Customer({state,setState}) {
 
     <Grid item xs={12} md={6}>
         <TextField
+        disabled={disabled}
             fullWidth
             label="Customer Email"
             value={state.order.customer.email}
@@ -54,6 +57,7 @@ export default function Customer({state,setState}) {
 
     <Grid item xs={12} md={6}>
         <TextField
+        disabled={disabled}
             fullWidth
             label="Customer Phone Number"
             value={state.order.customer.phone_number}
@@ -71,6 +75,7 @@ export default function Customer({state,setState}) {
 
     <Grid item xs={12} md={6}>
         <TextField
+        disabled={disabled}
             fullWidth
             label="Address Line 1"
             placeholder="Apartment No. / Villa No. / Street no."
@@ -88,6 +93,7 @@ export default function Customer({state,setState}) {
     </Grid>
     <Grid item xs={12} md={6}>
         <TextField
+        disabled={disabled}
             fullWidth
             label="Address Line 2"
             placeholder="Area, Community, Tower"
@@ -106,6 +112,7 @@ export default function Customer({state,setState}) {
 
     <Grid item xs={12} md={6}>
         <TextField
+        disabled={disabled}
             fullWidth
             label="City"
             placeholder="Dubai"
@@ -120,6 +127,7 @@ export default function Customer({state,setState}) {
     </Grid>
     <Grid item xs={12} md={6}>
         <TextField
+        disabled={disabled}
             fullWidth
             label="Country"
             placeholder="United Arab Emirates"

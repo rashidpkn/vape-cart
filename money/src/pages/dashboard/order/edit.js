@@ -31,8 +31,10 @@ export default function OrderEditPage() {
             subTotal: 0,
             shipping: 0,
             discount: 0,
+            refunded: 0,
             totalAmount: 0,
             totalQuantity: 0,
+            status: 'pending',
             customer: {
                 first_name: '',
                 last_name: '',
@@ -92,7 +94,14 @@ export default function OrderEditPage() {
                 return;
             }
             setState((_) => ({ ..._, updating: true, error: null, message: null }));
-            const order = await api.patch(`/orders/${state.order.id}`, state.order);
+
+
+            if (state.order.status === 'completed') {
+                const order = await api.patch(`/orders/${state.order.id}`, { ...state.order, status: 'refunded' });
+            } else {
+
+                const order = await api.patch(`/orders/${state.order.id}`, state.order);
+            }
             navigate('/dashboard/order');
             _getOrder();
             setState((_) => ({
@@ -125,6 +134,9 @@ export default function OrderEditPage() {
 
     const [productType, setProductType] = useState('Simple')
 
+
+    const disabled = state.order.status !== 'pending'
+
     if (state.loading) {
         return (
             <Box display={'flex'} minHeight={'100vh'} justifyContent={'center'} alignItems={'center'}>
@@ -143,7 +155,7 @@ export default function OrderEditPage() {
                 }}
             />
             <Grid container spacing={2}>
-                <Customer state={state} setState={setState} />
+                <Customer state={state} setState={setState} disabled={disabled} />
 
                 <Grid item xs={12} md={12}>
 
@@ -163,8 +175,8 @@ export default function OrderEditPage() {
                     </FormControl>
 
                 </Grid>
-                {productType === 'Simple' && <SimpleProduct state={state} setState={setState} />}
-                {productType === 'Variable' && <VariableProduct state={state} setState={setState} />}
+                {productType === 'Simple' && <SimpleProduct state={state} setState={setState} disabled={disabled} />}
+                {productType === 'Variable' && <VariableProduct state={state} setState={setState} disabled={disabled} />}
 
                 {state.order.items.map((item, index) => (
                     <Grid item xs={12} md={12}>
@@ -180,6 +192,7 @@ export default function OrderEditPage() {
                             </Stack>
                             <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={2}>
                                 <TextField
+                                    disabled={disabled}
                                     label="Quantity"
                                     value={item.quantity}
                                     onChange={(e) => {
@@ -211,6 +224,9 @@ export default function OrderEditPage() {
                                     width={24}
                                     style={{ cursor: 'pointer' }}
                                     onClick={() => {
+                                        if (disabled) {
+                                            return
+                                        }
                                         const items = state.order.items.filter((e) => e.id !== item.id);
                                         setState((_) => ({
                                             ..._,
@@ -240,6 +256,7 @@ export default function OrderEditPage() {
                         <Box display={'flex'} gap={3}>
                             <TextField
                                 label="Discount"
+                                disabled={disabled}
                                 value={state.order.discount}
                                 onChange={(e) => {
                                     const discount = parseInt(e.target.value, 10) || 0;
@@ -265,15 +282,36 @@ export default function OrderEditPage() {
                         </Box>
                         <Box display={'flex'} gap={3}>
                             <TextField
+                                disabled={disabled}
                                 label="Shipping"
                                 value={state.order.shipping}
                                 onChange={(e) => {
-                                    const discount = parseInt(e.target.value, 10) || 0;
+                                    const shipping = parseInt(e.target.value, 10) || 0;
                                     setState((_) => ({
                                         ..._,
                                         order: {
                                             ..._.order,
-                                            shipping: discount,
+                                            shipping: shipping,
+                                            // totalAmount: _.order.totalAmount - discount,
+                                        },
+                                    }));
+                                }}
+                            />
+                        </Box>
+
+
+                        <Box display={'flex'} gap={3}>
+                            <TextField
+                                disabled={state.order.status !== 'completed'}
+                                label="Refunded"
+                                value={state.order.refunded}
+                                onChange={(e) => {
+                                    const refunded = parseInt(e.target.value, 10) || 0;
+                                    setState((_) => ({
+                                        ..._,
+                                        order: {
+                                            ..._.order,
+                                            refunded,
                                             // totalAmount: _.order.totalAmount - discount,
                                         },
                                     }));
@@ -283,7 +321,7 @@ export default function OrderEditPage() {
 
                         <Box display={'flex'} gap={3}>
                             <Box width={120}>Total Amount</Box>
-                            <Box>AED {(state.order.totalAmount * 1.05 + state.order.shipping).toFixed(2)}</Box>
+                            <Box>AED {(state.order.totalAmount * 1.05 + state.order.shipping - state.order.refunded).toFixed(2)}</Box>
                         </Box>
                     </Box>
                 </Grid>

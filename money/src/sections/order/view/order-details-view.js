@@ -156,8 +156,14 @@ export default function OrderDetailsView() {
 
                   <TableRow>
                     <TableCell colSpan={3}></TableCell>
+                    <TableCell>Refunded</TableCell>
+                    <TableCell>AED {currentOrder?.refunded}</TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell colSpan={3}></TableCell>
                     <TableCell>Grand Total</TableCell>
-                    <TableCell>AED {((currentOrder.totalAmount * 1.05) + currentOrder?.shipping).toFixed(2)}</TableCell>
+                    <TableCell>AED {((currentOrder.totalAmount * 1.05) + currentOrder?.shipping - currentOrder?.refunded).toFixed(2)}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>

@@ -1,13 +1,14 @@
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
 import React from 'react'
 
-export default function SimpleProduct({state,setState,}) {
+export default function SimpleProduct({state,setState,disabled}) {
   return (
     <Grid item xs={12}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 3 }}>
                     <FormControl fullWidth>
     <InputLabel id="demo-simple-select-label">Simple Products</InputLabel>
     <Select
+    disabled={disabled}
         labelId="demo-simple-select-label"
         value={state.selectedProduct || ""}
         label="Simple Products"

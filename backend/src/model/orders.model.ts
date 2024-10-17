@@ -17,11 +17,14 @@ export class Orders extends Model {
   @Column
   subTotal: number;
 
-  @Column
+  @Column({defaultValue:0})
   shipping: number;
 
-  @Column
+  @Column({defaultValue:0})
   discount: number;
+
+  @Column({defaultValue:0})
+  refunded: number;
 
   @Column
   totalAmount: number;

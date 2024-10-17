@@ -116,7 +116,7 @@ export default function OrderTableRow({
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
 
 
-        {status === 'pending' &&
+        {(status === 'pending' || status === 'completed') &&
           <Link to={`/dashboard/order/${id}/edit`}>
             <IconButton
               color={collapse.value ? 'inherit' : 'default'}
