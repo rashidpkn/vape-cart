@@ -11,7 +11,8 @@ export class Orders extends Model {
     name: string;
     images: string[];
     price: number;
-    status:string
+    status:string;
+    variation:any
   }[];
 
   @Column

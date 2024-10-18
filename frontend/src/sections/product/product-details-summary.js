@@ -167,6 +167,7 @@ export default function ProductDetailsSummary({
             userId,
             quantity: quantityToPurchase,
             available: quantity,
+
           });
           navigate(paths.product.checkout);
         }}

@@ -8,6 +8,7 @@ import { Orders } from 'src/model/orders.model';
 import { Payout } from 'src/model/payout.model';
 import { Product } from 'src/model/product.model';
 import { StoreAnalytics } from 'src/model/storeAnalytics.model';
+import { Support } from 'src/model/support.model';
 
 export const databaseProviders = [
   {
@@ -22,7 +23,8 @@ export const databaseProviders = [
         Payout,
         Customers,
         Attributes,
-        Notifications
+        Notifications,
+        Support
       ]);
       try {
         await sequelize.authenticate();

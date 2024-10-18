@@ -15,6 +15,8 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { FirebaseModule } from './firebase/firebase.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { SupportModule } from './support/support.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -32,7 +34,9 @@ import { join } from 'path';
     FirebaseModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname,'..','..','..','frontend','dist'),
-    })
+    }),
+    SupportModule,
+    MailModule
   ],
   controllers: [AppController],
   providers: [AppService],
