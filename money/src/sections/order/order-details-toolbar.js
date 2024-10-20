@@ -62,7 +62,7 @@ export default function OrderDetailsToolbar({
           </Stack>
         </Stack>
 
-        <Stack
+        {status !== 'cancelled' && <Stack
           flexGrow={1}
           spacing={1.5}
           direction="row"
@@ -79,18 +79,7 @@ export default function OrderDetailsToolbar({
             {status}
           </Button>
 
-          {/* <Button
-            color="inherit"
-            variant="outlined"
-            startIcon={<Iconify icon="solar:printer-minimalistic-bold" />}
-          >
-            Print
-          </Button>
-
-          <Button color="inherit" variant="contained" startIcon={<Iconify icon="solar:pen-bold" />}>
-            Edit
-          </Button> */}
-        </Stack>
+        </Stack>}
       </Stack>
 
       <CustomPopover

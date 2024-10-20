@@ -15,6 +15,7 @@ import { Request } from 'express';
 import { Orders } from 'src/model/orders.model';
 import { Invoice } from 'src/model/invoice.model';
 import { NotificationsService } from 'src/notifications/notifications.service';
+import { Product } from 'src/model/product.model';
 
 @Controller('orders')
 export class OrdersController {
@@ -131,8 +132,28 @@ export class OrdersController {
           create({userId:item.userId,role:"admin",type:"order",title:` ✅ Order Completed! ✅`,message:`Great job! Order ID: #${id.toString().padStart(3, '0')} has been successfully completed. Thank you for your prompt service. 🎉`,status:"unread"})
         })  
       }
+
+      if(status === 'cancelled'){
+
+        items.map(async (item)=>{
+          const product = await Product.findOne({where:{id:item.id}})
+        if(!product){
+          console.log("Product not found");
+        }else{
+          if(product.type==='Simple'){
+            product.quantity -= item.quantity
+            await product.update(product,{where:{id:item.id}})
+            console.log("Product quantity updated");
+          }else{
+            console.log("Error: Variable product update failed.  Database structure error.");
+          }
+        }
+      })
+    }
+
       await Orders.update({ status }, { where: { id } });
-      await Invoice.update({ status }, { where: { id } });
+
+
     } catch (error) {
       throw error;
     }
