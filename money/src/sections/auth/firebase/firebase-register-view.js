@@ -103,7 +103,7 @@ export default function FirebaseRegisterView() {
         const form = new FormData();
         form.append('images', acceptedFiles[0]);
         const { data } = await api.post('upload', form);
-        setValue('tradeLicense', `https://vape-amazon.com${data}`);
+        setValue('tradeLicense', `https://vapes-uae.com${data}`);
         alert('Image upload complete.');
       } catch (error) {
         alert(' Image upload failed, try again.');

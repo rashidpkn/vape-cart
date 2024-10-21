@@ -6,6 +6,9 @@ export class Support extends Model {
   username:string
 
   @Column
+  name:string
+
+  @Column
   email:string
 
   @Column

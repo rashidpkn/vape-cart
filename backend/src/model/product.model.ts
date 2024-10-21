@@ -19,7 +19,7 @@ export class Product extends Model {
   subDescription: string;
   @Column({ type: DataType.STRING(15000) })
   content: string;
-  @Column({ type: DataType.ARRAY(DataType.STRING), defaultValue: ['https://vape-amazon.com/img/no-image.jpg'],})
+  @Column({ type: DataType.ARRAY(DataType.STRING), defaultValue: ['https://vapes-uae.com/img/no-image.jpg'],})
   images: string[];
 
   

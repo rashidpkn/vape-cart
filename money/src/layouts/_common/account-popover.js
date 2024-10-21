@@ -24,7 +24,7 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 const OPTIONS = [
   // {
   //   label: 'Home',
-  //   linkTo: 'https://vape-amazon.com',
+  //   linkTo: 'https://vapes-uae.com',
   // },
   {
     label: 'Products',

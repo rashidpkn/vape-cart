@@ -237,7 +237,7 @@ export default function OrderTableRow({
           <Iconify icon="solar:eye-bold" />
           View
         </MenuItem>
-        <MenuItem
+        {/* <MenuItem
           onClick={() => {
             confirm.onTrue();
             popover.onClose();
@@ -246,7 +246,7 @@ export default function OrderTableRow({
         >
           <Iconify icon="solar:trash-bin-trash-bold" />
           Delete
-        </MenuItem>
+        </MenuItem> */}
       </CustomPopover>
 
       <ConfirmDialog

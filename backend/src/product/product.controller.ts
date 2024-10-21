@@ -21,7 +21,7 @@ export class ProductController {
   @Get('/update-images')
   async updateImg() {
     await Product.update(
-      { images: ['https://vape-amazon.com/img/no-image.jpg'] },
+      { images: ['https://vapes-uae.com/img/no-image.jpg'] },
       { where: {} },
     );
   }

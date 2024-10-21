@@ -90,7 +90,7 @@ export default function InvoiceDetails({ invoice }) {
       <Grid xs={12} md={3} sx={{ py: 3, textAlign: 'right' }}>
         <Typography variant="subtitle2">Have a Question?</Typography>
 
-        <Typography variant="body2">info@vape-amazon.com</Typography>
+        <Typography variant="body2">info@vapes-uae.com</Typography>
       </Grid>
     </Grid>
   );

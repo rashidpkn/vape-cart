@@ -44,9 +44,10 @@ export default function ChatPage() {
             <TableHead>
               <TableRow>
                 <TableCell>ID</TableCell>
-                <TableCell>Username</TableCell>
+                <TableCell>Partner</TableCell>
+                <TableCell>Name</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>Type</TableCell>
+                <TableCell>Department</TableCell>
                 <TableCell>Subject</TableCell>
                 <TableCell>Message</TableCell>
                 <TableCell>Status</TableCell>
@@ -60,6 +61,7 @@ export default function ChatPage() {
                 <TableRow>
                   <TableCell>{e.id}</TableCell>
                   <TableCell>{e.username}</TableCell>
+                  <TableCell>{e.name}</TableCell>
                   <TableCell>{e.email}</TableCell>
                   <TableCell>{e.type}</TableCell>
                   <TableCell>{e.subject}</TableCell>
