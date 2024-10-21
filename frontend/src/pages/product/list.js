@@ -214,11 +214,10 @@ export default function HomePage() {
         <Box>
           <Grid container spacing={3} sx={{ padding: '15px', marginTop: '-300px' }}>
             {card
-              .map((c) =>
+              ?.map((c) =>
                 producsts
                   .reverse()
-                  .filter((p) => p.tags.find((t) => t === c))
-                  .slice(0, 4)
+                  .filter((p) => p.tags.find((t) => t === c))?.slice(0, 4)
               )
               .map((items, i) => (
                 <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
