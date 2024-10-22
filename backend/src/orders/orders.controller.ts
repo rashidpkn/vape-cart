@@ -141,8 +141,7 @@ export class OrdersController {
           console.log("Product not found");
         }else{
           if(product.type==='Simple'){
-            product.quantity -= item.quantity
-            await product.update(product,{where:{id:item.id}})
+            await product.update({quantity:product.quantity+item.quantity},{where:{id:item.id}})
             console.log("Product quantity updated");
           }else{
             console.log("Error: Variable product update failed.  Database structure error.");
