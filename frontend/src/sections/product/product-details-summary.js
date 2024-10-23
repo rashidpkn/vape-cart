@@ -65,11 +65,7 @@ export default function ProductDetailsSummary({
         </p>
       </Box>
     ) : (
-      <Box sx={{ typography: 'h5' }}>
-
-        {fCurrency(salePrice)}
-
-      </Box>
+      <Box sx={{ typography: 'h5' }}>{fCurrency(salePrice)}</Box>
     );
 
   const renderQuantity = (
@@ -167,7 +163,7 @@ export default function ProductDetailsSummary({
             userId,
             quantity: quantityToPurchase,
             available: quantity,
-
+            variation: selectedVariation,
           });
           navigate(paths.product.checkout);
         }}
