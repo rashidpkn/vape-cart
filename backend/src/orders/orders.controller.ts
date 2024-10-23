@@ -34,7 +34,7 @@ export class OrdersController {
         totalQuantity,
         customer,
       }: {
-        items: [{id:number, quantity: number,userId:string,name:string}];
+        items: [{id:number, quantity: number,userId:string,name:string,variation:{}}];
         subTotal: number;
         shipping: number;
         discount: number;

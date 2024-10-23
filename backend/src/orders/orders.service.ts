@@ -15,6 +15,7 @@ export class OrdersService {
         id: number;
         userId: string;
         name: string;
+        variation:{}
       },
     ],
     subTotal: number,
@@ -47,15 +48,17 @@ export class OrdersService {
 
       const { create } = NotificationsService.prototype;
       items.map(async (item) => {
-        const { quantity, track } = await Product.findOne({
+        const { quantity, track,type } = await Product.findOne({
           where: { id: item.id },
         });
         if (track) {
-          await Product.update(
-            { quantity: quantity - item.quantity },
-            { where: { id: item.id } },
-          );
-        }
+          if(type === 'Simple'){
+            await Product.update(
+              { quantity: quantity - item.quantity },
+              { where: { id: item.id } },
+            );
+          }
+          }
         create({
           userId: item.userId,
           role: 'user',
