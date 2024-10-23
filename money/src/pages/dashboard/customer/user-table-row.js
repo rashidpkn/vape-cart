@@ -8,11 +8,11 @@ export default function UserTableRow({ row, orders }) {
 
   return (
     <TableRow hover>
-      <TableCell>{row}</TableCell>
+      <TableCell>{customers[0].customer.first_name} {customers[0].customer.last_name}</TableCell>
 
-      <TableCell>{customers[0].shippingAddress.phoneNumber}</TableCell>
+      <TableCell>{customers[0].customer.phone_number}</TableCell>
 
-      <TableCell>{customers[0].shippingAddress.fullAddress}</TableCell>
+      <TableCell>{customers[0].customer.address_line_1} <br /> {customers[0].customer.address_line_2} <br /> {customers[0].customer.city} <br /> {customers[0].customer.country}</TableCell>
 
       <TableCell>{customers.length}</TableCell>
       <TableCell>{customers.reduce((a, b) => a + b.totalAmount, 0)}</TableCell>
