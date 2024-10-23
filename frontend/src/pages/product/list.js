@@ -48,6 +48,7 @@ export default function HomePage() {
       .get('products', {
         params: {
           perPage: 2000,
+          status: 'Published'
         },
       })
       .then((res) => {
