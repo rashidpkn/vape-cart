@@ -173,7 +173,7 @@ export class OrdersService {
               product.variations = product.variations.filter(e => e !== found);
             }
 
-            found.quantity = found.quantity + item.quantity
+            found.quantity = found.quantity - item.quantity
 
             const variations = [...product.variations,found]
 

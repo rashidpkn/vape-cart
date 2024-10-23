@@ -188,7 +188,7 @@ export class OrdersController {
                   (e) => e !== found,
                 );
               }
-              found.quantity = found.quantity + item.quantity;
+              found.quantity = found.quantity - item.quantity;
               const variations = [...product.variations, found];
               await Product.update({ variations }, { where: { id: item.id } });
             }
