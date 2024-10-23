@@ -48,16 +48,30 @@ export class OrdersService {
 
       const { create } = NotificationsService.prototype;
       items.map(async (item) => {
-        const { quantity, track,type } = await Product.findOne({
+        const product = await Product.findOne({
           where: { id: item.id },
         });
-        if (track) {
-          if(type === 'Simple'){
+        if (product.track) {
+          if(product.type === 'Simple'){
             await Product.update(
-              { quantity: quantity - item.quantity },
+              { quantity: product.quantity - item.quantity },
               { where: { id: item.id } },
             );
+          }else{
+            const found = product.variations.find(variation =>
+              Object.entries(item.variation).every(([key, value]) =>
+                variation.attributes[key] === value
+              )
+            );
+            
+            if (found) {
+              product.variations = product.variations.filter(e => e !== found);
+            }
+            found.quantity = found.quantity + item.quantity
+            const variations = [...product.variations,found]
+            await Product.update({ variations }, { where: { id: item.id } });
           }
+
           }
         create({
           userId: item.userId,
