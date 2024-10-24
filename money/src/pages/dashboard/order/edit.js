@@ -278,7 +278,7 @@ export default function OrderEditPage() {
                         </Box>
                         <Box display={'flex'} gap={3}>
                             <Box width={120}>VAT 5%</Box>
-                            <Box>AED {state.order.totalAmount * 0.05}</Box>
+                            <Box>AED {(state.order.totalAmount * 0.05).toFixed(2)}</Box>
                         </Box>
                         <Box display={'flex'} gap={3}>
                             <TextField

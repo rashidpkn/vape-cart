@@ -118,7 +118,7 @@ export class OrdersService {
         where.status = status;
       }
 
-      const orders = await Orders.findAll({ where });
+      const orders = await Orders.findAll({ where,order: [['id', 'DESC']] });
 
       return orders;
     } catch (error) {
