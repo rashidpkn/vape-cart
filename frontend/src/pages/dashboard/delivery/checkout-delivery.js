@@ -19,13 +19,13 @@ import { useAuthContext } from 'src/auth/hooks';
 
 export default function CheckoutDelivery() {
   const [deliverySettings, setDeliverySettings] = useState([
-    { enable: false, day: 'Sun', open: '', close: '', lastCall: '' },
     { enable: false, day: 'Mon', open: '', close: '', lastCall: '' },
     { enable: false, day: 'Thu', open: '', close: '', lastCall: '' },
     { enable: false, day: 'Wen', open: '', close: '', lastCall: '' },
     { enable: false, day: 'Tue', open: '', close: '', lastCall: '' },
     { enable: false, day: 'Fri', open: '', close: '', lastCall: '' },
     { enable: false, day: 'Sat', open: '', close: '', lastCall: '' },
+    { enable: false, day: 'Sun', open: '', close: '', lastCall: '' },
   ]);
 
   const { user } = useAuthContext();
