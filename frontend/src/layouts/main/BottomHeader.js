@@ -26,8 +26,10 @@ const HeaderBottom = () => {
         color: '#fff',
         display: 'flex',
         alignItems: 'center',
+
         paddingRight: '16px',
         paddingLeft: '16px',
+        justifyContent: 'center'
       }}
     >
       <ul
@@ -42,14 +44,14 @@ const HeaderBottom = () => {
           listStyle: 'none',
         }}
       >
-        <li
+        {/* <li
           onClick={() => setSidebar(true)}
           className="navborder"
           style={{ display: 'flex', alignItems: 'center' }}
         >
           <Menu />
           All
-        </li>
+        </li> */}
         <li
           className="navborder"
           style={{

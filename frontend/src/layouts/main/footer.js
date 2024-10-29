@@ -57,8 +57,8 @@ export default function Footer() {
 
       <Container
         sx={{
-          pt: 10,
-          pb: 5,
+          pt: 1,
+          pb: 1,
           textAlign: { xs: 'center', md: 'unset' },
         }}
       >
@@ -107,11 +107,11 @@ export default function Footer() {
           </Grid>
 
           <Grid xs={12} md={6}>
-            <Stack spacing={5} direction={{ xs: 'column', md: 'row' }}>
+            <Stack spacing={2} direction={{ xs: 'column', md: 'row' }}>
               {LINKS.map((list) => (
                 <Stack
                   key={list.headline}
-                  spacing={2}
+                  spacing={1}
                   alignItems={{ xs: 'center', md: 'flex-start' }}
                   sx={{ width: 1 }}
                 >
@@ -136,7 +136,7 @@ export default function Footer() {
           </Grid>
         </Grid>
 
-        <Typography variant="body2" sx={{ mt: 10 }}>
+        <Typography variant="body2" sx={{ mt: 1 }}>
           © {new Date().getFullYear()}. All rights reserved
         </Typography>
       </Container>

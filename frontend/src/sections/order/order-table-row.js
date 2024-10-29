@@ -59,11 +59,11 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
       </TableCell>
 
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar alt={customer?.name} src={customer?.avatarUrl} sx={{ mr: 2 }} />
+        <Avatar alt={customer?.first_name} src={customer?.avatarUrl} sx={{ mr: 2 }} />
 
         <ListItemText
-          primary={customer?.name}
-          // secondary={customer.email}
+          primary={customer?.first_name + customer?.last_name}
+          secondary={customer.email}
           primaryTypographyProps={{ typography: 'body2' }}
           secondaryTypographyProps={{ component: 'span', color: 'text.disabled' }}
         />

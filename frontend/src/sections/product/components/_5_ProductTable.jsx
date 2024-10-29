@@ -87,7 +87,7 @@ export function ProductTable({
       const regularPriceNumber = parseFloat(regularPrice);
       const salePriceNumber = parseFloat(salePrice);
 
-      if (regularPriceNumber <= salePriceNumber) {
+      if (regularPriceNumber < salePriceNumber) {
         return alert('Sale price must be less than the regular price');
       }
     }

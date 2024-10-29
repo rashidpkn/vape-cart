@@ -243,55 +243,8 @@ export default function Header({ set }) {
               paddingLeft: '16px',
             }}
           >
-            <span
-              onClick={() => setShowAll(!showAll)}
-              className="bg-gray"
-              style={{
-                width: '56px',
-                fontSize: '14px',
-                color: '#131921',
-                borderTopLeftRadius: '6px',
-                borderBottomLeftRadius: '6px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                cursor: 'pointer',
-              }}
-            >
-              All
-              <span />
-              <ArrowDropDown />
-            </span>
-            {showAll && (
-              <Box>
-                <ul
-                  style={{
-                    position: 'absolute',
-                    width: '224px',
-                    height: '320px',
-                    top: '24px',
-                    left: '15px',
-                    overflowY: 'scroll',
-                    overflowX: 'hidden',
-                    background: '#fff',
-                    color: '#000',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1',
-                    zIndex: '50',
-                    padding: '8px',
-                    border: '1px solid #131921',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {allItems.map((item) => (
-                    <li key={item._id} style={{ cursor: 'poniter' }}>
-                      {item.title}
-                    </li>
-                  ))}
-                </ul>
-              </Box>
-            )}
+
+
 
             {/* <input type="text" value={input} onChange={(e) => handleChange(e.target.value)} placeholder='Search Products' style={{ height: '100%', fontSize: '16px', color: '#131921', flexGrow: '1', outline: 'none', border: 'none', paddingRight: '8px', paddingLeft: '8px' }}  /> */}
 
