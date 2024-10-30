@@ -11,15 +11,15 @@ export default function useTable(props) {
 
   const [rowsPerPage, setRowsPerPage] = useState(props?.defaultRowsPerPage || 5);
 
-  const [order, setOrder] = useState(props?.defaultOrder || 'asc');
+  const [order, setOrder] = useState(props?.defaultOrder || 'desc');
 
   const [selected, setSelected] = useState(props?.defaultSelected || []);
 
   const onSort = useCallback(
     (id) => {
-      const isAsc = orderBy === id && order === 'asc';
+      const isAsc = orderBy === id && order === 'desc';
       if (id !== '') {
-        setOrder(isAsc ? 'desc' : 'asc');
+        setOrder(!isAsc ? 'desc' : 'asc');
         setOrderBy(id);
       }
     },

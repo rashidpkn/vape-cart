@@ -117,7 +117,7 @@ export default function OrderListView() {
     setTableData(filterOrdersByUserId(sortOrders, id));
   }, [orders, myProduct]);
 
-  const table = useTable({ defaultOrderBy: 'orderNumber' });
+  const table = useTable({ defaultOrderBy: 'id' });
 
   const router = useRouter();
 
