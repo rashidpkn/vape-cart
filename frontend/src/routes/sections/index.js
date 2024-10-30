@@ -9,6 +9,8 @@ import MainLayout from 'src/layouts/main';
 import { SplashScreen, LoadingScreen } from 'src/components/loading-screen';
 import { GuestGuard, AuthGuard } from 'src/auth/guard';
 import ProductShopDetailsView from 'src/sections/product/view/product-details-view';
+import BlogsPage from 'src/pages/blog';
+import SignleBlogs from 'src/pages/blog/SinglePAge';
 
 // import HomePage from 'src/pages/product/list';
 
@@ -79,6 +81,8 @@ export default function Router() {
         { path: '/shop', element: <ShopPage /> },
         { path: 'about-us', element: <AboutPage /> },
         { path: 'contact-us', element: <ContactPage /> },
+        { path: 'blogs', element: <BlogsPage /> },
+        { path: 'blogs/1', element: <SignleBlogs /> },
         { path: 'faqs', element: <FaqsPage /> },
         {
           path: 'product',

@@ -267,9 +267,9 @@ export default function OrderListView() {
               }
               action={
                 <Tooltip title="Delete">
-                  <IconButton color="primary" onClick={confirm.onTrue}>
+                  {/* <IconButton color="primary" onClick={confirm.onTrue}>
                     <Iconify icon="solar:trash-bin-trash-bold" />
-                  </IconButton>
+                  </IconButton> */}
                 </Tooltip>
               }
             />
