@@ -76,19 +76,25 @@ export default function ProductTableRow({
   });
 
   const _quickEdit = async () => {
-    try {
-      if (quickEditData.salePrice) {
-        const regularPriceNumber = parseFloat(quickEditData.regularPrice);
-        const salePriceNumber = parseFloat(quickEditData.salePrice);
 
-        if (regularPriceNumber <= salePriceNumber) {
-          return alert('Sale price must be less than the regular price');
-        }
+
+    try {
+      if (!quickEditData.salePrice || !quickEditData.regularPrice) {
+        alert("Sale Price and regular price are mandatory")
+        return
+      }
+      else if (quickEditData.salePrice > quickEditData.regularPrice) {
+        alert("Sale price must be less than the regular price")
+        return
+      }
+      if (quickEditData.track && quickEditData.quantity < 0) {
+        alert("Quantity is positive")
+        return
       }
 
-      let salePrice = parseFloat(quickEditData.salePrice) ? parseFloat(quickEditData.salePrice) : parseFloat(quickEditData.regularPrice)
 
-      const editPRoduct = await api.post(`/products/quick_edit/${id}`, { ...quickEditData, salePrice });
+
+      const editPRoduct = await api.post(`/products/quick_edit/${id}`, { ...quickEditData });
       alert('Product Updated');
       fetchProduct();
       setQuickEdit(false);
@@ -287,14 +293,14 @@ export default function ProductTableRow({
             <TextField
               type="number"
               label="Regular Price"
-              value={quickEditData.regularPrice}
-              onChange={(e) => setQuickEditData((_) => ({ ..._, regularPrice: e.target.value }))}
+              value={quickEditData.regularPrice || null}
+              onChange={(e) => setQuickEditData((_) => ({ ..._, regularPrice: +e.target.value }))}
             />
             <TextField
               type="number"
               label="Sale Price"
-              value={quickEditData.salePrice}
-              onChange={(e) => setQuickEditData((_) => ({ ..._, salePrice: e.target.value }))}
+              value={quickEditData.salePrice || null}
+              onChange={(e) => setQuickEditData((_) => ({ ..._, salePrice: +e.target.value }))}
             />
             <FormControlLabel
               label="Track Stock"
@@ -303,10 +309,8 @@ export default function ProductTableRow({
                   checked={quickEditData.track}
                   onChange={(e) => {
                     setQuickEditData((_) => ({ ..._, track: e.target.checked }));
-                    if (!e.target.checked) {
-                      setQuickEditData((_) => ({ ..._, quantity: 100 }));
-                    } else {
-                      setQuickEditData((_) => ({ ..._, quantity }));
+                    if (e.target.checked) {
+                      setQuickEditData(_ => ({ ..._, availability: "In Stock" }))
                     }
                   }}
                 />
@@ -317,16 +321,18 @@ export default function ProductTableRow({
               <TextField
                 type="number"
                 label="Quantity"
-                value={quickEditData.quantity}
-                onChange={(e) => setQuickEditData((_) => ({ ..._, quantity: e.target.value }))}
+                value={quickEditData.quantity || null}
+                onChange={(e) => setQuickEditData((_) => ({ ..._, quantity: +e.target.value, availability: "In Stock" }))}
               />
             ) : (
               <FormControl>
-                <RadioGroup onChange={e => setQuickEditData(_ => ({ ..._, availability: e.target.value }))}
+                <RadioGroup onChange={e => {
+                  setQuickEditData(_ => ({ ..._, availability: e.target.value, quantity: e.target.value === 'In Stock' ? 100 : 0 }));
+                }}
                   defaultValue="In Stock" value={quickEditData.availability} row>
                   <FormControlLabel
                     value="In Stock"
-                    control={<Radio defaultChecked />}
+                    control={<Radio />}
                     label="In Stock"
                   />
                   <FormControlLabel value="Out Stock" control={<Radio />} label="Out Stock" />

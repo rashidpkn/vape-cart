@@ -100,33 +100,50 @@ export default function ProductNewEditForm({ currentProduct }) {
     variations: Yup.array(),
   });
 
-  const defaultValues = useMemo(
-    () => ({
-      id: currentProduct?.id || '',
+  const [defaultValues, setDefaultValues] = useState({
+    id: '',
+    name: '',
+    subDescription: '',
+    content: '',
+    images: [],
+    type: 'Simple',
+    category: 'Disposables',
+    tags: [],
+    SKU: '',
+    brand: 'SMOK',
+    status: 'Published',
+    attributes: {},
+    track: true,
+    availability: 'In Stock',
+    quantity: 0,
+    regularPrice: 100,
+    salePrice: 0,
+    variations: [],
+  });
 
+  useEffect(() => {
+    setDefaultValues({
+      id: currentProduct?.id || '',
       name: currentProduct?.name || '',
       subDescription: currentProduct?.subDescription || '',
       content: currentProduct?.content || '',
       images: currentProduct?.images || [],
-
       type: currentProduct?.type || 'Simple',
       category: currentProduct?.category || 'Disposables',
       tags: currentProduct?.tags || [],
       SKU: currentProduct?.SKU || '',
       brand: currentProduct?.brand || 'SMOK',
       status: currentProduct?.status || 'Published',
-
       attributes: currentProduct?.attributes || {},
-
-      track: currentProduct?.track || true,
+      track: currentProduct?.track,
       availability: currentProduct?.availability || 'In Stock',
       quantity: currentProduct?.quantity || 0,
       regularPrice: currentProduct?.regularPrice || 100,
       salePrice: currentProduct?.salePrice || 0,
       variations: currentProduct?.variations || [],
-    }),
-    [currentProduct]
-  );
+    });
+  }, [currentProduct]);
+
 
   const methods = useForm({
     resolver: yupResolver(NewProductSchema),
@@ -175,7 +192,18 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      console.log(`DATA : ${data}`);
+
+      if (data.type === 'Simple') {
+        if (!data.salePrice || !data.regularPrice) {
+          alert("Sale Price and regular price are mandatory")
+          return
+        }
+        else if (data.salePrice > data.regularPrice) {
+          alert("Sale price must be less than the regular price")
+          return
+        }
+      }
+
       if (currentProduct) {
         await api.patch('products', {
           ...data,
@@ -198,6 +226,25 @@ export default function ProductNewEditForm({ currentProduct }) {
       console.log(error);
     }
   });
+
+
+
+  const [selectedAttributes, setSelectedAttributes] = useState([]);
+  const [variation, setVariation] = useState([]);
+
+  useEffect(() => {
+    if (currentProduct) {
+      const { attributes, variations, type } = currentProduct;
+
+      if (attributes) {
+        setSelectedAttributes(Object.keys(attributes));
+      }
+
+      if (type === 'Variable' && variations.length) {
+        setVariation(Object.keys(variations[0]?.attributes));
+      }
+    }
+  }, [currentProduct]);
 
   const renderDetails = (
     <>
@@ -241,23 +288,6 @@ export default function ProductNewEditForm({ currentProduct }) {
       </Grid>
     </>
   );
-
-  const [selectedAttributes, setSelectedAttributes] = useState([]);
-  const [variation, setVariation] = useState([]);
-
-  useEffect(() => {
-    if (currentProduct) {
-      const { attributes, variations, type } = currentProduct;
-
-      if (attributes) {
-        setSelectedAttributes(Object.keys(attributes));
-      }
-
-      if (type === 'Variable' && variations.length) {
-        setVariation(Object.keys(variations[0]?.attributes));
-      }
-    }
-  }, [currentProduct]);
 
   const renderAttributes = (
     <>
@@ -393,7 +423,6 @@ export default function ProductNewEditForm({ currentProduct }) {
     </>
   );
 
-  console.log(values);
 
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>

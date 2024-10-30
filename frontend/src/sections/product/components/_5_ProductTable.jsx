@@ -29,7 +29,6 @@ export function ProductTable({
 
   const [productDetails, setProductDetails] = useState({
     track: true,
-
     availability: 'In Stock',
     quantity: null,
     regularPrice: null,
@@ -74,22 +73,21 @@ export function ProductTable({
   };
 
   const handleAddProduct = async () => {
-    const { track, quantity, regularPrice, salePrice } = productDetails;
+    let { track, quantity, regularPrice, salePrice } = productDetails;
+
+    salePrice = Number(salePrice);
+    regularPrice = Number(regularPrice);
+    quantity = Number(quantity);
 
     if (track && !quantity) {
       return alert('Quantity is required.');
     }
-    if (!regularPrice) {
-      return alert('Regular price is required.');
+    if (!regularPrice || !salePrice) {
+      return alert('Sale Price and regular price are mandatory.');
     }
 
-    if (salePrice) {
-      const regularPriceNumber = parseFloat(regularPrice);
-      const salePriceNumber = parseFloat(salePrice);
-
-      if (regularPriceNumber < salePriceNumber) {
-        return alert('Sale price must be less than the regular price');
-      }
+    if (salePrice > regularPrice) {
+      return alert('Sale price must be less than the regular price');
     }
 
     if (status !== 'pending') {
@@ -124,7 +122,6 @@ export function ProductTable({
       }
 
       setStatus('success');
-
     } catch (error) {
       console.error('Product creation failed:', error);
       setStatus('failed');
@@ -177,7 +174,9 @@ export function ProductTable({
       <TableCell>{name}</TableCell>
       <TableCell>
         <FormControlLabel
-          control={<Checkbox checked={track} onChange={handleProductDetailsChange('track')} />}
+          control={<Checkbox checked={track} onChange={
+            (e) => setProductDetails((_) => ({ ..._, track: e.target.checked,availability:'In Stock' }))
+          } />}
         />
       </TableCell>
       <TableCell width={150}>
@@ -187,7 +186,7 @@ export function ProductTable({
             label="Quantity"
             type="number"
             inputProps={{ min: 0 }}
-            onChange={handleProductDetailsChange('quantity')}
+            onChange={(e) => setProductDetails((_) => ({ ..._, quantity  :+e.target.value }))}
             value={quantity || ''}
           />
         ) : (
@@ -195,7 +194,7 @@ export function ProductTable({
             aria-label="Stock"
             name="Stock"
             value={productDetails.availability}
-            onChange={(e) => setProductDetails(_=>({..._,availability:e.target.value}))}
+            onChange={(e) => setProductDetails((_) => ({ ..._, availability: e.target.value,quantity  :e.target.value === 'In Stock' ? 100 : 0 }))}
           >
             <FormControlLabel value="In Stock" control={<Radio />} label="In Stock" />
             <FormControlLabel value="Out Stock" control={<Radio />} label="Out Stock" />

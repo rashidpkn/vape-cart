@@ -16,6 +16,8 @@ import React from 'react';
 import { RHFCheckbox, RHFTextField } from 'src/components/hook-form';
 
 export default function RenderPricing({ values,setValue }) {
+
+  console.log(values);
   return (
     <>
       <Grid md={4} width="100%" item>
@@ -34,9 +36,13 @@ export default function RenderPricing({ values,setValue }) {
               label="Track Stock"
               control={
                 <Checkbox
+                defaultChecked={values.track}
                   checked={values.track}
                   onChange={(e) => {
                     setValue('track',e.target.checked)
+                    if(e.target.checked){
+                      setValue('availability','In Stock')
+                    }
                   }}
                 />
               }
@@ -46,22 +52,25 @@ export default function RenderPricing({ values,setValue }) {
               <TextField value={values.quantity}  onChange={e=>{
                 const value = Math.max(0, Number(e.target.value));
                 setValue('quantity', value);  
+                setValue("availability","In Stock")
               }} label="Quantity" placeholder='0.00' type='number' inputProps={{min:0}}/>
-              // <RHFTextField
-              //   name="quantity"
-              //   label="Quantity"
-              //   placeholder="0.00"
-              //   type="number"
-              //   InputLabelProps={{ shrink: true }}
-              // />
             )}
 
             {!values.track && (
               <FormControl>
-                <RadioGroup defaultValue={values.availability || "In Stock"} row onChange={e=>setValue('availability',e.target.value)}>
+                <RadioGroup value={values.availability}  row onChange={e=>
+                {
+                  setValue('availability',e.target.value)
+                  if(e.target.value === 'In Stock'){
+                    setValue('quantity',100)
+                  }else{
+                    setValue('quantity',0)
+                  }
+                }
+                  }>
                   <FormControlLabel
                     value="In Stock"
-                    control={<Radio defaultChecked />}
+                    control={<Radio  />}
                     label="In Stock"
                   />
                   <FormControlLabel value="Out Stock" control={<Radio />} label="Out Stock" />
