@@ -31,6 +31,7 @@ export default function ProductTableRow({
   onDeleteRow,
   onEditRow,
   onViewRow,
+  partner
 }) {
   const {
     name,
@@ -83,6 +84,8 @@ export default function ProductTableRow({
             }
           />
         </TableCell>
+
+        <TableCell >{partner?.displayName}</TableCell>
 
         <TableCell>
           <ListItemText

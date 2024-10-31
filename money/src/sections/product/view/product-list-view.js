@@ -35,11 +35,14 @@ import api from 'src/utils/api';
 import { Box } from '@mui/material';
 import ProductTableRow from '../product-table-row';
 import ProductTableToolbar from '../product-table-toolbar';
+import { collection, getDocs } from 'firebase/firestore';
+import { DB } from 'src/auth/context/firebase/auth-provider';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Product' },
+  { id: 'Partner', label: 'Partner' },
   { id: 'createdAt', label: 'Create at', width: 160 },
   { id: 'inventoryType', label: 'Stock', width: 160 },
   { id: 'price', label: 'Price', width: 140 },
@@ -73,6 +76,21 @@ export default function ProductListView() {
 
   const { productsLoading } = useGetProducts();
 
+  const [store, setStore] = useState([]);
+  const getUsers = async () => {
+    const querySnapshot = await getDocs(collection(DB, 'users'));
+    const users = [];
+
+    querySnapshot.forEach((doc) => {
+      users.push(doc.data());
+    });
+    setStore(users);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
 
   useEffect(() => {
     const featchProduct = async () => {
@@ -92,11 +110,6 @@ export default function ProductListView() {
 
   const confirm = useBoolean();
 
-  // useEffect(() => {
-  //   if (products?.length) {
-  //     setTableData(products);
-  //   }
-  // }, [products]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -184,16 +197,7 @@ export default function ProductListView() {
               href: paths.dashboard.product.root,
             },
           ]}
-          // action={
-          //   <Button
-          //     component={RouterLink}
-          //     href={paths.dashboard.product.new}
-          //     variant="contained"
-          //     startIcon={<Iconify icon="mingcute:add-line" />}
-          //   >
-          //     New Product
-          //   </Button>
-          // }
+
           sx={{ mb: { xs: 3, md: 5 } }}
         />
 
@@ -205,18 +209,6 @@ export default function ProductListView() {
             stockOptions={PRODUCT_STOCK_OPTIONS}
             publishOptions={PUBLISH_OPTIONS}
           />
-
-          {/* {canReset && (
-            <ProductTableFiltersResult
-              filters={filters}
-              onFilters={handleFilters}
-              //
-              onResetFilters={handleResetFilters}
-              //
-              results={dataFiltered.length}
-              sx={{ p: 2.5, pt: 0 }}
-            />
-          )} */}
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
@@ -271,6 +263,7 @@ export default function ProductListView() {
                           onDeleteRow={() => handleDeleteRow(row.id)}
                           onEditRow={() => handleEditRow(row.id)}
                           onViewRow={() => handleViewRow(row.id)}
+                          partner={store.find((store) => store.uid === row.userId)}
                         />
                       ))}
                     </>

@@ -47,7 +47,7 @@ import OrderTableRow from '../order-table-row';
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...ORDER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Order', width: 116 },
+  { id: 'id', label: 'Order', width: 116 },
   { id: 'name', label: 'Customer' },
   { id: 'partners', label: 'Partners' },
   { id: 'createdAt', label: 'Date', width: 140 },

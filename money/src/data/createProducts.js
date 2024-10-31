@@ -5,7 +5,6 @@ const _category = [
   'Vape Liquids',
   'Salt Nicotine',
   'Accessories',
-  ,
   'Vape Devices',
   'Pod Systems',
   'Nicotine Pouches',
@@ -76,7 +75,19 @@ const _brands = [
   'Hugo Vapor',
 ];
 
-const _attributes = ['Bottle Size', 'Puffs', 'Flavour', 'Nicotine Strength', 'Color', 'Batteries'];
+const _allStatus = ['Published', 'Draft', 'Hidden', 'In Revision', 'Rejected'];
+
+const _status = ['Published', 'Draft', 'Hidden'];
+
+const _attributes = [
+  'bottleSize',
+  'puffs',
+  'flavour',
+  'nicotineStrength',
+  'color',
+  'batteries',
+  'Option',
+];
 
 const _variables = {
   bottleSize: [10, 15, 30, 50, 60, 100, 120].map((e) => `${e} ml`),
@@ -84,6 +95,7 @@ const _variables = {
     500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6500, 7000, 7500, 8000, 8500,
     9000, 9500, 10000,
   ].map((e) => `${e} puffs`),
+
   flavour: [
     'Strawberry',
     'Blueberry',
@@ -193,4 +205,34 @@ const _variables = {
   batteries: ['Single', 'Dual', 'Built-in', 'Triple', 'Quad'],
 };
 
-export { _type, _category, _tags, _brands, _attributes, _variables };
+const alpha = [
+  '',
+  'a',
+  'b',
+  'c',
+  'd',
+  'e',
+  'f',
+  'g',
+  'h',
+  'i',
+  'j',
+  'k',
+  'l',
+  'm',
+  'n',
+  'o',
+  'p',
+  'q',
+  'r',
+  's',
+  't',
+  'u',
+  'v',
+  'w',
+  'x',
+  'y',
+  'z',
+];
+
+export { _type, _category, _tags, _brands, _attributes, _status, _variables, alpha };
