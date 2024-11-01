@@ -48,7 +48,7 @@ const blogPosts = [
 export default function BlogsPage() {
   return (
     <div>
-     <BlogHero/>
+     {/* <BlogHero/> */}
       <Container maxWidth="lg" sx={{ mt: 4 }}>
 
         <Grid container spacing={4} my={5}>

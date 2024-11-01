@@ -8,6 +8,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import Customer from './components/Customer';
 import SimpleProduct from './components/SimpleProduct';
 import VariableProduct from './components/VariableProduct';
+import Items from './components/Items';
 
 export default function OrderEditPage() {
     const navigate = useNavigate();
@@ -179,67 +180,7 @@ export default function OrderEditPage() {
                 {productType === 'Variable' && <VariableProduct state={state} setState={setState} disabled={disabled} />}
 
                 {state.order.items.map((item, index) => (
-                    <Grid item xs={12} md={12}>
-                        <Box
-                            display={'flex'}
-                            justifyContent={'space-between'}
-                            alignItems={'center'}
-                            sx={{ px: 1, border: '1px solid black', borderRadius: '6px' }}
-                        >
-                            <Stack>
-                                <p>{item.name}</p>
-                                <p>{item.id}</p>
-                            </Stack>
-                            <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={2}>
-                                <TextField
-                                    disabled={disabled}
-                                    label="Quantity"
-                                    value={item.quantity}
-                                    onChange={(e) => {
-                                        const newQuantity = parseInt(e.target.value, 10) || 0; // Ensure numeric input
-                                        const updatedItems = state.order.items.map((itm, i) =>
-                                            i === index
-                                                ? {
-                                                    ...itm,
-                                                    quantity: newQuantity,
-                                                    subTotal: newQuantity * itm.price, // Update subTotal based on the new quantity
-                                                }
-                                                : itm
-                                        );
-                                        setState((prevState) => ({
-                                            ...prevState,
-                                            order: {
-                                                ...prevState.order,
-                                                items: updatedItems,
-                                            },
-                                        }));
-                                    }}
-                                />
-                                <p>x</p>
-                                <p>AED {item.price}</p>
-                                <p>=</p>
-                                <p>AED {item.subTotal}</p>
-                                <Icon
-                                    icon={'material-symbols:close'}
-                                    width={24}
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={() => {
-                                        if (disabled) {
-                                            return
-                                        }
-                                        const items = state.order.items.filter((e) => e.id !== item.id);
-                                        setState((_) => ({
-                                            ..._,
-                                            order: {
-                                                ..._.order,
-                                                items,
-                                            },
-                                        }));
-                                    }}
-                                />
-                            </Box>
-                        </Box>
-                    </Grid>
+                    <Items index={index} item={item} setState={setState} state={state} key={index} disabled={disabled} />
                 ))}
 
                 <Grid item xs={12}>

@@ -13,7 +13,7 @@ import ContactForm from '../contact-form';
 export default function ContactView() {
   return (
     <>
-      <ContactHero />
+      {/* <ContactHero /> */}
 
       <Container sx={{ py: 10 }}>
         <Box
