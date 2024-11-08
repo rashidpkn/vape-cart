@@ -114,12 +114,12 @@ export default function ProductTableRow({
           <Checkbox checked={selected} onClick={onSelectRow} />
         </TableCell>
 
-        <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
+        <TableCell sx={{ display: 'flex', alignItems: 'center', minWidth: '340px' }}>
           <Avatar
             alt={name}
             src={images[0]}
             variant="rounded"
-            sx={{ width: 64, height: 64, mr: 2 }}
+            sx={{ height: 64, mr: 2 }}
           />
 
           <ListItemText
