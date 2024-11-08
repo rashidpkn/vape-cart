@@ -271,7 +271,12 @@ export default function ProductNewEditForm({ currentProduct }) {
               content. Products containing these will not be accepted.
             </Alert>
 
-            <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} />
+            {/* <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} /> */}
+
+            <Stack spacing={1.5}>
+              <Typography variant="subtitle2">Sub Description</Typography>
+              <RHFEditor simple name="subDescription" />
+            </Stack>
 
             <Stack spacing={1.5}>
               <Typography variant="subtitle2">Content</Typography>

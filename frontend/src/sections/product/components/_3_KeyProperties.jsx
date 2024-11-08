@@ -62,7 +62,7 @@ export default function KeyProperties({ values, setValue }) {
                 ))}
               </RHFSelect>
 
-              <RHFAutocomplete
+              {/* <RHFAutocomplete
                 name="tags"
                 label="Tags"
                 placeholder="+ Tags"
@@ -87,7 +87,7 @@ export default function KeyProperties({ values, setValue }) {
                     />
                   ))
                 }
-              />
+              /> */}
               <Box>
                 <RHFTextField name="SKU" label="Product SKU" />
                 <FormControlLabel

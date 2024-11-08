@@ -73,20 +73,35 @@ const _brands = [
   'Pioneer4You',
   'Vapor Storm',
   'Hugo Vapor',
+  "FUMMO",
+  "4NX",
+  "Quadro",
+  "Dr. Vapes",
+  "Yeti Vape",
+  "Alt.Nu",
+  "Panther Bar",
+  "Zeus Juice",
+  "FIT POD",
+  "G.O.A.T",
+  "LAVA",
+  "BRO Vape",
 ];
 
 const _allStatus = ['Published', 'Draft', 'Hidden', 'In Revision', 'Rejected'];
 
 const _status = ['Published', 'Draft', 'Hidden'];
 
+
+
 const _attributes = [
-  'bottleSize',
-  'puffs',
-  'flavour',
-  'nicotineStrength',
-  'color',
-  'batteries',
-  'Option',
+  'Bottle Size',
+  'Puffs',
+  'Flavour',
+  'Nicotine Strength',
+  'Color',
+  'Batteries',
+  'Packaging',
+  'Option'
 ];
 
 const _variables = {
@@ -180,7 +195,7 @@ const _variables = {
     'Lavender',
     'Eucalyptus',
   ],
-  nicotineStrength: [
+  "Nicotine Strength": [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
     26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
     50,
@@ -202,7 +217,39 @@ const _variables = {
     'Brown',
     'Clear/Transparent',
   ],
-  batteries: ['Single', 'Dual', 'Built-in', 'Triple', 'Quad'],
+  batteries: [
+    "Single",
+    "Dual",
+    "Triple",
+    "Non-Rechargable",
+    "Rechargable",
+  ],
+  Packaging: [
+    "1 Pack",
+    "1 Piece",
+    "1 Unit",
+    "1 Roll",
+    "Pack of 5",
+    "Box of 5",
+    "5 Pieces",
+    "5 Units",
+    "5 Rolls",
+    "Pack of 10",
+    "Box of 10",
+    "10 Pieces",
+    "10 Units",
+    "10 Rolls",
+    "Pack of 20",
+    "Box of 20",
+    "20 Pieces",
+    "20 Units",
+    "20 Rolls",
+    "Pack of 50",
+    "Box of 50",
+    "50 Pieces",
+    "50 Units",
+    "50 Rolls",
+  ]
 };
 
 const alpha = [

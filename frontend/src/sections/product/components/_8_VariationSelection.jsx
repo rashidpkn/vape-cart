@@ -18,12 +18,13 @@ export default function VariationSelection({
         multiple
         freeSolo
         options={[
-          ...(e === 'bottleSize' ? _variables.bottleSize : []),
-          ...(e === 'puffs' ? _variables.puffs : []),
-          ...(e === 'flavour' ? _variables.flavour : []),
-          ...(e === 'nicotineStrength' ? _variables.nicotineStrength : []),
-          ...(e === 'color' ? _variables.color : []),
-          ...(e === 'batteries' ? _variables.batteries : []),
+          ...(e === 'Bottle Size' ? _variables.bottleSize : []),
+          ...(e === 'Puffs' ? _variables.puffs : []),
+          ...(e === 'Flavour' ? _variables.flavour : []),
+          ...(e === 'Nicotine Strength' ? _variables['Nicotine Strength'] : []),
+          ...(e === 'Color' ? _variables.color : []),
+          ...(e === 'Batteries' ? _variables.batteries : []),
+          ...(e === 'Packaging' ? _variables.Packaging : []),
           ...savedAttibutes.filter((v) => v.attribute === e).map((e) => e.value),
         ]}
         value={values.attributes[e] || []}
