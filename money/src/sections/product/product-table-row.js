@@ -43,6 +43,7 @@ export default function ProductTableRow({
     inventoryType,
     images,
     regularPrice,
+    type
   } = row;
 
   const confirm = useBoolean();
@@ -114,9 +115,9 @@ export default function ProductTableRow({
           {!!quantity && quantity} {inventoryType}
         </TableCell>
 
-        <TableCell>{fCurrency(regularPrice)}</TableCell>
+        <TableCell>{type === 'Simple' && fCurrency(regularPrice)}</TableCell>
 
-        <TableCell>{regularPrice > salePrice && fCurrency(salePrice)}</TableCell>
+        <TableCell>{type === 'Simple' && regularPrice > salePrice && fCurrency(salePrice)}</TableCell>
 
         <TableCell>
           <Label variant="soft" color={(status === "Published" && 'info') || 'default'}>
