@@ -187,7 +187,7 @@ export function ProductTable({
             type="number"
             inputProps={{ min: 0 }}
             onChange={(e) => setProductDetails((_) => ({ ..._, quantity  :+e.target.value }))}
-            value={quantity || ''}
+            value={quantity ?? ''}
           />
         ) : (
           <RadioGroup
