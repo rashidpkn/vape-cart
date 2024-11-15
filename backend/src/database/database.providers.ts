@@ -1,6 +1,7 @@
 import { DATABASE } from 'global/config';
 import { Sequelize } from 'sequelize-typescript';
 import { Attributes } from 'src/model/attributes.model';
+import { Brands } from 'src/model/brands.model';
 import { Customers } from 'src/model/customers.model';
 import { Invoice } from 'src/model/invoice.model';
 import { Notifications } from 'src/model/notifications.model';
@@ -24,7 +25,8 @@ export const databaseProviders = [
         Customers,
         Attributes,
         Notifications,
-        Support
+        Support,
+        Brands
       ]);
       try {
         await sequelize.authenticate();

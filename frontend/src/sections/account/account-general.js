@@ -22,7 +22,7 @@ import api from 'src/utils/api';
 export default function AccountGeneral() {
   const { enqueueSnackbar } = useSnackbar();
 
-  const { user } = useAuthContext();
+  const { user, initialize } = useAuthContext();
 
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string().required('Name is required'),
@@ -64,6 +64,7 @@ export default function AccountGeneral() {
       const userRef = await doc(DB, 'users', user.uid);
       await updateDoc(userRef, data);
       enqueueSnackbar('Update success!');
+      initialize()
     } catch (error) {
       console.error(error);
     }

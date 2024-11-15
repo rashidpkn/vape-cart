@@ -85,6 +85,7 @@ const _brands = [
   "G.O.A.T",
   "LAVA",
   "BRO Vape",
+  'Vape Bar'
 ];
 
 const _allStatus = ['Published', 'Draft', 'Hidden', 'In Revision', 'Rejected'];

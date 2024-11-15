@@ -17,6 +17,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { SupportModule } from './support/support.module';
 import { MailModule } from './mail/mail.module';
+import { BrandsModule } from './brands/brands.module';
 
 @Module({
   imports: [
@@ -36,7 +37,8 @@ import { MailModule } from './mail/mail.module';
       rootPath: join(__dirname,'..','..','..','frontend','dist'),
     }),
     SupportModule,
-    MailModule
+    MailModule,
+    BrandsModule
   ],
   controllers: [AppController],
   providers: [AppService],

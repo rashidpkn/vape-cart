@@ -28,7 +28,7 @@ export default function CheckoutDelivery() {
     { enable: false, day: 'Sun', open: '', close: '', lastCall: '' },
   ]);
 
-  const { user } = useAuthContext();
+  const { user, initialize } = useAuthContext();
 
   useEffect(() => {
     if (user.deliverySettings) {
@@ -40,6 +40,7 @@ export default function CheckoutDelivery() {
     const userRef = doc(DB, 'users', user.uid);
     await updateDoc(userRef, { deliverySettings });
     alert('Updated');
+    initialize()
   };
 
   return (

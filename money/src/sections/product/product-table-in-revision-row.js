@@ -48,7 +48,8 @@ export default function ProductTableInRevisionRow({
     inventoryType,
     images,
     regularPrice,
-    type
+    type,
+    brand
   } = row;
 
   const confirm = useBoolean();
@@ -134,14 +135,15 @@ export default function ProductTableInRevisionRow({
 
         <TableCell align="right">
           <Box display={'flex'} gap={1}>
-            <a href={`http://localhost:3035/product/${id}`} target='_blank'>
+            <a href={`https://vapes-uae.com/product/${id}`} target='_blank'>
               <Button size='small' variant='contained' color='success'>View</Button>
             </a>
             <Button size='small' variant='contained' color='success'
               onClick={async () => {
                 try {
 
-                  await api.patch('/products', { id, status: 'Published' });
+                  // await api.patch('/products', { id, status: 'Published' });
+                  const { data } = await api.post('/brands', { name: brand })
                   await api.post('/notifications', {
                     userId: userId,
                     role: 'user',

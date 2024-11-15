@@ -6,7 +6,7 @@ import { DB } from 'src/auth/context/firebase/auth-provider';
 import { useAuthContext } from 'src/auth/hooks';
 
 export default function PickUpDetails() {
-    const { user } = useAuthContext();
+    const { user,initialize } = useAuthContext();
 
     const [state, setState] = useState({
         data:{
@@ -26,7 +26,7 @@ export default function PickUpDetails() {
         if (user.pick_up_details) {
             setState(_=>({..._,data:user.pick_up_details}))
         }
-      }, [user]);
+      }, []);
 
  
     const update_pick_up_address =  async (e)=>{
@@ -37,10 +37,11 @@ export default function PickUpDetails() {
             const userRef = doc(DB, 'users', user.uid);
             let pick_up_details = state.data
             await updateDoc(userRef,  {pick_up_details} );
-            setState(_=>({..._,loading:true,message:"Successfully updated",error:''}))
+            setState(_=>({..._,loading:false,message:"Successfully updated",error:''}))
+            initialize()
         } catch (error) {
             console.log(error);
-            setState(_=>({..._,loading:true,message:"",error:"Apologies, an error has occurred. Please review all the fields you've entered."}))
+            setState(_=>({..._,loading:false,message:"",error:"Apologies, an error has occurred. Please review all the fields you've entered."}))
         }
     }
 

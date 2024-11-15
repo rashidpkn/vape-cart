@@ -1,5 +1,6 @@
 import { Autocomplete, Box, Checkbox, Chip, FormControlLabel, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useAuthContext } from 'src/auth/hooks';
 import { _variables } from 'src/data/createProducts';
 import api from 'src/utils/api';
 
@@ -11,63 +12,72 @@ export default function VariationSelection({
   e,
   savedAttibutes,
   variation = [],
-}) {
+}) 
+
+{
+
+  const {user} = useAuthContext()
+
+
+  const attributeOptions = {
+    'Bottle Size': _variables.bottleSize,
+    'Puffs': _variables.puffs,
+    'Flavour': _variables.flavour,
+    'Nicotine Strength': _variables['Nicotine Strength'],
+    'Color': _variables.color,
+    'Batteries': _variables.batteries,
+    'Packaging': _variables.Packaging,
+  };
+
+  const options = [
+    ...(attributeOptions[e] || []),
+    ...savedAttibutes.filter((attr) => attr.attribute === e).map((attr) => attr.value),
+  ];
+
+  const handleAttributeChange = (newValue) => {
+    let updatedAttributes = { ...values.attributes };
+
+    if (values.type === 'Simple' && e !== 'Flavour') {
+      updatedAttributes[e] = newValue.length > 1 ? [newValue[newValue.length - 1]] : newValue;
+    } else {
+      updatedAttributes[e] = newValue.length === 0 ? undefined : newValue;
+    }
+    setValue('attributes', updatedAttributes);
+
+    const value = newValue[newValue.length - 1];
+    if(newValue.length){
+      if(options.includes(value)){
+        console.log('Already Included');
+      }else{
+        api.post('/attributes',{attribute: e,value,username:user.displayName})
+      }
+    }
+
+  };
+
+  const handleVariationChange = (checked) => {
+    if (currentProduct && checked && !window.confirm("Changing the variation of this product will reset all current variations. Do you wish to proceed?")) {
+      return;
+    }
+
+    const updatedVariation = checked
+      ? [...new Set([...variation, e])]
+      : variation.filter((v) => v !== e);
+
+    setVariation(updatedVariation);
+    if (checked) {
+      setValue('variations', []); // Reset variations when enabling this attribute for variations
+    }
+  };
+
   return (
-    <Box sx={{ gridColumn: 'span 1 ' }} key={e}>
+    <Box sx={{ gridColumn: 'span 1' }} key={e}>
       <Autocomplete
         multiple
         freeSolo
-        options={[
-          ...(e === 'Bottle Size' ? _variables.bottleSize : []),
-          ...(e === 'Puffs' ? _variables.puffs : []),
-          ...(e === 'Flavour' ? _variables.flavour : []),
-          ...(e === 'Nicotine Strength' ? _variables['Nicotine Strength'] : []),
-          ...(e === 'Color' ? _variables.color : []),
-          ...(e === 'Batteries' ? _variables.batteries : []),
-          ...(e === 'Packaging' ? _variables.Packaging : []),
-          ...savedAttibutes.filter((v) => v.attribute === e).map((e) => e.value),
-        ]}
+        options={options}
         value={values.attributes[e] || []}
-        onChange={(event, newValue) => {
-          let updatedAttributes = {
-            ...values.attributes,
-          };
-          if (values.type === 'Simple' && e !== 'flavour') {
-            if (newValue.length > 1) {
-              const value = [newValue[newValue.length - 1]];
-              updatedAttributes = {
-                ...values.attributes,
-                [e]: value,
-              };
-            } else {
-              updatedAttributes = {
-                ...values.attributes,
-                [e]: newValue,
-              };
-            }
-
-            if (newValue.length === 0) {
-              delete updatedAttributes[e];
-            }
-            setValue('attributes', updatedAttributes);
-          } else {
-            if (variation.find((v) => v === e)) {
-              if (newValue.length === 1) {
-                return alert(
-                  `Please uncheck "Use this attribute to create Variations" before deleting this attribute.`
-                );
-              }
-            }
-            const updatedAttributes = {
-              ...values.attributes,
-              [e]: newValue,
-            };
-            if (newValue.length === 0) {
-              delete updatedAttributes[e];
-            }
-            setValue('attributes', updatedAttributes);
-          }
-        }}
+        onChange={(event, newValue) => handleAttributeChange(newValue)}
         renderInput={(params) => <TextField {...params} label={e} placeholder={e} />}
         renderTags={(selected, getTagProps) =>
           selected.map((option, index) => (
@@ -82,30 +92,14 @@ export default function VariationSelection({
           ))
         }
       />
-
+      
       {values.type === 'Variable' && values.attributes[e]?.length > 1 && (
         <FormControlLabel
           label="Use this attribute to create Variations"
           control={
             <Checkbox
-              defaultChecked={variation.find((v) => v === e)}
-              onChange={(ch) => {
-                if (currentProduct) {
-                  const con = confirm(
-                    "Changing the variation of this product will reset all current variations, and you'll have to start over from the beginning. Do you wish to proceed?"
-                  );
-                  if (con) {
-                    setValue('variations', []);
-                  } else {
-                    return;
-                  }
-                }
-                if (ch.target.checked) {
-                  setVariation((prev) => [...new Set([...prev, e])]);
-                } else {
-                  setVariation((prev) => [...new Set(prev.filter((ev) => ev !== e))]);
-                }
-              }}
+              checked={variation.includes(e)}
+              onChange={(ch) => handleVariationChange(ch.target.checked)}
             />
           }
         />

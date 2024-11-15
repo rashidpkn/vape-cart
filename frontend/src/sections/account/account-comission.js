@@ -8,7 +8,7 @@ import { DB } from 'src/auth/context/firebase/auth-provider';
 import { useAuthContext } from 'src/auth/hooks';
 
 export default function AccountComission() {
-  const { user } = useAuthContext();
+  const { user, initialize } = useAuthContext();
 
 
   const [commission, setCommission] = useState({

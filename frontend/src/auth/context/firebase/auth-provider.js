@@ -192,6 +192,7 @@ export function AuthProvider({ children }) {
       register,
       forgotPassword,
       handleVerifyEmail,
+      initialize
     }),
     [
       status,
@@ -202,6 +203,7 @@ export function AuthProvider({ children }) {
       register,
       forgotPassword,
       handleVerifyEmail,
+      initialize
     ]
   );
 

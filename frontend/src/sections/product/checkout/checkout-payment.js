@@ -15,35 +15,22 @@ import CheckoutSummary from './checkout-summary';
 import CheckoutDelivery from './checkout-delivery';
 import CheckoutBillingInfo from './checkout-billing-info';
 import CheckoutPaymentMethods from './checkout-payment-methods';
+import { useEffect, useState } from 'react';
 
 // ----------------------------------------------------------------------
 
 const DELIVERY_OPTIONS = [
   {
     value: 20,
-    label: '1-2 Hour Delivery',
-  },
-  {
-    value: 10,
     label: 'Same Day Delivery',
   },
   {
-    value: 0,
+    value: 10,
     label: 'Next Day delivery',
   },
 ];
 
 const PAYMENT_OPTIONS = [
-  // {
-  //   value: 'paypal',
-  //   label: 'Pay with Paypal',
-  //   description: 'You will be redirected to PayPal website to complete your purchase securely.',
-  // },
-  // {
-  //   value: 'credit',
-  //   label: 'Credit / Debit Card',
-  //   description: 'We support Mastercard, Visa, Discover and Stripe.',
-  // },
   {
     value: 'cash',
     label: 'Cash',
@@ -65,6 +52,29 @@ export default function CheckoutPayment({
   onGotoStep,
   onApplyShipping,
 }) {
+
+
+  const [delivery_options, setDelivery_options] = useState(DELIVERY_OPTIONS)
+
+  useEffect(() => {
+    const city_include_dubai_or_sharjah = checkout.billing.city.toLowerCase().includes('dubai') || checkout.billing.city.toLowerCase().includes('sharjah')
+    if (!city_include_dubai_or_sharjah) {
+      setDelivery_options([{
+        value: 30,
+        label: 'Next Day delivery',
+      }])
+
+    } else if (new Date().getHours() >= 16) {
+      setDelivery_options([{
+        value: 10,
+        label: 'Next Day delivery',
+      }])
+    } else {
+      setDelivery_options(DELIVERY_OPTIONS)
+    }
+  }, [])
+
+
   const { total, discount, subTotal, shipping, billing, cart, totalItems } = checkout;
 
   const PaymentSchema = Yup.object().shape({
@@ -110,7 +120,7 @@ export default function CheckoutPayment({
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Grid container spacing={3}>
         <Grid xs={12} md={8}>
-          <CheckoutDelivery onApplyShipping={onApplyShipping} options={DELIVERY_OPTIONS} />
+          <CheckoutDelivery onApplyShipping={onApplyShipping} options={delivery_options} />
 
           <CheckoutPaymentMethods
             cardOptions={CARDS_OPTIONS}

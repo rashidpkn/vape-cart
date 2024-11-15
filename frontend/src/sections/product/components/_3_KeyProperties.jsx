@@ -10,7 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthContext } from 'src/auth/hooks';
 import { RHFAutocomplete, RHFSelect, RHFTextField } from 'src/components/hook-form';
 import { _brands, _category, _status, _tags, _type } from 'src/data/createProducts';
@@ -18,6 +18,21 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import api from 'src/utils/api';
 
 export default function KeyProperties({ values, setValue }) {
+
+  const [brands, setBrands] = useState(_brands)
+
+  useEffect(() => {
+  api.get('/brands').then(res=>
+  {
+    setBrands(prev=>[..._brands,res.data.data.map(e=>e.name)])
+  }
+  )  
+  
+    return () => {
+      
+    }
+  }, [])
+  
 
   const { user } = useAuthContext();
 
@@ -97,16 +112,16 @@ export default function KeyProperties({ values, setValue }) {
                       checked={autoGenerateSku}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          if (values.name.replaceAll(' ', '').trim().length >= 8) {
+                          if (values.name.replaceAll(' ', '').trim().length >= 15) {
                             setValue(
                               'SKU',
-                              `${values.name.replaceAll(' ', '').trim().slice(0, 8)}-1`
+                              `${values.name.replaceAll(' ', '').trim().slice(0, 15)}-1`.toUpperCase()
                             );
                             setAutoGenerateSku(true);
                           } else {
                             setAutoGenerateSku(false);
                             alert(
-                              'To automatically generate SKUs, ensure that the product name has at least 8 characters.'
+                              'To automatically generate SKUs, ensure that the product name has at least 15 characters.'
                             );
                           }
                         } else {
@@ -120,7 +135,7 @@ export default function KeyProperties({ values, setValue }) {
               </Box>
 
              {!newBrand.show && <RHFSelect native name="brand" label="Brand" InputLabelProps={{ shrink: true }}>
-                {_brands.map((classify) => (
+                {brands.map((classify) => (
                   <option key={classify} value={classify}>
                     {classify}
                   </option>

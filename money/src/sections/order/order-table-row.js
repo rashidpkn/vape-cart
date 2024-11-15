@@ -68,7 +68,7 @@ export default function OrderTableRow({
         <Avatar alt={customer.name} src={customer.avatarUrl} sx={{ mr: 2 }} />
 
         <ListItemText
-          primary={customer.name}
+          primary={customer.first_name + ' ' + customer.last_name}
           secondary={customer.email}
           primaryTypographyProps={{ typography: 'body2' }}
           secondaryTypographyProps={{ component: 'span', color: 'text.disabled' }}

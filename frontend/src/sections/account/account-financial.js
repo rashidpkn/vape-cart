@@ -1,25 +1,26 @@
 import PropTypes from 'prop-types';
 // @mui
 import Grid from '@mui/material/Unstable_Grid2';
-import { Button, Card, TextField } from '@mui/material';
+import { Box, Button, Card, TextField } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { DB } from 'src/auth/context/firebase/auth-provider';
 import { useAuthContext } from 'src/auth/hooks';
 
 export default function AccountFinancials() {
-  const { user } = useAuthContext();
+  const { user, initialize } = useAuthContext();
 
-  const [billing, setBilling] = useState(user.billing);
+  const [finance, setFinance] = useState(user.finance);
 
   useEffect(() => {
-    setBilling(user.billing);
+    setFinance(user.finance);
   }, [user]);
 
   const onSubmit = async () => {
     const userRef = doc(DB, 'users', user.uid);
-    await updateDoc(userRef, { billing });
+    await updateDoc(userRef, { finance });
     alert('Updated');
+    initialize()
   };
 
   return (
@@ -27,62 +28,73 @@ export default function AccountFinancials() {
       <Grid xs={12} md={12} spacing={2}>
         <Card sx={{ p: 1 }}>
           <TextField
-            value={billing?.managementName}
-            onChange={(e) => setBilling((prev) => ({ ...prev, managementName: e.target.value }))}
+            value={finance?.managementName}
+            onChange={(e) => setFinance((prev) => ({ ...prev, managementName: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
             label="Account Name"
           />
           <TextField
-            value={billing?.managementContact}
-            onChange={(e) => setBilling((prev) => ({ ...prev, managementContact: e.target.value }))}
+            value={finance?.managementContact}
+            onChange={(e) => setFinance((prev) => ({ ...prev, managementContact: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
             label="Account Number"
           />
           <TextField
-            value={billing?.managementEmail}
-            onChange={(e) => setBilling((prev) => ({ ...prev, managementEmail: e.target.value }))}
+            value={finance?.managementEmail}
+            onChange={(e) => setFinance((prev) => ({ ...prev, managementEmail: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
             label="Account Currency"
           />
 
           <TextField
-            value={billing?.financeName}
-            onChange={(e) => setBilling((prev) => ({ ...prev, financeName: e.target.value }))}
+            value={finance?.financeName}
+            onChange={(e) => setFinance((prev) => ({ ...prev, financeName: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
             label="IBAN"
           />
           <TextField
-            value={billing?.financeContact}
-            onChange={(e) => setBilling((prev) => ({ ...prev, financeContact: e.target.value }))}
+            value={finance?.financeContact}
+            onChange={(e) => setFinance((prev) => ({ ...prev, financeContact: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
             label="Bank Name"
           />
           <TextField
-            value={billing?.financeEmail}
-            onChange={(e) => setBilling((prev) => ({ ...prev, financeEmail: e.target.value }))}
+            value={finance?.financeEmail}
+            onChange={(e) => setFinance((prev) => ({ ...prev, financeEmail: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
             label="Bank Branch"
           />
 
           <TextField
-            value={billing?.customerService}
-            onChange={(e) => setBilling((prev) => ({ ...prev, customerService: e.target.value }))}
+            value={finance?.customerService}
+            onChange={(e) => setFinance((prev) => ({ ...prev, customerService: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
             label="Swift Code"
           />
           <TextField
-            value={billing?.customerServiceContact}
-            onChange={(e) => setBilling((prev) => ({ ...prev, customerServiceContact: e.target.value }))}
+            value={finance?.customerServiceContact}
+            onChange={(e) => setFinance((prev) => ({ ...prev, customerServiceContact: e.target.value }))}
             sx={{ m: 1, width: '30%' }}
             label="Tax Registration Number"
           />
-          <TextField
-            value={billing?.customerServiceEmail}
-            onChange={(e) => setBilling((prev) => ({ ...prev, customerServiceEmail: e.target.value }))}
-            sx={{ m: 1, width: '30%' }}
-            label="TRN Certificate Upload"
-            type='file'
-          />
+
+
+          <Box sx={{ width: '100%', height: '250px', border: '1px solid rgba(145, 158, 171, 0.2)', borderRadius: '8px', m: 1, position: 'relative' }}>
+
+            <Box
+              component={'input'}
+              // value={finance?.customerServiceEmail}
+              onChange={(e) => setFinance((prev) => ({ ...prev, customerServiceEmail: e.target.value }))}
+              sx={{ width: '100%', opacity: 0, height: '100%', position: 'absolute', zIndex: 1 }}
+              label="TRN Certificate Upload"
+              type='file'
+            />
+
+            <p style={{ position: 'absolute', margin: 'auto', inset: 0, textAlign: 'center', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Upload TRN Certificate</p>
+
+
+
+          </Box>
 
 
 

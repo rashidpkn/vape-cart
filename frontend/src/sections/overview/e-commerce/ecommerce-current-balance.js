@@ -7,7 +7,7 @@ import Card from '@mui/material/Card';
 // utils
 import { fCurrency } from 'src/utils/format-number';
 import { useNavigate } from 'react-router';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Alert } from '@mui/material';
 import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
@@ -41,6 +41,18 @@ export default function EcommerceCurrentBalance({
     fetchPayout();
   }, []);
 
+
+
+
+  const total_sales = useMemo(() => orders.reduce((a, b) => { const item = b.items.find((it) => it.userId === user.id); return a + (item?.price || 0) * (item?.quantity || 0); }, 0), [orders, user.id]);
+  const commission = useMemo(() => total_sales * 0.3, [total_sales]);
+  const profit = useMemo(() => total_sales * 0.7, [total_sales]);
+  const total_requests = useMemo(() => payout.reduce((a, b) => a + b.amount, 0), [payout])
+  const completed_request = useMemo(() => payout.reduce((a, b) => (b.status === 'completed' ? a + b.amount : a), 0), [payout]);
+  const pending_request = useMemo(() => total_requests - completed_request, [total_requests, completed_request]);
+  const available_request = useMemo(() => profit - total_requests, [profit, total_requests]);
+
+
   return (
     <Card sx={{ p: 3, ...sx }} {...other}>
       <Typography variant="subtitle2" gutterBottom>
@@ -51,17 +63,7 @@ export default function EcommerceCurrentBalance({
 
       <Stack spacing={2}>
         <Typography variant="h3">
-          {fCurrency(
-            orders.reduce(
-              (a, b) =>
-                a +
-                b.items.find((it) => it.userId === user.id)?.price *
-                b.items.find((it) => it.userId === user.id)?.quantity,
-              0
-            ) *
-            0.7 -
-            payout.reduce((a, b) => a + b.amount, 0)
-          )}
+          {fCurrency(available_request)}
         </Typography>
 
         <Stack direction="row" justifyContent="space-between">
@@ -70,15 +72,7 @@ export default function EcommerceCurrentBalance({
           </Typography>
           <Typography variant="body2">
             {' '}
-            {fCurrency(
-              orders.reduce(
-                (a, b) =>
-                  a +
-                  b.items.find((it) => it.userId === user.id)?.price *
-                  b.items.find((it) => it.userId === user.id)?.quantity,
-                0
-              )
-            )}
+            {fCurrency(total_sales)}
           </Typography>
         </Stack>
 
@@ -87,37 +81,28 @@ export default function EcommerceCurrentBalance({
             Commission
           </Typography>
           <Typography variant="body2">
-            {fCurrency(
-              orders.reduce(
-                (a, b) =>
-                  a +
-                  b.items.find((it) => it.userId === user.id)?.price *
-                  b.items.find((it) => it.userId === user.id)?.quantity,
-                0
-              ) * 0.3
-            )}
+            {fCurrency(commission)}
           </Typography>
         </Stack>
 
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Net Profit
+          </Typography>
+          <Typography variant="body2">
+            {fCurrency(profit)}
+          </Typography>
+        </Stack>
+
+        {/* <Stack direction="row" justifyContent="space-between">
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             Avalable Balance for requesting
           </Typography>
           <Typography variant="body2">
             {' '}
-            {fCurrency(
-              orders.reduce(
-                (a, b) =>
-                  a +
-                  b.items.find((it) => it.userId === user.id)?.price *
-                  b.items.find((it) => it.userId === user.id)?.quantity,
-                0
-              ) *
-              0.7 -
-              payout.reduce((a, b) => a + b.amount, 0)
-            )}
+            {fCurrency(available_request)}
           </Typography>
-        </Stack>
+        </Stack> */}
 
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -125,17 +110,17 @@ export default function EcommerceCurrentBalance({
           </Typography>
           <Typography variant="body2">
             {' '}
-            {fCurrency(payout.reduce((a, b) => (b.status === 'pending' ? a + b.amount : a), 0))}
+            {fCurrency(pending_request)}
           </Typography>
         </Stack>
 
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Total Earned
+            Completed Request (Earned)
           </Typography>
           <Typography variant="body2">
             {' '}
-            {fCurrency(payout.reduce((a, b) => (b.status === 'completed' ? a + b.amount : a), 0))}
+            {fCurrency(completed_request)}
           </Typography>
         </Stack>
 
@@ -145,28 +130,8 @@ export default function EcommerceCurrentBalance({
             variant="contained"
             color="warning"
             onClick={() => {
-              if (
-                orders.reduce(
-                  (a, b) =>
-                    a +
-                    b.items.find((it) => it.userId === user.id)?.price *
-                    b.items.find((it) => it.userId === user.id)?.quantity,
-                  0
-                ) *
-                0.7 -
-                payout.reduce((a, b) => a + b.amount, 0) >
-                10
-              ) {
-                sessionStorage.setItem(
-                  'amount',
-                  orders.reduce(
-                    (a, b) =>
-                      a +
-                      b.items.find((it) => it.userId === user.id)?.price *
-                      b.items.find((it) => it.userId === user.id)?.quantity,
-                    0
-                  ) * 0.7
-                );
+              if (available_request >= 10) {
+                sessionStorage.setItem('amount', available_request);
                 navigate('/payment');
               } else {
                 setError('You must have a minimum balance of AED 10 to request a payout.');
