@@ -88,7 +88,7 @@ export default function ShopPage() {
                   <Link to={`/product/${product.id}`}>
                   <img src={product.images[0]} alt="" />
                   </Link>
-                  <div
+                  {/* <div
                     className="cart"
                     onClick={() => {
                       setSelectedProduct(product);
@@ -100,7 +100,7 @@ export default function ShopPage() {
                     }}
                   >
                     <Icon icon="eva:shopping-cart-outline" className="cart-icon" />
-                  </div>
+                  </div> */}
                 </div>
                 <Link to={`/product/${product.id}`}>
                   <p className="name">{product.name}</p>

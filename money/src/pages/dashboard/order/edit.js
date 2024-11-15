@@ -126,9 +126,9 @@ export default function OrderEditPage() {
             ..._,
             order: {
                 ..._.order,
-                subTotal: _.order.items.reduce((a, b) => a + b.subTotal, 0),
-                totalAmount: _.order.items.reduce((a, b) => a + b.subTotal, 0) - state.order.discount,
-                totalQuantity: _.order.items.reduce((a, b) => a + b.quantity, 0),
+                subTotal: _.order.items.reduce((a, b) => a + parseFloat(b.subTotal, 0), 0),
+                totalAmount: _.order.items.reduce((a, b) => a + parseFloat(b.subTotal, 0), 0) - parseFloat(state.order.discount, 10),
+                totalQuantity: _.order.items.reduce((a, b) => a + parseFloat(b.quantity, 0), 0),
             },
         }));
     }, [state.order]);

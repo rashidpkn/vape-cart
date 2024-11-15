@@ -115,7 +115,7 @@ export default function OverviewAppView() {
             title="Pending Orders"
             percent={0}
             total={
-              orders.filter((e) => e.status === 'pending' || e.status === 'Order received').length
+              orders.filter((e) => e.status === 'pending' || e.status === 'processing').length
             }
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],

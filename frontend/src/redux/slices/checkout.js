@@ -37,7 +37,11 @@ const slice = createSlice({
     },
 
     addToCart(state, action) {
-      const newProduct = { ...action.payload, status: 'pending' };
+      const subTotal = action.payload.price * action.payload.quantity
+
+      const newProduct = { ...action.payload, status: 'pending', subTotal };
+
+
 
       const cartEmpty = !state.cart?.length;
 
@@ -110,6 +114,7 @@ const slice = createSlice({
           return {
             ...product,
             quantity: product.quantity + 1,
+            subTotal: product.price * (product.quantity + 1), // Update subtotal based on the new quantity
           };
         }
         return product;
@@ -126,6 +131,7 @@ const slice = createSlice({
           return {
             ...product,
             quantity: product.quantity - 1,
+            subTotal: product.price * (product.quantity - 1),
           };
         }
         return product;

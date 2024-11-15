@@ -47,7 +47,7 @@ useEffect(() => {
                                         if(newQuantity <0){
                                             return
                                         }
-                                        if(newQuantity >product.quantity){
+                                        if(newQuantity >product.quantity && product.type ==='Simple' ){
                                                 alert(`The quantity must not exceed ${product.quantity}`)
                                                 return
                                         }
@@ -56,7 +56,7 @@ useEffect(() => {
                                                 ? {
                                                     ...itm,
                                                     quantity: newQuantity,
-                                                    subTotal: newQuantity * itm.price, // Update subTotal based on the new quantity
+                                                    subTotal: newQuantity * parseFloat(itm.price,10), // Update subTotal based on the new quantity
                                                 }
                                                 : itm
                                         );

@@ -1,1 +1,0 @@
-import{u as t,a as s,r as a}from"./index-199db648.js";function i(){const{handleVerifyEmail:e}=t();s();const o=new URLSearchParams(window.location.search).get("oobCode"),r=a.useCallback(async()=>{await e(o),window.location.href="/dashboard"},[]);return a.useEffect(()=>{r()},[]),null}export{i as default};
