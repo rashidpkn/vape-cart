@@ -51,7 +51,6 @@ export class Product extends Model {
   @Column({ type: DataType.FLOAT })
   salePrice: number;
 
-
   @Column({ type: DataType.ARRAY(DataType.JSON),defaultValue: [],})
   variations: {
     attributes: { bottleSize?: string; puffs?: string; flavour?: string; nicotineStrength?: string; color?: string; batteries?: string;sku:string;};

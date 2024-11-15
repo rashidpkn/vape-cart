@@ -1,0 +1,1381 @@
+[
+    {
+        "id": 441,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "Vozol Vista Dragonfruit Banana Cherry 20K Puffs",
+        "subDescription": "<p>Vozol Vista Dragonfruit Banana Cherry&nbsp;  20K Puffs</p><ul><li>Brand: Vozol</li><li>Flavor: Dragonfruit Banana Cherry&nbsp; </li><li>Puffs: 20,000 Puffs</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 10 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/4aad5be1-1109-4bd0-968b-df8fb54fb9be.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "VozolVis-1",
+        "brand": "Lost Vape",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "20,000"
+            ],
+            "Flavour": [
+                "Dragonfurit",
+                "Banana",
+                "Cherry"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 10"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "45",
+                "salePrice": "45",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "450",
+                "salePrice": "350",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 10"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T22:05:00.337Z",
+        "updatedAt": "2024-11-14T22:05:00.337Z"
+    },
+    {
+        "id": 440,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "Vozol Vista Elderflower Grapefruit 20K Puffs",
+        "subDescription": "<p>Vozol Vista Elderflower Grapefruit  20K Puffs</p><ul><li>Brand: Vozol</li><li>Flavor: Elderflower Grapefruit </li><li>Puffs: 20,000 Puffs</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 10 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/0c111efa-3057-47ad-ab76-9ea4b745274d.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "VozolVis-1",
+        "brand": "Lost Vape",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "20,000"
+            ],
+            "Flavour": [
+                "Grapefruit"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 10"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "45",
+                "salePrice": "45",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "450",
+                "salePrice": "350",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 10"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:59:49.803Z",
+        "updatedAt": "2024-11-14T21:59:49.803Z"
+    },
+    {
+        "id": 439,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "Vozol Vista Lemon Lime 20K Puffs",
+        "subDescription": "<p>Vozol Vista Lemon Lime 20K Puffs</p><ul><li>Brand: Vozol</li><li>Flavor: Lemon Lime </li><li>Puffs: 20,000 Puffs</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 10 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/24cf4226-aa15-45a2-830e-711777c0c0a5.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "VozolVis-1",
+        "brand": "Lost Vape",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "20,000"
+            ],
+            "Flavour": [
+                "Lemon",
+                "Lime"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 10"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "45",
+                "salePrice": "45",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "450",
+                "salePrice": "350",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 10"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:52:32.936Z",
+        "updatedAt": "2024-11-14T21:52:32.936Z"
+    },
+    {
+        "id": 438,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "OXBAR Magic Maze 2 Sour Apple Ice 30K Puffs",
+        "subDescription": "<p>OXBAR Magic Maze 2 Sour Apple Ice 30K Puffs</p><ul><li>Brand: Pod Juice OXBAR</li><li>Flavor: Apple and Ice</li><li>Puffs: 30,000 Puffs or 15,000 Puffs in Boost Mode</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 5 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/45752ec2-02c5-46ee-8c18-787d7ec29cf7.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "OXBARMag-1",
+        "brand": "SMOK",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "30,000 Puffs"
+            ],
+            "Flavour": [
+                "Apple",
+                "Ice",
+                "Menthol"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 5"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "70",
+                "salePrice": "70",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "350",
+                "salePrice": "300",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 5"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:51:05.092Z",
+        "updatedAt": "2024-11-14T21:51:05.092Z"
+    },
+    {
+        "id": 437,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "Vozol Vista Watermelon Bubblegum 20K Puffs",
+        "subDescription": "<p>Vozol Vista &nbsp;Watermelon Bubblegum&nbsp; 20K Puffs</p><ul><li>Brand: Vozol</li><li>Flavor: &nbsp;Watermelon Bubblegum </li><li>Puffs: 20,000 Puffs</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 10 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/0b046c2e-c3f6-4dcd-b08e-d3c215044f8d.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "VozolVis-1",
+        "brand": "Lost Vape",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "20,000"
+            ],
+            "Flavour": [
+                "Watermelon",
+                "Bubblegum"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 10"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "45",
+                "salePrice": "45",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "450",
+                "salePrice": "350",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 10"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:49:50.262Z",
+        "updatedAt": "2024-11-14T21:49:50.262Z"
+    },
+    {
+        "id": 436,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "OXBAR Magic Maze 2 Blueberry Raspberry Lemon 30K Puffs",
+        "subDescription": "<p>OXBAR Magic Maze 2 Blueberry Raspberry Lemon 30K Puffs</p><ul><li>Brand: Pod Juice OXBAR</li><li>Flavor: Blueberry Raspberry Lemon</li><li>Puffs: 30,000 Puffs or 15,000 Puffs in Boost Mode</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 5 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/1ecfdb9a-36bd-4aa1-a506-9c382124c4e0.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "OXBARMag-1",
+        "brand": "SMOK",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "30,000 Puffs"
+            ],
+            "Flavour": [
+                "Blueberry",
+                "Raspberry",
+                "Lemon"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 5"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "70",
+                "salePrice": "70",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "350",
+                "salePrice": "300",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 5"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:46:51.855Z",
+        "updatedAt": "2024-11-14T21:46:51.855Z"
+    },
+    {
+        "id": 435,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "Vozol Vista Vzbull 20K Puffs",
+        "subDescription": "<p>Vozol Vista Vzbull 20K Puffs</p><ul><li>Brand: Vozol</li><li>Flavor: Vzbull</li><li>Puffs: 20,000 Puffs</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 10 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/f46bf7cd-2ef9-4346-8788-9959f1f161cd.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "VozolVis-1",
+        "brand": "Lost Vape",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "20,000"
+            ],
+            "Flavour": [
+                "Energy Drink"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 10"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "45",
+                "salePrice": "45",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "450",
+                "salePrice": "350",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 10"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:45:46.562Z",
+        "updatedAt": "2024-11-14T21:45:46.562Z"
+    },
+    {
+        "id": 434,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "OXBAR Magic Maze 2 Frosty Mint 30K Puffs",
+        "subDescription": "<p>OXBAR Magic Maze 2 Frosty Mint 30K Puffs</p><ul><li>Brand: Pod Juice OXBAR</li><li>Flavor: Mint and Menthol</li><li>Puffs: 30,000 Puffs or 15,000 Puffs in Boost Mode</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 5 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/35e38cb5-3de7-4b4f-b33d-a61317a245f0.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "OXBARMag-1",
+        "brand": "SMOK",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "30,000 Puffs"
+            ],
+            "Flavour": [
+                "Menthol",
+                "Mint"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 5"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "70",
+                "salePrice": "70",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "350",
+                "salePrice": "300",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 5"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:42:07.479Z",
+        "updatedAt": "2024-11-14T21:42:07.479Z"
+    },
+    {
+        "id": 433,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "OXBAR Magic Maze 2 Kiwi Lime 30K Puffs",
+        "subDescription": "<p>OXBAR Magic Maze 2 Kiwi Lime 30K Puffs</p><ul><li>Brand: Pod Juice OXBAR</li><li>Flavor: Kiwi and Lime</li><li>Puffs: 30,000 Puffs or 15,000 Puffs in Boost Mode</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 5 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/fb85bff8-8a83-4724-92f2-d07e2986906a.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "OXBARMag-1",
+        "brand": "SMOK",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "30,000 Puffs"
+            ],
+            "Flavour": [
+                "Kiwi",
+                "Lime"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 5"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "70",
+                "salePrice": "70",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "350",
+                "salePrice": "300",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 5"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:37:51.343Z",
+        "updatedAt": "2024-11-14T21:37:51.343Z"
+    },
+    {
+        "id": 432,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "Vozol Vista Peach Ice 20K Puffs",
+        "subDescription": "<p>Vozol Vista Peach Ice 20K Puffs</p><ul><li>Brand: Vozol</li><li>Flavor: Peach Ice</li><li>Puffs: 20,000 Puffs</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 10 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/a3e2515e-c293-4259-9272-58e50cc26b52.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "VozolVis-1",
+        "brand": "Lost Vape",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "20,000"
+            ],
+            "Flavour": [
+                "Peach",
+                "Ice"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 10"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "45",
+                "salePrice": "45",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "450",
+                "salePrice": "350",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 10"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:32:45.234Z",
+        "updatedAt": "2024-11-14T21:32:45.234Z"
+    },
+    {
+        "id": 431,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "OXBAR Magic Maze 2 Mr. Bull 30K Puffs",
+        "subDescription": "<p>OXBAR Magic Maze 2 Strawberry Fudge 30K Puffs</p><ul><li>Brand: Pod Juice OXBAR</li><li>Flavor: Energy Drink</li><li>Puffs: 30,000 Puffs or 15,000 Puffs in Boost Mode</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 5 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/082946af-a012-477a-a840-b83ebb0f2edf.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "OXBARMag-1",
+        "brand": "SMOK",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "30,000 Puffs"
+            ],
+            "Flavour": [
+                "Energy Drink"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 5"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "70",
+                "salePrice": "70",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "350",
+                "salePrice": "300",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 5"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:26:24.565Z",
+        "updatedAt": "2024-11-14T21:26:24.565Z"
+    },
+    {
+        "id": 430,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "Vozol Vista Miami Mint 20K Puffs",
+        "subDescription": "<p>Vozol Vista Miami Mint 20K Puffs</p><ul><li>Brand: Vozol</li><li>Flavor: Miami Mint</li><li>Puffs: 20,000 Puffs</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 10 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/820d41a3-437b-404f-844d-d36d708cdf84.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "VozolVis-1",
+        "brand": "Lost Vape",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "20,000"
+            ],
+            "Flavour": [
+                "Cool Mint"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 10"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "45",
+                "salePrice": "45",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "450",
+                "salePrice": "350",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 10"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:25:15.211Z",
+        "updatedAt": "2024-11-14T21:25:15.211Z"
+    },
+    {
+        "id": 429,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "OXBAR Magic Maze 2 Strawberry Fudge 30K Puffs",
+        "subDescription": "<p>OXBAR Magic Maze 2 Strawberry Fudge 30K Puffs</p><ul><li>Brand: Pod Juice OXBAR</li><li>Flavor: Strawberry, Vanilla Cream</li><li>Puffs: 30,000 Puffs or 15,000 Puffs in Boost Mode</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 5 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/7af21510-dd9d-4ff4-a006-69438a233421.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "OXBARMag-1",
+        "brand": "SMOK",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "30,000 Puffs"
+            ],
+            "Flavour": [
+                "Strawberry",
+                "Cream",
+                "Vanilla"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 5"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "70",
+                "salePrice": "70",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "350",
+                "salePrice": "300",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 5"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:08:05.713Z",
+        "updatedAt": "2024-11-14T21:08:05.713Z"
+    },
+    {
+        "id": 428,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "OXBAR Magic Maze 2 Peach Blue Razz 30K Puffs",
+        "subDescription": "<p>OXBAR Magic Maze 2 Peach Blue Razz 30K Puffs</p><ul><li>Brand: Pod Juice OXBAR</li><li>Flavor: Peach, Blueberry and Raspberry</li><li>Puffs: 30,000 Puffs or 15,000 Puffs in Boost Mode</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 5 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/e1990aaf-bd80-41da-b3bb-89f251d1f05a.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "OXBARMag-1",
+        "brand": "SMOK",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "30,000 Puffs"
+            ],
+            "Flavour": [
+                "Peach",
+                "Blueberry",
+                "Raspberry"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 5"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "70",
+                "salePrice": "70",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "350",
+                "salePrice": "300",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 5"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:05:14.343Z",
+        "updatedAt": "2024-11-14T21:05:14.343Z"
+    },
+    {
+        "id": 427,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "OXBAR Magic Maze 2 Sour Fruit Drops 30K Puffs",
+        "subDescription": "<p>OXBAR Magic Maze 2 Sour Fruit Drops 30K Puffs</p><ul><li>Brand: Pod Juice OXBAR</li><li>Flavor: Sour Candy</li><li>Puffs: 30,000 Puffs or 15,000 Puffs in Boost Mode</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 5 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/816069f6-d4c1-4623-afb1-aff79d6a0ec5.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "OXBARMag-1",
+        "brand": "SMOK",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "30,000 Puffs"
+            ],
+            "Flavour": [
+                "Sour Candy",
+                "Candy"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 5"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "70",
+                "salePrice": "70",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "350",
+                "salePrice": "300",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 5"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T21:01:22.189Z",
+        "updatedAt": "2024-11-14T21:01:22.189Z"
+    },
+    {
+        "id": 426,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "OXBAR Magic Maze 2 Strawbery Watermelon Punch 30K Puffs",
+        "subDescription": "<p>OXBAR Magic Maze 2 Strawberry Watermelon Punch 30K Puffs</p><ul><li>Brand: Pod Juice OXBAR</li><li>Flavor: Watermelon Strawberry</li><li>Puffs: 30,000 Puffs or 15,000 Puffs in Boost Mode</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 5 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/f60270b1-e438-437d-9eee-390c6becb184.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "OXBARMag-1",
+        "brand": "SMOK",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "30,000 Puffs"
+            ],
+            "Flavour": [
+                "Watermelon",
+                "Strawberry"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 5"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "70",
+                "salePrice": "70",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "350",
+                "salePrice": "300",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 5"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T20:58:29.868Z",
+        "updatedAt": "2024-11-14T20:58:29.868Z"
+    },
+    {
+        "id": 425,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "OXBAR Magic Maze 2 Watermelon Gumdrop 30K Puffs",
+        "subDescription": "<p>OXBAR Magic Maze 2 Watermelon Gumdrop fruit 30K Puffs</p><ul><li>Brand: Pod Juice OXBAR</li><li>Flavor: Watermelon Bubblegum</li><li>Puffs: 30,000 Puffs or 15,000 Puffs in Boost Mode</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 5 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/f96dfa91-1429-4124-b4f7-db0d65eeb17b.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "OXBARMag-1",
+        "brand": "SMOK",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "30,000 Puffs"
+            ],
+            "Flavour": [
+                "Watermelon",
+                "Bubblegum"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 5"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "70",
+                "salePrice": "70",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "350",
+                "salePrice": "300",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 5"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T20:55:27.875Z",
+        "updatedAt": "2024-11-14T20:56:07.291Z"
+    },
+    {
+        "id": 424,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "Vozol Vista Watermelon Ice 20K Puffs",
+        "subDescription": "<p>Vozol Vista Watermelon Ice 20K Puffs</p><ul><li>Brand: Vozol</li><li>Flavor: Watermelon Ice</li><li>Puffs: 20,000 Puffs</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 10 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/9e5de02b-bb93-4979-9222-b70ed85f0fbb.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "VozolVis-1",
+        "brand": "Lost Vape",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "20,000"
+            ],
+            "Flavour": [
+                "Watermelon",
+                "Ice"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 10"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "45",
+                "salePrice": "45",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "450",
+                "salePrice": "350",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 10"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T20:51:28.288Z",
+        "updatedAt": "2024-11-14T20:51:28.288Z"
+    },
+    {
+        "id": 423,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "Vozol Vista Mango Ice 20K Puffs",
+        "subDescription": "<p>Vozol Vista Mango Ice 20K Puffs</p><ul><li>Brand: Vozol</li><li>Flavor: Mango Ice</li><li>Puffs: 20,000 Puffs</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 10 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/834a0a41-9ed8-48d5-a079-0e2067d09aa7.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "VozolVis-1",
+        "brand": "Lost Vape",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "20,000"
+            ],
+            "Flavour": [
+                "mang",
+                "Ice"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 10"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "45",
+                "salePrice": "45",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "450",
+                "salePrice": "350",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 10"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T20:48:58.653Z",
+        "updatedAt": "2024-11-14T20:48:58.653Z"
+    },
+    {
+        "id": 422,
+        "username": "Jonaid Vape",
+        "storeName": "Jonaid",
+        "userId": "9OyP4FFVyDfTYdq0s1ZlHVfm8632",
+        "name": "OXBAR Magic Maze 2 Strawberry Watermelon Dragonfruit 30K Puffs",
+        "subDescription": "<p>OXBAR Magic Maze 2 Strawberry Watermelon Dragon fruit 30K Puffs</p><ul><li>Brand: Pod Juice OXBAR</li><li>Flavor: Strawberry, Watermelon and Dragon Fruit</li><li>Puffs: 30,000 Puffs or 15,000 Puffs in Boost Mode</li><li>Nicotine Strength: 50mg / 5%</li><li>Rechargeable Type-C</li><li>Packaging: 1 Piece</li></ul><p>Offer Available for a Box of 5 :)</p>",
+        "content": "",
+        "images": [
+            "https://vapes-uae.com/uploads/b66e0d38-d548-4483-b022-4a4219d9c6f5.webp"
+        ],
+        "type": "Variable",
+        "category": "Disposables",
+        "tags": [],
+        "SKU": "OXBARMag-1",
+        "brand": "SMOK",
+        "status": "Published",
+        "attributes": {
+            "Puffs": [
+                "30,000 Puffs"
+            ],
+            "Flavour": [
+                "Strawberry",
+                "Watermelon",
+                "Dragon Fruit"
+            ],
+            "Nicotine Strength": [
+                "50 mg"
+            ],
+            "Batteries": [
+                "Rechargable"
+            ],
+            "Packaging": [
+                "1 Piece",
+                "Box of 5"
+            ]
+        },
+        "track": true,
+        "availability": "Out Stock",
+        "quantity": 0,
+        "regularPrice": 100,
+        "salePrice": 100,
+        "variations": [
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "70",
+                "salePrice": "70",
+                "image": null,
+                "attributes": {
+                    "Packaging": "1 Piece"
+                }
+            },
+            {
+                "track": false,
+                "availability": "In Stock",
+                "quantity": null,
+                "regularPrice": "350",
+                "salePrice": "300",
+                "image": null,
+                "attributes": {
+                    "Packaging": "Box of 5"
+                }
+            }
+        ],
+        "reviews": [],
+        "createdAt": "2024-11-14T20:48:46.751Z",
+        "updatedAt": "2024-11-14T20:48:46.751Z"
+    }
+]

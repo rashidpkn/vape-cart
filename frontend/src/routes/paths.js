@@ -36,7 +36,7 @@ export const paths = {
   figma:
     'https://www.figma.com/file/kAYnYYdib0aQPNKZpgJT6J/%5BPreview%5D-Minimal-Web.v5.0.0?type=design&node-id=0%3A1&t=Al4jScQq97Aly0Mn-1',
   product: {
-    root: `/product`,
+    root: `/shop`,
     checkout: `/product/checkout-2`,
     details: (id) => `/product/${id}`,
     demo: {

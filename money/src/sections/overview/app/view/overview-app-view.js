@@ -62,7 +62,7 @@ export default function OverviewAppView() {
           <AppWidgetSummary
             title="Total Revenue"
             percent={0}
-            total={orders.reduce((a, b) => a + b.totalAmount, 0)}
+            total={orders.reduce((a, b) => a + parseFloat(b.totalAmount), 0)}
             chart={{
               colors: [theme.palette.info.light, theme.palette.info.main],
               series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
