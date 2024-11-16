@@ -44,7 +44,7 @@ export default function EcommerceCurrentBalance({
 
 
 
-  const total_sales = useMemo(() => orders.reduce((a, b) => { const item = b.items.find((it) => it.userId === user.id); return a + (item?.price || 0) * (item?.quantity || 0); }, 0), [orders, user.id]);
+  const total_sales = useMemo(() => orders?.reduce((a, b) => a + b?.items?.reduce((c, d) => c + d.quantity * d.price, 0), 0), [orders, user.id]);
   const commission = useMemo(() => total_sales * 0.3, [total_sales]);
   const profit = useMemo(() => total_sales * 0.7, [total_sales]);
   const total_requests = useMemo(() => payout.reduce((a, b) => a + b.amount, 0), [payout])

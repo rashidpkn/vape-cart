@@ -21,6 +21,7 @@ export default function OverviewEcommerceView() {
   const { user } = useAuthContext();
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  console.log(user);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,13 +34,28 @@ export default function OverviewEcommerceView() {
 
         const { products } = productsResponse.data;
         const orders = ordersResponse.data;
-        const invoice = invoiceResponse.data;
 
         const filteredOrders = orders.filter((order) =>
-          order.items.some((item) => products.some((product) => product.id === item.id))
+          order.items.some((item) => item.userId === user.uid)
         );
 
-        setOrders(filteredOrders);
+
+
+        setOrders(filteredOrders.map(order => {
+
+          const filteredItems = order.items.filter(item => item.userId === user.uid);
+
+          const subTotal = filteredItems.reduce((sum, item) => sum + item.subTotal, 0);
+          const totalQuantity = filteredItems.reduce((sum, item) => sum + item.quantity, 0);
+
+          return {
+            ...order,
+            items: filteredItems,
+            subTotal: subTotal,
+            totalAmount: subTotal + order.shipping - order.discount,
+            totalQuantity: totalQuantity
+          };
+        }));
         setProducts(products);
       } catch (error) {
         console.error('An error occurred:', error);
@@ -68,7 +84,7 @@ export default function OverviewEcommerceView() {
           <EcommerceWidgetSummary
             title="Product Sold"
             percent={0}
-            total={orders.length}
+            total={orders?.reduce((a, b) => a + b?.items?.reduce((c, d) => c + d?.quantity, 0), 0)}
             chart={{
               series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             }}
@@ -79,13 +95,7 @@ export default function OverviewEcommerceView() {
           <EcommerceWidgetSummary
             title="Total Balance"
             percent={0}
-            total={orders.reduce(
-              (a, b) =>
-                a +
-                b.items.find((it) => it.userId === user.id)?.price *
-                  b.items.find((it) => it.userId === user.id)?.quantity,
-              0
-            )}
+            total={orders?.reduce((a, b) => a + b?.items?.reduce((c, d) => c + (d?.quantity * d?.price), 0), 0)}
             chart={{
               colors: [theme.palette.info.light, theme.palette.info.main],
               series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -97,15 +107,7 @@ export default function OverviewEcommerceView() {
           <EcommerceWidgetSummary
             title="Sales Profit"
             percent={0}
-            total={
-              orders.reduce(
-                (a, b) =>
-                  a +
-                  b.items.find((it) => it.userId === user.id)?.price *
-                    b.items.find((it) => it.userId === user.id)?.quantity,
-                0
-              ) * 0.8
-            }
+            total={orders?.reduce((a, b) => a + b?.items?.reduce((c, d) => c + (d?.quantity * d?.price), 0), 0) * 0.7}
             chart={{
               colors: [theme.palette.warning.light, theme.palette.warning.main],
               series: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -147,10 +149,9 @@ export default function OverviewEcommerceView() {
                       orders.reduce(
                         (a, b) =>
                           new Date(b.createdAt).getMonth() === month &&
-                          new Date(b.createdAt).getDate() === date
+                            new Date(b.createdAt).getDate() === date
                             ? a +
-                              b.items.find((it) => it.userId === user.id)?.price *
-                                b.items.find((it) => it.userId === user.id)?.quantity
+                            b?.items?.reduce((c, d) => c + (d?.quantity * d?.price), 0)
                             : a,
                         0
                       )
@@ -159,31 +160,6 @@ export default function OverviewEcommerceView() {
                 ],
               })),
 
-              // [
-
-              //   {
-              //     year: '2024',
-              // data: [
-              //   {
-              //     name: 'Total Income',
-              //     data: [
-              //       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-              //       22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
-              //     ].map((date) =>
-              //       orders.reduce(
-              //         (a, b) =>
-              //           new Date(b.createdAt).getMonth() === new Date().getMonth() &&
-              //             new Date(b.createdAt).getDate() === date
-              //             ? a + b.totalAmount
-              //             : a,
-              //         0
-              //       )
-              //     ),
-              //   },
-              // ],
-              //   },
-
-              // ],
             }}
           />
         </Grid>
@@ -218,8 +194,7 @@ export default function OverviewEcommerceView() {
                           (a, b) =>
                             new Date(b.createdAt).getMonth() === month
                               ? a +
-                                b.items.find((it) => it.userId === user.id)?.price *
-                                  b.items.find((it) => it.userId === user.id)?.quantity
+                              b?.items?.reduce((c, d) => c + (d?.quantity * d?.price), 0)
                               : a,
                           0
                         )
