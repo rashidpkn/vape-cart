@@ -25,7 +25,7 @@ import 'aos/dist/aos.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { _tags } from 'src/data/createProducts';
 
-const card = _tags.slice(0, 4);
+const card = _tags?.slice(0, 4);
 
 export default function HomePage() {
   AOS.init();
@@ -37,7 +37,7 @@ export default function HomePage() {
 
   const lastPostsIndex = currentPage * postsPerPage;
   const firstPostsIndex = lastPostsIndex - postsPerPage;
-  const currentPosts = producsts.slice(firstPostsIndex, lastPostsIndex);
+  const currentPosts = producsts?.slice(firstPostsIndex, lastPostsIndex);
 
   const handleChange = (e, p) => {
     setCurrentPage(p);

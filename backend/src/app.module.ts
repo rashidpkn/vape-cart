@@ -33,9 +33,9 @@ import { BrandsModule } from './brands/brands.module';
     NotificationsModule,
     // ClientModule,
     FirebaseModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname,'..','..','..','frontend','dist'),
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname,'..','..','..','frontend','dist'),
+    // }),
     SupportModule,
     MailModule,
     BrandsModule

@@ -1,4 +1,4 @@
-const DOMAIN =  "https://vapes-uae.com"
+const DOMAIN =  "https://api.vapes-uae.com"
 // const DOMAIN =  "http://localhost:3000"
 
 const DATABASE:{} = {
