@@ -13,4 +13,12 @@ export class AppController {
       return res.sendFile(filePath);
     } catch (error) {}
   }
+
+  @Get('/sept-uploads/:file')
+  servePublicFile(@Param('file') file: string, @Res() res: any) {
+    try {
+      const filePath = join(__dirname, '..','..', 'sept-uploads', file);
+      return res.sendFile(filePath);
+    } catch (error) {}
+  }
 }
