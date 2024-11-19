@@ -85,7 +85,26 @@ const _brands = [
   "G.O.A.T",
   "LAVA",
   "BRO Vape",
-  'Vape Bar'
+  'Vape Bar',
+  "Lost Mary",
+  "Veiik",
+  "UMIVAPE",
+  "VOOM",
+  "FuCig",
+  "OX BAR",
+  "Lavies",
+  "Pyne Pod",
+  "Waka",
+  "Vozol",
+  "OXVA",
+  "Elf Bar",
+  "Smooth",
+  "Nasty",
+  "Xtra",
+  "VGOD",
+  "Prime",
+  "Hok Cloud",
+  "Clew",
 ];
 
 const _allStatus = ['Published', 'Draft', 'Hidden', 'In Revision', 'Rejected'];

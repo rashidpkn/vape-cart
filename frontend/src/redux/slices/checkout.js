@@ -142,6 +142,15 @@ const slice = createSlice({
 
     createBilling(state, action) {
       state.billing = action.payload;
+      if (action.payload?.city) {
+
+        if (action.payload?.city.toLowerCase().includes('dubai') || action.payload?.city.toLowerCase().includes('sharjah')) {
+          state.shipping = 20
+        } else {
+          state.shipping = 30
+        }
+      }
+
     },
 
     applyDiscount(state, action) {

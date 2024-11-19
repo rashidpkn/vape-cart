@@ -23,6 +23,7 @@ import FormProvider, {
   RHFAutocomplete,
   RHFSelect,
 } from 'src/components/hook-form';
+import { TextField } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -97,7 +98,8 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
             <RHFTextField name="address_line_2" label="Address Line 2" />
 
             <RHFTextField name="city" label="City" />
-            <RHFTextField name="country" label="Country" />
+            <TextField name="country" label="Country" value={'United Arab Emirates'} disabled />
+            {/* <RHFTextField name="country" label="Country" /> */}
 
 
           </Stack>
