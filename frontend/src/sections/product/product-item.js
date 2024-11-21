@@ -77,7 +77,7 @@ export default function ProductItem({ product }) {
         {name}
       </Link>
       <p style={{ margin: 0, color: 'gray', fontStyle: 'italic' }}>
-        Sold by {storeName || 'Vape Amazon'}
+        Sold by {storeName || 'Vape Monkey'}
       </p>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between">

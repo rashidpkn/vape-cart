@@ -14,19 +14,19 @@ import { RouterLink } from 'src/routes/components';
 // _mock
 import { _socials } from 'src/_mock';
 // components
-import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
 const LINKS = [
   {
-    headline: 'Vape Amazon',
+    headline: 'Vape Monkey',
     children: [
-      { name: 'About us', href: paths.about },
+      { name: 'Sell on Vape Monkey?', href: '/auth/firebase/login' },
       { name: 'Contact us', href: paths.contact },
-      { name: 'FAQs', href: paths.faqs },
+      { name: 'About us', href: paths.about },
       { name: 'Blogs', href: '#' },
+      { name: 'FAQs', href: paths.faqs },
     ],
   },
   {
@@ -63,7 +63,7 @@ export default function Footer() {
         }}
       >
         {/* <Logo sx={{ mb: 3 }} /> */}
-        <img src="/logo/logo_single.webp" width={150} alt="Vape Amazon logo" />
+        <img src="/logo/logo_single.webp" width={150} alt="Vape Monkey logo" />
 
         <Grid
           container

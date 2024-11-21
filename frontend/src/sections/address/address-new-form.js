@@ -11,17 +11,11 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import MenuItem from '@mui/material/MenuItem';
+
 // assets
-import { countries } from 'src/assets/data';
-// components
-import Iconify from 'src/components/iconify';
+
 import FormProvider, {
-  RHFCheckbox,
   RHFTextField,
-  RHFRadioGroup,
-  RHFAutocomplete,
-  RHFSelect,
 } from 'src/components/hook-form';
 import { TextField } from '@mui/material';
 
@@ -98,7 +92,7 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
             <RHFTextField name="address_line_2" label="Address Line 2" />
 
             <RHFTextField name="city" label="City" />
-            <TextField name="country" label="Country" value={'United Arab Emirates'} disabled />
+            <TextField name="country" label="Country" value="United Arab Emirates" disabled />
             {/* <RHFTextField name="country" label="Country" /> */}
 
 

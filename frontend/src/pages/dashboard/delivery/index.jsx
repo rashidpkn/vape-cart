@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import Box from '@mui/material/Box';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
 import CheckoutDelivery from './checkout-delivery';
-import { Button, Grid, TextField } from '@mui/material';
 import PickUpDetails from './PickUpDetails';
 
 // ----------------------------------------------------------------------

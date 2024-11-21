@@ -59,7 +59,7 @@ export default function Textfield({ variant }) {
           required
           fullWidth
           label="Activated"
-          defaultValue="Hello Vape Amazon"
+          defaultValue="Hello Vape Monkey"
         />
 
         <TextField
@@ -75,7 +75,7 @@ export default function Textfield({ variant }) {
           disabled
           fullWidth
           label="Disabled"
-          defaultValue="Hello Vape Amazon"
+          defaultValue="Hello Vape Monkey"
         />
       </ComponentBlock>
 
@@ -98,7 +98,7 @@ export default function Textfield({ variant }) {
           disabled
           fullWidth
           label="Disabled"
-          defaultValue="Hello Vape Amazon"
+          defaultValue="Hello Vape Monkey"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -165,7 +165,7 @@ export default function Textfield({ variant }) {
           variant={variant}
           fullWidth
           label="Error"
-          defaultValue="Hello Vape Amazon"
+          defaultValue="Hello Vape Monkey"
           helperText="Incorrect entry."
         />
 
@@ -174,7 +174,7 @@ export default function Textfield({ variant }) {
           error
           fullWidth
           label="Error"
-          defaultValue="Hello Vape Amazon"
+          defaultValue="Hello Vape Monkey"
           helperText="Incorrect entry."
         />
       </ComponentBlock>

@@ -82,7 +82,7 @@ export default function PaymentSummary({
             variant="outlined"
             style={network === 'erc20' ? { border: '3px solid' } : { border: '1px solid' }}
             onClick={() => setNetwork('erc20')}
-            // startIcon={<Icon icon="logos:bitcoin" />}
+          // startIcon={<Icon icon="logos:bitcoin" />}
           >
             ERC20
           </Button>
@@ -92,7 +92,7 @@ export default function PaymentSummary({
             variant="outlined"
             style={network === 'trc20' ? { border: '3px solid' } : { border: '1px solid' }}
             onClick={() => setNetwork('trc20')}
-            // startIcon={<Icon icon="cryptocurrency-color:usdt" />}
+          // startIcon={<Icon icon="cryptocurrency-color:usdt" />}
           >
             TRC20
           </Button>
@@ -281,7 +281,9 @@ export default function PaymentSummary({
               setTimeout(() => {
                 navigate('/dashboard');
               }, 4000);
-            } catch (error) {}
+            } catch (error) {
+              console.log(error);
+            }
           }}
         >
           Request Payout

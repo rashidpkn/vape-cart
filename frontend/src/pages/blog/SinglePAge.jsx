@@ -1,7 +1,5 @@
 import React from 'react'
 import {
-  AppBar,
-  Toolbar,
   Typography,
   Container,
   Grid,
@@ -11,14 +9,10 @@ import {
   ListItem,
   ListItemText,
   Divider,
-  useTheme,
-  useMediaQuery,
 } from '@mui/material'
 import BlogHero from './Hero'
 
 export default function SignleBlogs() {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <div>

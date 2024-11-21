@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <>
       <Helmet>
-        <title> Vape Amazon</title>
+        <title> Vape Monkey</title>
       </Helmet>
       <HomeView />
     </>

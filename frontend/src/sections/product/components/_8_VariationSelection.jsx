@@ -35,7 +35,7 @@ export default function VariationSelection({
   ];
 
   const handleAttributeChange = (newValue) => {
-    let updatedAttributes = { ...values.attributes };
+    const updatedAttributes = { ...values.attributes };
 
     if (values.type === 'Simple' && e !== 'Flavour') {
       updatedAttributes[e] = newValue.length > 1 ? [newValue[newValue.length - 1]] : newValue;

@@ -26,7 +26,7 @@ export default function OverviewEcommerceView() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [productsResponse, ordersResponse, invoiceResponse] = await Promise.all([
+        const [productsResponse, ordersResponse] = await Promise.all([
           api.get('products', { params: { userId: user.id } }),
           api.get('/orders'),
           api.get('/invoice'),
@@ -51,9 +51,9 @@ export default function OverviewEcommerceView() {
           return {
             ...order,
             items: filteredItems,
-            subTotal: subTotal,
+            subTotal,
             totalAmount: subTotal + order.shipping - order.discount,
-            totalQuantity: totalQuantity
+            totalQuantity
           };
         }));
         setProducts(products);

@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Alert, Box, Button, Grid, TextField } from '@mui/material'
+import { Alert, Box, Grid, TextField } from '@mui/material'
 import { doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { DB } from 'src/auth/context/firebase/auth-provider';
@@ -35,7 +35,7 @@ export default function PickUpDetails() {
         try {
             setState(_=>({..._,loading:true,message:'',error:''}))
             const userRef = doc(DB, 'users', user.uid);
-            let pick_up_details = state.data
+            const pick_up_details = state.data
             await updateDoc(userRef,  {pick_up_details} );
             setState(_=>({..._,loading:false,message:"Successfully updated",error:''}))
             initialize()
@@ -50,7 +50,7 @@ export default function PickUpDetails() {
     <Box mb={6}>
 
     
-    <Grid component={'form'} container spacing={5} onSubmit={update_pick_up_address} >
+    <Grid component="form" container spacing={5} onSubmit={update_pick_up_address} >
     <Grid item xs={6}>
     <TextField required label='Pick Up loaction No' fullWidth onChange={e=>setState(_=>({..._,data:{..._.data,location_no:e.target.value}}))} value={state.data.location_no}/>
     </Grid>

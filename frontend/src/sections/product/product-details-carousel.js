@@ -8,7 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import { bgGradient } from 'src/theme/css';
 // components
 import Image from 'src/components/image';
-import Lightbox, { useLightBox } from 'src/components/lightbox';
+import { useLightBox } from 'src/components/lightbox';
 import Carousel, { CarouselArrowIndex, useCarousel } from 'src/components/carousel';
 
 // ----------------------------------------------------------------------

@@ -171,7 +171,7 @@ export function AuthProvider({ children }) {
 
   const handleVerifyEmail = useCallback(async (oobCode) => {
     console.log(oobCode);
-    const data = await applyActionCode(AUTH, oobCode);
+    await applyActionCode(AUTH, oobCode);
 
     initialize();
   }, []);

@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   Checkbox,
-  Chip,
   FormControlLabel,
   Grid,
   Stack,
@@ -12,9 +11,8 @@ import {
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useAuthContext } from 'src/auth/hooks';
-import { RHFAutocomplete, RHFSelect, RHFTextField } from 'src/components/hook-form';
-import { _brands, _category, _status, _tags, _type } from 'src/data/createProducts';
-import { useResponsive } from 'src/hooks/use-responsive';
+import { RHFSelect, RHFTextField } from 'src/components/hook-form';
+import { _brands, _category, _status, _type, } from 'src/data/createProducts';
 import api from 'src/utils/api';
 
 export default function KeyProperties({ values, setValue }) {

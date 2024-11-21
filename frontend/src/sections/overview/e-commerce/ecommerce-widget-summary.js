@@ -1,30 +1,15 @@
 import PropTypes from 'prop-types';
 // @mui
-import { alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
+
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 // utils
-import { fNumber, fPercent } from 'src/utils/format-number';
-// components
-import Iconify from 'src/components/iconify';
-import { useChart } from 'src/components/chart';
+import { fNumber } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceWidgetSummary({ title, percent, total, chart, sx, ...other }) {
-  const theme = useTheme();
-
-  const {
-    colors = [theme.palette.primary.light, theme.palette.primary.main],
-    options,
-  } = chart;
-
-
-
-
-
   return (
     <Card sx={{ display: 'flex', alignItems: 'center', p: 3, ...sx }} {...other}>
       <Box sx={{ flexGrow: 1 }}>

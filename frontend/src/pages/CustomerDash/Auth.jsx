@@ -41,7 +41,7 @@ export default function Auth({ customer, setCustomer, setLoginStatus }) {
           }}
         >
           <img src="/assets/images/logo/logo_single.webp" width={200} alt="" />
-          <h2>Welcome To Vape Amazon</h2>
+          <h2>Welcome To Vape Monkey</h2>
           {!!error && (
             <Alert sx={{ width: '100%' }} severity="error">
               {error}

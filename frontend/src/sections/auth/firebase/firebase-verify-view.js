@@ -10,7 +10,6 @@ import { useSearchParams } from 'src/routes/hook';
 // assets
 import { EmailInboxIcon } from 'src/assets/icons';
 import { Button } from '@mui/material';
-import { useAuthContext } from 'src/auth/hooks';
 import api from 'src/utils/api';
 // components
 

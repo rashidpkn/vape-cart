@@ -50,7 +50,7 @@ export default function NavVertical({ openNav, onCloseNav }) {
       {/* <Logo sx={{ mt: 3, ml: 4, mb: 1 }} /> */}
       <Link to="/">
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-          <img src="/logo/logo_single.webp" style={{ width: '65%' }} />
+          <img src="/logo/logo_single.webp" style={{ width: '65%' }} alt='Logo' />
         </div>
       </Link>
       <NavSectionVertical

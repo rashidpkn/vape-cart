@@ -20,7 +20,6 @@ import { useRouter } from 'src/routes/hook';
 import { useBoolean } from 'src/hooks/use-boolean';
 // utils
 // _mock
-import { INVOICE_SERVICE_OPTIONS } from 'src/_mock';
 // components
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
@@ -41,7 +40,6 @@ import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
 import InvoiceAnalytic from '../invoice-analytic';
 import InvoiceTableRow from '../invoice-table-row';
-import InvoiceTableToolbar from '../invoice-table-toolbar';
 import InvoiceTableFiltersResult from '../invoice-table-filters-result';
 
 // ----------------------------------------------------------------------
@@ -96,7 +94,9 @@ export default function InvoiceListView() {
     try {
       const { data } = await api.get('invoice');
       setInvoice(data);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -113,11 +113,6 @@ export default function InvoiceListView() {
   }, [invoice, myProduct]);
 
   const [filters, setFilters] = useState(defaultFilters);
-
-  const dateError =
-    filters.startDate && filters.endDate
-      ? filters.startDate.getTime() > filters.endDate.getTime()
-      : false;
 
   const denseHeight = table.dense ? 56 : 76;
 

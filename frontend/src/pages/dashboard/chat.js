@@ -13,7 +13,6 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router';
 import { useAuthContext } from 'src/auth/hooks';
 // sections
-import { ChatView } from 'src/sections/chat/view';
 import api from 'src/utils/api';
 
 const ticketTypes = [
@@ -69,14 +68,16 @@ export default function ChatPage() {
           width: '100%',
           borderRadius: '6px',
         }}
-        component={'form'}
+        component="form"
         onSubmit={async (e) => {
           try {
             e.preventDefault();
             navigate('/dashboard');
             await api.post('/support', state.data);
             alert("Ticket submitted successfully. We'll follow up with you as soon as possible.");
-          } catch (error) { }
+          } catch (error) {
+            console.log(error);
+          }
         }}
       >
         <p>Submit Your Concerns as a Support Request</p>

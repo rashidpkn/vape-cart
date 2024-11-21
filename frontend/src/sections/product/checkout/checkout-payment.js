@@ -11,11 +11,11 @@ import Iconify from 'src/components/iconify';
 import FormProvider from 'src/components/hook-form';
 //
 import api from 'src/utils/api';
+import { useEffect, useState } from 'react';
 import CheckoutSummary from './checkout-summary';
 import CheckoutDelivery from './checkout-delivery';
 import CheckoutBillingInfo from './checkout-billing-info';
 import CheckoutPaymentMethods from './checkout-payment-methods';
-import { useEffect, useState } from 'react';
 
 // ----------------------------------------------------------------------
 

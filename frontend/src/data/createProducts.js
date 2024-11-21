@@ -107,8 +107,6 @@ const _brands = [
   "Clew",
 ];
 
-const _allStatus = ['Published', 'Draft', 'Hidden', 'In Revision', 'Rejected'];
-
 const _status = ['Published', 'Draft', 'Hidden'];
 
 

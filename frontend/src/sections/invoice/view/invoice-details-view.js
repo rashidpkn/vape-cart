@@ -25,7 +25,9 @@ export default function InvoiceDetailsView() {
     try {
       const { data } = await api.get(`invoice/${id}`);
       setCurrentInvoice(data);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

@@ -36,7 +36,9 @@ export default function OrderDetailsView() {
 
       setCurrentOrder(data);
       setStatus(data.status);
-    } catch (error) { }
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     fetchOrder();

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 // @mui
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Button, Card, TextField } from '@mui/material';
@@ -82,7 +81,7 @@ export default function AccountFinancials() {
           <Box sx={{ width: '100%', height: '250px', border: '1px solid rgba(145, 158, 171, 0.2)', borderRadius: '8px', m: 1, position: 'relative' }}>
 
             <Box
-              component={'input'}
+              component="input"
               // value={finance?.customerServiceEmail}
               onChange={(e) => setFinance((prev) => ({ ...prev, customerServiceEmail: e.target.value }))}
               sx={{ width: '100%', opacity: 0, height: '100%', position: 'absolute', zIndex: 1 }}

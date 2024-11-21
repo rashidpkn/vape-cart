@@ -1,5 +1,4 @@
 import sum from 'lodash/sum';
-import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
 import { createSlice } from '@reduxjs/toolkit';
 

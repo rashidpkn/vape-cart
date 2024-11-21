@@ -127,7 +127,7 @@ export default function Router() {
             {
               path: 'register',
               element: (
-                <AuthClassicLayout title="Unleash your vape line on Vape Amazon – Expand, Excel, Earn!">
+                <AuthClassicLayout title="Unleash your vape line on Vape Monkey – Expand, Excel, Earn!">
                   <FirebaseRegisterPage />
                 </AuthClassicLayout>
               ),

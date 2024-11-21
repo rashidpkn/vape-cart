@@ -1,11 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
-
-import { useNavigate } from 'react-router-dom';
+import  { useCallback, useEffect } from 'react';
 import { useAuthContext } from 'src/auth/hooks';
 
 export default function Verified() {
   const { handleVerifyEmail } = useAuthContext();
-  const navigate = useNavigate();
 
   const urlParams = new URLSearchParams(window.location.search);
 

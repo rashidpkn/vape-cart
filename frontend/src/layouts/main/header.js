@@ -20,7 +20,6 @@ import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocation } from 'src/redux/slices/util';
 import { paths } from 'src/routes/paths';
-import { allItems } from '../dashboard/config-navigation';
 import BottomHeader from './BottomHeader';
 
 import ShowLogin from './ShowLogin';
@@ -42,8 +41,6 @@ export default function Header({ set }) {
 
   const { city, postal } = useSelector((state) => state.util.location);
   const dispatch = useDispatch();
-
-  const [showAll, setShowAll] = useState(false);
 
   const [showAllSign, setShowAllSign] = useState(false);
   const [open, setOpen] = React.useState(false);

@@ -1,14 +1,12 @@
-import PropTypes from 'prop-types';
-// @mui
+
 import Grid from '@mui/material/Unstable_Grid2';
-import { Button, Card, Table, TableBody, TableCell, TableHead, TableRow, TextField } from '@mui/material';
+import { Button, Card, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { doc, updateDoc } from 'firebase/firestore';
-import { DB } from 'src/auth/context/firebase/auth-provider';
+
 import { useAuthContext } from 'src/auth/hooks';
 
 export default function AccountComission() {
-  const { user, initialize } = useAuthContext();
+  const { user } = useAuthContext();
 
 
   const [commission, setCommission] = useState({
@@ -34,7 +32,7 @@ export default function AccountComission() {
         <Table sx={{ width: '100%' }}>
           <TableHead>
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell />
               <TableCell>Percentage %</TableCell>
               <TableCell>Target</TableCell>
             </TableRow>

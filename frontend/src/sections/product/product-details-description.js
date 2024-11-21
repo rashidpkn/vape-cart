@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 // components
-import Markdown from 'src/components/markdown';
 import parse from 'html-react-parser';
 import { Box } from '@mui/material';
 // ----------------------------------------------------------------------

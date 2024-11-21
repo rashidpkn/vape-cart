@@ -9,11 +9,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import TableBody from '@mui/material/TableBody';
-import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
 // routes
 import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hook';
 // _mock
 import { ORDER_STATUS_OPTIONS } from 'src/_mock';
 // utils
@@ -22,7 +20,6 @@ import { fTimestamp } from 'src/utils/format-time';
 import { useBoolean } from 'src/hooks/use-boolean';
 // components
 import Label from 'src/components/label';
-import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import {
@@ -119,7 +116,6 @@ export default function OrderListView() {
 
   const table = useTable({ defaultOrderBy: 'id' });
 
-  const router = useRouter();
 
   const confirm = useBoolean();
 
@@ -172,12 +168,6 @@ export default function OrderListView() {
     });
   }, [dataFiltered.length, dataInPage.length, table, tableData]);
 
-  const handleViewRow = useCallback(
-    (id) => {
-      router.push(paths.dashboard.order.details(id));
-    },
-    [router]
-  );
 
   const [tab, setTab] = useState('all');
 

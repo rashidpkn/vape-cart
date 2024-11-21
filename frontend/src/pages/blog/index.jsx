@@ -1,7 +1,5 @@
 import React from 'react'
 import {
-  AppBar,
-  Toolbar,
   Typography,
   Container,
   Grid,
@@ -11,7 +9,6 @@ import {
   CardActions,
   Button,
 } from '@mui/material'
-import BlogHero from './Hero'
 
 // Sample blog post data
 const blogPosts = [

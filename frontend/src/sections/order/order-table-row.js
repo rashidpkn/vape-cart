@@ -23,7 +23,6 @@ import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import api from 'src/utils/api';
-import { FormControl, InputLabel, Select } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -204,13 +203,13 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
                       userId: item.userId,
                       role: 'admin',
                       title: `🚀 ${item.name} Product has some issue 🚀`,
-                      message: message,
+                      message,
                       type: 'product',
                     });
 
                     alert('Product Status is update to admin,they will resolve the issue');
                   } catch (error) {
-
+                    console.log(error);
                   }
                 }}>Product has some issue</Button>
 

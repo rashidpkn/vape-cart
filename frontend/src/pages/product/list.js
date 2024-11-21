@@ -15,7 +15,6 @@ import api from 'src/utils/api';
 import Pagination1 from '@mui/material/Pagination';
 
 import { Link } from 'react-router-dom';
-import { ProductTitle } from 'src/layouts/dashboard/config-navigation';
 import AOS from 'aos';
 import bg_1 from 'src/assets/images/hero/bg_1.jpg';
 import bg_2 from 'src/assets/images/hero/bg_5.jpg';
@@ -32,11 +31,10 @@ export default function HomePage() {
 
   const [producsts, setProducsts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(4);
   const [total, setTotal] = useState(0);
 
-  const lastPostsIndex = currentPage * postsPerPage;
-  const firstPostsIndex = lastPostsIndex - postsPerPage;
+  const lastPostsIndex = currentPage * 4;
+  const firstPostsIndex = lastPostsIndex - 4;
   const currentPosts = producsts?.slice(firstPostsIndex, lastPostsIndex);
 
   const handleChange = (e, p) => {
@@ -106,7 +104,7 @@ export default function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Home | Vape Amazon | Premium Vape Products</title>
+        <title>Home | Vape Monkey | Premium Vape Products</title>
       </Helmet>
 
       {/* <ProductShopView /> */}

@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-// @mui
+
 import Grid from '@mui/material/Unstable_Grid2';
 import { Button, Card, TextField } from '@mui/material';
 import { useState, useEffect } from 'react';
@@ -114,9 +113,3 @@ export default function AccountBilling() {
   );
 }
 
-AccountBilling.propTypes = {
-  addressBook: PropTypes.array,
-  cards: PropTypes.array,
-  invoices: PropTypes.array,
-  plans: PropTypes.array,
-};

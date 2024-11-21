@@ -1,12 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useLocation, useNavigate, useNavigation, useParams } from 'react-router';
+import { useLocation } from 'react-router';
 import api from 'src/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './style.css';
-import { Icon } from '@iconify/react';
 import { useCheckout } from 'src/sections/product/hooks';
-import { paths } from 'src/routes/paths';
 import { Helmet } from 'react-helmet-async';
 import {
   Box,
@@ -25,7 +23,6 @@ export default function ShopPage() {
   const name = new URLSearchParams(useLocation().search).get('name');
 
   const { onAddCart } = useCheckout();
-  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [dataFetched, setDataFetched] = useState(false);
 
@@ -41,7 +38,9 @@ export default function ShopPage() {
       });
       setProducts(data.products);
       setDataFetched(true);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }, [category,name]);
 
   const _AddCart = async (product) => {
@@ -239,7 +238,7 @@ const DisplayVariations = ({
               onChange={(e) => {
                 console.log(e.target.value);
                 setSelectedVariation(e.target.value);
-                const { track, quantity, regularPrice, salePrice, image } =
+                const { track, quantity, regularPrice, salePrice } =
                   selectedProduct.variations.find(
                     (v) => JSON.stringify(v.attributes) === JSON.stringify(e.target.value)
                   );

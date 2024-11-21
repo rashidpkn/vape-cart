@@ -6,7 +6,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TextField,
 } from '@mui/material';
 import Card from '@mui/material/Card';
 import { doc, updateDoc } from 'firebase/firestore';
@@ -96,7 +95,6 @@ const Row = ({ row, setDeliverySettings }) => {
       <TableCell>
         <input
           disabled={!enable}
-          sx={{ width: '200px' }}
           type="time"
           style={{
             width: '150px',
@@ -124,7 +122,6 @@ const Row = ({ row, setDeliverySettings }) => {
       <TableCell>
         <input
           disabled={!enable}
-          sx={{ width: '200px' }}
           type="time"
           style={{
             width: '150px',
@@ -152,7 +149,7 @@ const Row = ({ row, setDeliverySettings }) => {
       <TableCell>
         <input
           disabled={!enable}
-          sx={{ width: '200px' }}
+
           type="time"
           style={{
             width: '150px',

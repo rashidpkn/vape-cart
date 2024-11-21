@@ -75,7 +75,7 @@ export default function ShowLogin() {
             </Link>
           </Typography>
 
-          <Typography
+          {/* <Typography
             variant="p"
             style={{
               fontSize: '12px',
@@ -84,7 +84,7 @@ export default function ShowLogin() {
               padding: '10px 0px',
             }}
           >
-            Sell on vape amazon?
+            Sell on Vape Monkey?
             <Link
               to="/auth/firebase/register"
               href="#"
@@ -92,7 +92,7 @@ export default function ShowLogin() {
             >
               <span> Click here</span>
             </Link>
-          </Typography>
+          </Typography> */}
         </Box>
         <Divider />
         <Box style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>

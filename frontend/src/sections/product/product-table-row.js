@@ -83,7 +83,7 @@ export default function ProductTableRow({
         alert("Sale Price and regular price are mandatory")
         return
       }
-      else if (quickEditData.salePrice > quickEditData.regularPrice) {
+      if (quickEditData.salePrice > quickEditData.regularPrice) {
         alert("Sale price must be less than the regular price")
         return
       }
@@ -94,7 +94,7 @@ export default function ProductTableRow({
 
 
 
-      const editPRoduct = await api.post(`/products/quick_edit/${id}`, { ...quickEditData });
+      await api.post(`/products/quick_edit/${id}`, { ...quickEditData });
       alert('Product Updated');
       fetchProduct();
       setQuickEdit(false);

@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { RHFCheckbox, RHFTextField } from 'src/components/hook-form';
+import { RHFTextField } from 'src/components/hook-form';
 
 export default function RenderPricing({ values,setValue }) {
 

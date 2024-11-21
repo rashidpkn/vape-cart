@@ -1,6 +1,6 @@
 {
-  "name": "Vape Amazon UI",
-  "short_name": "Vape Amazon UI",
+  "name": "Vape Monkey UI",
+  "short_name": "Vape Monkey UI",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#000000",

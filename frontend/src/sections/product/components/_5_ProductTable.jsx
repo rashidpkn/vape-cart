@@ -50,7 +50,6 @@ export function ProductTable({
     }
   }, [attributes]);
 
-  const [stock, setStock] = useState('instock');
   const [status, setStatus] = useState('pending');
 
   const handleProductDetailsChange = (field) => (e) => {
@@ -165,7 +164,7 @@ export function ProductTable({
     }
   };
 
-  const { track, quantity, regularPrice, salePrice, image } = productDetails;
+  const { track, quantity, regularPrice, salePrice } = productDetails;
 
   return (
     <TableRow>

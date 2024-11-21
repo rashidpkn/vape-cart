@@ -33,7 +33,7 @@ export default function HomeAdvertisement() {
         sx={{ color: 'common.white', mb: 5, typography: 'h2' }}
       >
         Get started with
-        <br /> Vape Amazon kit today
+        <br /> Vape Monkey kit today
       </Box>
 
       <Stack

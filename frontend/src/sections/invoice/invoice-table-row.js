@@ -33,7 +33,7 @@ export default function InvoiceTableRow({
   onEditRow,
   onDeleteRow,
 }) {
-  const { id, createdAt, dueDate, status, invoiceTo, totalAmount } = row;
+  const { id, createdAt, dueDate, status, invoiceTo } = row;
 
   const confirm = useBoolean();
 
@@ -102,7 +102,7 @@ export default function InvoiceTableRow({
         <TableCell>
           {fCurrency(
             row.items.find((it) => it.userId === user.id)?.quantity *
-              row.items.find((it) => it.userId === user.id)?.price
+            row.items.find((it) => it.userId === user.id)?.price
           )}
         </TableCell>
 

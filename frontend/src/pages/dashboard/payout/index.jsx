@@ -37,7 +37,9 @@ export default function Payout() {
         },
       });
       setPayout(data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)));
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {

@@ -41,7 +41,9 @@ export default function NotificationsPopover() {
       });
 
       setNotifications(data);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -61,7 +63,9 @@ export default function NotificationsPopover() {
         await api.patch(`/notifications/${notification.id}`, { status: 'readed' });
         setNotifications((_) => _.filter((__) => __.id !== notification.id));
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }, [notifications]);
 
   const drawer = useBoolean();

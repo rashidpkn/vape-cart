@@ -191,7 +191,7 @@ export default function HomeHero() {
             repeat: Infinity,
           }}
         >
-          Vape Amazon
+          Vape Monkey
         </StyledTextGradient>
       </m.div>
 

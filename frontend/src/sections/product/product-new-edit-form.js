@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useCallback, useMemo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -26,7 +26,6 @@ import FormProvider, { RHFEditor, RHFTextField } from 'src/components/hook-form'
 import api from 'src/utils/api';
 import { useAuthContext } from 'src/auth/hooks';
 import { alpha } from 'src/data/createProducts';
-import ProductName from './components/_1_ProductName';
 import ImageUpload from './components/_2_ImageUpload';
 import KeyProperties from './components/_3_KeyProperties';
 import RenderPricing from './components/_4_RenderPricing';
@@ -155,7 +154,7 @@ export default function ProductNewEditForm({ currentProduct }) {
     watch,
     setValue,
     handleSubmit,
-    formState: { isSubmitting, isValid },
+    formState: { isSubmitting },
   } = methods;
 
   const values = watch();
@@ -169,20 +168,6 @@ export default function ProductNewEditForm({ currentProduct }) {
     });
   }, []);
 
-  const [products, setProducts] = useState([]);
-
-  const fetchProduct = useCallback(async () => {
-    const { data } = await api.get('/products', {
-      params: {
-        name: values.name,
-      },
-    });
-    setProducts(data.products.filter((pr) => !pr.name.includes('-')));
-  }, [values.name]);
-
-  useEffect(() => {
-    fetchProduct();
-  }, [values.name]);
 
   useEffect(() => {
     if (currentProduct) {
@@ -198,7 +183,7 @@ export default function ProductNewEditForm({ currentProduct }) {
           alert("Sale Price and regular price are mandatory")
           return
         }
-        else if (data.salePrice > data.regularPrice) {
+        if (data.salePrice > data.regularPrice) {
           alert("Sale price must be less than the regular price")
           return
         }
@@ -264,14 +249,13 @@ export default function ProductNewEditForm({ currentProduct }) {
           {!mdUp && <CardHeader title="Details" />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
-            <ProductName products={products} setValue={setValue} values={values} />
+            <RHFTextField name="name" label="Product Name" />
 
             <Alert severity="info">
               Please do not include emails, phone numbers, or emojis in the sub-description and
               content. Products containing these will not be accepted.
             </Alert>
 
-            {/* <RHFTextField name="subDescription" label="Sub Description" multiline rows={4} /> */}
 
             <Stack spacing={1.5}>
               <Typography variant="subtitle2">Sub Description</Typography>

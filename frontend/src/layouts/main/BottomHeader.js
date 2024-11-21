@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
-import { AccountCircle, Close, Menu } from '@mui/icons-material';
+import { AccountCircle, Close } from '@mui/icons-material';
 import { m } from 'framer-motion';
 import { _category } from 'src/data/createProducts';
 import { Link } from 'react-router-dom';
-import { NavbarBottomLinks } from '../dashboard/config-navigation';
 import SideHeader from './SideHeader';
 
 const HeaderBottom = () => {
