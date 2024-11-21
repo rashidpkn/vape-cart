@@ -21,7 +21,7 @@ import Iconify from 'src/components/iconify';
 
 const LINKS = [
   {
-    headline: 'Vape Amazon',
+    headline: 'Vape Monkey',
     children: [
       { name: 'About us', href: paths.about },
       { name: 'Contact us', href: paths.contact },

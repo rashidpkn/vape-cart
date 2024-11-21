@@ -20,7 +20,7 @@ import api from 'src/utils/api';
 
 export default function EcommerceYearlySales({ title, subheader, chart, ...other }) {
   const [stores, setStores] = useState([]);
-  const [store, setStore] = useState('Vape Amazon');
+  const [store, setStore] = useState('Vape Monkey');
 
   const getUsers = async () => {
     const querySnapshot = await getDocs(collection(DB, 'users'));

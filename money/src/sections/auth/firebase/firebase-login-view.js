@@ -73,7 +73,7 @@ export default function FirebaseLoginView() {
 
   const renderHead = (
     <Stack spacing={2} sx={{ mb: 5 }}>
-      <Typography variant="h4">Sign in to Vape Amazon</Typography>
+      <Typography variant="h4">Sign in to Vape Monkey</Typography>
 
 
     </Stack>

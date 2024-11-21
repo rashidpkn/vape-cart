@@ -75,7 +75,7 @@ export default function CheckoutPayment({
   });
 
   const defaultValues = {
-    delivery: shipping,
+    delivery: 30,
     payment: '',
   };
 
