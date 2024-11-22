@@ -33,7 +33,18 @@ export class ProductService {
     
     variations: [],
   ) {
+
+
+
     try {
+
+
+      const found = await Product.findOne({where:{name}})
+
+      if(found){
+        throw new BadRequestException("Product already exists")
+      }
+
       const product = await Product.create({
         username,
         storeName,
@@ -69,7 +80,7 @@ export class ProductService {
       return { product, message: 'Product is created' };
     } catch (error) {
       console.log(error.message);
-      // throw error;
+      throw error;
     }
   }
 

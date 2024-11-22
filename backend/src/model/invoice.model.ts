@@ -13,9 +13,9 @@ export class Invoice extends Model {
   @Column({
     type: DataType.JSON,
     defaultValue: {
-      company: 'Vape Amazon',
+      company: 'Vape Monkey',
       email: 'info@vapes-uae.com',
-      fullAddress: 'Vape Amazon',
+      fullAddress: 'Vape Monkey',
       name: 'vape Monkey',
       phoneNumber: '123456',
     },

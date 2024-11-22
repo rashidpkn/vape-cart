@@ -209,6 +209,7 @@ export default function ProductNewEditForm({ currentProduct }) {
       router.push(paths.dashboard.product.root);
     } catch (error) {
       console.log(error);
+      alert(error.response.data.message)
     }
   });
 
