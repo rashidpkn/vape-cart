@@ -10,7 +10,10 @@ export class BrandsService {
     try {
       const found = await Brands.findOne({where:{name:createBrandDto.name}})
       if(found){
-        throw new BadRequestException('Brand already exists');
+        return {
+          message:'Brand already exists',
+          data: found
+        }
       }
       const data = await Brands.create({name: createBrandDto.name})
       await Product.update({status:'Published'},{where:{brand: data.name}})
