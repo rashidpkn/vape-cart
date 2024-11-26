@@ -36,6 +36,7 @@ export default function ProductDetailsSummary({
   const {
     id,
     name,
+    track,
     regularPrice,
     quantity,
     salePrice,
@@ -131,10 +132,27 @@ export default function ProductDetailsSummary({
           color="primary"
           onClick={() => {
             setQuantityToPurchase((_) => {
-              if (_ < quantity) {
-                return _ + 1;
+              if (type === "Variable") {
+                const { track, quantity, regularPrice, salePrice, image, availability } =
+                  product.variations.find(
+                    (v) => JSON.stringify(v.attributes) === JSON.stringify(selectedVariation)
+                  );
+                if (!track) {
+                  return _ + 1;
+                }
+                else if (_ < quantity) {
+                  return _ + 1;
+                }
               }
-              return _;
+              if (type === 'Simple') {
+                if (!track) {
+                  return _ + 1;
+                }
+                if (_ < quantity) {
+                  return _ + 1;
+                }
+                return _;
+              }
             });
           }}
         >
