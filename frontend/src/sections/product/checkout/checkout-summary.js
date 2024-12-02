@@ -67,13 +67,22 @@ export default function CheckoutSummary({
             </Typography>
           </Stack>
 
+          <Stack direction="row" justifyContent="space-between">
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              VAT
+            </Typography>
+            <Typography variant="subtitle2">
+              {subTotal && fCurrency(subTotal * 0.05)}
+            </Typography>
+          </Stack>
+
           <Divider sx={{ borderStyle: 'dashed' }} />
 
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="subtitle1">Total</Typography>
             <Box sx={{ textAlign: 'right' }}>
               <Typography variant="subtitle1" sx={{ color: 'error.main' }}>
-                {fCurrency(total)}
+                {fCurrency(parseFloat(subTotal * 1.05) + parseFloat(shipping))}
               </Typography>
               <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
                 (VAT included if applicable)
