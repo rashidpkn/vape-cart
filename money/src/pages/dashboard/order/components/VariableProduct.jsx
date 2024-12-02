@@ -20,8 +20,7 @@ export default function VariableProduct({ state, setState,disabled }) {
                 setVariations(state.products?.find(product=>product.id === e.target.value).variations);
             }}
           >
-            {state.products
-              ?.filter((e) => e.type === 'Variable')
+            {state.products?.filter((product) => product.type === 'Variable')
               .map((e) => (
                 <MenuItem key={e.id} value={e.id}>
                   {e.name}

@@ -73,7 +73,11 @@ export default function OrderEditPage() {
     }, []);
 
     const _getProducts = useCallback(async () => {
-        const { data } = await api.get('/products');
+        const { data } = await api.get('/products', {
+            params: {
+                perPage: 10000,
+            },
+        });
         setState((_) => ({ ..._, products: data.products }));
     }, []);
 
