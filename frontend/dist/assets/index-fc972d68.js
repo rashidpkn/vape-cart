@@ -1,1 +1,0 @@
-import{j as s,b as o,W as t,c as r}from"./index-b30ca92b.js";function e(){return s.jsxs(o,{px:5,children:[s.jsx(t,{children:s.jsx("title",{children:"Dashboard: Boost"})}),s.jsx(r,{heading:"Boost",links:[{}],sx:{mb:{xs:3,md:5}}})]})}export{e as default};

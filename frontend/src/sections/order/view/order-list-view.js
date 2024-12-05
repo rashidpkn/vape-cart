@@ -76,7 +76,7 @@ export default function OrderListView() {
     try {
       const {
         data: { products: p },
-      } = await api.get('products', { params: { userId: id, perPage: 100 } });
+      } = await api.get('products', { params: { userId: id, perPage: 10000 } });
       setMyProduct(p.map((e) => e.id));
     } catch (error) {
       alert('Error occurred while fetching products.');
