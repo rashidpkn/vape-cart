@@ -27,7 +27,7 @@ export default function CheckoutSummary({
   enableEdit = false,
   enableDiscount = false,
 }) {
-  const displayShipping = shipping !== null ? 'Free' : '-';
+  const displayShipping = shipping !== null ? '-' : '-';
 
   return (
     <Card sx={{ mb: 3 }}>
@@ -82,7 +82,8 @@ export default function CheckoutSummary({
             <Typography variant="subtitle1">Total</Typography>
             <Box sx={{ textAlign: 'right' }}>
               <Typography variant="subtitle1" sx={{ color: 'error.main' }}>
-                {fCurrency(parseFloat(subTotal * 1.05) + parseFloat(shipping))}
+
+                {fCurrency(parseFloat(subTotal * 1.05) + parseFloat(shipping ?? 0))}
               </Typography>
               <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
                 (VAT included if applicable)
